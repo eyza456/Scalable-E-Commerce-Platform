@@ -1,6 +1,7 @@
 import httpx
 
 from fastapi import APIRouter, Depends, HTTPException, status, Query, Response, Header
+from fastapi.responses import JSONResponse
 from sqlalchemy.orm import Session, selectinload
 from typing import Literal, Annotated
 from app.cancellations import finish_cancellation
@@ -82,7 +83,12 @@ def list_orders(
     query = db.query(Order).options(selectinload(Order.items)).filter(Order.user_id == current_user["id"])
     if order_status is not None:
         query = query.filter(Order.status == order_status)
-    return query.order_by(Order.created_at.desc(), Order.id.desc()).offset(skip).limit(limit).all()
+    rows = query.order_by(Order.created_at.desc(), Order.id.desc()).offset(skip).limit(limit).all()
+    # Validar/copiar mientras los objetos pertenecen a la sesion; despues liberar
+    # la conexion de lectura. No delegar otra validacion ORM al threadpool.
+    payload = [OrderResponse.model_validate(row).model_dump(mode="json") for row in rows]
+    db.rollback()
+    return JSONResponse(content=payload)
 
 
 @router.post("/{order_id}/cancel", response_model=OrderResponse,

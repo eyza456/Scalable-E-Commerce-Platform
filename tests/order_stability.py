@@ -1,4 +1,5 @@
 import unittest
+import json
 import uuid
 from datetime import datetime
 from unittest.mock import Mock, patch
@@ -45,17 +46,28 @@ class OrderStability(unittest.TestCase):
 
     def test_history_only_contains_owner_and_stable_order(self):
         with self.sessions() as db:
-            rows = list_orders(0,20,None,self.user,db)
-            self.assertEqual([r.id for r in rows],[94,92,91])
-            self.assertEqual(rows[0].items[0].product_name,"Test")
+            rows = json.loads(list_orders(0,20,None,self.user,db).body)
+            self.assertEqual([r["id"] for r in rows],[94,92,91])
+            self.assertEqual(rows[0]["items"][0]["product_name"],"Test")
 
     def test_history_status_filter_and_pagination(self):
         with self.sessions() as db:
-            self.assertEqual([r.id for r in list_orders(1,1,"PENDING",self.user,db)],[91])
+            self.assertEqual([r["id"] for r in json.loads(list_orders(1,1,"PENDING",self.user,db).body)],[91])
 
     def test_history_empty_for_other_account(self):
         with self.sessions() as db:
-            self.assertEqual(list_orders(0,20,None,{"id":100},db),[])
+            self.assertEqual(json.loads(list_orders(0,20,None,{"id":100},db).body),[])
+
+    def test_history_releases_read_connection_and_preserves_response_schema(self):
+        with self.sessions() as db:
+            response = list_orders(0,20,None,self.user,db)
+            self.assertFalse(db.in_transaction())
+        rows = json.loads(response.body)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(set(rows[0]), {"id", "user_id", "status", "total", "created_at", "items", "checkout_id"})
+        self.assertEqual(rows[0]["total"], "10.00")
+        self.assertEqual(rows[0]["items"][0]["price"], "10.00")
+        self.assertTrue(all(r["user_id"] == 42 for r in rows))
 
     def test_cannot_cancel_other_users_order(self):
         with self.sessions() as db:
