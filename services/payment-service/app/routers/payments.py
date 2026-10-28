@@ -8,7 +8,7 @@ from sqlalchemy.orm import Session
 from app.core.config import settings
 from app.core.security import get_current_user
 from sqlalchemy import text
-from app.inventory import settle_payment
+from app.inventory import settle_payment, REJECTION_MESSAGES
 from app.database import get_db
 from app.models import Payment, OrderCancellation
 from app.cancellations import begin_cancellation, finish_cancellation
@@ -35,7 +35,7 @@ def payment_health():
     status_code=status.HTTP_201_CREATED,
     responses={
         202: {"model": PaymentResponse, "description": "Intento pendiente de reserva; recuperacion automatica"},
-        409: {"description": "Stock insuficiente o intento historico incompatible"},
+        409: {"description": "Pago rechazado, simulacion incompatible o intento historico incompatible"},
     },
 )
 def create_payment(
@@ -129,6 +129,8 @@ def create_payment(
 
     if existing_payment and existing_payment.event_payload is None:
         raise HTTPException(409, "El intento historico no tiene snapshot de inventario; requiere revision")
+    if existing_payment and existing_payment.simulation_result != payment_data.simulation_result:
+        raise HTTPException(409, "El resultado simulado del intento pendiente no puede cambiar")
 
     # ==========================================================
     # 5. CREAR PAGO SIMULADO
@@ -143,6 +145,7 @@ def create_payment(
         user_id=user_id,
         amount=order["total"],
         method=payment_data.method,
+        simulation_result=payment_data.simulation_result,
         status="PENDING",
         transaction_id=transaction_id
     )
@@ -175,9 +178,10 @@ def create_payment(
         db.rollback()
         raise
     if payment.status == "REJECTED":
+        code = payment.rejection_code or "INSUFFICIENT_STOCK"
         raise HTTPException(409, detail={
-            "code": "INSUFFICIENT_STOCK", "transaction_id": payment.transaction_id,
-            "message": "Pago rechazado sin cobro: stock insuficiente",
+            "code": code, "transaction_id": payment.transaction_id,
+            "message": REJECTION_MESSAGES[code],
         })
     if payment.status == "CANCELLED":
         raise HTTPException(409, "El pago fue cancelado junto con la orden")
@@ -243,6 +247,7 @@ def get_payment_by_transaction(
         "status": payment.status,
         "amount": float(payment.amount),
         "processed_at": payment.processed_at,
+        "rejection_code": payment.rejection_code,
         "method": payment.method
     }
 
@@ -273,6 +278,7 @@ def get_internal_payment_transaction(
         "user_id": payment.user_id,
         "status": payment.status,
         "processed_at": payment.processed_at,
+        "rejection_code": payment.rejection_code,
         "items": (payment.event_payload or {}).get("items"),
         "inventory_reservation_id": (payment.event_payload or {}).get("inventory_reservation_id"),
         "amount": str(payment.amount)

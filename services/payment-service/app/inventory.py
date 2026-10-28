@@ -13,6 +13,18 @@ from sqlalchemy import text
 
 logger = logging.getLogger(__name__)
 
+SIMULATED_REJECTIONS = {
+    "insufficient_funds": "INSUFFICIENT_FUNDS",
+    "expired_card": "EXPIRED_CARD",
+    "card_declined": "CARD_DECLINED",
+}
+REJECTION_MESSAGES = {
+    "INSUFFICIENT_STOCK": "Pago rechazado sin cobro: stock insuficiente",
+    "INSUFFICIENT_FUNDS": "Pago simulado rechazado: fondos insuficientes",
+    "EXPIRED_CARD": "Pago simulado rechazado: tarjeta vencida",
+    "CARD_DECLINED": "Pago simulado rechazado por el emisor",
+}
+
 
 class StockUnavailable(Exception):
     pass
@@ -75,11 +87,21 @@ def settle_payment(db, payment_id, skip_locked=False):
         payment.processed_at = datetime.now(timezone.utc)
         db.commit()
         return payment
+    # Resultado persistido al crear el intento. El recuperador usa la misma
+    # decision y nunca reserva stock para un rechazo de autorizacion.
+    rejection = SIMULATED_REJECTIONS.get(payment.simulation_result)
+    if rejection:
+        payment.status = "REJECTED"
+        payment.rejection_code = rejection
+        payment.processed_at = datetime.now(timezone.utc)
+        db.commit()
+        return payment
     try:
         reserve_stock(payment)
     except StockUnavailable:
         # Product garantiza rollback de todos los items si falta uno.
         payment.status = "REJECTED"
+        payment.rejection_code = "INSUFFICIENT_STOCK"
     except InventoryUnavailable as exc:
         logger.warning("Pago %s pendiente de reserva: %s", payment.transaction_id, exc)
         db.commit()

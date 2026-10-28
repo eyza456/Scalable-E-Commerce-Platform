@@ -166,3 +166,5 @@ Este proyecto está bajo la Licencia MIT.
 ## Cierre de hallazgos de auditoria
 
 Se corrigieron la concurrencia del carrito, los pedidos duplicados, la revalidacion del catalogo, los limites de registro y la fecha final de pagos. Consultar [contrato HTTP, migraciones y pruebas](docs/auditoria/cierre-hallazgos.md).
+
+Los pagos simulados tambien permiten rechazos por fondos insuficientes, tarjeta vencida y rechazo del emisor. Ver [uso y pruebas](docs/pagos-simulados.md).

@@ -57,6 +57,87 @@ class PaymentStability(unittest.TestCase):
         with self.sessions() as db:
             return create_payment(PaymentCreate(order_id=91, method="card"), self.user, db)
 
+    def simulated_pay(self, result):
+        with self.sessions() as db:
+            return create_payment(PaymentCreate(order_id=91, method="card", simulation_result=result), self.user, db)
+
+    def test_simulated_rejections_are_durable_without_stock_or_events(self):
+        for result, code in inventory.SIMULATED_REJECTIONS.items():
+            with self.subTest(result=result):
+                with patch("app.routers.payments.httpx.get", return_value=self.response):
+                    with self.assertRaises(HTTPException) as caught:
+                        self.simulated_pay(result)
+                self.assertEqual(caught.exception.status_code, 409)
+                self.assertEqual(caught.exception.detail["code"], code)
+                with self.sessions() as db:
+                    p = db.query(Payment).filter_by(transaction_id=caught.exception.detail["transaction_id"]).one()
+                    self.assertEqual((p.status, p.rejection_code), ("REJECTED", code))
+                    self.assertIsNotNone(p.processed_at)
+                    stamp = p.processed_at
+                    inventory.settle_payment(db, p.id)
+                    self.assertEqual(p.processed_at, stamp)
+                    self.assertEqual(db.query(OutboxEvent).count(), 0)
+        self.reserve_stock.assert_not_called()
+
+    def test_rejected_authorization_allows_later_successful_attempt(self):
+        with patch("app.routers.payments.httpx.get", return_value=self.response):
+            with self.assertRaises(HTTPException):
+                self.simulated_pay("insufficient_funds")
+            self.pay()
+        with self.sessions() as db:
+            self.assertEqual(db.query(Payment).filter_by(status="REJECTED").count(), 1)
+            paid = db.query(Payment).filter_by(status="PAID").one()
+            self.assertIsNone(paid.rejection_code)
+            self.assertEqual(db.query(OutboxEvent).count(), 3)
+        self.reserve_stock.assert_called_once()
+
+    def test_recovery_preserves_simulated_rejection_after_process_loss(self):
+        with patch("app.routers.payments.httpx.get", return_value=self.response), patch(
+                "app.routers.payments.settle_payment", side_effect=RuntimeError("process lost")):
+            with self.assertRaises(RuntimeError):
+                self.simulated_pay("expired_card")
+        with self.sessions() as db:
+            p = db.query(Payment).one()
+            self.assertEqual((p.status, p.simulation_result), ("PENDING", "expired_card"))
+        with patch.object(inventory, "SessionLocal", self.sessions):
+            inventory.recover_pending()
+            inventory.recover_pending()
+        with self.sessions() as db:
+            p = db.query(Payment).one()
+            self.assertEqual((p.status, p.rejection_code), ("REJECTED", "EXPIRED_CARD"))
+            self.assertEqual(db.query(OutboxEvent).count(), 0)
+        self.reserve_stock.assert_not_called()
+
+    def test_pending_simulation_cannot_be_overridden(self):
+        self.reserve_stock.side_effect = inventory.InventoryUnavailable("offline")
+        with patch("app.routers.payments.httpx.get", return_value=self.response):
+            self.pay()
+            with self.assertRaises(HTTPException) as caught:
+                self.simulated_pay("card_declined")
+        self.assertEqual(caught.exception.status_code, 409)
+        with self.sessions() as db:
+            p = db.query(Payment).one()
+            self.assertEqual((p.status, p.simulation_result), ("PENDING", "approved"))
+
+    def test_unknown_simulation_is_validation_error(self):
+        from pydantic import ValidationError
+        with self.assertRaises(ValidationError):
+            PaymentCreate(order_id=91, method="card", simulation_result="random")
+
+    def test_cancellation_takes_priority_over_simulated_rejection(self):
+        with patch("app.routers.payments.httpx.get", return_value=self.response), patch(
+                "app.routers.payments.settle_payment", side_effect=RuntimeError("process lost")):
+            with self.assertRaises(RuntimeError):
+                self.simulated_pay("card_declined")
+        with self.sessions() as db:
+            cancellations.begin_cancellation(db, 91, 42)
+            p = db.query(Payment).one()
+            inventory.settle_payment(db, p.id)
+            self.assertEqual(p.status, "CANCELLED")
+            self.assertIsNone(p.rejection_code)
+            self.assertEqual(db.query(OutboxEvent).count(), 0)
+        self.reserve_stock.assert_not_called()
+
     def test_payment_and_three_deliveries_commit_together(self):
         with patch("app.routers.payments.httpx.get", return_value=self.response):
             self.pay()

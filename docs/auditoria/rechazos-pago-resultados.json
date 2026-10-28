@@ -1,0 +1,27 @@
+{
+  "insufficient_funds": {
+    "http_status": 409,
+    "code": "INSUFFICIENT_FUNDS",
+    "processed_at": "2026-10-28T06:44:13.079850+00:00"
+  },
+  "expired_card": {
+    "http_status": 409,
+    "code": "EXPIRED_CARD",
+    "processed_at": "2026-10-28T06:44:13.971991+00:00"
+  },
+  "card_declined": {
+    "http_status": 409,
+    "code": "CARD_DECLINED",
+    "processed_at": "2026-10-28T06:44:14.805338+00:00"
+  },
+  "before_retry": {
+    "rejected": 3,
+    "outbox": 0,
+    "reservations": 0,
+    "stock": 10
+  },
+  "approved_retry": {
+    "http_status": 201,
+    "stock": 8
+  }
+}

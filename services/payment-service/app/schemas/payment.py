@@ -1,9 +1,11 @@
 from datetime import datetime
+from typing import Literal
 
 from pydantic import BaseModel, ConfigDict, Field
 
 
 class PaymentCreate(BaseModel):
+    simulation_result: Literal["approved", "insufficient_funds", "expired_card", "card_declined"] = "approved"
 
     order_id: int = Field(
         gt=0
@@ -17,6 +19,7 @@ class PaymentCreate(BaseModel):
 
 class PaymentResponse(BaseModel):
     processed_at: datetime | None = None
+    rejection_code: str | None = None
 
     id: int
     order_id: int
