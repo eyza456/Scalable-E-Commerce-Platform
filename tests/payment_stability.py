@@ -2,6 +2,7 @@
 import concurrent.futures
 import unittest
 import uuid
+import threading
 from decimal import Decimal
 from unittest.mock import Mock, patch
 
@@ -210,6 +211,95 @@ class PaymentStability(unittest.TestCase):
                 self.assertEqual(publisher.call_args.args[0], "product_payment_completed")
             with self.sessions() as db:
                 self.assertEqual(db.query(OutboxEvent).filter_by(status="PUBLISHED").count(), 3)
+
+    def seed_deliveries(self, count):
+        with self.sessions() as db:
+            for i in range(count):
+                db.add(OutboxEvent(event_type="PAYMENT_COMPLETED", aggregate_id=91,
+                    destination=("payment_completed", "order_payment_completed", "product_payment_completed")[i % 3],
+                    payload={"transaction_id": "TX-OUTBOX-TEST"}))
+            db.commit()
+
+    def stop_after_first_wait(self, observations):
+        stop = threading.Event()
+        def wait(seconds):
+            with self.sessions() as db:
+                observations.append({"seconds": seconds,
+                    "pending": db.query(OutboxEvent).filter_by(status="PENDING").count()})
+            stop.set()
+            return True
+        stop.wait = wait
+        return stop
+
+    def test_outbox_drains_multiple_batches_before_waiting(self):
+        self.seed_deliveries(120)
+        waits = []
+        with patch.object(outbox, "SessionLocal", self.sessions), patch.object(outbox, "publish_event") as publish:
+            outbox.run_outbox(self.stop_after_first_wait(waits))
+        self.assertEqual(publish.call_count, 120)
+        self.assertEqual(waits, [{"seconds": 5, "pending": 0}])
+        with self.sessions() as db:
+            self.assertTrue(all(e.status == "PUBLISHED" and e.attempts == 1 for e in db.query(OutboxEvent)))
+
+    def test_outbox_partial_failure_backs_off_then_retries_only_unpublished(self):
+        self.seed_deliveries(60)
+        waits, delivered = [], []
+        def publish(destination, payload, event_id):
+            if destination == "product_payment_completed":
+                raise ConnectionError("destination offline")
+            delivered.append(event_id)
+        with patch.object(outbox, "SessionLocal", self.sessions), patch.object(outbox, "publish_event", side_effect=publish):
+            outbox.run_outbox(self.stop_after_first_wait(waits))
+        self.assertEqual(len(waits), 1)
+        self.assertGreater(waits[0]["pending"], 0)
+        self.assertEqual(waits[0]["seconds"], 5)
+        with patch.object(outbox, "SessionLocal", self.sessions), patch.object(outbox, "publish_event") as publish:
+            outbox.run_outbox(self.stop_after_first_wait([]))
+            self.assertEqual(publish.call_count, 60 - len(delivered))
+            self.assertTrue(set(delivered).isdisjoint(call.args[2] for call in publish.call_args_list))
+        with self.sessions() as db:
+            self.assertEqual(db.query(OutboxEvent).filter_by(status="PUBLISHED").count(), 60)
+
+    def test_outbox_database_failure_waits_instead_of_spinning(self):
+        waits = []
+        with patch.object(outbox, "SessionLocal", side_effect=RuntimeError("db offline")) as factory:
+            outbox.run_outbox(self.stop_after_first_wait(waits))
+        factory.assert_called_once()
+        self.assertEqual(waits, [{"seconds": 5, "pending": 0}])
+
+    def test_outbox_workers_skip_locked_without_duplicate_delivery(self):
+        self.seed_deliveries(100)
+        barrier, local = threading.Barrier(2), threading.local()
+        def publish(*args):
+            if not getattr(local, "started", False):
+                local.started = True
+                barrier.wait(timeout=10)
+        with patch.object(outbox, "SessionLocal", self.sessions), patch.object(outbox, "publish_event", side_effect=publish) as publisher:
+            with concurrent.futures.ThreadPoolExecutor(max_workers=2) as pool:
+                results = list(pool.map(lambda _: outbox.dispatch_pending(), range(2)))
+            self.assertEqual(sum(results), 100)
+            self.assertEqual(len({call.args[2] for call in publisher.call_args_list}), 100)
+        with self.sessions() as db:
+            self.assertTrue(all(e.status == "PUBLISHED" and e.attempts == 1 for e in db.query(OutboxEvent)))
+
+    def test_outbox_commit_failure_keeps_delivery_recoverable(self):
+        from sqlalchemy import event
+        self.seed_deliveries(1)
+        def fail(session):
+            raise RuntimeError("commit lost")
+        with patch.object(outbox, "SessionLocal", self.sessions), patch.object(outbox, "publish_event") as publish:
+            event.listen(self.sessions.class_, "before_commit", fail)
+            try:
+                with self.assertRaises(RuntimeError):
+                    outbox.dispatch_pending()
+            finally:
+                event.remove(self.sessions.class_, "before_commit", fail)
+            with self.sessions() as db:
+                row = db.query(OutboxEvent).one()
+                self.assertEqual((row.status, row.attempts), ("PENDING", 0))
+            self.assertEqual(outbox.dispatch_pending(), 1)
+            self.assertEqual(publish.call_count, 2)
+            self.assertEqual(publish.call_args_list[0].args[2], publish.call_args_list[1].args[2])
 
     def test_wrong_owner_cannot_pay(self):
         self.order["user_id"] = 99
