@@ -98,7 +98,7 @@ Asegúrate de tener instalados los siguientes componentes en tu sistema:
 
 - **Docker Desktop** (con Docker Compose v2+)
 - **Git**
-- **Python 3.11+** (opcional, para desarrollo local sin Docker)
+- **Python 3.11+** (para las pruebas desde el host; opcional para el arranque con Docker)
 
 ---
 
@@ -110,44 +110,83 @@ git clone <repository-url>
 cd ecommerce-microservices
 ```
 
-### 2. Configurar Variables de Entorno
-El archivo `.env` ya incluye los valores predeterminados para desarrollo local. Si deseas ajustar contraseñas o puertos:
+### 2. Configurar variables de entorno
 
-```bash
-# Editar el archivo .env si es necesario
-cat .env
+`.env` no se versiona. Crear el archivo a partir de la plantilla:
+
+```powershell
+Copy-Item .env.example .env
 ```
 
-### 3. Levantar los Servicios con Docker Compose
-Para iniciar todos los servicios e infraestructura en segundo plano:
+Editar `.env` y reemplazar todos los valores `replace-me` y `replace-with-...`: las cuatro contrasenas PostgreSQL, `SECRET_KEY` e `INTERNAL_SERVICE_KEY`. Usar claves aleatorias independientes de al menos 32 caracteres para JWT y comunicacion interna. Para las contrasenas PostgreSQL usar letras, numeros, guion y guion bajo: se interpolan en una URL de conexion. Los nombres de base/usuario de la plantilla sirven para desarrollo. Todos los servicios deben compartir la misma clave JWT y la misma clave interna.
 
-```bash
-docker compose up -d --build
+El puerto del gateway se configura con `GATEWAY_PORT` (8000 por defecto); Redis usa `REDIS_PORT`. Los demas puertos de la tabla deben estar libres. Las credenciales RabbitMQ son las predeterminadas de su imagen de desarrollo (`guest` / `guest`).
+
+Comprobar la configuracion sin imprimir secretos:
+
+```powershell
+docker compose config --quiet
 ```
 
-Para verificar el estado de los contenedores:
-```bash
+### 3. Construir y preparar la infraestructura
+
+Desde la raiz del proyecto:
+
+```powershell
+docker compose build
+docker compose up -d --wait --wait-timeout 180 user-db product-db order-db payment-db redis rabbitmq
+```
+
+Los healthchecks comprueban las cuatro bases, Redis y RabbitMQ. Si un comando falla, revisar `docker compose ps` y los logs del servicio antes de continuar.
+
+### 4. Migrar el catalogo antes del arranque
+
+Con la infraestructura disponible y los servicios de aplicacion aun detenidos:
+
+```powershell
+docker compose run --rm --no-deps product-service alembic upgrade head
+docker compose run --rm --no-deps product-service alembic current
+```
+
+La revision actual debe ser `b1c5a09e3d72 (head)`. Repetir `upgrade head` es seguro. Product usa Alembic para crear productos, categorias, reservas, cancelaciones y registro de eventos.
+
+En una instalacion nueva, User, Order y Payment crean sus tablas actuales al arrancar mediante SQLAlchemy; no necesitan ejecutar los SQL historicos. Esos SQL actualizan instalaciones existentes y se explican en los documentos de cada funcionalidad. `create_all` no migra tablas antiguas. No aplicar indiscriminadamente todas las migraciones historicas (por ejemplo Payment 002 fue sustituida por 003).
+
+### 5. Arrancar y comprobar los servicios
+
+```powershell
+docker compose up -d
 docker compose ps
+Invoke-RestMethod http://localhost:8000/health
+Invoke-RestMethod http://localhost:8000/api/products/health
+Invoke-RestMethod http://localhost:8000/api/products/
 ```
 
-Para ver los logs en tiempo real de todos los microservicios:
-```bash
-docker compose logs -f
+El gateway debe devolver `status: healthy` y el catalogo nuevo una lista vacia. El arranque HTTP puede tardar unos segundos despues de `up -d`. Para consultar logs:
+
+```powershell
+docker compose logs --tail 100
 ```
 
----
+Pruebas funcionales completas (requieren Python 3.11+ en el host; los tests de servicios se ejecutan dentro de Docker):
 
-## 🗄️ Inicialización de Bases de Datos
-
-Docker Compose ejecuta cuatro contenedores PostgreSQL independientes para `user_db`, `product_db`, `order_db` y `payment_db`, cada uno con su propio volumen. Las bases se crean mediante `POSTGRES_DB` al iniciar un volumen nuevo.
-
-Product Service usa Alembic. Antes de utilizar una instalacion nueva, ejecutar:
-
-```bash
-docker compose exec product-service alembic upgrade head
+```powershell
+powershell -ExecutionPolicy Bypass -File tests/run_stability.ps1
 ```
 
-Para instalaciones con datos existentes, seguir las migraciones descritas en los documentos de cada funcionalidad. El gateway no requiere migraciones. El script SQL de `infrastructure/scripts/` se conserva como referencia y no esta montado en el Compose actual.
+### 6. Repetir la verificacion desde cero sin afectar datos locales
+
+```powershell
+python -X utf8 tests/fresh_install.py
+```
+
+Esta prueba copia solo archivos versionados a una carpeta temporal, genera credenciales independientes, construye las imagenes y ejecuta los pasos anteriores en un proyecto Compose unico. Usa cuatro volumenes nuevos y puertos aleatorios; comprueba migraciones, tablas, seis servicios, una compra por gateway, consumidores y persistencia tras reiniciar. Al finalizar elimina exclusivamente sus contenedores, imagenes de servicio y volumenes de prueba. Conserva el informe en `docs/auditoria/instalacion-desde-cero.json`; el log local es `docs/auditoria/instalacion-desde-cero.log`.
+
+## 🗄️ Bases de datos y persistencia
+
+Docker Compose ejecuta cuatro PostgreSQL independientes con sus propios volumenes. Las bases se crean mediante `POSTGRES_DB` al iniciar un volumen nuevo. Las URLs de conexion seleccionan explicitamente `postgresql+psycopg2`, el controlador instalado en los cuatro servicios. El script SQL de `infrastructure/scripts/` es una referencia y no esta montado en el Compose actual. El gateway no requiere migraciones.
+
+Para detener manteniendo los datos: `docker compose down`. Un siguiente arranque reutiliza los volumenes. No usar `down -v` para actualizar una instalacion con datos.
 
 ---
 

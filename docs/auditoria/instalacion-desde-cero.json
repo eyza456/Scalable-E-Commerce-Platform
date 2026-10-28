@@ -1,0 +1,85 @@
+{
+  "project": "fresh-ff376ec73d74",
+  "executed_at": "2026-10-28T07:00:16.050520+00:00",
+  "checks": {
+    "configuration": "Plantilla independiente; sin .env ni datos locales",
+    "alembic": "b1c5a09e3d72 (head); upgrade repetido sin cambios",
+    "initial_start": "13 contenedores activos; 0 reinicios inesperados",
+    "health": [
+      "user-service",
+      "product-service",
+      "cart-service",
+      "order-service",
+      "payment-service",
+      "notification-service",
+      "api-gateway"
+    ],
+    "schemas": {
+      "user-service": {
+        "users": [
+          "email"
+        ]
+      },
+      "order-service": {
+        "orders": [
+          "checkout_id"
+        ],
+        "order_items": [
+          "product_id"
+        ],
+        "checkouts": [
+          "state"
+        ]
+      },
+      "payment-service": {
+        "payments": [
+          "event_payload",
+          "processed_at",
+          "simulation_result",
+          "rejection_code"
+        ],
+        "outbox_events": [
+          "destination"
+        ],
+        "order_cancellations": [
+          "status"
+        ]
+      },
+      "product-service": {
+        "products": [
+          "category_id"
+        ],
+        "categories": [
+          "name"
+        ],
+        "inventory_reservations": [
+          "status"
+        ],
+        "inventory_cancellations": [
+          "order_id"
+        ],
+        "processed_payment_events": [
+          "transaction_id"
+        ]
+      }
+    },
+    "purchase": {
+      "order_status": "PAID",
+      "stock": 3,
+      "outbox_published": 3,
+      "reservation": "CONSUMED",
+      "notification": "received",
+      "rejected_attempt": "INSUFFICIENT_FUNDS"
+    },
+    "restart_persistence": "users, categories/products, orders, payments and Redis cart"
+  },
+  "volumes": [
+    "fresh-ff376ec73d74_order_postgres_data",
+    "fresh-ff376ec73d74_payment_postgres_data",
+    "fresh-ff376ec73d74_product_postgres_data",
+    "fresh-ff376ec73d74_user_postgres_data"
+  ],
+  "readme_sha256": "7e1ed0c62821e777cfdde5e8b2abb6014b5d352ca4ef64997b46e5a11f878e7c",
+  "status": "passed",
+  "cleanup": "Proyecto aislado eliminado; sin volumenes residuales"
+}

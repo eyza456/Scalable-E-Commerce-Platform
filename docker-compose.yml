@@ -34,6 +34,13 @@ services:
     volumes:
       - user_postgres_data:/var/lib/postgresql/data
 
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${USER_DB_USER} -d ${USER_DB_NAME}"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+      start_period: 5s
+
     networks:
       - ecommerce-network
 
@@ -89,6 +96,13 @@ services:
     volumes:
       - order_postgres_data:/var/lib/postgresql/data
 
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${ORDER_DB_USER} -d ${ORDER_DB_NAME}"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+      start_period: 5s
+
     networks:
       - ecommerce-network
 
@@ -112,6 +126,13 @@ services:
     volumes:
       - payment_postgres_data:/var/lib/postgresql/data
 
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${PAYMENT_DB_USER} -d ${PAYMENT_DB_NAME}"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+      start_period: 5s
+
     networks:
       - ecommerce-network
 
@@ -121,6 +142,11 @@ services:
   # =========================
   redis:
     image: redis:7-alpine
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
     container_name: redis
     restart: unless-stopped
 
@@ -136,6 +162,12 @@ services:
   # =========================
   rabbitmq:
     image: rabbitmq:3-management
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 5s
+      timeout: 10s
+      retries: 20
+      start_period: 10s
     container_name: rabbitmq
     restart: unless-stopped
 
@@ -161,7 +193,7 @@ services:
       - "8001:8000"
 
     environment:
-      DATABASE_URL: postgresql://${USER_DB_USER}:${USER_DB_PASSWORD}@user-db:5432/${USER_DB_NAME}
+      DATABASE_URL: postgresql+psycopg2://${USER_DB_USER}:${USER_DB_PASSWORD}@user-db:5432/${USER_DB_NAME}
 
       SECRET_KEY: ${SECRET_KEY}
       JWT_ALGORITHM: ${JWT_ALGORITHM}
@@ -171,7 +203,8 @@ services:
       - ./services/user-service/app:/app/app
 
     depends_on:
-      - user-db
+      user-db:
+        condition: service_healthy
 
     networks:
       - ecommerce-network
@@ -189,7 +222,7 @@ services:
       - "8002:8000"
 
     environment:
-      DATABASE_URL: postgresql://${PRODUCT_DB_USER}:${PRODUCT_DB_PASSWORD}@product-db:5432/${PRODUCT_DB_NAME}
+      DATABASE_URL: postgresql+psycopg2://${PRODUCT_DB_USER}:${PRODUCT_DB_PASSWORD}@product-db:5432/${PRODUCT_DB_NAME}
       SECRET_KEY: ${SECRET_KEY}
       JWT_ALGORITHM: ${JWT_ALGORITHM}
       RABBITMQ_HOST: rabbitmq
@@ -205,7 +238,7 @@ services:
         condition: service_healthy
 
       rabbitmq:
-        condition: service_started
+        condition: service_healthy
 
     networks:
       - ecommerce-network
@@ -237,8 +270,10 @@ services:
       - ./services/cart-service/app:/app/app
 
     depends_on:
-      - redis
-      - product-service
+      redis:
+        condition: service_healthy
+      product-service:
+        condition: service_started
 
     networks:
       - ecommerce-network
@@ -258,7 +293,7 @@ services:
       - "8004:8000"
 
     environment:
-      DATABASE_URL: postgresql://${ORDER_DB_USER}:${ORDER_DB_PASSWORD}@order-db:5432/${ORDER_DB_NAME}
+      DATABASE_URL: postgresql+psycopg2://${ORDER_DB_USER}:${ORDER_DB_PASSWORD}@order-db:5432/${ORDER_DB_NAME}
 
       SECRET_KEY: ${SECRET_KEY}
       JWT_ALGORITHM: ${JWT_ALGORITHM}
@@ -272,9 +307,14 @@ services:
       - ./services/order-service/app:/app/app
 
     depends_on:
-      - order-db
-      - cart-service
-      - product-service
+      order-db:
+        condition: service_healthy
+      cart-service:
+        condition: service_started
+      product-service:
+        condition: service_started
+      rabbitmq:
+        condition: service_healthy
 
     networks:
       - ecommerce-network
@@ -294,7 +334,7 @@ services:
       - "8005:8000"
 
     environment:
-      DATABASE_URL: postgresql://${PAYMENT_DB_USER}:${PAYMENT_DB_PASSWORD}@payment-db:5432/${PAYMENT_DB_NAME}
+      DATABASE_URL: postgresql+psycopg2://${PAYMENT_DB_USER}:${PAYMENT_DB_PASSWORD}@payment-db:5432/${PAYMENT_DB_NAME}
 
       SECRET_KEY: ${SECRET_KEY}
       JWT_ALGORITHM: ${JWT_ALGORITHM}
@@ -311,9 +351,12 @@ services:
       - ./services/payment-service/app:/app/app
 
     depends_on:
-      - payment-db
-      - order-service
-      - rabbitmq
+      payment-db:
+        condition: service_healthy
+      order-service:
+        condition: service_started
+      rabbitmq:
+        condition: service_healthy
 
     networks:
       - ecommerce-network
@@ -340,7 +383,8 @@ services:
       - ./services/notification-service/app:/app/app
 
     depends_on:
-      - rabbitmq
+      rabbitmq:
+        condition: service_healthy
 
     networks:
       - ecommerce-network
