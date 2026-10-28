@@ -3,6 +3,7 @@ import concurrent.futures
 import unittest
 import uuid
 import threading
+from contextlib import contextmanager
 from decimal import Decimal
 from unittest.mock import Mock, patch
 
@@ -15,7 +16,7 @@ from app.models import Payment, OutboxEvent, OrderCancellation
 from app.routers.payments import create_payment
 from app.schemas import PaymentCreate
 from app import outbox, inventory
-from app.core.rabbitmq import publish_event
+from app.core.rabbitmq import publish_event, publisher_batch
 from app import cancellations
 
 
@@ -53,6 +54,13 @@ class PaymentStability(unittest.TestCase):
         self.real_reserve_stock = inventory.reserve_stock
         self.reserve_stock = reservation.start()
         self.addCleanup(reservation.stop)
+
+    @contextmanager
+    def mock_publisher(self, side_effect=None):
+        send = Mock(side_effect=side_effect)
+        with patch.object(outbox, "publisher_batch") as factory:
+            factory.return_value.__enter__.return_value = send
+            yield send
 
     def pay(self):
         with self.sessions() as db:
@@ -198,14 +206,14 @@ class PaymentStability(unittest.TestCase):
             if destination == "product_payment_completed":
                 raise ConnectionError("broker unavailable")
         with patch.object(outbox, "SessionLocal", self.sessions):
-            with patch.object(outbox, "publish_event", side_effect=publish):
+            with self.mock_publisher(side_effect=publish):
                 outbox.dispatch_pending()
             with self.sessions() as db:
                 self.assertEqual(db.query(OutboxEvent).filter_by(status="PUBLISHED").count(), 2)
                 failed = db.query(OutboxEvent).filter_by(status="PENDING").one()
                 self.assertEqual(failed.attempts, 1)
                 self.assertIn("broker unavailable", failed.last_error)
-            with patch.object(outbox, "publish_event") as publisher:
+            with self.mock_publisher() as publisher:
                 outbox.dispatch_pending()
                 self.assertEqual(publisher.call_count, 1)
                 self.assertEqual(publisher.call_args.args[0], "product_payment_completed")
@@ -234,10 +242,10 @@ class PaymentStability(unittest.TestCase):
     def test_outbox_drains_multiple_batches_before_waiting(self):
         self.seed_deliveries(120)
         waits = []
-        with patch.object(outbox, "SessionLocal", self.sessions), patch.object(outbox, "publish_event") as publish:
+        with patch.object(outbox, "SessionLocal", self.sessions), self.mock_publisher() as publish:
             outbox.run_outbox(self.stop_after_first_wait(waits))
         self.assertEqual(publish.call_count, 120)
-        self.assertEqual(waits, [{"seconds": 5, "pending": 0}])
+        self.assertEqual(waits, [{"seconds": 1, "pending": 0}])
         with self.sessions() as db:
             self.assertTrue(all(e.status == "PUBLISHED" and e.attempts == 1 for e in db.query(OutboxEvent)))
 
@@ -248,12 +256,12 @@ class PaymentStability(unittest.TestCase):
             if destination == "product_payment_completed":
                 raise ConnectionError("destination offline")
             delivered.append(event_id)
-        with patch.object(outbox, "SessionLocal", self.sessions), patch.object(outbox, "publish_event", side_effect=publish):
+        with patch.object(outbox, "SessionLocal", self.sessions), self.mock_publisher(side_effect=publish):
             outbox.run_outbox(self.stop_after_first_wait(waits))
         self.assertEqual(len(waits), 1)
         self.assertGreater(waits[0]["pending"], 0)
         self.assertEqual(waits[0]["seconds"], 5)
-        with patch.object(outbox, "SessionLocal", self.sessions), patch.object(outbox, "publish_event") as publish:
+        with patch.object(outbox, "SessionLocal", self.sessions), self.mock_publisher() as publish:
             outbox.run_outbox(self.stop_after_first_wait([]))
             self.assertEqual(publish.call_count, 60 - len(delivered))
             self.assertTrue(set(delivered).isdisjoint(call.args[2] for call in publish.call_args_list))
@@ -274,10 +282,10 @@ class PaymentStability(unittest.TestCase):
             if not getattr(local, "started", False):
                 local.started = True
                 barrier.wait(timeout=10)
-        with patch.object(outbox, "SessionLocal", self.sessions), patch.object(outbox, "publish_event", side_effect=publish) as publisher:
+        with patch.object(outbox, "SessionLocal", self.sessions), self.mock_publisher(side_effect=publish) as publisher:
             with concurrent.futures.ThreadPoolExecutor(max_workers=2) as pool:
                 results = list(pool.map(lambda _: outbox.dispatch_pending(), range(2)))
-            self.assertEqual(sum(results), 100)
+            self.assertEqual(sum(r.published for r in results), 100)
             self.assertEqual(len({call.args[2] for call in publisher.call_args_list}), 100)
         with self.sessions() as db:
             self.assertTrue(all(e.status == "PUBLISHED" and e.attempts == 1 for e in db.query(OutboxEvent)))
@@ -287,7 +295,7 @@ class PaymentStability(unittest.TestCase):
         self.seed_deliveries(1)
         def fail(session):
             raise RuntimeError("commit lost")
-        with patch.object(outbox, "SessionLocal", self.sessions), patch.object(outbox, "publish_event") as publish:
+        with patch.object(outbox, "SessionLocal", self.sessions), self.mock_publisher() as publish:
             event.listen(self.sessions.class_, "before_commit", fail)
             try:
                 with self.assertRaises(RuntimeError):
@@ -297,7 +305,7 @@ class PaymentStability(unittest.TestCase):
             with self.sessions() as db:
                 row = db.query(OutboxEvent).one()
                 self.assertEqual((row.status, row.attempts), ("PENDING", 0))
-            self.assertEqual(outbox.dispatch_pending(), 1)
+            self.assertEqual(outbox.dispatch_pending().published, 1)
             self.assertEqual(publish.call_count, 2)
             self.assertEqual(publish.call_args_list[0].args[2], publish.call_args_list[1].args[2])
 
@@ -326,6 +334,69 @@ class PaymentStability(unittest.TestCase):
             with self.assertRaises(pika.exceptions.NackError):
                 publish_event("product_payment_completed", {}, "event-1")
         connection.close.assert_called_once()
+
+    def test_publisher_batch_reuses_channel_but_confirms_each_message(self):
+        connection = Mock()
+        channel = connection.channel.return_value
+        channel.basic_publish.return_value = None
+        with patch("app.core.rabbitmq.pika.BlockingConnection", return_value=connection) as factory:
+            with publisher_batch() as send:
+                send("payment_completed", {"n": 1}, "event-1")
+                send("payment_completed", {"n": 2}, "event-2")
+                send("order_payment_completed", {"n": 3}, "event-3")
+        factory.assert_called_once()
+        channel.confirm_delivery.assert_called_once()
+        self.assertEqual(channel.queue_declare.call_count, 2)
+        self.assertEqual(channel.basic_publish.call_count, 3)
+        self.assertEqual([c.kwargs["properties"].message_id for c in channel.basic_publish.call_args_list],
+                         ["event-1", "event-2", "event-3"])
+        self.assertTrue(all(c.kwargs["mandatory"] and c.kwargs["properties"].delivery_mode == 2
+                            for c in channel.basic_publish.call_args_list))
+        connection.close.assert_called_once()
+
+    def test_outbox_broker_unavailable_keeps_attempts_and_backoff(self):
+        self.seed_deliveries(3)
+        waits = []
+        with patch.object(outbox, "SessionLocal", self.sessions), patch(
+                "app.core.rabbitmq.pika.BlockingConnection", side_effect=ConnectionError("broker offline")) as factory:
+            outbox.run_outbox(self.stop_after_first_wait(waits))
+        factory.assert_called_once()
+        self.assertEqual(waits, [{"seconds": 5, "pending": 3}])
+        with self.sessions() as db:
+            self.assertTrue(all(e.attempts == 1 and e.status == "PENDING" and "broker offline" in e.last_error
+                                for e in db.query(OutboxEvent)))
+
+    def test_outbox_batch_nack_does_not_mark_failed_delivery_published(self):
+        import pika
+        self.seed_deliveries(3)
+        connection = Mock()
+        connection.channel.return_value.basic_publish.side_effect = [None, pika.exceptions.NackError([]), None]
+        waits = []
+        with patch.object(outbox, "SessionLocal", self.sessions), patch(
+                "app.core.rabbitmq.pika.BlockingConnection", return_value=connection):
+            outbox.run_outbox(self.stop_after_first_wait(waits))
+        self.assertEqual(waits, [{"seconds": 5, "pending": 1}])
+        with self.sessions() as db:
+            self.assertEqual(db.query(OutboxEvent).filter_by(status="PUBLISHED").count(), 2)
+        connection.close.assert_called_once()
+
+    def test_publisher_batch_propagates_unroutable_and_closes_connection(self):
+        import pika
+        connection = Mock()
+        connection.channel.return_value.basic_publish.side_effect = pika.exceptions.UnroutableError([])
+        with patch("app.core.rabbitmq.pika.BlockingConnection", return_value=connection):
+            with self.assertRaises(pika.exceptions.UnroutableError):
+                with publisher_batch() as send:
+                    send("payment_completed", {}, "event-1")
+        connection.close.assert_called_once()
+
+    def test_outbox_empty_queue_does_not_open_broker_connection(self):
+        waits = []
+        with patch.object(outbox, "SessionLocal", self.sessions), patch(
+                "app.core.rabbitmq.pika.BlockingConnection") as factory:
+            outbox.run_outbox(self.stop_after_first_wait(waits))
+        factory.assert_not_called()
+        self.assertEqual(waits, [{"seconds": 1, "pending": 0}])
 
     def test_insufficient_stock_rejects_without_paid_event(self):
         self.reserve_stock.side_effect = inventory.StockUnavailable("sold out")
