@@ -1,0 +1,79 @@
+[
+  {
+    "port": 8001,
+    "title": "User Service",
+    "paths": [
+      "/auth/register",
+      "/auth/login",
+      "/users/admin-test",
+      "/users/me",
+      "/",
+      "/health"
+    ]
+  },
+  {
+    "port": 8002,
+    "title": "Product Service",
+    "paths": [
+      "/products/",
+      "/products/{product_id}",
+      "/products/{product_id}/stock/decrease",
+      "/inventory/internal/reservations/{transaction_id}",
+      "/inventory/internal/orders/{order_id}/release",
+      "/categories",
+      "/categories/{category_id}",
+      "/",
+      "/health"
+    ]
+  },
+  {
+    "port": 8003,
+    "title": "Cart Service",
+    "paths": [
+      "/cart/items",
+      "/cart",
+      "/cart/items/{product_id}",
+      "/",
+      "/health"
+    ]
+  },
+  {
+    "port": 8004,
+    "title": "Order Service",
+    "paths": [
+      "/orders/health",
+      "/orders",
+      "/orders/{order_id}/cancel",
+      "/orders/{order_id}",
+      "/orders/{order_id}/status",
+      "/orders/internal/{order_id}",
+      "/",
+      "/health"
+    ]
+  },
+  {
+    "port": 8005,
+    "title": "Payment Service",
+    "paths": [
+      "/payments/health",
+      "/payments",
+      "/payments/internal/orders/{order_id}/cancellation",
+      "/payments/internal/orders/{order_id}/cancel",
+      "/payments/transactions/{transaction_id}",
+      "/payments/internal/transactions/{transaction_id}",
+      "/",
+      "/health"
+    ]
+  },
+  {
+    "port": 8006,
+    "title": "Notification Service",
+    "paths": [
+      "/notifications/health",
+      "/notifications/payment",
+      "/notifications",
+      "/",
+      "/health"
+    ]
+  }
+]

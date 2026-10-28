@@ -1,0 +1,368 @@
+services:
+
+  api-gateway:
+    build:
+      context: ./gateway
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:${GATEWAY_PORT:-8000}:80"
+    depends_on:
+      - user-service
+      - product-service
+      - cart-service
+      - order-service
+      - payment-service
+    networks:
+      - ecommerce-network
+
+  # =========================
+  # USER DATABASE
+  # =========================
+  user-db:
+    image: postgres:16
+    container_name: user-db
+    restart: unless-stopped
+
+    environment:
+      POSTGRES_DB: ${USER_DB_NAME}
+      POSTGRES_USER: ${USER_DB_USER}
+      POSTGRES_PASSWORD: ${USER_DB_PASSWORD}
+
+    ports:
+      - "5432:5432"
+
+    volumes:
+      - user_postgres_data:/var/lib/postgresql/data
+
+    networks:
+      - ecommerce-network
+
+  # =========================
+  # PRODUCT DATABASE
+  # =========================
+  product-db:
+    image: postgres:16
+    container_name: product-db
+    restart: unless-stopped
+
+    environment:
+      POSTGRES_DB: ${PRODUCT_DB_NAME}
+      POSTGRES_USER: ${PRODUCT_DB_USER}
+      POSTGRES_PASSWORD: ${PRODUCT_DB_PASSWORD}
+
+    ports:
+      - "5433:5432"
+
+    volumes:
+      - product_postgres_data:/var/lib/postgresql/data
+
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "pg_isready -U ${PRODUCT_DB_USER} -d ${PRODUCT_DB_NAME}"
+        ]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 5s
+
+    networks:
+      - ecommerce-network
+
+  # =========================
+  # ORDER DATABASE
+  # =========================
+  order-db:
+    image: postgres:16
+    container_name: order-db
+    restart: unless-stopped
+
+    environment:
+      POSTGRES_DB: ${ORDER_DB_NAME}
+      POSTGRES_USER: ${ORDER_DB_USER}
+      POSTGRES_PASSWORD: ${ORDER_DB_PASSWORD}
+
+    ports:
+      - "5434:5432"
+
+    volumes:
+      - order_postgres_data:/var/lib/postgresql/data
+
+    networks:
+      - ecommerce-network
+
+
+  # =========================
+  # PAYMENT DATABASE
+  # =========================
+  payment-db:
+    image: postgres:16
+    container_name: payment-db
+    restart: unless-stopped
+
+    environment:
+      POSTGRES_DB: ${PAYMENT_DB_NAME}
+      POSTGRES_USER: ${PAYMENT_DB_USER}
+      POSTGRES_PASSWORD: ${PAYMENT_DB_PASSWORD}
+
+    ports:
+      - "5435:5432"
+
+    volumes:
+      - payment_postgres_data:/var/lib/postgresql/data
+
+    networks:
+      - ecommerce-network
+
+
+  # =========================
+  # REDIS
+  # =========================
+  redis:
+    image: redis:7-alpine
+    container_name: redis
+    restart: unless-stopped
+
+    ports:
+      - "${REDIS_PORT}:6379"
+
+    networks:
+      - ecommerce-network
+
+
+  # =========================
+  # RABBITMQ
+  # =========================
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    restart: unless-stopped
+
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
+    networks:
+      - ecommerce-network
+
+
+  # =========================
+  # USER SERVICE
+  # =========================
+  user-service:
+    build:
+      context: ./services/user-service
+
+    container_name: user-service
+    restart: unless-stopped
+
+    ports:
+      - "8001:8000"
+
+    environment:
+      DATABASE_URL: postgresql://${USER_DB_USER}:${USER_DB_PASSWORD}@user-db:5432/${USER_DB_NAME}
+
+      SECRET_KEY: ${SECRET_KEY}
+      JWT_ALGORITHM: ${JWT_ALGORITHM}
+      ACCESS_TOKEN_EXPIRE_MINUTES: ${ACCESS_TOKEN_EXPIRE_MINUTES}
+
+    volumes:
+      - ./services/user-service/app:/app/app
+
+    depends_on:
+      - user-db
+
+    networks:
+      - ecommerce-network
+
+
+  # =========================
+  # PRODUCT SERVICE
+  # =========================
+  product-service:
+    build:
+      context: ./services/product-service
+    container_name: product-service
+    restart: unless-stopped
+    ports:
+      - "8002:8000"
+
+    environment:
+      DATABASE_URL: postgresql://${PRODUCT_DB_USER}:${PRODUCT_DB_PASSWORD}@product-db:5432/${PRODUCT_DB_NAME}
+      SECRET_KEY: ${SECRET_KEY}
+      JWT_ALGORITHM: ${JWT_ALGORITHM}
+      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_PORT: 5672
+      INTERNAL_SERVICE_KEY: ${INTERNAL_SERVICE_KEY:?INTERNAL_SERVICE_KEY is required}
+
+    volumes:
+      - ./services/product-service/app:/app/app
+      - ./services/product-service/scripts:/app/scripts
+
+    depends_on:
+      product-db:
+        condition: service_healthy
+
+      rabbitmq:
+        condition: service_started
+
+    networks:
+      - ecommerce-network
+
+  # =========================
+  # CART SERVICE
+  # =========================
+  cart-service:
+    build:
+      context: ./services/cart-service
+
+    container_name: cart-service
+    restart: unless-stopped
+
+    ports:
+      - "8003:8000"
+
+    environment:
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+
+      SECRET_KEY: ${SECRET_KEY}
+      JWT_ALGORITHM: ${JWT_ALGORITHM}
+
+      PRODUCT_SERVICE_URL: http://product-service:8000
+
+    volumes:
+      - ./services/cart-service/app:/app/app
+
+    depends_on:
+      - redis
+      - product-service
+
+    networks:
+      - ecommerce-network
+
+
+  # =========================
+  # ORDER SERVICE
+  # =========================
+  order-service:
+    build:
+      context: ./services/order-service
+
+    container_name: order-service
+    restart: unless-stopped
+
+    ports:
+      - "8004:8000"
+
+    environment:
+      DATABASE_URL: postgresql://${ORDER_DB_USER}:${ORDER_DB_PASSWORD}@order-db:5432/${ORDER_DB_NAME}
+
+      SECRET_KEY: ${SECRET_KEY}
+      JWT_ALGORITHM: ${JWT_ALGORITHM}
+
+      CART_SERVICE_URL: http://cart-service:8000
+      PRODUCT_SERVICE_URL: http://product-service:8000
+
+      INTERNAL_SERVICE_KEY: ${INTERNAL_SERVICE_KEY:?INTERNAL_SERVICE_KEY is required}
+
+    volumes:
+      - ./services/order-service/app:/app/app
+
+    depends_on:
+      - order-db
+      - cart-service
+      - product-service
+
+    networks:
+      - ecommerce-network
+
+
+  # =========================
+  # PAYMENT SERVICE
+  # =========================
+  payment-service:
+    build:
+      context: ./services/payment-service
+
+    container_name: payment-service
+    restart: unless-stopped
+
+    ports:
+      - "8005:8000"
+
+    environment:
+      DATABASE_URL: postgresql://${PAYMENT_DB_USER}:${PAYMENT_DB_PASSWORD}@payment-db:5432/${PAYMENT_DB_NAME}
+
+      SECRET_KEY: ${SECRET_KEY}
+      JWT_ALGORITHM: ${JWT_ALGORITHM}
+
+      ORDER_SERVICE_URL: http://order-service:8000
+      PRODUCT_SERVICE_URL: http://product-service:8000
+
+      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_PORT: 5672
+
+      INTERNAL_SERVICE_KEY: ${INTERNAL_SERVICE_KEY:?INTERNAL_SERVICE_KEY is required}
+
+    volumes:
+      - ./services/payment-service/app:/app/app
+
+    depends_on:
+      - payment-db
+      - order-service
+      - rabbitmq
+
+    networks:
+      - ecommerce-network
+
+
+  # =========================
+  # NOTIFICATION SERVICE
+  # =========================
+  notification-service:
+    build:
+      context: ./services/notification-service
+
+    container_name: notification-service
+    restart: unless-stopped
+
+    ports:
+      - "8006:8000"
+
+    environment:
+      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_PORT: 5672
+
+    volumes:
+      - ./services/notification-service/app:/app/app
+
+    depends_on:
+      - rabbitmq
+
+    networks:
+      - ecommerce-network
+
+
+# =========================
+# NETWORKS
+# =========================
+networks:
+
+  ecommerce-network:
+    driver: bridge
+
+
+# =========================
+# VOLUMES
+# =========================
+volumes:
+
+  user_postgres_data:
+
+  product_postgres_data:
+
+  order_postgres_data:
+
+  payment_postgres_data:

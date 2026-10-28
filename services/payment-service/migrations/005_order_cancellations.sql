@@ -1,0 +1,7 @@
+BEGIN;
+CREATE TABLE IF NOT EXISTS order_cancellations (
+    order_id INTEGER PRIMARY KEY,
+    user_id INTEGER NOT NULL,
+    status VARCHAR(20) NOT NULL DEFAULT 'PENDING'
+);
+COMMIT;

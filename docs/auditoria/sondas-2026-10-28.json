@@ -1,0 +1,38 @@
+{
+  "cart_concurrency": {
+    "expected_quantity": 2,
+    "observed_quantity": 1,
+    "scope": "Redis real; lecturas sincronizadas; consulta de producto simulada"
+  },
+  "duplicate_checkout": {
+    "orders_created_from_same_cart": 2,
+    "expected_orders": 1,
+    "scope": "PostgreSQL aislado; dos respuestas de carrito sincronizadas"
+  },
+  "stale_checkout": {
+    "checkout_http_status": 201,
+    "expected_status": "rechazo antes de crear el pedido",
+    "catalog_stock": 0,
+    "catalog_active": false,
+    "catalog_unit_price": "20.00",
+    "order_total": "20.00",
+    "order_unit_price": "10.00",
+    "scope": "HTTP real a traves del gateway; registros propios"
+  },
+  "registration_limits": [
+    {
+      "case": "password_80_bytes",
+      "http_status": 500,
+      "email_length": 56,
+      "password_bytes": 80,
+      "expected": "validacion controlada 4xx o soporte completo; no 500"
+    },
+    {
+      "case": "email_over_database_limit",
+      "http_status": 500,
+      "email_length": 160,
+      "password_bytes": 15,
+      "expected": "validacion controlada 4xx o soporte completo; no 500"
+    }
+  ]
+}

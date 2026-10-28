@@ -1,0 +1,50 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# Environment variables
+.env
+
+# Local secrets, tooling and generated intermediates
+.env.*
+!.env.example
+.aws/
+.codex/
+.agents/
+*.pem
+*.key
+*.pfx
+*.p12
+secrets/
+tmp/
+.tmp*/
+node_modules/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Historical editor/source backups (active sources stay tracked)
+*.bak*
+*.docker-backup
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# PostgreSQL
+postgres_data/
+.env

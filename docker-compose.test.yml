@@ -1,0 +1,94 @@
+
+name: ecommerce-dlq-test
+
+services:
+
+  product-db:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: ${PRODUCT_DB_NAME}
+      POSTGRES_USER: ${PRODUCT_DB_USER}
+      POSTGRES_PASSWORD: ${PRODUCT_DB_PASSWORD}
+    volumes:
+      - product_test_data:/var/lib/postgresql/data
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - pg_isready -U ${PRODUCT_DB_USER} -d ${PRODUCT_DB_NAME}
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  order-db:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: ${ORDER_DB_NAME}
+      POSTGRES_USER: ${ORDER_DB_USER}
+      POSTGRES_PASSWORD: ${ORDER_DB_PASSWORD}
+    volumes:
+      - order_test_data:/var/lib/postgresql/data
+
+  payment-db:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: ${PAYMENT_DB_NAME}
+      POSTGRES_USER: ${PAYMENT_DB_USER}
+      POSTGRES_PASSWORD: ${PAYMENT_DB_PASSWORD}
+    volumes:
+      - payment_test_data:/var/lib/postgresql/data
+
+  rabbitmq:
+    image: rabbitmq:3-management
+
+  product-service:
+    build:
+      context: ./services/product-service
+    environment:
+      DATABASE_URL: postgresql://${PRODUCT_DB_USER}:${PRODUCT_DB_PASSWORD}@product-db:5432/${PRODUCT_DB_NAME}
+      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_PORT: 5672
+      INTERNAL_SERVICE_KEY: ${INTERNAL_SERVICE_KEY:?required}
+      PAYMENT_SERVICE_URL: http://payment-service:8000
+      ORDER_SERVICE_URL: http://order-service:8000
+      SECRET_KEY: ${SECRET_KEY}
+      JWT_ALGORITHM: ${JWT_ALGORITHM}
+    depends_on:
+      product-db:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_started
+
+  order-service:
+    build:
+      context: ./services/order-service
+    environment:
+      DATABASE_URL: postgresql+psycopg2://${ORDER_DB_USER}:${ORDER_DB_PASSWORD}@order-db:5432/${ORDER_DB_NAME}
+      SECRET_KEY: ${SECRET_KEY}
+      JWT_ALGORITHM: ${JWT_ALGORITHM}
+      INTERNAL_SERVICE_KEY: ${INTERNAL_SERVICE_KEY:?required}
+      CART_SERVICE_URL: http://cart-service:8000
+      PRODUCT_SERVICE_URL: http://product-service:8000
+    depends_on:
+      - order-db
+      - product-service
+
+  payment-service:
+    build:
+      context: ./services/payment-service
+    environment:
+      DATABASE_URL: postgresql+psycopg2://${PAYMENT_DB_USER}:${PAYMENT_DB_PASSWORD}@payment-db:5432/${PAYMENT_DB_NAME}
+      SECRET_KEY: ${SECRET_KEY}
+      JWT_ALGORITHM: ${JWT_ALGORITHM}
+      INTERNAL_SERVICE_KEY: ${INTERNAL_SERVICE_KEY:?required}
+      ORDER_SERVICE_URL: http://order-service:8000
+      PRODUCT_SERVICE_URL: http://product-service:8000
+      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_PORT: 5672
+    depends_on:
+      - payment-db
+      - order-service
+
+volumes:
+  product_test_data:
+  order_test_data:
+  payment_test_data:
