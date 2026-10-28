@@ -1,0 +1,24 @@
+{
+  "profile": "local-mvp-20vu-v1",
+  "description": "Objetivos iniciales de ingenieria local; no SLA productivo ni objetivos acordados con negocio",
+  "concurrency": [1, 5, 10, 20],
+  "stage_seconds": 60,
+  "warmup_seconds": 15,
+  "request_timeout_seconds": 10,
+  "flow_timeout_seconds": 20,
+  "target_concurrency": 20,
+  "minimum_samples_per_operation": 100,
+  "maximum_unexpected_error_percent": 1.0,
+  "minimum_useful_requests_per_second": 20,
+  "latency_ms": {
+    "catalog": {"p95": 500, "p99": 1000},
+    "product": {"p95": 500, "p99": 1000},
+    "profile": {"p95": 500, "p99": 1000},
+    "history": {"p95": 500, "p99": 1000},
+    "cart_read": {"p95": 500, "p99": 1000},
+    "cart_add": {"p95": 1500, "p99": 3000},
+    "checkout": {"p95": 1500, "p99": 3000},
+    "payment": {"p95": 2000, "p99": 5000},
+    "purchase_flow": {"p95": 10000, "p99": 15000}
+  }
+}

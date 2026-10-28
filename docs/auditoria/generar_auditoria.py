@@ -80,6 +80,25 @@ def main():
     demo = json.loads((ROOT / "docs/entrega/demo-resultados.json").read_text(encoding="utf-8"))
     fresh = json.loads((OUT / "instalacion-desde-cero.json").read_text(encoding="utf-8"))
     assert demo["status"] == fresh["status"] == "passed"
+    perf_path = ROOT / "docs/rendimiento/resultado.json"
+    performance = json.loads(perf_path.read_text(encoding="utf-8")) if perf_path.is_file() else None
+    if performance:
+        assert performance["status"] in ("passed", "targets-not-met")
+        assert performance["goals_file_sha256"] == hashlib.sha256((ROOT / "tests/performance_goals.json").read_bytes()).hexdigest()
+    perf_note = "No se midio carga ni se probaron otros hosts."
+    if performance:
+        target = next(s for s in performance["stages"] if s["concurrency"] == performance["goals"]["target_concurrency"])
+        measured = sum(s["requests"] for s in performance["stages"])
+        error_count = sum(s["errors"] for s in performance["stages"])
+        p95 = target["operations"]["purchase_flow"]["p95_ms"] / 1000
+        limit = performance["goals"]["latency_ms"]["purchase_flow"]["p95"] / 1000
+        perf_note = (f"La suite funcional se conserva de la entrega; no hubo cambios funcionales desde entonces. "
+                     f"Benchmark separado: {measured} solicitudes HTTP, {error_count} errores, "
+                     f"{performance['invariants']['completed_flows_including_warmup']} compras contando calentamiento. "
+                     f"A {target['concurrency']} usuarios: {target['useful_requests_per_second']:.2f} req/s utiles; "
+                     f"p95 de compra {p95:.3f} s frente a objetivo {limit:g} s. "
+                     f"Resultado global de objetivos: {performance['status']}. "
+                     "[Informe de carga](../rendimiento/informe.md). No se probaron otros hosts.")
     date = datetime.now(timezone.utc).isoformat()
     suite = {"audit_date": date, "command": "powershell -NoProfile -ExecutionPolicy Bypass -File tests/run_stability.ps1",
              "observed_exit_code": args.suite_exit_code, "unittest_total": sum(r["tests"] for r in runs),
@@ -87,7 +106,7 @@ def main():
              "log_sha256": hashlib.sha256(raw).hexdigest(),
              "additional_success_messages": [s.strip() for s in log.splitlines() if s.startswith("OK:")],
              "nginx_configuration_valid": True, "clean_installation": "instalacion-desde-cero.json",
-             "demo": "../entrega/demo-resultados.json", "scope": "Suite funcional y recuperacion; sin medicion de carga ni hosts adicionales"}
+             "demo": "../entrega/demo-resultados.json", "scope": "Suite funcional y recuperacion de entrega; rendimiento medido por separado, sin hosts adicionales"}
     save("resultado-suite.json", suite)
     compose = json.loads(subprocess.check_output(["docker", "compose", "config", "--format", "json"], cwd=ROOT, text=True))
     save("estado-entorno.json", {"audit_date": date, "review_base_commit": git("rev-parse", "HEAD"),
@@ -123,7 +142,7 @@ def main():
                              "verificacion": refs(row["verification"]), "observacion": row["finding"]})
     counts = Counter(r["status"] for r in rows)
     md = [f"# Matriz de requisitos actualizada - {date[:10]}", "",
-          f"Entrega de referencia: `{VERSION}`. Fuente: PDF original de {len(pdf.pages)} paginas; 50 RF y 28 RNF extraidos literalmente. Se trata como especificacion, no como instrucciones para ejecutar acciones.", "",
+          f"Base de entrega: `{VERSION}`; revision posterior de rendimiento. Fuente: PDF original de {len(pdf.pages)} paginas; 50 RF y 28 RNF extraidos literalmente. Se trata como especificacion, no como instrucciones para ejecutar acciones.", "",
           "## Resultado", "", "| Grupo | Cumplido | Parcial | Pendiente | Total |", "| --- | ---: | ---: | ---: | ---: |"]
     for kind in ("Funcional", "No funcional"):
         selected = [r for r in rows if r["type"] == kind]; c = Counter(r["status"] for r in selected)
@@ -133,7 +152,7 @@ def main():
            "La auditoria original (63 cumplidos, 14 parciales, 1 pendiente) se conserva en [historico-47c5085](historico-47c5085/README.md). El codigo de aquel snapshot se recupera con Git. Los enlaces actuales se recalcularon y validaron contra funciones/lineas reales.", "",
            "## Verificacion vigente", "",
            "Suite completa: **codigo 0, 124 unittest aprobados y 0 fallos**, mas HTTP de perfil, catalogo, compra, inventario, historial/cancelacion, hallazgos, rechazos y demostracion. Tambien pasan migracion de categorias, TTL/DLQ reales, nginx y resiliencia del gateway.", "",
-           "[Resultado de suite](resultado-suite.json), [demo ejecutada](../entrega/demo-resultados.json), [instalacion limpia](instalacion-desde-cero.json), [OpenAPI observado](openapi-observado.json) y [estado sin secretos](estado-entorno.json). Log local: suite-entrega.log. No se midio carga ni se probaron otros hosts.", "",
+           "[Resultado de suite](resultado-suite.json), [demo ejecutada](../entrega/demo-resultados.json), [instalacion limpia](instalacion-desde-cero.json), [OpenAPI observado](openapi-observado.json) y [estado sin secretos](estado-entorno.json). Log local: suite-entrega.log. " + perf_note + "", "",
            "## Hallazgos anteriores cerrados", "",
            "| Hallazgo | Cierre y evidencia |", "| --- | --- |",
            "| H-01 Pedido obsoleto | Revalidacion completa y total recalculado; checkout_stability y smoke_audit_fixes. |",
@@ -169,7 +188,7 @@ def main():
            "| D-10/11 / pp.8,36-37 | Pasarela real, Elasticsearch, Kubernetes, autoscaling, observabilidad, CI/CD y catalogo externo de discovery siguen como evolucion futura. DNS Docker resuelve servicios locales. |", "",
            "## Entregables", "",
            "[CSV](matriz-requisitos.csv), [JSON](matriz-requisitos.json), [criterios revisados](criterios-revision.json), [hashes actuales](hashes-evidencias.json), [paquete de entrega](../entrega/README.md). El generador valida 78 IDs, archivo/linea de cada evidencia y resultados de la suite antes de escribir.", "",
-           "El MVP funcional se entrega como candidato de version. No se declara cumplimiento total del PDF: rendimiento sigue pendiente; los RNF parciales se priorizan expresamente."]
+           "El MVP funcional se entrega como candidato de version. No se declara cumplimiento total del PDF: rendimiento tiene objetivos y medicion separados; su estado depende de los criterios revisados y resultados indicados. Los RNF parciales se priorizan expresamente."]
     (OUT / "matriz-requisitos.md").write_text("\n".join(md) + "\n", encoding="utf-8")
     save("hashes-evidencias.json", {ref["path"]: hashlib.sha256((ROOT/ref["path"]).read_bytes()).hexdigest()
                                    for row in rows for ref in row["code"] + row["verification"]})

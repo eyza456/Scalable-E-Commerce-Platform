@@ -44,7 +44,10 @@
   "gateway/nginx.conf": "c75b2fd37c0aa36acc2b603f3aa95ede20c590cd18cc00e550dfd099fc11e0ff",
   "gateway/proxy.inc": "d42fab381e02d1d2c40b692283b3c29a85f01e9b9133debfd74e8fe2d1bced31",
   "tests/gateway_resilience.py": "6a9c9516002bb79bbd4b7432704fef7795cc1a48a57a4b83caa4e209dc0b13b9",
-  "tests/run_stability.ps1": "65fffab39e1bfe24015fec5e0d6ef557c4d428223cc8acfa1c27b9cbf779e7f1",
+  "tests/performance_goals.json": "1fc71a41394ff7974e29b2dff2c4010c27b47cbb863fb59c54f05c8b0d069585",
+  "tests/performance_load.py": "16ffed2485d0cd610716d84f34d74c67d776bbfae1bf7fdb1b6f2dee9ef78775",
+  "docs/rendimiento/resultado.json": "abb28ec37c35b11e077e3352fed643ae50e713172a426b7e74780d54476bcc22",
+  "tests/performance_metrics_test.py": "a2a1a608238d4798dcb591efee8c49e308e55aaf5881f5dac6d01d0ab1567453",
   "services/cart-service/app/redis_client.py": "9724ed14bffe6ac8867fa779d27e0a41adf0c4bd628416c35224d57826a93f59",
   "gateway/Dockerfile": "496347041a707a4a5ff1da1a132027f995172d6b0b21680ba380ae42d35c580d",
   "services/product-service/app/services/payment_validation.py": "8e18257f1a93551e2208be2b3fe3fd6959b0427853418a25249c0ed71f1f0dad",
@@ -52,5 +55,6 @@
   "services/payment-service/app/main.py": "98421a1178638e6547ade1aa7d8eb3e8491c2a1a2ee57c3855404f4f80a3ff5a",
   "services/order-service/app/messaging.py": "f493ccbc1040fbd1907dcd62c38fe8ed4a33da96eb165e4e144f34f640de63ff",
   "tests/fresh_install.py": "513b0b86956c6840a5e68ebff63954713e93ca266cbda69ab691c30483908741",
-  "docs/auditoria/estado-entorno.json": "4c42426cba1f499bd91431a62f3cf6f18c11c1bf6c24beb5e17037dc0678860f"
+  "tests/run_stability.ps1": "65fffab39e1bfe24015fec5e0d6ef557c4d428223cc8acfa1c27b9cbf779e7f1",
+  "docs/auditoria/estado-entorno.json": "784dc50c0ca318349da50426158bc6dd914764302d84198eb3215e06dfa72775"
 }

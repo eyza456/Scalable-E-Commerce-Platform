@@ -1,5 +1,5 @@
 {
-  "audit_date": "2026-10-28T07:14:04.476927+00:00",
+  "audit_date": "2026-10-28T07:37:23.850888+00:00",
   "command": "powershell -NoProfile -ExecutionPolicy Bypass -File tests/run_stability.ps1",
   "observed_exit_code": 0,
   "unittest_total": 124,
@@ -77,5 +77,5 @@
   "nginx_configuration_valid": true,
   "clean_installation": "instalacion-desde-cero.json",
   "demo": "../entrega/demo-resultados.json",
-  "scope": "Suite funcional y recuperacion; sin medicion de carga ni hosts adicionales"
+  "scope": "Suite funcional y recuperacion de entrega; rendimiento medido por separado, sin hosts adicionales"
 }

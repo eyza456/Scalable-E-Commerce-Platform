@@ -5,7 +5,7 @@ Candidato local para revision funcional, fechado el 28 de octubre de 2026. Inclu
 ## Material de entrega
 
 - [Instalacion y configuracion](../../README.md).
-- [Matriz vigente de 78 requisitos](../auditoria/matriz-requisitos.md): 69 cumplidos, 8 parciales y 1 pendiente; evidencia por archivo/linea.
+- [Matriz vigente de 78 requisitos](../auditoria/matriz-requisitos.md): 69 cumplidos, 9 parciales y 0 pendientes tras la medicion; evidencia por archivo/linea. La RC original conserva 69/8/1 en su tag.
 - [Pendientes priorizados y limites](pendientes.md).
 - [Guion de demostracion](demostracion.md) y [resultado ejecutado](demo-resultados.json).
 - [Suite final](../auditoria/resultado-suite.json): 124 unittest y escenarios adicionales, incluida la demostracion.
@@ -43,4 +43,8 @@ La etiqueta apunta al commit de entrega y el arbol queda limpio. No hay remoto c
 
 ## Alcance de aceptacion
 
-Los 12 criterios basicos de pp.22-23 del PDF tienen evidencia funcional. Esta RC conserva limites explicitos: rendimiento sin medir, replicas sin verificar, portabilidad de host incompleta, refactorizacion/acoplamiento parciales y evoluciones de infraestructura. No representa cumplimiento del 100% del PDF, operacion productiva ni una pasarela bancaria real.
+Los 12 criterios basicos de pp.22-23 del PDF tienen evidencia funcional. Esta RC conserva limites explicitos: p95 de compra por encima del objetivo medido, replicas sin verificar, portabilidad de host incompleta, refactorizacion/acoplamiento parciales y evoluciones de infraestructura. No representa cumplimiento del 100% del PDF, operacion productiva ni una pasarela bancaria real.
+
+## Medicion posterior a la RC
+
+Se definieron objetivos y se midio carga local a 1/5/10/20 usuarios. El resultado es parcial: p95 de compra 10,839 s frente a limite de 10 s; demas umbrales y consistencia aprobados. Consultar [objetivos](../rendimiento/objetivos.md) y [resultados](../rendimiento/informe.md). La etiqueta v0.1.0-rc.1 no se modifica; estas evidencias se guardan en un commit posterior.

@@ -57,7 +57,12 @@
     "rejections": "tests/smoke_payment_rejections.py",
     "fresh": "tests/fresh_install.py",
     "demo": "tests/demo_release.py",
-    "umigration": "services/user-service/migrations/002_email_length.sql"
+    "umigration": "services/user-service/migrations/002_email_length.sql",
+    "perfgoals": "tests/performance_goals.json",
+    "perfload": "tests/performance_load.py",
+    "perfmetrics": "tests/performance_metrics.py",
+    "perfresult": "docs/rendimiento/resultado.json",
+    "perftest": "tests/performance_metrics_test.py"
   },
   "requirements": {
     "RF-01": [
@@ -615,12 +620,17 @@
       "Politicas centrales: bloqueo de rutas internas, retirada de clave interna, IP reenviada y trazabilidad. JWT sigue en servicios."
     ],
     "RNF-01": [
-      "Pendiente",
+      "Parcial",
       [
-        "runner"
+        "perfgoals",
+        "perfload",
+        "outbox@dispatch_pending"
       ],
-      [],
-      "Pendiente de evidencia: no hay SLO, umbrales, prueba de carga ni medicion p95/p99. Las duraciones de unittest no demuestran rendimiento adecuado."
+      [
+        "perfresult",
+        "perftest"
+      ],
+      "Objetivos locales definidos y carga medida a 1/5/10/20 usuarios. Sin errores ni violaciones de integridad; 41,30 req/s utiles a 20. No cumple p95 de compra completa: 10,839 s frente a 10 s. Demas limites de API y p99 cumplen. Pendiente optimizar confirmacion eventual y repetir el mismo perfil; no es un SLA productivo."
     ],
     "RNF-02": [
       "Cumplido",
@@ -635,7 +645,7 @@
         "paytest@test_simultaneous_payments_only_create_one_payment",
         "auditfixes"
       ],
-      "Concurrencia funcional comprobada en carrito, checkout, pagos e inventario. No demuestra capacidad bajo carga ni replicas; esas limitaciones se evalúan aparte."
+      "Concurrencia funcional comprobada en carrito, checkout, pagos e inventario y carga local hasta 20 usuarios. Se verificaron 372 compras sin duplicados ni doble descuento. No demuestra varias replicas ni capacidad de produccion; RNF-01 conserva un objetivo de latencia incumplido."
     ],
     "RNF-03": [
       "Cumplido",
