@@ -1,49 +1,49 @@
 {
-  "audit_date": "2026-10-28T07:37:23.850888+00:00",
+  "audit_date": "2026-10-28T08:15:59.393205+00:00",
   "command": "powershell -NoProfile -ExecutionPolicy Bypass -File tests/run_stability.ps1",
   "observed_exit_code": 0,
-  "unittest_total": 124,
+  "unittest_total": 134,
   "unittest_failures": 0,
   "unittest_runs": [
     {
-      "tests": 29,
-      "seconds": 0.949
+      "tests": 39,
+      "seconds": 1.356
     },
     {
       "tests": 11,
-      "seconds": 0.314
+      "seconds": 0.271
     },
     {
       "tests": 13,
-      "seconds": 0.918
+      "seconds": 0.404
     },
     {
       "tests": 9,
-      "seconds": 0.189
+      "seconds": 0.101
     },
     {
       "tests": 17,
-      "seconds": 0.636
+      "seconds": 0.43
     },
     {
       "tests": 12,
-      "seconds": 0.493
+      "seconds": 0.398
     },
     {
       "tests": 2,
-      "seconds": 0.002
+      "seconds": 0.001
     },
     {
       "tests": 6,
-      "seconds": 0.151
+      "seconds": 0.143
     },
     {
       "tests": 4,
-      "seconds": 1.713
+      "seconds": 1.587
     },
     {
       "tests": 5,
-      "seconds": 0.006
+      "seconds": 0.003
     },
     {
       "tests": 5,
@@ -51,15 +51,15 @@
     },
     {
       "tests": 10,
-      "seconds": 40.303
+      "seconds": 24.284
     },
     {
       "tests": 1,
-      "seconds": 13.54
+      "seconds": 10.324
     }
   ],
-  "log": "suite-entrega.log",
-  "log_sha256": "f717301f0086e77515c2c121819eab036e979e049303956335be52ebe13274a1",
+  "log": "suite-outbox.log",
+  "log_sha256": "75be4d82feea6a93530e3ee3e240db757d7e4ae52f182705967d3cf6086437ac",
   "additional_success_messages": [
     "OK: migracion y rollback conservan productos y categorias, agrupando duplicados.",
     "OK: reintento TTL y DLQ reales para order",

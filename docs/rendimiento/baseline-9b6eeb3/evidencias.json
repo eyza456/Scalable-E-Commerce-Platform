@@ -1,0 +1,17 @@
+{
+  "source_commit": "d92380e505fd050be4483f3896aa1643c39f4e6c",
+  "goals_unchanged": true,
+  "sha256": {
+    "tests/performance_goals.json": "1fc71a41394ff7974e29b2dff2c4010c27b47cbb863fb59c54f05c8b0d069585",
+    "tests/performance_metrics.py": "63925ce4bbd2a853c6ed4c9b7a75b6ed7e4891139c37b98e5ebb6962a2c31927",
+    "tests/performance_load.py": "16ffed2485d0cd610716d84f34d74c67d776bbfae1bf7fdb1b6f2dee9ef78775",
+    "tests/performance_metrics_test.py": "a2a1a608238d4798dcb591efee8c49e308e55aaf5881f5dac6d01d0ab1567453",
+    "tests/fresh_install.py": "513b0b86956c6840a5e68ebff63954713e93ca266cbda69ab691c30483908741",
+    "docker-compose.yml": "c0fefe69d42dc13e8a6b66a8c4a1b023a8393b78b9403abf241844812cd21115",
+    "services/payment-service/app/outbox.py": "f601f91df35f29f0933acd8e4c442bab0b082e9f324e06694bdc55c36deacda3",
+    "docs/rendimiento/resultado.json": "c3319c177d8543c6d60ee4b34911dc5478bf6454374221e783c60db240628e0f",
+    "docs/rendimiento/resultado-muestras.jsonl": "1d7104ed7a657caa730527e540be004de2167dae8e3eb3f4124a1c92a1a2d96d",
+    "docs/rendimiento/resultado-recursos.json": "19a09568895c82143edf8ff5b166fd6750d796f075abde443f60fa405a365fa2"
+  },
+  "hash_format": "SHA-256 de bytes UTF-8 con CRLF normalizado a LF; evita diferencias de checkout entre Windows y Linux"
+}

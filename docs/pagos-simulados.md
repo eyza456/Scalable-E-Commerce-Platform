@@ -44,9 +44,9 @@ Aplicada localmente `services/payment-service/migrations/007_simulated_rejection
 
 ## Evidencia
 
-Resultado observado: **124 pruebas aprobadas, 0 fallos, codigo de salida 0**. Tambien pasaron los escenarios HTTP, RabbitMQ y resiliencia del gateway.
+Resultado observado: **134 pruebas aprobadas, 0 fallos, codigo de salida 0**. Tambien pasaron los escenarios HTTP, RabbitMQ y resiliencia del gateway.
 
-- `tests/payment_stability.py`: 29 pruebas, incluidas persistencia de los tres motivos, ausencia de reservas/eventos, recuperacion tras interrupcion, rechazo de cambios del intento pendiente, cancelacion prioritaria y posterior pago aprobado.
+- `tests/payment_stability.py`: 39 pruebas, incluidas persistencia de los tres motivos, ausencia de reservas/eventos, recuperacion tras interrupcion, rechazo de cambios del intento pendiente, cancelacion prioritaria y posterior pago aprobado.
 - `tests/checkout_stability.py` y `tests/cart_stability.py`: 22 pruebas de revalidacion, concurrencia y recuperacion del checkout/carrito.
 - `tests/smoke_audit_fixes.py`: catalogo obsoleto y cuatro confirmaciones HTTP simultaneas con un unico pedido.
 - `tests/smoke_payment_rejections.py`: tres rechazos HTTP reales por gateway, consultas de transaccion, comprobacion SQL de cero eventos/reservas y reintento aprobado con un solo descuento.

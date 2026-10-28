@@ -10,10 +10,12 @@ Ver tambien el [cierre de hallazgos de auditoria](auditoria/cierre-hallazgos.md)
 - El descuento manual de stock requiere rol `admin` o `seller`. Una actualizacion SQL condicional evita descuentos concurrentes que dejen stock negativo.
 - Se corrigio la coma ausente en el modelo Outbox que impedia arrancar Payment Service.
 - La confirmacion PAID y tres entregas Outbox se guardan en una transaccion, despues de reservar stock. Un bloqueo transaccional PostgreSQL por orden serializa solicitudes simultaneas y evita registrar otro pago confirmado para la misma orden.
-- Un worker publica entregas pendientes cada cinco segundos. Cada destino conserva su propio estado, intentos y ultimo error. Un destino fallido se reintenta sin reenviar los ya confirmados.
+- Un worker publica en lotes de 50 y drena de inmediato mientras haya progreso sin fallos. Reutiliza una conexion/canal por lote con confirmacion de cada mensaje. Espera un segundo en vacio y conserva backoff de cinco segundos ante fallos; mantiene skip_locked y entrega al menos una vez. Cada destino conserva su propio estado, intentos y ultimo error. Un destino fallido se reintenta sin reenviar los ya confirmados.
 - Con confirmaciones habilitadas, Pika BlockingChannel devuelve `None` al recibir ACK y lanza excepciones ante NACK o un mensaje no enrutable. Las publicaciones respetan ese contrato.
 - Product valida el pago confirmado y la pertenencia y contenido de la orden. Admite que la orden siga PENDING mientras Order procesa el mismo evento; conserva la idempotencia de inventario y rechaza ordenes canceladas.
 - Order y Product crean sus colas de reintento con espera de cinco segundos y una DLQ. Tras tres intentos, el mensaje queda en DLQ. Solo confirman el mensaje original despues de confirmar su reenvio. No necesitan una politica externa de RabbitMQ para esta recuperacion.
+
+La optimizacion Outbox y la comparacion con objetivos intactos se documentan en [rendimiento](rendimiento/informe.md). Las pruebas cubren drenaje, fallos parciales, commit perdido y workers concurrentes.
 
 ## Instalaciones existentes
 
@@ -29,7 +31,7 @@ Desde la raiz del proyecto, con Docker Compose activo:
 powershell -ExecutionPolicy Bypass -File tests/run_stability.ps1
 ```
 
-Las 124 pruebas de regresion verifican perfil, autorizacion, atomicidad de confirmacion/Outbox, reservas y recuperacion, solicitudes y eventos concurrentes, rollback del inventario, confirmaciones Pika y conservacion del original ante fallos de reenvio. Las pruebas PostgreSQL usan esquemas `test_stability_<uuid>` separados y los eliminan al terminar.
+Las 134 pruebas de regresion verifican perfil, autorizacion, atomicidad de confirmacion/Outbox, reservas y recuperacion, solicitudes y eventos concurrentes, rollback del inventario, confirmaciones Pika y conservacion del original ante fallos de reenvio. Las pruebas PostgreSQL usan esquemas `test_stability_<uuid>` separados y los eliminan al terminar.
 
 Adicionalmente, dos verificaciones con RabbitMQ comprueban reintentos TTL y DLQ en colas exclusivas que se eliminan al finalizar. La prueba HTTP comprueba salud de los seis servicios, perfil y permisos, carrito, pedido, pago, descuento de inventario y las tres entregas Outbox. Crea registros propios y los limpia; conserva una compra con eventos pendientes si falla para permitir su diagnostico.
 

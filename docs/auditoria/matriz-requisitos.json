@@ -964,7 +964,7 @@
     "verification": [
       {
         "path": "tests/payment_stability.py",
-        "line": 141
+        "line": 150
       }
     ],
     "finding": "Intento durable asociado a pedido y propietario.",
@@ -989,7 +989,7 @@
     "verification": [
       {
         "path": "tests/payment_stability.py",
-        "line": 240
+        "line": 401
       }
     ],
     "finding": "Registra PENDING, PAID, REJECTED o CANCELLED.",
@@ -1014,7 +1014,7 @@
     "verification": [
       {
         "path": "tests/payment_stability.py",
-        "line": 64
+        "line": 73
       },
       {
         "path": "tests/smoke_payment_rejections.py",
@@ -1037,7 +1037,7 @@
       },
       {
         "path": "services/payment-service/app/outbox.py",
-        "line": 11
+        "line": 25
       },
       {
         "path": "services/order-service/app/rabbitmq.py",
@@ -1101,7 +1101,7 @@
     "verification": [
       {
         "path": "tests/payment_stability.py",
-        "line": 392
+        "line": 553
       },
       {
         "path": "tests/smoke_payment_rejections.py",
@@ -1282,7 +1282,11 @@
       },
       {
         "path": "services/payment-service/app/outbox.py",
-        "line": 11
+        "line": 54
+      },
+      {
+        "path": "services/payment-service/app/core/rabbitmq.py",
+        "line": 10
       }
     ],
     "verification": [
@@ -1293,9 +1297,17 @@
       {
         "path": "tests/performance_metrics_test.py",
         "line": 1
+      },
+      {
+        "path": "tests/payment_stability.py",
+        "line": 242
+      },
+      {
+        "path": "tests/payment_stability.py",
+        "line": 369
       }
     ],
-    "finding": "Objetivos locales definidos y carga medida a 1/5/10/20 usuarios. Sin errores ni violaciones de integridad; 41,30 req/s utiles a 20. No cumple p95 de compra completa: 10,839 s frente a 10 s. Demas limites de API y p99 cumplen. Pendiente optimizar confirmacion eventual y repetir el mismo perfil; no es un SLA productivo.",
+    "finding": "Mismo perfil y objetivos locales 1/5/10/20 usuarios. Outbox optimizado: compra p95 8.205 s ya cumple <=10 s; 58.47 req/s utiles, cero errores y 819 compras integras. Aun fallan p95/p99 de historial y checkout, y p95 de pago a 20 usuarios. No se aprueba RNF-01 completo ni SLA productivo; siguiente trabajo perfilar esas APIs sin relajar objetivos.",
     "scope": "MVP / calidad"
   },
   {
@@ -1329,14 +1341,14 @@
       },
       {
         "path": "tests/payment_stability.py",
-        "line": 176
+        "line": 185
       },
       {
         "path": "tests/smoke_audit_fixes.py",
         "line": 1
       }
     ],
-    "finding": "Concurrencia funcional comprobada en carrito, checkout, pagos e inventario y carga local hasta 20 usuarios. Se verificaron 372 compras sin duplicados ni doble descuento. No demuestra varias replicas ni capacidad de produccion; RNF-01 conserva un objetivo de latencia incumplido.",
+    "finding": "Concurrencia funcional comprobada en carrito, checkout, pagos e inventario y carga local hasta 20 usuarios. Se verificaron 819 compras sin duplicados ni doble descuento; dos workers Outbox con skip_locked y reenvio recuperable probado. No demuestra varias replicas ni capacidad de produccion; RNF-01 conserva limites HTTP incumplidos.",
     "scope": "MVP / calidad"
   },
   {
@@ -1431,7 +1443,7 @@
       },
       {
         "path": "services/payment-service/app/outbox.py",
-        "line": 11
+        "line": 25
       }
     ],
     "verification": [
@@ -1949,7 +1961,7 @@
         "line": 1
       }
     ],
-    "finding": "124 unittest y escenarios HTTP, migraciones, TTL/DLQ y gateway. Runner de entrega incluye demostracion completa; instalacion limpia verificada por separado.",
+    "finding": "134 unittest y escenarios HTTP, migraciones, TTL/DLQ y gateway, incluida demostracion. Diez regresiones adicionales de Outbox; seis pruebas de metricas y benchmark se ejecutan por separado. Instalacion limpia conserva su evidencia historica.",
     "scope": "MVP / calidad"
   },
   {

@@ -34,11 +34,11 @@
   "tests/smoke_orders.py": "482e0f81edd20aab453bbc0ecef6b7d497c754888e674bb0bb24ef62c4c5e60e",
   "services/order-service/app/cancellations.py": "4a590dfbb404814b452b557b69464fe03191f2cfc6620faa176b2ebb5ac28fbd",
   "services/payment-service/app/routers/payments.py": "0559d8ba645d8f6fbb73b180474772693565ae7354b23ba6bc6036243fc2dfbe",
-  "tests/payment_stability.py": "a5a84df447334ed9fcba12b530ec1d02af617d5874210a9d1687f04f80a6c922",
+  "tests/payment_stability.py": "e7f01ea5c3835bce415f03fc27ce8f77c4ccfe0971b005bdaa225751f3548088",
   "services/payment-service/app/inventory.py": "b1e0f19812f5780fd7b7da264bfafa76ac12a08bd36d9fe3246d4e9d61b820c1",
   "services/payment-service/app/models/payment.py": "b092de6dd5dfcd1cfd9e95051d6188c728d337f48c37164da3e34b36cb0d6f9f",
   "tests/smoke_payment_rejections.py": "28a75953f61faa4e6d72347c570e8f12c81b6b8bb3f833258643df87a0a3b09c",
-  "services/payment-service/app/outbox.py": "f601f91df35f29f0933acd8e4c442bab0b082e9f324e06694bdc55c36deacda3",
+  "services/payment-service/app/outbox.py": "119069cdd3b5f14f4e5d6207388b0ffcc8400372cdef8778fcf8df538633d3b2",
   "services/order-service/app/rabbitmq.py": "8d0e49b7f1fe982cb7e76ef143958120f660da267a3de3f66ae3c52c12aa495d",
   "docker-compose.yml": "6d44f3d533cddb29d56dcd8b2fb4208e2f1745f72ee77d304b1312ac494f381f",
   "gateway/nginx.conf": "c75b2fd37c0aa36acc2b603f3aa95ede20c590cd18cc00e550dfd099fc11e0ff",
@@ -46,7 +46,8 @@
   "tests/gateway_resilience.py": "6a9c9516002bb79bbd4b7432704fef7795cc1a48a57a4b83caa4e209dc0b13b9",
   "tests/performance_goals.json": "1fc71a41394ff7974e29b2dff2c4010c27b47cbb863fb59c54f05c8b0d069585",
   "tests/performance_load.py": "16ffed2485d0cd610716d84f34d74c67d776bbfae1bf7fdb1b6f2dee9ef78775",
-  "docs/rendimiento/resultado.json": "abb28ec37c35b11e077e3352fed643ae50e713172a426b7e74780d54476bcc22",
+  "services/payment-service/app/core/rabbitmq.py": "a33b10358a3f60fb434fcbac98821d9989aca6d6d99168f199c85f8eb1dc45e3",
+  "docs/rendimiento/resultado.json": "a71be4c850e4075cad3074743e5508065f297673ce0e6b523fdf609c01e21d95",
   "tests/performance_metrics_test.py": "a2a1a608238d4798dcb591efee8c49e308e55aaf5881f5dac6d01d0ab1567453",
   "services/cart-service/app/redis_client.py": "9724ed14bffe6ac8867fa779d27e0a41adf0c4bd628416c35224d57826a93f59",
   "gateway/Dockerfile": "496347041a707a4a5ff1da1a132027f995172d6b0b21680ba380ae42d35c580d",
@@ -56,5 +57,5 @@
   "services/order-service/app/messaging.py": "f493ccbc1040fbd1907dcd62c38fe8ed4a33da96eb165e4e144f34f640de63ff",
   "tests/fresh_install.py": "513b0b86956c6840a5e68ebff63954713e93ca266cbda69ab691c30483908741",
   "tests/run_stability.ps1": "65fffab39e1bfe24015fec5e0d6ef557c4d428223cc8acfa1c27b9cbf779e7f1",
-  "docs/auditoria/estado-entorno.json": "784dc50c0ca318349da50426158bc6dd914764302d84198eb3215e06dfa72775"
+  "docs/auditoria/estado-entorno.json": "8079c6bd409b2d8e0125c792a0d86ed21c85a01a0f312d4aa14fdff9f5c2e6f3"
 }

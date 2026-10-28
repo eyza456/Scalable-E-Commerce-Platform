@@ -43,6 +43,7 @@ Desde la raiz, con Docker Desktop y Python 3.11+:
 python -X utf8 tests/performance_metrics_test.py
 python -X utf8 tests/performance_load.py --smoke
 python -X utf8 tests/performance_load.py
+python -X utf8 tests/performance_report.py
 ```
 
 La ejecucion breve valida el instrumento y la integridad; nunca aprueba los objetivos de carga. La completa dura varios minutos mas construccion/preparacion y devuelve codigo 0 si se cumplen todos los objetivos, 2 si se midio pero no se cumplen, y otro codigo ante fallo de ejecucion. El proyecto de prueba se elimina incluso si no cumple objetivos.

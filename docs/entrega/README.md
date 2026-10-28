@@ -8,7 +8,7 @@ Candidato local para revision funcional, fechado el 28 de octubre de 2026. Inclu
 - [Matriz vigente de 78 requisitos](../auditoria/matriz-requisitos.md): 69 cumplidos, 9 parciales y 0 pendientes tras la medicion; evidencia por archivo/linea. La RC original conserva 69/8/1 en su tag.
 - [Pendientes priorizados y limites](pendientes.md).
 - [Guion de demostracion](demostracion.md) y [resultado ejecutado](demo-resultados.json).
-- [Suite final](../auditoria/resultado-suite.json): 124 unittest y escenarios adicionales, incluida la demostracion.
+- [Suite final](../auditoria/resultado-suite.json): 134 unittest y escenarios adicionales, incluida la demostracion.
 - [Instalacion desde cero](../auditoria/instalacion-desde-cero.md): infraestructura nueva, Alembic, esquemas, compra, eventos y persistencia tras reinicio.
 - [Contrato de checkout](../auditoria/cierre-hallazgos.md), [pagos simulados](../pagos-simulados.md), [API Gateway](../api-gateway.md) y [cancelaciones](../pedidos.md).
 - [Notas de version](notas-version.md).
@@ -27,10 +27,10 @@ El primer comando verifica los servicios actuales con fixtures propios. El segun
 Para regenerar la matriz se necesita pypdf y acceso al PDF original, no versionado en el repositorio. Despues de ejecutar y guardar el log de una suite aprobada:
 
 ```powershell
-python docs/auditoria/generar_auditoria.py --pdf "C:\Users\Usuario\Downloads\Plataforma_escalable_comercio_electronico.pdf" --suite-log docs/auditoria/suite-entrega.log --suite-exit-code 0
+python docs/auditoria/generar_auditoria.py --pdf "C:\Users\Usuario\Downloads\Plataforma_escalable_comercio_electronico.pdf" --suite-log docs/auditoria/suite-outbox.log --suite-exit-code 0
 ```
 
-El generador no ejecuta pruebas. Se debe indicar el codigo observado del runner, no asumirlo. Valida textos, 78 IDs, 124 resultados y enlaces reales. Los criterios de evaluacion se revisan en criterios-revision.json; generar no decide por si solo si un requisito esta cumplido.
+El generador no ejecuta pruebas. Se debe indicar el codigo observado del runner, no asumirlo. Valida textos, 78 IDs, 134 resultados y enlaces reales. Los criterios de evaluacion se revisan en criterios-revision.json; generar no decide por si solo si un requisito esta cumplido.
 
 ## Versionado y publicacion
 
@@ -47,4 +47,4 @@ Los 12 criterios basicos de pp.22-23 del PDF tienen evidencia funcional. Esta RC
 
 ## Medicion posterior a la RC
 
-Se definieron objetivos y se midio carga local a 1/5/10/20 usuarios. El resultado es parcial: p95 de compra 10,839 s frente a limite de 10 s; demas umbrales y consistencia aprobados. Consultar [objetivos](../rendimiento/objetivos.md) y [resultados](../rendimiento/informe.md). La etiqueta v0.1.0-rc.1 no se modifica; estas evidencias se guardan en un commit posterior.
+Se definieron objetivos y se midio carga local a 1/5/10/20 usuarios. Tras optimizar Outbox, p95 de compra mejora de 10,839 a 8,205 s y cumple 10 s, pero historial, checkout y pago exceden otros limites a 20 usuarios. RNF-01 sigue parcial; las 819 compras conservaron integridad. Consultar [objetivos](../rendimiento/objetivos.md) y [resultados](../rendimiento/informe.md). La etiqueta v0.1.0-rc.1 no se modifica; estas evidencias se guardan en un commit posterior.

@@ -39,7 +39,7 @@ Las reservas no caducan automaticamente mientras existe un intento pendiente: el
 powershell -ExecutionPolicy Bypass -File tests/run_stability.ps1
 ```
 
-La suite incluye 124 pruebas de regresion, incluidas las nuevas comprobaciones de checkout, concurrencia del carrito, limites de entrada y fecha final del pago. Tambien verifica la migracion del catalogo con datos antiguos. Usa esquemas PostgreSQL desechables.
+La suite incluye 134 pruebas de regresion, incluidas las nuevas comprobaciones de checkout, concurrencia del carrito, limites de entrada y fecha final del pago. Tambien verifica la migracion del catalogo con datos antiguos. Usa esquemas PostgreSQL desechables.
 
 Ademas comprueba TTL y DLQ reales, una compra HTTP completa y dos escenarios de inventario entre servicios:
 

@@ -17,7 +17,7 @@ No hay defectos funcionales conocidos abiertos de la auditoria anterior. La entr
 
 | Orden | Requisito | Falta y accion concreta | Evidencia para cerrar |
 | --- | --- | --- | --- |
-| 1 / alta | RNF-01, Parcial | Objetivos y carga ya medidos. Optimizar confirmacion eventual: p95 10,839 s excede el limite de 10 s a 20 usuarios; principal candidato Outbox por lotes de 50 y pausas de 5 s | Repetir el mismo perfil sin relajar umbrales; conservar 0 duplicados/doble descuento. [Informe](../rendimiento/informe.md) |
+| 1 / alta | RNF-01, Parcial | Outbox optimizado: compra p95 8,205 s cumple 10 s. Ahora perfilar historial (p95 804 ms), checkout (2.894 ms) y pago (2.489 ms), que exceden sus limites a 20 usuarios | Repetir el mismo perfil sin relajar umbrales ni ocultar mayor carga; conservar integridad. [Comparacion](../rendimiento/informe.md) |
 | 2 / alta | RNF-05/06, Parcial | Permitir replicas sin nombres/puertos host fijos; probar varias instancias de un servicio y concurrencia entre ellas | Despliegue multinstancia y compra sin duplicados, descuento doble ni errores de enrutamiento |
 | 3 / media | RNF-27, Parcial | Ejecutar instalacion limpia en otro host compatible con Docker, Linux y/o macOS | Reporte del mismo fresh_install.py con host/version y resultado; contenedores Linux en Windows no son otro host |
 | 4 / media | RNF-08/21, Parcial | Extraer negocio/SQL de routers, mover inicializacion fuera de importaciones y acotar contratos HTTP entre servicios | Pruebas de contrato y regresion conservadas; modulos con responsabilidades claras |
@@ -42,4 +42,4 @@ Estos pendientes limitan la afirmacion de cumplimiento del PDF; no se han oculta
 - RNF-15: HTTPS futuro. Sigue parcial; imprescindible antes de exposicion productiva.
 - Pasarela real y reembolsos, Elasticsearch, inventario independiente, notificaciones externas, discovery especializado, logs centralizados, Prometheus/Grafana, CI/CD y autoscaling (pp.8,22,36-37).
 
-Son opciones de evolucion del alcance inicial; no se consideran implementadas por existir carpetas de infraestructura o dependencias. El orden recomendado tras revisar esta RC es reducir el p95 de confirmacion de compra, repetir la medicion, verificar replicas y completar portabilidad, antes de anunciar escalabilidad o disponibilidad productiva.
+Son opciones de evolucion del alcance inicial; no se consideran implementadas por existir carpetas de infraestructura o dependencias. El orden recomendado tras revisar esta RC es reducir las latencias de historial, checkout y pago bajo carga, repetir la medicion, verificar replicas y completar portabilidad, antes de anunciar escalabilidad o disponibilidad productiva.

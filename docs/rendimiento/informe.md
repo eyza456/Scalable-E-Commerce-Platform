@@ -1,88 +1,106 @@
-# Rendimiento medido - 28 de octubre de 2026
+# Rendimiento tras optimizar Outbox
 
-**Resultado: objetivos parcialmente cumplidos.** RNF-01 pasa de Pendiente a Parcial: ahora hay objetivos y evidencia de carga, pero la compra completa excede el limite p95 predefinido. No se ajustaron los objetivos para aprobar.
+**Resultado: OBJETIVOS NO CUMPLIDOS.**
 
-## Objetivos y entorno
+Se repitio la misma prueba: objetivos JSON, generador, calculo de metricas y preparacion de entorno con hashes identicos a la linea base. No se relajo ningun umbral. [Linea base preservada](baseline-9b6eeb3/README.md) y [objetivos](objetivos.md).
 
-[Perfil y criterios definidos antes de medir](objetivos.md). Limites: lecturas p95 500 ms/p99 1.000 ms; escrituras 1.500/3.000 ms; pago 2.000/5.000 ms; compra completa 10.000/15.000 ms; errores <1 %; >=20 solicitudes utiles/s y >=100 muestras por operacion en la etapa de 20 usuarios.
+## Cambio y garantias
 
-Host: Windows-11-10.0.26200-SP0; Docker Desktop 29.7.2, 8 CPU y 7.66 GiB. Habia 20 contenedores adicionales activos. Generador en el mismo equipo; no es servidor dedicado. Una instancia de cada servicio, sin replicas. Datos iniciales: 20 usuarios, 100 productos y stock suficiente; pagina de catalogo/historial de 20.
+El worker drena inmediatamente cualquier lote sano, completo o parcial. Cuando la cola esta vacia espera un segundo; si falla una entrega o hay excepcion de DB mantiene el backoff de cinco segundos. Cada lote reutiliza una conexion/canal privados y declara una vez cada destino; conserva ACK por mensaje, mandatory, persistencia, IDs estables, SQL, skip_locked y entrega al menos una vez.
 
-Imagenes nuevas con Python 3.12.16, FastAPI 0.162.0, SQLAlchemy 2.1.6, Uvicorn 0.54.0, HTTPX 0.28.1 y Pika 1.4.4; las dependencias aun no estan fijadas por version.
+Las diez pruebas nuevas verifican drenaje de 120 entregas, backoff con fallos parciales/DB/broker, dos workers concurrentes, recuperacion tras fallo de commit, reutilizacion de canal, NACK, mensajes no enrutables y ausencia de conexiones al broker en vacio. Un fallo de commit despues del ACK puede reenviar el mismo ID; los consumidores siguen siendo idempotentes.
 
-Carga cerrada con conexiones persistentes; preparacion y calentamiento excluidos. Por cada compra se hacen 12 consultas de navegacion; los sondeos se cuentan aparte. La duracion real incluye ciclos iniciados que terminan despues de los 60 s programados. Las etapas se ejecutan en secuencia y el historial crece durante la prueba.
+Se conserva tambien el [primer ensayo intermedio](iteracion-1-c81a190/README.md): solo drenar lotes completos dejo p95 en 10,203 s y no aprobo. La version final agrega menor espera en vacio y conexion por lote sin modificar el instrumento.
 
-## Escalones de carga
+## Comparacion a 20 usuarios
 
-| Usuarios | Duracion real (s) | HTTP | HTTP/s total | HTTP/s util, sin sondeos | Errores | Compras medidas | Compra p95 (s) | Compra p99 (s) |
-| ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| 1 | 60.12 | 316 | 5.26 | 3.19 | 0.00% | 12 | 5.380 | 5.380 |
-| 5 | 63.25 | 1591 | 25.15 | 15.18 | 0.00% | 60 | 5.384 | 5.408 |
-| 10 | 62.98 | 2935 | 46.60 | 27.95 | 0.00% | 110 | 6.889 | 7.403 |
-| 20 | 65.86 | 4865 | 73.87 | 41.30 | 0.00% | 170 | 10.839 | 11.104 |
+| Metrica | Antes | Despues | Objetivo |
+| --- | ---: | ---: | ---: |
+| Compra p95 (s) | 10.839 | 8.205 | <=10 |
+| Compra p99 (s) | 11.104 | 10.702 | <=15 |
+| Solicitudes utiles/s | 41.30 | 58.47 | >=20 |
+| Errores HTTP inesperados (%) | 0.00 | 0.00 | <1 |
+| Compras medidas a 20 usuarios | 170 | 221 | >=100 |
 
-## Latencia con 20 usuarios
+Reduccion observada de p95: **24.30%**. Es una comparacion de dos ejecuciones locales, no una demostracion de causalidad exclusiva ni una estimacion de capacidad productiva.
 
-| Operacion | Muestras | p50 (ms) | p95 (ms) | p99 (ms) | Limites p95/p99 (ms) | Estado |
+## Etapas de la nueva ejecucion
+
+| Usuarios | Segundos reales | HTTP | HTTP/s total | HTTP/s util | Errores (%) | Compra p95 (s) | Compra p99 (s) |
+| ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| 1 | 59.99 | 1058 | 17.64 | 15.40 | 0.00 | 1.288 | 1.353 |
+| 5 | 61.11 | 4066 | 66.53 | 58.12 | 0.00 | 1.972 | 2.322 |
+| 10 | 61.50 | 4922 | 80.03 | 69.14 | 0.00 | 3.219 | 3.821 |
+| 20 | 61.71 | 4208 | 68.19 | 58.47 | 0.00 | 8.205 | 10.702 |
+
+## Todos los objetivos de latencia a 20 usuarios
+
+| Operacion | Muestras | p50 (ms) | p95 (ms) | p99 (ms) | Limite p95/p99 (ms) | Estado |
 | --- | ---: | ---: | ---: | ---: | --- | --- |
-| catalog | 510 | 13.78 | 87.04 | 104.51 | 500/1000 | Cumple |
-| product | 510 | 12.31 | 80.84 | 96.31 | 500/1000 | Cumple |
-| profile | 510 | 7.86 | 29.96 | 59.04 | 500/1000 | Cumple |
-| history | 510 | 66.65 | 164.88 | 196.36 | 500/1000 | Cumple |
-| cart_read | 170 | 7.25 | 67.28 | 79.77 | 500/1000 | Cumple |
-| cart_add | 170 | 38.94 | 104.64 | 150.86 | 1500/3000 | Cumple |
-| checkout | 170 | 360.61 | 720.91 | 868.71 | 1500/3000 | Cumple |
-| payment | 170 | 214.39 | 504.07 | 664.71 | 2000/5000 | Cumple |
-| purchase_flow | 170 | 5957.89 | 10839.01 | 11103.89 | 10000/15000 | No cumple |
+| catalog | 681 | 41.44 | 242.64 | 316.64 | 500/1000 | Cumple |
+| product | 681 | 37.54 | 230.79 | 289.38 | 500/1000 | Cumple |
+| profile | 681 | 21.00 | 75.98 | 119.02 | 500/1000 | Cumple |
+| history | 681 | 268.99 | 804.31 | 1141.18 | 500/1000 | No cumple |
+| cart_read | 221 | 19.72 | 172.84 | 209.31 | 500/1000 | Cumple |
+| cart_add | 221 | 91.19 | 306.77 | 458.32 | 1500/3000 | Cumple |
+| checkout | 221 | 1046.24 | 2894.15 | 3842.41 | 1500/3000 | No cumple |
+| payment | 221 | 632.62 | 2488.61 | 3440.87 | 2000/5000 | No cumple |
+| purchase_flow | 221 | 3401.40 | 8205.08 | 10702.00 | 10000/15000 | Cumple |
 
-Se midieron **9707 solicitudes HTTP** sin errores inesperados. A 20 usuarios se sostuvieron **41.30 solicitudes utiles/s**, por encima del minimo 20. Cada operacion critica tiene al menos 170 muestras. El unico criterio incumplido es purchase_flow.p95: **10,839 s frente a 10 s**, un exceso de 0,839 s (8,39 %).
+## Incumplimientos que siguen abiertos
 
-El tiempo de compra incluye crear carrito/pedido, pagar y esperar mediante sondeos hasta observar PAID. No es solamente la latencia de POST /payments. Los sondeos a intervalos de 500 ms anaden resolucion temporal a la observacion.
+La compra completa entra en su objetivo, pero no se aprueba RNF-01 mientras fallen otros limites. No se han relajado umbrales ni se ha reducido la carga para ocultarlo.
 
-## Integridad bajo carga
+| Criterio | Medido | Limite |
+| --- | ---: | ---: |
+| history.p95_ms | 804.31 | 500 |
+| history.p99_ms | 1141.18 | 1000 |
+| checkout.p95_ms | 2894.15 | 1500 |
+| checkout.p99_ms | 3842.41 | 3000 |
+| payment.p95_ms | 2488.61 | 2000 |
 
-Se verificaron por SQL **372 compras** contando el calentamiento: 372 pedidos PAID, 372 pagos PAID, 372 reservas CONSUMED, 372 eventos de inventario procesados y 1.116 entregas Outbox PUBLISHED. Stock inicial 1.000.000 y final 999.628. Sin pagos duplicados por pedido, checkouts inconclusos, pagos rechazados inesperados, eventos pendientes ni errores de los usuarios virtuales. Las 352 compras de las etapas medidas excluyen las 20 del calentamiento.
+Al reducir la espera se procesa mas trafico y se generan mas pedidos durante las mismas etapas. Los historiales crecen mas que en la linea base; no es una comparacion de bases con cardinalidad final identica. El perfil inicial, tiempos, objetivos y generador si permanecen iguales.
 
-## Recursos observados
+El siguiente trabajo es perfilar SQL y tiempos de espera del historial, y las llamadas HTTP/ocupacion de conexiones de checkout y pago bajo 20 usuarios. En el codigo actual se crean clientes HTTP sin reutilizacion por muchas llamadas entre servicios; es un candidato a investigar, no una causa demostrada por esta medicion. Medir trazas y planes antes de cambiar otros componentes. Mantener la mejora Outbox y repetir el mismo perfil despues de corregir esos puntos.
 
-docker stats se muestreo aproximadamente cada cinco segundos mas el tiempo de la consulta. CPU 100 % equivale aproximadamente a un nucleo, no al total de ocho CPU; los picos de distintos servicios no necesariamente coinciden. Los limites de memoria no estan configurados por servicio.
+## Integridad
 
-| Contenedor | CPU media (%) | CPU maxima (%) | RAM maxima (MiB) | Muestras |
+14254 solicitudes HTTP medidas; 0 errores inesperados. Compras totales contando calentamiento: 819. Integridad: APROBADA.
+
+Pagos: {'paid': 819, 'other': 0, 'duplicate_orders': 0, 'published': 2457}. Pedidos: {'paid': 819, 'other': 0, 'unfinished_checkouts': 0}. Inventario: {'stock': 999181, 'consumed': 819, 'other': 0, 'processed_events': 819}.
+
+## Entorno y recursos
+
+Host Windows-11-10.0.26200-SP0; Docker 29.7.2, 8 CPU y 7.66 GiB. Contenedores adicionales activos: antes 20, despues 20. Generador y servicios comparten equipo. Versiones de dependencias iguales: True. Versiones medidas: {'python': '3.12.16', 'fastapi': '0.162.0', 'sqlalchemy': '2.1.6', 'uvicorn': '0.54.0', 'httpx': '0.28.1', 'pika': '1.4.4', 'psycopg2-binary': '2.9.13'}.
+
+CPU 100 % representa aproximadamente un nucleo. Se muestrea cada cinco segundos mas el tiempo de docker stats; los maximos no necesariamente coinciden. No hay limites de recursos por servicio.
+
+| Servicio | CPU media (%) | CPU maxima (%) | RAM maxima (MiB) | Muestras |
 | --- | ---: | ---: | ---: | ---: |
-| order-service | 28.84 | 144.26 | 142.70 | 36 |
-| rabbitmq | 28.41 | 117.58 | 199.20 | 36 |
-| payment-service | 10.50 | 50.02 | 161.90 | 36 |
-| product-service | 10.05 | 47.67 | 100.40 | 36 |
-| cart-service | 6.28 | 36.08 | 114.70 | 36 |
-| order-db | 5.19 | 33.35 | 52.18 | 36 |
-| user-service | 3.83 | 17.73 | 89.91 | 36 |
-| product-db | 2.65 | 16.85 | 45.95 | 36 |
-| payment-db | 2.30 | 14.26 | 44.32 | 36 |
-| api-gateway | 2.38 | 11.25 | 9.40 | 36 |
-| user-db | 1.69 | 9.45 | 45.61 | 36 |
-| redis | 1.17 | 5.42 | 10.12 | 36 |
-| notification-service | 0.23 | 1.09 | 37.88 | 36 |
+| order-service | 76.30 | 157.84 | 144.30 | 34 |
+| rabbitmq | 50.91 | 146.27 | 209.10 | 34 |
+| payment-service | 36.32 | 88.34 | 181.40 | 34 |
+| product-service | 35.19 | 71.97 | 102.80 | 34 |
+| order-db | 14.29 | 50.49 | 63.39 | 34 |
+| cart-service | 17.16 | 41.95 | 130.80 | 34 |
+| user-service | 12.56 | 39.38 | 89.67 | 34 |
+| payment-db | 6.81 | 24.59 | 48.43 | 34 |
+| product-db | 8.57 | 21.44 | 44.89 | 34 |
+| api-gateway | 5.27 | 17.55 | 12.96 | 34 |
+| user-db | 3.47 | 15.82 | 41.69 | 34 |
+| redis | 2.71 | 10.61 | 16.21 | 34 |
+| notification-service | 0.59 | 1.65 | 40.06 | 34 |
 
-## Interpretacion y siguiente cambio recomendado
+## Alcance y reproducibilidad
 
-Las APIs responden dentro de los limites; el mayor retraso aparece al esperar que el evento cambie el pedido a PAID. El principal candidato es el despacho Outbox: dispatch_pending procesa hasta 50 entregas y run_outbox espera cinco segundos despues de cada lote. Cada pago genera tres entregas. Una rafaga de 20 pagos genera 60 entregas y puede necesitar dos rondas de despacho. Este mecanismo es coherente con el salto a aproximadamente 11 s de compra en las colas altas, pero no se ha hecho una comparacion A/B que demuestre causalidad exclusiva.
+Carga cerrada a 1/5/10/20 usuarios, 60 segundos programados por etapa y 15 segundos de calentamiento excluido. La duracion real incluye ciclos en curso. Preparacion, registro y login fuera de la medida. Catalogo de 100 productos; paginas de 20; compra de un producto compartido con stock suficiente; historiales pequenos que crecen por etapa. Los sondeos quedan fuera del throughput util; la compra termina al observar PAID. Integridad de inventario y eventos se verifica despues de drenar pendientes.
 
-Siguiente trabajo: drenar lotes consecutivos cuando haya pendientes, conservando skip_locked, transaccion, reintentos y entrega al menos una vez; esperar solo cuando no haya trabajo o se aplique backoff. Repetir exactamente este perfil y mantener los objetivos. Si aun falla, instrumentar created_at/published_at/consumo y trazar el flujo antes de cambiar otros componentes. No se modifico el codigo funcional en esta medicion.
-
-## Limites de la evidencia
-
-Es una medicion local de cuatro etapas de un minuto, con historiales pequenos y un solo producto comprado. No demuestra carga sostenida de horas, picos abiertos de llegadas, catalogos grandes, escala horizontal, otros hosts o capacidad productiva. Un generador cerrado reduce su ritmo cuando aumenta la latencia; no permite inferir la cola de llegadas a una tasa externa fija. Los percentiles p99 son estimaciones con 170 compras a carga maxima. La contencion con otros contenedores y el generador local influyen en los resultados.
-
-## Reproducir y revisar
+No demuestra sostenibilidad durante horas, saturacion, tasas abiertas de llegada, grandes bases, replicas, otros hosts ni SLA de produccion. Hay diferencias de carga externa no controladas entre ejecuciones. Las dependencias no estan fijadas, aunque se registran y comparan versiones. La instalacion habitual no se modifica por el benchmark y el proyecto aislado se elimina al terminar.
 
 ```powershell
 python -X utf8 tests/performance_metrics_test.py
-python -X utf8 tests/performance_load.py --smoke
 python -X utf8 tests/performance_load.py
+python -X utf8 tests/performance_report.py
 ```
 
-La prueba breve paso y se aprobaron seis tests del calculo/evaluacion de metricas. La ejecucion completa termino normalmente, guardo evidencias y elimino exclusivamente su proyecto Docker; el instrumento senala no aceptacion porque hay un objetivo incumplido. La instalacion habitual continuo activa. La etiqueta v0.1.0-rc.1 no se mueve.
-
-[Resultado estructurado](resultado.json), [CSV por operacion/etapa](metricas.csv), [muestras crudas](resultado-muestras.jsonl), [recursos crudos](resultado-recursos.json), [recursos resumidos](recursos-resumen.json), [validacion breve](smoke.json), [huellas de evidencia](evidencias.json). Log local: ejecucion.log.
-
-Las huellas de evidencias normalizan CRLF a LF para permitir verificacion entre checkouts Windows/Linux. source_commit identifica la base de la aplicacion medida; los hashes identifican ademas las herramientas nuevas de carga. La matriz distingue Parcial (medido con objetivo incumplido) de Pendiente (sin evidencia).
+[Resultado](resultado.json), [CSV](metricas.csv), [muestras](resultado-muestras.jsonl), [recursos](resultado-recursos.json), [recursos resumidos](recursos-resumen.json), [comparacion JSON](comparacion-outbox.json), [hashes](evidencias.json), [linea base completa](baseline-9b6eeb3/informe.md). Log local: ejecucion.log. La etiqueta v0.1.0-rc.1 permanece intacta.
