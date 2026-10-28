@@ -1,0 +1,935 @@
+{
+  "files": {
+    "auth": "services/user-service/app/routers/auth.py",
+    "users": "services/user-service/app/routers/users.py",
+    "usecurity": "services/user-service/app/core/security.py",
+    "uauth": "services/user-service/app/dependencies/auth.py",
+    "umodel": "services/user-service/app/models/user.py",
+    "uschema": "services/user-service/app/schemas/user.py",
+    "product": "services/product-service/app/crud/product.py",
+    "products": "services/product-service/app/routers/products.py",
+    "pmodel": "services/product-service/app/models/product.py",
+    "categories": "services/product-service/app/routers/categories.py",
+    "psecurity": "services/product-service/app/core/security.py",
+    "cart": "services/cart-service/app/routers/cart.py",
+    "redis": "services/cart-service/app/redis_client.py",
+    "orders": "services/order-service/app/routers/orders.py",
+    "omodel": "services/order-service/app/models.py",
+    "ocancel": "services/order-service/app/cancellations.py",
+    "orabbit": "services/order-service/app/rabbitmq.py",
+    "osecurity": "services/order-service/app/core/security.py",
+    "payments": "services/payment-service/app/routers/payments.py",
+    "payment_model": "services/payment-service/app/models/payment.py",
+    "inventory": "services/payment-service/app/inventory.py",
+    "outbox": "services/payment-service/app/outbox.py",
+    "reservations": "services/product-service/app/reservations.py",
+    "validation": "services/product-service/app/services/payment_validation.py",
+    "msg": "services/order-service/app/messaging.py",
+    "compose": "docker-compose.yml",
+    "gw": "gateway/nginx.conf",
+    "proxy": "gateway/proxy.inc",
+    "gwdocker": "gateway/Dockerfile",
+    "config": "services/payment-service/app/core/config.py",
+    "pmain": "services/payment-service/app/main.py",
+    "nmain": "services/notification-service/app/main.py",
+    "runner": "tests/run_stability.ps1",
+    "catalogtest": "tests/catalog_stability.py",
+    "profiletest": "tests/profile_stability.py",
+    "usertest": "tests/user_stability.py",
+    "ordertest": "tests/order_stability.py",
+    "paytest": "tests/payment_stability.py",
+    "stocktest": "tests/product_stability.py",
+    "gatewaytest": "tests/gateway_stability.py",
+    "resilience": "tests/gateway_resilience.py",
+    "purchase": "tests/smoke_purchase.py",
+    "httpinventory": "tests/smoke_inventory.py",
+    "httporders": "tests/smoke_orders.py",
+    "httpprofile": "tests/smoke_profile.py",
+    "httpcatalog": "tests/smoke_catalog.py",
+    "probes": "tests/audit_probes.py",
+    "git": "docs/auditoria/estado-entorno.json",
+    "checkout": "services/order-service/app/checkouts.py",
+    "storage": "services/cart-service/app/storage.py",
+    "checkouttest": "tests/checkout_stability.py",
+    "carttest": "tests/cart_stability.py",
+    "inputtest": "tests/input_limits.py",
+    "auditfixes": "tests/smoke_audit_fixes.py",
+    "rejections": "tests/smoke_payment_rejections.py",
+    "fresh": "tests/fresh_install.py",
+    "demo": "tests/demo_release.py",
+    "umigration": "services/user-service/migrations/002_email_length.sql"
+  },
+  "requirements": {
+    "RF-01": [
+      "Cumplido",
+      [
+        "auth@register"
+      ],
+      [
+        "purchase",
+        "inputtest@test_long_valid_email_registers_and_logs_in"
+      ],
+      "Registro por HTTP, incluido correo valido largo y errores controlados en limites de entrada."
+    ],
+    "RF-02": [
+      "Cumplido",
+      [
+        "auth@register",
+        "umodel@__table_args__"
+      ],
+      [
+        "profiletest@test_concurrent_email_claims_only_allow_one_account",
+        "httpprofile"
+      ],
+      "Duplicados controlados; indice unico lower(email) tambien protege concurrencia."
+    ],
+    "RF-03": [
+      "Cumplido",
+      [
+        "auth@login"
+      ],
+      [
+        "httpprofile",
+        "purchase"
+      ],
+      "Login real con credenciales y con el nuevo correo tras actualizar perfil."
+    ],
+    "RF-04": [
+      "Cumplido",
+      [
+        "usecurity@create_access_token",
+        "auth@login"
+      ],
+      [
+        "profiletest@test_email_update_renews_token"
+      ],
+      "JWT firmado y con expiracion."
+    ],
+    "RF-05": [
+      "Cumplido",
+      [
+        "uauth@get_current_user",
+        "psecurity@get_current_user"
+      ],
+      [
+        "gatewaytest@test_protected_routes_keep_backend_authentication"
+      ],
+      "Rutas protegidas exigen JWT; no se afirma revocacion centralizada de tokens."
+    ],
+    "RF-06": [
+      "Cumplido",
+      [
+        "users@get_me"
+      ],
+      [
+        "usertest@test_profile_route_returns_profile_and_uses_normal_authentication",
+        "httpprofile"
+      ],
+      "Consulta de la propia cuenta."
+    ],
+    "RF-07": [
+      "Cumplido",
+      [
+        "users@update_me"
+      ],
+      [
+        "profiletest",
+        "httpprofile"
+      ],
+      "Actualizacion parcial de nombre/correo; se rechazan campos privilegiados y se renueva JWT."
+    ],
+    "RF-08": [
+      "Cumplido",
+      [
+        "umodel@role = Column",
+        "psecurity@require_roles"
+      ],
+      [
+        "httpcatalog"
+      ],
+      "Roles Customer, admin y seller; falta un endpoint de asignacion de roles del diseno, ver D-01."
+    ],
+    "RF-09": [
+      "Cumplido",
+      [
+        "psecurity@require_roles",
+        "osecurity@require_admin"
+      ],
+      [
+        "httpcatalog",
+        "httpprofile"
+      ],
+      "Permisos por rol en operaciones administrativas."
+    ],
+    "RF-10": [
+      "Cumplido",
+      [
+        "usecurity@hash_password",
+        "uschema@bcrypt_input"
+      ],
+      [
+        "inputtest"
+      ],
+      "bcrypt sin truncamiento: maximo 72 bytes UTF-8 validado antes del hash."
+    ],
+    "RF-11": [
+      "Cumplido",
+      [
+        "products@create_new_product",
+        "product@create_product"
+      ],
+      [
+        "gatewaytest@test_profile_catalog_cart_purchase_history_and_cancel_through_gateway"
+      ],
+      "Alta con permisos y categoria existente."
+    ],
+    "RF-12": [
+      "Cumplido",
+      [
+        "products@read_products",
+        "product@get_products"
+      ],
+      [
+        "catalogtest@test_unavailable_includes_inactive_and_out_of_stock"
+      ],
+      "El filtro available=true permite listar disponibles; el listado sin filtro tambien incluye inactivos."
+    ],
+    "RF-13": [
+      "Cumplido",
+      [
+        "products@read_product"
+      ],
+      [
+        "purchase"
+      ],
+      "Detalle publico por ID y 404 cuando no existe."
+    ],
+    "RF-14": [
+      "Cumplido",
+      [
+        "products@update_existing_product",
+        "product@update_product"
+      ],
+      [
+        "httpcatalog"
+      ],
+      "Actualizacion con permisos y validacion de categoria."
+    ],
+    "RF-15": [
+      "Cumplido",
+      [
+        "product@delete_product"
+      ],
+      [
+        "httpcatalog"
+      ],
+      "Eliminacion autorizada; se impide borrar productos con reservas pendientes."
+    ],
+    "RF-16": [
+      "Cumplido",
+      [
+        "categories",
+        "pmodel@category_id"
+      ],
+      [
+        "catalogtest@test_category_assignment_and_legacy_name"
+      ],
+      "Categorias relacionadas por FK; compatibilidad con nombre antiguo y migracion de datos."
+    ],
+    "RF-17": [
+      "Cumplido",
+      [
+        "product@get_products"
+      ],
+      [
+        "catalogtest@test_search_treats_percent_and_underscore_as_literal"
+      ],
+      "Busqueda parcial por nombre y filtros combinables; no es busqueda avanzada Elasticsearch."
+    ],
+    "RF-18": [
+      "Cumplido",
+      [
+        "reservations@reserve",
+        "products@decrease_product_stock"
+      ],
+      [
+        "stocktest@test_competing_orders_cannot_reserve_same_units"
+      ],
+      "Stock disponible y reservas atomicas; descuento idempotente y liberacion coordinada."
+    ],
+    "RF-19": [
+      "Cumplido",
+      [
+        "product@get_products",
+        "pmodel@is_active"
+      ],
+      [
+        "catalogtest@test_unavailable_includes_inactive_and_out_of_stock"
+      ],
+      "Disponibilidad expresada por stock/is_active y filtro available; no existe campo de respuesta available como en el ejemplo del PDF."
+    ],
+    "RF-20": [
+      "Cumplido",
+      [
+        "products@create_new_product",
+        "psecurity@require_roles"
+      ],
+      [
+        "httpcatalog"
+      ],
+      "CRUD y descuento manual de stock protegidos por admin/seller."
+    ],
+    "RF-21": [
+      "Cumplido",
+      [
+        "cart@add_item_to_cart",
+        "cart@get_cart"
+      ],
+      [
+        "purchase"
+      ],
+      "Carrito Redis separado por identificador del JWT."
+    ],
+    "RF-22": [
+      "Cumplido",
+      [
+        "cart@add_item_to_cart",
+        "storage@atomic"
+      ],
+      [
+        "carttest@test_concurrent_adds_keep_every_unit",
+        "auditfixes"
+      ],
+      "Altas atomicas Redis, 20 operaciones simultaneas conservan 20 unidades por HTTP."
+    ],
+    "RF-23": [
+      "Cumplido",
+      [
+        "cart@update_cart_item"
+      ],
+      [
+        "gatewaytest@test_profile_catalog_cart_purchase_history_and_cancel_through_gateway"
+      ],
+      "Actualizacion de cantidad con comprobacion de stock en ese momento."
+    ],
+    "RF-24": [
+      "Cumplido",
+      [
+        "cart@delete_cart_item"
+      ],
+      [
+        "carttest@test_item_delete_and_clear_are_versioned",
+        "demo@main"
+      ],
+      "Eliminacion individual comprobada en Redis y por HTTP en la demostracion."
+    ],
+    "RF-25": [
+      "Cumplido",
+      [
+        "cart@clear_cart",
+        "storage@finish"
+      ],
+      [
+        "carttest@test_late_commit_cannot_delete_new_cart",
+        "demo@main"
+      ],
+      "Vaciado explicito y finalizacion idempotente; una confirmacion tardia no borra un carrito nuevo."
+    ],
+    "RF-26": [
+      "Cumplido",
+      [
+        "cart@get_cart"
+      ],
+      [
+        "gatewaytest@test_profile_catalog_cart_purchase_history_and_cancel_through_gateway"
+      ],
+      "Contenido y totales del propio carrito."
+    ],
+    "RF-27": [
+      "Cumplido",
+      [
+        "cart@get_cart"
+      ],
+      [
+        "purchase"
+      ],
+      "Subtotal y total calculados con Decimal a partir del snapshot del carrito."
+    ],
+    "RF-28": [
+      "Cumplido",
+      [
+        "checkout@validate_products",
+        "checkout@process_checkout"
+      ],
+      [
+        "checkouttest",
+        "auditfixes"
+      ],
+      "Al crear pedido se revalidan existencia, actividad, stock y precio. Precio cambiado: 409 hasta refrescar el articulo; reserva efectiva al pagar."
+    ],
+    "RF-29": [
+      "Cumplido",
+      [
+        "orders@create_order",
+        "checkout@begin_checkout",
+        "checkout@process_checkout"
+      ],
+      [
+        "checkouttest@test_concurrent_checkouts_create_exactly_one_order",
+        "demo@main"
+      ],
+      "Checkout durable por version del carrito, un unico pedido ante concurrencia y recuperacion tras interrupcion."
+    ],
+    "RF-30": [
+      "Cumplido",
+      [
+        "omodel@Order",
+        "omodel@Checkout"
+      ],
+      [
+        "checkouttest@test_retry_after_lost_response_returns_original_order"
+      ],
+      "PK del pedido y checkout_id unico: una repeticion recupera el pedido original."
+    ],
+    "RF-31": [
+      "Cumplido",
+      [
+        "omodel@created_at"
+      ],
+      [
+        "ordertest"
+      ],
+      "Fecha/hora de creacion almacenada en orders."
+    ],
+    "RF-32": [
+      "Cumplido",
+      [
+        "orders@create_order",
+        "omodel@user_id"
+      ],
+      [
+        "httporders"
+      ],
+      "Asocia user_id del JWT emitido por registro/login; no hay FK entre bases independientes ni introspeccion de usuario en cada servicio."
+    ],
+    "RF-33": [
+      "Cumplido",
+      [
+        "omodel@OrderItem",
+        "orders@create_order"
+      ],
+      [
+        "ordertest@test_history_only_contains_owner_and_stable_order"
+      ],
+      "Items, cantidades y snapshot del producto persistidos."
+    ],
+    "RF-34": [
+      "Cumplido",
+      [
+        "checkout@validate_products"
+      ],
+      [
+        "checkouttest@test_revalidates_catalog_and_recomputes_total",
+        "demo@main"
+      ],
+      "Order recalcula subtotal y total con Decimal a partir de cantidades y precios actuales revalidados; no confia en cart.total."
+    ],
+    "RF-35": [
+      "Cumplido",
+      [
+        "orders@list_orders"
+      ],
+      [
+        "ordertest@test_history_only_contains_owner_and_stable_order",
+        "httporders"
+      ],
+      "Historial privado, filtrado por estado y paginado con orden estable."
+    ],
+    "RF-36": [
+      "Cumplido",
+      [
+        "orders@get_order"
+      ],
+      [
+        "httporders"
+      ],
+      "Detalle restringido al propietario."
+    ],
+    "RF-37": [
+      "Cumplido",
+      [
+        "orders@update_order_status",
+        "ocancel@finish_cancellation"
+      ],
+      [
+        "ordertest",
+        "httporders"
+      ],
+      "PENDING, PAID, PROCESSING, SHIPPED, DELIVERED, CANCELLED y estado adicional recuperable CANCELLING."
+    ],
+    "RF-38": [
+      "Cumplido",
+      [
+        "orders@update_order_status",
+        "osecurity@require_admin"
+      ],
+      [
+        "demo@main"
+      ],
+      "Cadena HTTP PAID -> PROCESSING -> SHIPPED -> DELIVERED con token admin; el cliente recibe 403. La demo usa un token administrativo efimero de fixture."
+    ],
+    "RF-39": [
+      "Cumplido",
+      [
+        "payments@create_payment"
+      ],
+      [
+        "paytest@test_payment_and_three_deliveries_commit_together"
+      ],
+      "Intento durable asociado a pedido y propietario."
+    ],
+    "RF-40": [
+      "Cumplido",
+      [
+        "inventory@settle_payment",
+        "payment_model@status = Column"
+      ],
+      [
+        "paytest@test_insufficient_stock_rejects_without_paid_event"
+      ],
+      "Registra PENDING, PAID, REJECTED o CANCELLED."
+    ],
+    "RF-41": [
+      "Cumplido",
+      [
+        "inventory@SIMULATED_REJECTIONS",
+        "inventory@settle_payment"
+      ],
+      [
+        "paytest@test_simulated_rejections_are_durable_without_stock_or_events",
+        "rejections"
+      ],
+      "Aprobacion y rechazos de fondos, vencimiento, emisor o stock; motivo y fecha persistidos."
+    ],
+    "RF-42": [
+      "Cumplido",
+      [
+        "inventory@settle_payment",
+        "outbox@dispatch_pending",
+        "orabbit@process_payment_completed"
+      ],
+      [
+        "purchase",
+        "gatewaytest"
+      ],
+      "Actualizacion eventual mediante Outbox/RabbitMQ; compra completa y recuperacion verificadas."
+    ],
+    "RF-43": [
+      "Cumplido",
+      [
+        "inventory@settle_payment"
+      ],
+      [
+        "rejections",
+        "demo@main"
+      ],
+      "El rechazo conserva PENDING para otro intento; cancelacion es explicita. Regla documentada conforme a la alternativa permitida por RF-43; difiere del dibujo p.36."
+    ],
+    "RF-44": [
+      "Cumplido",
+      [
+        "payment_model@processed_at",
+        "inventory@settle_payment"
+      ],
+      [
+        "paytest@test_terminal_timestamp_is_set_once_after_pending_recovery",
+        "rejections"
+      ],
+      "processed_at UTC registra resolucion final PAID/REJECTED/CANCELLED, sin cambiar en reintentos. Historicos sin fecha real permanecen NULL."
+    ],
+    "RF-45": [
+      "Cumplido",
+      [
+        "payments@create_payment",
+        "inventory@SIMULATED_REJECTIONS"
+      ],
+      [
+        "rejections",
+        "demo@main"
+      ],
+      "Simulacion determinista; resultado inmutable por intento PENDING. No hay cobros reales."
+    ],
+    "RF-46": [
+      "Cumplido",
+      [
+        "compose@api-gateway:",
+        "gw"
+      ],
+      [
+        "gatewaytest"
+      ],
+      "Entrada central http://localhost:8000. Acceso directo de depuracion sigue publicado; ver D-07."
+    ],
+    "RF-47": [
+      "Cumplido",
+      [
+        "gw",
+        "proxy"
+      ],
+      [
+        "gatewaytest@test_profile_catalog_cart_purchase_history_and_cancel_through_gateway"
+      ],
+      "Enrutamiento efectivo a los cinco servicios funcionales y categorias."
+    ],
+    "RF-48": [
+      "Cumplido",
+      [
+        "gw"
+      ],
+      [
+        "gatewaytest@test_unknown_routes_do_not_reach_arbitrary_backends"
+      ],
+      "Rutas /api/auth, users, products, categories, cart, orders y payments definidas."
+    ],
+    "RF-49": [
+      "Parcial",
+      [
+        "gw@resolver",
+        "proxy@proxy_pass"
+      ],
+      [
+        "resilience"
+      ],
+      "Base Nginx/DNS preparada y recuperacion por cambio de IP probada; no hay balanceo configurado ni prueba de varias replicas. Capacidad futura, no bloqueo del MVP inicial."
+    ],
+    "RF-50": [
+      "Cumplido",
+      [
+        "gw",
+        "proxy"
+      ],
+      [
+        "gatewaytest@test_internal_paths_are_not_public_even_with_key_header",
+        "resilience"
+      ],
+      "Politicas centrales: bloqueo de rutas internas, retirada de clave interna, IP reenviada y trazabilidad. JWT sigue en servicios."
+    ],
+    "RNF-01": [
+      "Pendiente",
+      [
+        "runner"
+      ],
+      [],
+      "Pendiente de evidencia: no hay SLO, umbrales, prueba de carga ni medicion p95/p99. Las duraciones de unittest no demuestran rendimiento adecuado."
+    ],
+    "RNF-02": [
+      "Cumplido",
+      [
+        "storage@atomic",
+        "checkout@lock_user",
+        "inventory@settle_payment"
+      ],
+      [
+        "carttest",
+        "checkouttest",
+        "paytest@test_simultaneous_payments_only_create_one_payment",
+        "auditfixes"
+      ],
+      "Concurrencia funcional comprobada en carrito, checkout, pagos e inventario. No demuestra capacidad bajo carga ni replicas; esas limitaciones se evalúan aparte."
+    ],
+    "RNF-03": [
+      "Cumplido",
+      [
+        "redis",
+        "compose@redis:"
+      ],
+      [
+        "purchase"
+      ],
+      "Redis integrado permite ampliar cache. Hoy almacena carritos; no se afirma cache del catalogo ni mejoras de rendimiento medidas."
+    ],
+    "RNF-04": [
+      "Cumplido",
+      [
+        "umodel@__table_args__",
+        "pmodel@category_id",
+        "omodel@user_id"
+      ],
+      [
+        "catalogtest"
+      ],
+      "Indices PK, email normalizado, categorias y usuarios. No se hicieron EXPLAIN ni benchmark de consultas."
+    ],
+    "RNF-05": [
+      "Parcial",
+      [
+        "compose@container_name: user-service",
+        "compose@ports:"
+      ],
+      [
+        "paytest"
+      ],
+      "Separacion por servicio presente, pero container_name y puertos host fijos impiden --scale directo de servicios. Falta despliegue de replicas verificado."
+    ],
+    "RNF-06": [
+      "Parcial",
+      [
+        "compose@container_name: product-service",
+        "outbox@dispatch_pending"
+      ],
+      [
+        "paytest",
+        "stocktest"
+      ],
+      "Bloqueos/skip_locked ayudan a replicas; Compose impone nombre/puerto unicos y no se probo un despliegue multinstancia."
+    ],
+    "RNF-07": [
+      "Parcial",
+      [
+        "compose",
+        "gwdocker"
+      ],
+      [],
+      "Base en contenedores y variables de entorno; no hay manifiestos ni verificacion Kubernetes. Preparacion futura, fuera del MVP inicial segun pagina 8."
+    ],
+    "RNF-08": [
+      "Parcial",
+      [
+        "validation@verify_payment_and_order",
+        "orders@create_order",
+        "config"
+      ],
+      [
+        "resilience"
+      ],
+      "Bases independientes y contratos HTTP/eventos, pero consumidores validan contra otras APIs y checkout depende de Cart. Minimizar acoplamiento sigue parcial."
+    ],
+    "RNF-09": [
+      "Cumplido",
+      [
+        "auth@register",
+        "umodel@password_hash"
+      ],
+      [
+        "profiletest@test_partial_name_update_keeps_email_password_and_role"
+      ],
+      "Se persiste hash; no un campo de contrasena en claro."
+    ],
+    "RNF-10": [
+      "Cumplido",
+      [
+        "usecurity@hash_password",
+        "usecurity@verify_password"
+      ],
+      [
+        "inputtest"
+      ],
+      "bcrypt con validacion de bytes; 72 ASCII o 36 caracteres e acentuada admitidos, superiores rechazados sin truncar."
+    ],
+    "RNF-11": [
+      "Cumplido",
+      [
+        "usecurity@create_access_token",
+        "uauth@get_current_user"
+      ],
+      [
+        "gatewaytest@test_protected_routes_keep_backend_authentication"
+      ],
+      "JWT firmado, expiracion y autenticacion ejercitadas por HTTP."
+    ],
+    "RNF-12": [
+      "Cumplido",
+      [
+        "uschema@bcrypt_input",
+        "umodel@email = Column",
+        "checkout@validate_products"
+      ],
+      [
+        "inputtest",
+        "auditfixes",
+        "rejections"
+      ],
+      "Limites bcrypt/DB alineados; correo hasta 254; errores de longitud y simulacion desconocida devuelven 422; no se afirma fuzzing exhaustivo de todas las APIs."
+    ],
+    "RNF-13": [
+      "Cumplido",
+      [
+        "psecurity@require_roles",
+        "osecurity@require_admin",
+        "users@update_me"
+      ],
+      [
+        "httpcatalog",
+        "httpprofile"
+      ],
+      "Roles protegen operaciones administrativas y perfil rechaza campos privilegiados."
+    ],
+    "RNF-14": [
+      "Cumplido",
+      [
+        "config",
+        "compose"
+      ],
+      [],
+      "Secretos se leen desde variables de entorno. No se copiaron valores sensibles a la auditoria; no constituye auditoria completa de gestion/rotacion de secretos."
+    ],
+    "RNF-15": [
+      "Parcial",
+      [
+        "gw@listen 80;",
+        "compose@127.0.0.1:"
+      ],
+      [],
+      "Gateway HTTP preparado para configurarse; no hay certificado, listener HTTPS ni validacion TLS. Capacidad futura, no bloqueo MVP."
+    ],
+    "RNF-16": [
+      "Cumplido",
+      [
+        "compose",
+        "pmain"
+      ],
+      [
+        "resilience",
+        "purchase"
+      ],
+      "Procesos/imagenes separados y bases por servicio; las dependencias funcionales siguen siendo necesarias."
+    ],
+    "RNF-17": [
+      "Cumplido",
+      [
+        "gw",
+        "proxy"
+      ],
+      [
+        "resilience"
+      ],
+      "Backend ausente no detiene Nginx ni /health; recupera al backend. No demuestra continuidad de toda compra si falla una dependencia."
+    ],
+    "RNF-18": [
+      "Cumplido",
+      [
+        "msg@forward",
+        "checkout@run_recovery",
+        "ocancel@run_recovery",
+        "inventory@run_recovery"
+      ],
+      [
+        "checkouttest",
+        "paytest",
+        "resilience",
+        "auditfixes"
+      ],
+      "Manejo basico presente: validacion, timeouts, reintentos, DLQ, checkout y cancelacion recuperables. Durabilidad al recrear Redis/RabbitMQ y recuperacion operativa siguen como limites separados."
+    ],
+    "RNF-19": [
+      "Cumplido",
+      [
+        "compose@restart: unless-stopped"
+      ],
+      [],
+      "Politica de reinicio configurada para servicios e infraestructura."
+    ],
+    "RNF-20": [
+      "Cumplido",
+      [
+        "gwdocker@HEALTHCHECK",
+        "compose@healthcheck:",
+        "pmain@health_check"
+      ],
+      [
+        "fresh",
+        "resilience"
+      ],
+      "Healthchecks de cuatro PostgreSQL, Redis, RabbitMQ y gateway; seis endpoints HTTP verificados. Los endpoints de aplicaciones son principalmente liveness."
+    ],
+    "RNF-21": [
+      "Parcial",
+      [
+        "orders",
+        "cart",
+        "checkout",
+        "storage"
+      ],
+      [],
+      "Separacion modular mejorada con checkout/storage; routers aun mezclan coordinacion y acceso SQL y varias tablas se crean al importar. Refactorizacion no funcional pendiente; respaldos .bak estan excluidos de Git."
+    ],
+    "RNF-22": [
+      "Cumplido",
+      [
+        "compose",
+        "orders",
+        "payments",
+        "reservations"
+      ],
+      [
+        "purchase"
+      ],
+      "Usuarios, catalogo, carrito, pedidos, pagos y notificaciones separados; inventario pertenece a Product."
+    ],
+    "RNF-23": [
+      "Cumplido",
+      [
+        "pmain@FastAPI(",
+        "orders",
+        "gw"
+      ],
+      [
+        "gatewaytest"
+      ],
+      "OpenAPI accesible en los seis servicios y documentacion Markdown del gateway. No hay Swagger agregado en /api/docs, por diseno."
+    ],
+    "RNF-24": [
+      "Cumplido",
+      [
+        "runner"
+      ],
+      [
+        "paytest",
+        "checkouttest",
+        "carttest",
+        "demo"
+      ],
+      "124 unittest y escenarios HTTP, migraciones, TTL/DLQ y gateway. Runner de entrega incluye demostracion completa; instalacion limpia verificada por separado."
+    ],
+    "RNF-25": [
+      "Cumplido",
+      [
+        "git"
+      ],
+      [],
+      "HEAD real, fuentes bajo seguimiento, commits de baseline y correcciones, secretos excluidos. Version de entrega etiquetada localmente; sin remoto configurado no se publica."
+    ],
+    "RNF-26": [
+      "Cumplido",
+      [
+        "compose",
+        "gwdocker"
+      ],
+      [
+        "purchase",
+        "resilience"
+      ],
+      "Los seis microservicios y el gateway tienen imagen/contenedor; constatados en ejecucion."
+    ],
+    "RNF-27": [
+      "Parcial",
+      [
+        "compose",
+        "fresh"
+      ],
+      [
+        "fresh"
+      ],
+      "Instalacion limpia y reinicio verificados en Windows con contenedores Linux. Falta ejecutar la misma verificacion en host Linux/macOS; no se infiere portabilidad completa."
+    ],
+    "RNF-28": [
+      "Cumplido",
+      [
+        "config",
+        "compose"
+      ],
+      [],
+      "URLs, DB y claves configuradas por entorno; defaults locales y limites del gateway permanecen en configuracion versionable."
+    ]
+  }
+}

@@ -1,51 +1,65 @@
 {
-  "audit_date": "2026-10-28",
+  "audit_date": "2026-10-28T07:14:04.476927+00:00",
   "command": "powershell -NoProfile -ExecutionPolicy Bypass -File tests/run_stability.ps1",
   "observed_exit_code": 0,
-  "unittest_total": 89,
+  "unittest_total": 124,
   "unittest_failures": 0,
   "unittest_runs": [
     {
-      "tests": 20,
-      "seconds": 1.252
+      "tests": 29,
+      "seconds": 0.949
     },
     {
       "tests": 11,
-      "seconds": 0.402
+      "seconds": 0.314
+    },
+    {
+      "tests": 13,
+      "seconds": 0.918
+    },
+    {
+      "tests": 9,
+      "seconds": 0.189
     },
     {
       "tests": 17,
-      "seconds": 0.593
+      "seconds": 0.636
     },
     {
       "tests": 12,
-      "seconds": 0.487
+      "seconds": 0.493
     },
     {
       "tests": 2,
-      "seconds": 0.011
+      "seconds": 0.002
     },
     {
       "tests": 6,
-      "seconds": 0.224
+      "seconds": 0.151
+    },
+    {
+      "tests": 4,
+      "seconds": 1.713
     },
     {
       "tests": 5,
-      "seconds": 0.004
+      "seconds": 0.006
     },
     {
       "tests": 5,
-      "seconds": 0.004
+      "seconds": 0.003
     },
     {
       "tests": 10,
-      "seconds": 39.983
+      "seconds": 40.303
     },
     {
       "tests": 1,
-      "seconds": 12.183
+      "seconds": 13.54
     }
   ],
+  "log": "suite-entrega.log",
+  "log_sha256": "f717301f0086e77515c2c121819eab036e979e049303956335be52ebe13274a1",
   "additional_success_messages": [
     "OK: migracion y rollback conservan productos y categorias, agrupando duplicados.",
     "OK: reintento TTL y DLQ reales para order",
@@ -55,12 +69,13 @@
     "OK: 6 health checks; perfil de cliente; permisos; carrito -> pedido -> pago -> stock; Outbox publicado; doble pago rechazado.",
     "OK: dos compras simultaneas, un PAID y un REJECTED; stock disponible=1.",
     "OK: caida despues de reservar recuperada automaticamente, sin segundo descuento.",
-    "OK: historial privado, filtros, cancelacion idempotente, reserva real liberada una vez y pago confirmado protegido."
+    "OK: historial privado, filtros, cancelacion idempotente, reserva real liberada una vez y pago confirmado protegido.",
+    "OK: hallazgos corregidos por HTTP: correo largo, limites bcrypt, 20 altas, checkout unico, revalidacion y fecha final.",
+    "OK: tres rechazos simulados, sin reservas/eventos, fecha y motivo persistidos; reintento aprobado con un descuento.",
+    "OK: demostracion completa; datos propios eliminados."
   ],
   "nginx_configuration_valid": true,
-  "scope": "Runner canonico completo; no es una prueba de carga ni una instalacion desde cero",
-  "legacy_excluded": {
-    "file": "services/product-service/test_concurrency_53.py",
-    "reason": "Script manual con IDs fijos 9001/9005, transaccion fija y multiprocessing fork; sus invariantes tienen pruebas automatizadas aisladas en product_stability.py"
-  }
+  "clean_installation": "instalacion-desde-cero.json",
+  "demo": "../entrega/demo-resultados.json",
+  "scope": "Suite funcional y recuperacion; sin medicion de carga ni hosts adicionales"
 }

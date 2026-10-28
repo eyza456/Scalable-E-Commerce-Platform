@@ -1,0 +1,43 @@
+{
+  "executed_at": "2026-10-28T07:11:15.754117+00:00",
+  "status": "passed",
+  "steps": [
+    {
+      "step": "Registro, login JWT y actualizacion del perfil"
+    },
+    {
+      "step": "Categoria, producto y catalogo disponible",
+      "stock": 5
+    },
+    {
+      "step": "Carrito: agregar, modificar, eliminar articulo y vaciar"
+    },
+    {
+      "step": "Pedido desde carrito y repeticion idempotente",
+      "total": 30,
+      "orders_created": 1
+    },
+    {
+      "step": "Pago rechazado, motivo y fecha; pedido pendiente sin descontar stock"
+    },
+    {
+      "step": "Pago aprobado, pedido PAID y reserva consumida una vez",
+      "stock": 3
+    },
+    {
+      "step": "Administracion autorizada: PROCESSING, SHIPPED y DELIVERED"
+    },
+    {
+      "step": "Cancelacion idempotente de pedido pendiente",
+      "stock": 3
+    },
+    {
+      "step": "Historial y detalle privados",
+      "statuses": [
+        "DELIVERED",
+        "CANCELLED"
+      ]
+    }
+  ],
+  "fixtures_cleaned": true
+}

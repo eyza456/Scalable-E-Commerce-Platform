@@ -1,41 +1,15 @@
 {
-  "audit_date": "2026-10-28",
-  "git_head": {
-    "command": [
-      "git",
-      "rev-parse",
-      "--verify",
-      "HEAD"
-    ],
-    "exit_code": 128,
-    "stdout": "",
-    "stderr": "fatal: Needed a single revision"
-  },
-  "git_tracked_files": {
-    "command": [
-      "git",
-      "ls-files"
-    ],
-    "exit_code": 0,
-    "stdout": "",
-    "stderr": ""
-  },
-  "docker_status": {
-    "command": [
-      "docker",
-      "compose",
-      "ps",
-      "--format",
-      "{{.Service}} {{.State}} {{.Health}}"
-    ],
-    "exit_code": 0,
-    "stdout": "cart-service running \napi-gateway running healthy\nnotification-service running \norder-db running \norder-service running \npayment-db running \npayment-service running \nproduct-db running healthy\nproduct-service running \nrabbitmq running \nredis running \nuser-db running \nuser-service running",
-    "stderr": ""
-  },
+  "audit_date": "2026-10-28T07:14:04.476927+00:00",
+  "review_base_commit": "5227fb3fd03d22e3e908af45d41df6adc6fba1d3",
+  "tracked_files_count": 202,
+  "configured_remotes": [],
+  "delivery_version": "v0.1.0-rc.1",
+  "pdf_path": "C:/Users/Usuario/Downloads/Plataforma_escalable_comercio_electronico.pdf",
+  "pdf_sha256": "c725a5540aef125e1658af6079f239f424a94acc32d5e83474c5cb1b5073a752",
   "services": {
     "api-gateway": {
-      "image": null,
-      "container_name": null,
+      "environment_keys": [],
+      "has_healthcheck": false,
       "ports": [
         {
           "mode": "ingress",
@@ -45,14 +19,18 @@
           "protocol": "tcp"
         }
       ],
-      "restart": "unless-stopped",
-      "volumes": null,
-      "environment_keys": [],
-      "has_healthcheck": false
+      "restart": "unless-stopped"
     },
     "cart-service": {
-      "image": null,
-      "container_name": "cart-service",
+      "environment_keys": [
+        "INTERNAL_SERVICE_KEY",
+        "JWT_ALGORITHM",
+        "PRODUCT_SERVICE_URL",
+        "REDIS_HOST",
+        "REDIS_PORT",
+        "SECRET_KEY"
+      ],
+      "has_healthcheck": false,
       "ports": [
         {
           "mode": "ingress",
@@ -61,27 +39,14 @@
           "protocol": "tcp"
         }
       ],
-      "restart": "unless-stopped",
-      "volumes": [
-        {
-          "type": "bind",
-          "source": "C:\\Users\\Usuario\\Escritorio\\ecommerce-microservices\\ecommerce-microservices\\services\\cart-service\\app",
-          "target": "/app/app",
-          "bind": {}
-        }
-      ],
-      "environment_keys": [
-        "JWT_ALGORITHM",
-        "PRODUCT_SERVICE_URL",
-        "REDIS_HOST",
-        "REDIS_PORT",
-        "SECRET_KEY"
-      ],
-      "has_healthcheck": false
+      "restart": "unless-stopped"
     },
     "notification-service": {
-      "image": null,
-      "container_name": "notification-service",
+      "environment_keys": [
+        "RABBITMQ_HOST",
+        "RABBITMQ_PORT"
+      ],
+      "has_healthcheck": false,
       "ports": [
         {
           "mode": "ingress",
@@ -90,24 +55,15 @@
           "protocol": "tcp"
         }
       ],
-      "restart": "unless-stopped",
-      "volumes": [
-        {
-          "type": "bind",
-          "source": "C:\\Users\\Usuario\\Escritorio\\ecommerce-microservices\\ecommerce-microservices\\services\\notification-service\\app",
-          "target": "/app/app",
-          "bind": {}
-        }
-      ],
-      "environment_keys": [
-        "RABBITMQ_HOST",
-        "RABBITMQ_PORT"
-      ],
-      "has_healthcheck": false
+      "restart": "unless-stopped"
     },
     "order-db": {
-      "image": "postgres:16",
-      "container_name": "order-db",
+      "environment_keys": [
+        "POSTGRES_DB",
+        "POSTGRES_PASSWORD",
+        "POSTGRES_USER"
+      ],
+      "has_healthcheck": true,
       "ports": [
         {
           "mode": "ingress",
@@ -116,42 +72,9 @@
           "protocol": "tcp"
         }
       ],
-      "restart": "unless-stopped",
-      "volumes": [
-        {
-          "type": "volume",
-          "source": "order_postgres_data",
-          "target": "/var/lib/postgresql/data",
-          "volume": {}
-        }
-      ],
-      "environment_keys": [
-        "POSTGRES_DB",
-        "POSTGRES_PASSWORD",
-        "POSTGRES_USER"
-      ],
-      "has_healthcheck": false
+      "restart": "unless-stopped"
     },
     "order-service": {
-      "image": null,
-      "container_name": "order-service",
-      "ports": [
-        {
-          "mode": "ingress",
-          "target": 8000,
-          "published": "8004",
-          "protocol": "tcp"
-        }
-      ],
-      "restart": "unless-stopped",
-      "volumes": [
-        {
-          "type": "bind",
-          "source": "C:\\Users\\Usuario\\Escritorio\\ecommerce-microservices\\ecommerce-microservices\\services\\order-service\\app",
-          "target": "/app/app",
-          "bind": {}
-        }
-      ],
       "environment_keys": [
         "CART_SERVICE_URL",
         "DATABASE_URL",
@@ -160,11 +83,24 @@
         "PRODUCT_SERVICE_URL",
         "SECRET_KEY"
       ],
-      "has_healthcheck": false
+      "has_healthcheck": false,
+      "ports": [
+        {
+          "mode": "ingress",
+          "target": 8000,
+          "published": "8004",
+          "protocol": "tcp"
+        }
+      ],
+      "restart": "unless-stopped"
     },
     "payment-db": {
-      "image": "postgres:16",
-      "container_name": "payment-db",
+      "environment_keys": [
+        "POSTGRES_DB",
+        "POSTGRES_PASSWORD",
+        "POSTGRES_USER"
+      ],
+      "has_healthcheck": true,
       "ports": [
         {
           "mode": "ingress",
@@ -173,42 +109,9 @@
           "protocol": "tcp"
         }
       ],
-      "restart": "unless-stopped",
-      "volumes": [
-        {
-          "type": "volume",
-          "source": "payment_postgres_data",
-          "target": "/var/lib/postgresql/data",
-          "volume": {}
-        }
-      ],
-      "environment_keys": [
-        "POSTGRES_DB",
-        "POSTGRES_PASSWORD",
-        "POSTGRES_USER"
-      ],
-      "has_healthcheck": false
+      "restart": "unless-stopped"
     },
     "payment-service": {
-      "image": null,
-      "container_name": "payment-service",
-      "ports": [
-        {
-          "mode": "ingress",
-          "target": 8000,
-          "published": "8005",
-          "protocol": "tcp"
-        }
-      ],
-      "restart": "unless-stopped",
-      "volumes": [
-        {
-          "type": "bind",
-          "source": "C:\\Users\\Usuario\\Escritorio\\ecommerce-microservices\\ecommerce-microservices\\services\\payment-service\\app",
-          "target": "/app/app",
-          "bind": {}
-        }
-      ],
       "environment_keys": [
         "DATABASE_URL",
         "INTERNAL_SERVICE_KEY",
@@ -219,11 +122,24 @@
         "RABBITMQ_PORT",
         "SECRET_KEY"
       ],
-      "has_healthcheck": false
+      "has_healthcheck": false,
+      "ports": [
+        {
+          "mode": "ingress",
+          "target": 8000,
+          "published": "8005",
+          "protocol": "tcp"
+        }
+      ],
+      "restart": "unless-stopped"
     },
     "product-db": {
-      "image": "postgres:16",
-      "container_name": "product-db",
+      "environment_keys": [
+        "POSTGRES_DB",
+        "POSTGRES_PASSWORD",
+        "POSTGRES_USER"
+      ],
+      "has_healthcheck": true,
       "ports": [
         {
           "mode": "ingress",
@@ -232,48 +148,9 @@
           "protocol": "tcp"
         }
       ],
-      "restart": "unless-stopped",
-      "volumes": [
-        {
-          "type": "volume",
-          "source": "product_postgres_data",
-          "target": "/var/lib/postgresql/data",
-          "volume": {}
-        }
-      ],
-      "environment_keys": [
-        "POSTGRES_DB",
-        "POSTGRES_PASSWORD",
-        "POSTGRES_USER"
-      ],
-      "has_healthcheck": true
+      "restart": "unless-stopped"
     },
     "product-service": {
-      "image": null,
-      "container_name": "product-service",
-      "ports": [
-        {
-          "mode": "ingress",
-          "target": 8000,
-          "published": "8002",
-          "protocol": "tcp"
-        }
-      ],
-      "restart": "unless-stopped",
-      "volumes": [
-        {
-          "type": "bind",
-          "source": "C:\\Users\\Usuario\\Escritorio\\ecommerce-microservices\\ecommerce-microservices\\services\\product-service\\app",
-          "target": "/app/app",
-          "bind": {}
-        },
-        {
-          "type": "bind",
-          "source": "C:\\Users\\Usuario\\Escritorio\\ecommerce-microservices\\ecommerce-microservices\\services\\product-service\\scripts",
-          "target": "/app/scripts",
-          "bind": {}
-        }
-      ],
       "environment_keys": [
         "DATABASE_URL",
         "INTERNAL_SERVICE_KEY",
@@ -282,11 +159,20 @@
         "RABBITMQ_PORT",
         "SECRET_KEY"
       ],
-      "has_healthcheck": false
+      "has_healthcheck": false,
+      "ports": [
+        {
+          "mode": "ingress",
+          "target": 8000,
+          "published": "8002",
+          "protocol": "tcp"
+        }
+      ],
+      "restart": "unless-stopped"
     },
     "rabbitmq": {
-      "image": "rabbitmq:3-management",
-      "container_name": "rabbitmq",
+      "environment_keys": [],
+      "has_healthcheck": true,
       "ports": [
         {
           "mode": "ingress",
@@ -301,14 +187,11 @@
           "protocol": "tcp"
         }
       ],
-      "restart": "unless-stopped",
-      "volumes": null,
-      "environment_keys": [],
-      "has_healthcheck": false
+      "restart": "unless-stopped"
     },
     "redis": {
-      "image": "redis:7-alpine",
-      "container_name": "redis",
+      "environment_keys": [],
+      "has_healthcheck": true,
       "ports": [
         {
           "mode": "ingress",
@@ -317,14 +200,15 @@
           "protocol": "tcp"
         }
       ],
-      "restart": "unless-stopped",
-      "volumes": null,
-      "environment_keys": [],
-      "has_healthcheck": false
+      "restart": "unless-stopped"
     },
     "user-db": {
-      "image": "postgres:16",
-      "container_name": "user-db",
+      "environment_keys": [
+        "POSTGRES_DB",
+        "POSTGRES_PASSWORD",
+        "POSTGRES_USER"
+      ],
+      "has_healthcheck": true,
       "ports": [
         {
           "mode": "ingress",
@@ -333,25 +217,16 @@
           "protocol": "tcp"
         }
       ],
-      "restart": "unless-stopped",
-      "volumes": [
-        {
-          "type": "volume",
-          "source": "user_postgres_data",
-          "target": "/var/lib/postgresql/data",
-          "volume": {}
-        }
-      ],
-      "environment_keys": [
-        "POSTGRES_DB",
-        "POSTGRES_PASSWORD",
-        "POSTGRES_USER"
-      ],
-      "has_healthcheck": false
+      "restart": "unless-stopped"
     },
     "user-service": {
-      "image": null,
-      "container_name": "user-service",
+      "environment_keys": [
+        "ACCESS_TOKEN_EXPIRE_MINUTES",
+        "DATABASE_URL",
+        "JWT_ALGORITHM",
+        "SECRET_KEY"
+      ],
+      "has_healthcheck": false,
       "ports": [
         {
           "mode": "ingress",
@@ -360,25 +235,8 @@
           "protocol": "tcp"
         }
       ],
-      "restart": "unless-stopped",
-      "volumes": [
-        {
-          "type": "bind",
-          "source": "C:\\Users\\Usuario\\Escritorio\\ecommerce-microservices\\ecommerce-microservices\\services\\user-service\\app",
-          "target": "/app/app",
-          "bind": {}
-        }
-      ],
-      "environment_keys": [
-        "ACCESS_TOKEN_EXPIRE_MINUTES",
-        "DATABASE_URL",
-        "JWT_ALGORITHM",
-        "SECRET_KEY"
-      ],
-      "has_healthcheck": false
+      "restart": "unless-stopped"
     }
   },
-  "pdf_path": "C:/Users/Usuario/Downloads/Plataforma_escalable_comercio_electronico.pdf",
-  "pdf_sha256": "c725a5540aef125e1658af6079f239f424a94acc32d5e83474c5cb1b5073a752",
   "application_code_changed_by_audit": false
 }

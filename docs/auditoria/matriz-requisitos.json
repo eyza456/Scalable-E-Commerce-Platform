@@ -15,9 +15,13 @@
       {
         "path": "tests/smoke_purchase.py",
         "line": 1
+      },
+      {
+        "path": "tests/input_limits.py",
+        "line": 34
       }
     ],
-    "finding": "Registro implementado y ejercitado por HTTP; limites extremos se auditan en RNF-12.",
+    "finding": "Registro por HTTP, incluido correo valido largo y errores controlados en limites de entrada.",
     "scope": "MVP / calidad"
   },
   {
@@ -83,7 +87,7 @@
     "code": [
       {
         "path": "services/user-service/app/core/security.py",
-        "line": 33
+        "line": 38
       },
       {
         "path": "services/user-service/app/routers/auth.py",
@@ -240,17 +244,17 @@
         "line": 9
       },
       {
-        "path": "services/user-service/app/models/user.py",
-        "line": 29
+        "path": "services/user-service/app/schemas/user.py",
+        "line": 5
       }
     ],
     "verification": [
       {
-        "path": "tests/smoke_purchase.py",
+        "path": "tests/input_limits.py",
         "line": 1
       }
     ],
-    "finding": "bcrypt y persistencia del hash; la validacion de longitud de contrasena es incompleta, ver H-04.",
+    "finding": "bcrypt sin truncamiento: maximo 72 bytes UTF-8 validado antes del hash.",
     "scope": "MVP / calidad"
   },
   {
@@ -272,7 +276,7 @@
     "verification": [
       {
         "path": "tests/gateway_stability.py",
-        "line": 111
+        "line": 112
       }
     ],
     "finding": "Alta con permisos y categoria existente.",
@@ -500,11 +504,11 @@
     "code": [
       {
         "path": "services/cart-service/app/routers/cart.py",
-        "line": 27
+        "line": 47
       },
       {
         "path": "services/cart-service/app/routers/cart.py",
-        "line": 174
+        "line": 64
       }
     ],
     "verification": [
@@ -525,16 +529,24 @@
     "code": [
       {
         "path": "services/cart-service/app/routers/cart.py",
-        "line": 27
+        "line": 47
+      },
+      {
+        "path": "services/cart-service/app/storage.py",
+        "line": 9
       }
     ],
     "verification": [
       {
-        "path": "tests/gateway_stability.py",
-        "line": 111
+        "path": "tests/cart_stability.py",
+        "line": 29
+      },
+      {
+        "path": "tests/smoke_audit_fixes.py",
+        "line": 1
       }
     ],
-    "finding": "Alta basica funcional; actualizaciones concurrentes pierden datos, registrado en RNF-02/H-02.",
+    "finding": "Altas atomicas Redis, 20 operaciones simultaneas conservan 20 unidades por HTTP.",
     "scope": "MVP / calidad"
   },
   {
@@ -546,13 +558,13 @@
     "code": [
       {
         "path": "services/cart-service/app/routers/cart.py",
-        "line": 236
+        "line": 69
       }
     ],
     "verification": [
       {
         "path": "tests/gateway_stability.py",
-        "line": 111
+        "line": 112
       }
     ],
     "finding": "Actualizacion de cantidad con comprobacion de stock en ese momento.",
@@ -567,11 +579,20 @@
     "code": [
       {
         "path": "services/cart-service/app/routers/cart.py",
-        "line": 349
+        "line": 84
       }
     ],
-    "verification": [],
-    "finding": "Implementado por inspeccion. La suite canonica no tiene una asercion HTTP dedicada a eliminar un item; no se inventa esa cobertura.",
+    "verification": [
+      {
+        "path": "tests/cart_stability.py",
+        "line": 90
+      },
+      {
+        "path": "tests/demo_release.py",
+        "line": 13
+      }
+    ],
+    "finding": "Eliminacion individual comprobada en Redis y por HTTP en la demostracion.",
     "scope": "MVP / calidad"
   },
   {
@@ -583,20 +604,24 @@
     "code": [
       {
         "path": "services/cart-service/app/routers/cart.py",
-        "line": 427
+        "line": 95
       },
       {
-        "path": "services/order-service/app/routers/orders.py",
-        "line": 36
+        "path": "services/cart-service/app/storage.py",
+        "line": 56
       }
     ],
     "verification": [
       {
-        "path": "tests/smoke_purchase.py",
-        "line": 1
+        "path": "tests/cart_stability.py",
+        "line": 57
+      },
+      {
+        "path": "tests/demo_release.py",
+        "line": 13
       }
     ],
-    "finding": "Vaciado por DELETE /cart; ejercitado por creacion de pedido. No se comprueba atomicidad entre ambos servicios.",
+    "finding": "Vaciado explicito y finalizacion idempotente; una confirmacion tardia no borra un carrito nuevo.",
     "scope": "MVP / calidad"
   },
   {
@@ -608,13 +633,13 @@
     "code": [
       {
         "path": "services/cart-service/app/routers/cart.py",
-        "line": 174
+        "line": 64
       }
     ],
     "verification": [
       {
         "path": "tests/gateway_stability.py",
-        "line": 111
+        "line": 112
       }
     ],
     "finding": "Contenido y totales del propio carrito.",
@@ -629,7 +654,7 @@
     "code": [
       {
         "path": "services/cart-service/app/routers/cart.py",
-        "line": 174
+        "line": 64
       }
     ],
     "verification": [
@@ -646,28 +671,28 @@
     "page": 16,
     "requirement": "El sistema deberá validar la disponibilidad de los productos antes de confirmar un pedido.",
     "type": "Funcional",
-    "status": "Parcial",
+    "status": "Cumplido",
     "code": [
       {
-        "path": "services/cart-service/app/routers/cart.py",
-        "line": 27
+        "path": "services/order-service/app/checkouts.py",
+        "line": 52
       },
       {
-        "path": "services/order-service/app/routers/orders.py",
-        "line": 36
-      },
-      {
-        "path": "services/product-service/app/reservations.py",
-        "line": 16
+        "path": "services/order-service/app/checkouts.py",
+        "line": 92
       }
     ],
     "verification": [
       {
-        "path": "tests/audit_probes.py",
-        "line": 83
+        "path": "tests/checkout_stability.py",
+        "line": 1
+      },
+      {
+        "path": "tests/smoke_audit_fixes.py",
+        "line": 1
       }
     ],
-    "finding": "Se valida al agregar y antes de pagar, pero no al crear/confirmar el pedido. Se reprodujo HTTP 201 con stock 0 y producto inactivo; precio del carrito anterior.",
+    "finding": "Al crear pedido se revalidan existencia, actividad, stock y precio. Precio cambiado: 409 hasta refrescar el articulo; reserva efectiva al pagar.",
     "scope": "MVP / calidad"
   },
   {
@@ -679,16 +704,28 @@
     "code": [
       {
         "path": "services/order-service/app/routers/orders.py",
-        "line": 36
+        "line": 51
+      },
+      {
+        "path": "services/order-service/app/checkouts.py",
+        "line": 137
+      },
+      {
+        "path": "services/order-service/app/checkouts.py",
+        "line": 92
       }
     ],
     "verification": [
       {
-        "path": "tests/smoke_purchase.py",
-        "line": 1
+        "path": "tests/checkout_stability.py",
+        "line": 106
+      },
+      {
+        "path": "tests/demo_release.py",
+        "line": 13
       }
     ],
-    "finding": "Creacion desde items del carrito; duplicacion concurrente queda documentada en H-03/RNF-02.",
+    "finding": "Checkout durable por version del carrito, un unico pedido ante concurrencia y recuperacion tras interrupcion.",
     "scope": "MVP / calidad"
   },
   {
@@ -701,15 +738,19 @@
       {
         "path": "services/order-service/app/models.py",
         "line": 16
+      },
+      {
+        "path": "services/order-service/app/models.py",
+        "line": 103
       }
     ],
     "verification": [
       {
-        "path": "tests/order_stability.py",
-        "line": 1
+        "path": "tests/checkout_stability.py",
+        "line": 113
       }
     ],
-    "finding": "Clave primaria autogenerada por PostgreSQL; no equivale a idempotencia de checkout.",
+    "finding": "PK del pedido y checkout_id unico: una repeticion recupera el pedido original.",
     "scope": "MVP / calidad"
   },
   {
@@ -721,7 +762,7 @@
     "code": [
       {
         "path": "services/order-service/app/models.py",
-        "line": 43
+        "line": 44
       }
     ],
     "verification": [
@@ -742,11 +783,11 @@
     "code": [
       {
         "path": "services/order-service/app/routers/orders.py",
-        "line": 36
+        "line": 51
       },
       {
         "path": "services/order-service/app/models.py",
-        "line": 26
+        "line": 27
       }
     ],
     "verification": [
@@ -767,11 +808,11 @@
     "code": [
       {
         "path": "services/order-service/app/models.py",
-        "line": 55
+        "line": 56
       },
       {
         "path": "services/order-service/app/routers/orders.py",
-        "line": 36
+        "line": 51
       }
     ],
     "verification": [
@@ -791,21 +832,21 @@
     "status": "Cumplido",
     "code": [
       {
-        "path": "services/cart-service/app/routers/cart.py",
-        "line": 174
-      },
-      {
-        "path": "services/order-service/app/routers/orders.py",
-        "line": 36
+        "path": "services/order-service/app/checkouts.py",
+        "line": 52
       }
     ],
     "verification": [
       {
-        "path": "tests/smoke_purchase.py",
-        "line": 1
+        "path": "tests/checkout_stability.py",
+        "line": 86
+      },
+      {
+        "path": "tests/demo_release.py",
+        "line": 13
       }
     ],
-    "finding": "El sistema calcula el total en Cart y Order persiste cart.total. No recalcula precios actuales en checkout; H-01 separa esa limitacion del calculo basico.",
+    "finding": "Order recalcula subtotal y total con Decimal a partir de cantidades y precios actuales revalidados; no confia en cart.total.",
     "scope": "MVP / calidad"
   },
   {
@@ -817,7 +858,7 @@
     "code": [
       {
         "path": "services/order-service/app/routers/orders.py",
-        "line": 156
+        "line": 75
       }
     ],
     "verification": [
@@ -842,7 +883,7 @@
     "code": [
       {
         "path": "services/order-service/app/routers/orders.py",
-        "line": 197
+        "line": 116
       }
     ],
     "verification": [
@@ -863,7 +904,7 @@
     "code": [
       {
         "path": "services/order-service/app/routers/orders.py",
-        "line": 223
+        "line": 142
       },
       {
         "path": "services/order-service/app/cancellations.py",
@@ -892,15 +933,20 @@
     "code": [
       {
         "path": "services/order-service/app/routers/orders.py",
-        "line": 223
+        "line": 142
       },
       {
         "path": "services/order-service/app/core/security.py",
         "line": 49
       }
     ],
-    "verification": [],
-    "finding": "Transiciones administrativas implementadas y protegidas. La suite no recorre por HTTP toda la cadena PROCESSING-SHIPPED-DELIVERED; cobertura a ampliar.",
+    "verification": [
+      {
+        "path": "tests/demo_release.py",
+        "line": 13
+      }
+    ],
+    "finding": "Cadena HTTP PAID -> PROCESSING -> SHIPPED -> DELIVERED con token admin; el cliente recibe 403. La demo usa un token administrativo efimero de fixture.",
     "scope": "MVP / calidad"
   },
   {
@@ -918,7 +964,7 @@
     "verification": [
       {
         "path": "tests/payment_stability.py",
-        "line": 60
+        "line": 141
       }
     ],
     "finding": "Intento durable asociado a pedido y propietario.",
@@ -933,17 +979,17 @@
     "code": [
       {
         "path": "services/payment-service/app/inventory.py",
-        "line": 45
+        "line": 58
       },
       {
         "path": "services/payment-service/app/models/payment.py",
-        "line": 44
+        "line": 47
       }
     ],
     "verification": [
       {
         "path": "tests/payment_stability.py",
-        "line": 159
+        "line": 240
       }
     ],
     "finding": "Registra PENDING, PAID, REJECTED o CANCELLED.",
@@ -958,16 +1004,24 @@
     "code": [
       {
         "path": "services/payment-service/app/inventory.py",
-        "line": 45
+        "line": 16
+      },
+      {
+        "path": "services/payment-service/app/inventory.py",
+        "line": 58
       }
     ],
     "verification": [
       {
-        "path": "tests/smoke_inventory.py",
+        "path": "tests/payment_stability.py",
+        "line": 64
+      },
+      {
+        "path": "tests/smoke_payment_rejections.py",
         "line": 1
       }
     ],
-    "finding": "PAID y REJECTED reales distinguidos; el rechazo actual es por stock. No hay simulacion adicional de rechazo bancario.",
+    "finding": "Aprobacion y rechazos de fondos, vencimiento, emisor o stock; motivo y fecha persistidos.",
     "scope": "MVP / calidad"
   },
   {
@@ -979,7 +1033,7 @@
     "code": [
       {
         "path": "services/payment-service/app/inventory.py",
-        "line": 45
+        "line": 58
       },
       {
         "path": "services/payment-service/app/outbox.py",
@@ -1012,16 +1066,20 @@
     "code": [
       {
         "path": "services/payment-service/app/inventory.py",
-        "line": 45
+        "line": 58
       }
     ],
     "verification": [
       {
-        "path": "tests/smoke_inventory.py",
+        "path": "tests/smoke_payment_rejections.py",
         "line": 1
+      },
+      {
+        "path": "tests/demo_release.py",
+        "line": 13
       }
     ],
-    "finding": "El rechazo por stock conserva el pedido PENDING para reintentar, permitido por RF-43. Difiere del diagrama de la pagina 36 que muestra CANCELLED.",
+    "finding": "El rechazo conserva PENDING para otro intento; cancelacion es explicita. Regla documentada conforme a la alternativa permitida por RF-43; difiere del dibujo p.36.",
     "scope": "MVP / calidad"
   },
   {
@@ -1029,24 +1087,28 @@
     "page": 17,
     "requirement": "El sistema deberá registrar la fecha y hora del procesamiento del pago.",
     "type": "Funcional",
-    "status": "Parcial",
+    "status": "Cumplido",
     "code": [
       {
         "path": "services/payment-service/app/models/payment.py",
-        "line": 56
+        "line": 15
       },
       {
         "path": "services/payment-service/app/inventory.py",
-        "line": 45
+        "line": 58
       }
     ],
     "verification": [
       {
         "path": "tests/payment_stability.py",
-        "line": 169
+        "line": 392
+      },
+      {
+        "path": "tests/smoke_payment_rejections.py",
+        "line": 1
       }
     ],
-    "finding": "Solo existe created_at del intento; al recuperarse minutos despues no se registra processed_at/updated_at de la resolucion. Falta fecha real del procesamiento final.",
+    "finding": "processed_at UTC registra resolucion final PAID/REJECTED/CANCELLED, sin cambiar en reintentos. Historicos sin fecha real permanecen NULL.",
     "scope": "MVP / calidad"
   },
   {
@@ -1062,20 +1124,20 @@
       },
       {
         "path": "services/payment-service/app/inventory.py",
-        "line": 45
+        "line": 16
       }
     ],
     "verification": [
       {
-        "path": "tests/smoke_purchase.py",
+        "path": "tests/smoke_payment_rejections.py",
         "line": 1
       },
       {
-        "path": "tests/smoke_inventory.py",
-        "line": 1
+        "path": "tests/demo_release.py",
+        "line": 13
       }
     ],
-    "finding": "Pago simulado sin pasarela real; stock decide aprobacion/rechazo.",
+    "finding": "Simulacion determinista; resultado inmutable por intento PENDING. No hay cobros reales.",
     "scope": "MVP / calidad"
   },
   {
@@ -1122,7 +1184,7 @@
     "verification": [
       {
         "path": "tests/gateway_stability.py",
-        "line": 111
+        "line": 112
       }
     ],
     "finding": "Enrutamiento efectivo a los cinco servicios funcionales y categorias.",
@@ -1143,7 +1205,7 @@
     "verification": [
       {
         "path": "tests/gateway_stability.py",
-        "line": 91
+        "line": 92
       }
     ],
     "finding": "Rutas /api/auth, users, products, categories, cart, orders y payments definidas.",
@@ -1172,7 +1234,7 @@
       }
     ],
     "finding": "Base Nginx/DNS preparada y recuperacion por cambio de IP probada; no hay balanceo configurado ni prueba de varias replicas. Capacidad futura, no bloqueo del MVP inicial.",
-    "scope": "Futuro / no bloquea MVP"
+    "scope": "Evolucion futura"
   },
   {
     "id": "RF-50",
@@ -1224,36 +1286,40 @@
     "page": 18,
     "requirement": "Los servicios deberán estar diseñados para soportar múltiples solicitudes concurrentes.",
     "type": "No funcional",
-    "status": "Parcial",
+    "status": "Cumplido",
     "code": [
       {
-        "path": "services/cart-service/app/routers/cart.py",
-        "line": 27
+        "path": "services/cart-service/app/storage.py",
+        "line": 9
       },
       {
-        "path": "services/order-service/app/routers/orders.py",
-        "line": 36
+        "path": "services/order-service/app/checkouts.py",
+        "line": 26
       },
       {
         "path": "services/payment-service/app/inventory.py",
-        "line": 45
+        "line": 58
       }
     ],
     "verification": [
       {
+        "path": "tests/cart_stability.py",
+        "line": 1
+      },
+      {
+        "path": "tests/checkout_stability.py",
+        "line": 1
+      },
+      {
         "path": "tests/payment_stability.py",
-        "line": 95
+        "line": 176
       },
       {
-        "path": "tests/audit_probes.py",
-        "line": 15
-      },
-      {
-        "path": "tests/audit_probes.py",
-        "line": 49
+        "path": "tests/smoke_audit_fixes.py",
+        "line": 1
       }
     ],
-    "finding": "Pagos/inventario concurrentes protegidos; Redis GET-SET pierde altas y el mismo carrito produce pedidos duplicados.",
+    "finding": "Concurrencia funcional comprobada en carrito, checkout, pagos e inventario. No demuestra capacidad bajo carga ni replicas; esas limitaciones se evalúan aparte.",
     "scope": "MVP / calidad"
   },
   {
@@ -1269,7 +1335,7 @@
       },
       {
         "path": "docker-compose.yml",
-        "line": 122
+        "line": 143
       }
     ],
     "verification": [
@@ -1298,7 +1364,7 @@
       },
       {
         "path": "services/order-service/app/models.py",
-        "line": 26
+        "line": 27
       }
     ],
     "verification": [
@@ -1319,7 +1385,7 @@
     "code": [
       {
         "path": "docker-compose.yml",
-        "line": 157
+        "line": 189
       },
       {
         "path": "docker-compose.yml",
@@ -1344,7 +1410,7 @@
     "code": [
       {
         "path": "docker-compose.yml",
-        "line": 186
+        "line": 219
       },
       {
         "path": "services/payment-service/app/outbox.py",
@@ -1382,7 +1448,7 @@
     ],
     "verification": [],
     "finding": "Base en contenedores y variables de entorno; no hay manifiestos ni verificacion Kubernetes. Preparacion futura, fuera del MVP inicial segun pagina 8.",
-    "scope": "Futuro / no bloquea MVP"
+    "scope": "Evolucion futura"
   },
   {
     "id": "RNF-08",
@@ -1397,7 +1463,7 @@
       },
       {
         "path": "services/order-service/app/routers/orders.py",
-        "line": 36
+        "line": 51
       },
       {
         "path": "services/payment-service/app/core/config.py",
@@ -1451,16 +1517,16 @@
       },
       {
         "path": "services/user-service/app/core/security.py",
-        "line": 22
+        "line": 24
       }
     ],
     "verification": [
       {
-        "path": "tests/smoke_purchase.py",
+        "path": "tests/input_limits.py",
         "line": 1
       }
     ],
-    "finding": "bcrypt funcional para longitudes soportadas. El desajuste de 72 bytes se clasifica en RNF-12, no como ausencia de hash.",
+    "finding": "bcrypt con validacion de bytes; 72 ASCII o 36 caracteres e acentuada admitidos, superiores rechazados sin truncar.",
     "scope": "MVP / calidad"
   },
   {
@@ -1472,7 +1538,7 @@
     "code": [
       {
         "path": "services/user-service/app/core/security.py",
-        "line": 33
+        "line": 38
       },
       {
         "path": "services/user-service/app/dependencies/auth.py",
@@ -1493,28 +1559,36 @@
     "page": 19,
     "requirement": "Los datos recibidos por las APIs deberán ser validados antes de su procesamiento.",
     "type": "No funcional",
-    "status": "Parcial",
+    "status": "Cumplido",
     "code": [
       {
         "path": "services/user-service/app/schemas/user.py",
         "line": 5
       },
       {
-        "path": "services/user-service/app/core/security.py",
-        "line": 9
-      },
-      {
         "path": "services/user-service/app/models/user.py",
         "line": 21
+      },
+      {
+        "path": "services/order-service/app/checkouts.py",
+        "line": 52
       }
     ],
     "verification": [
       {
-        "path": "tests/audit_probes.py",
-        "line": 111
+        "path": "tests/input_limits.py",
+        "line": 1
+      },
+      {
+        "path": "tests/smoke_audit_fixes.py",
+        "line": 1
+      },
+      {
+        "path": "tests/smoke_payment_rejections.py",
+        "line": 1
       }
     ],
-    "finding": "Se reprodujeron 500 con contrasena ASCII de 80 bytes y correo valido de 160 caracteres. Validacion Pydantic no coincide con bcrypt/DB.",
+    "finding": "Limites bcrypt/DB alineados; correo hasta 254; errores de longitud y simulacion desconocida devuelven 422; no se afirma fuzzing exhaustivo de todas las APIs.",
     "scope": "MVP / calidad"
   },
   {
@@ -1588,7 +1662,7 @@
     ],
     "verification": [],
     "finding": "Gateway HTTP preparado para configurarse; no hay certificado, listener HTTPS ni validacion TLS. Capacidad futura, no bloqueo MVP.",
-    "scope": "Futuro / no bloquea MVP"
+    "scope": "Evolucion futura"
   },
   {
     "id": "RNF-16",
@@ -1649,36 +1723,44 @@
     "page": 19,
     "requirement": "Los servicios deberán contar con mecanismos básicos de manejo de errores.",
     "type": "No funcional",
-    "status": "Parcial",
+    "status": "Cumplido",
     "code": [
       {
         "path": "services/order-service/app/messaging.py",
         "line": 27
       },
       {
+        "path": "services/order-service/app/checkouts.py",
+        "line": 195
+      },
+      {
         "path": "services/order-service/app/cancellations.py",
         "line": 56
       },
       {
-        "path": "docker-compose.yml",
-        "line": 137
+        "path": "services/payment-service/app/inventory.py",
+        "line": 140
       }
     ],
     "verification": [
       {
-        "path": "tests/audit_probes.py",
-        "line": 111
+        "path": "tests/checkout_stability.py",
+        "line": 1
       },
       {
         "path": "tests/payment_stability.py",
         "line": 1
       },
       {
-        "path": "tests/product_stability.py",
+        "path": "tests/gateway_resilience.py",
+        "line": 1
+      },
+      {
+        "path": "tests/smoke_audit_fixes.py",
         "line": 1
       }
     ],
-    "finding": "Hay timeouts, reintentos, DLQ y recuperadores, pero quedan excepciones de entrada sin traducir y no hay persistencia nombrada de Redis/RabbitMQ en Compose.",
+    "finding": "Manejo basico presente: validacion, timeouts, reintentos, DLQ, checkout y cancelacion recuperables. Durabilidad al recrear Redis/RabbitMQ y recuperacion operativa siguen como limites separados.",
     "scope": "MVP / calidad"
   },
   {
@@ -1709,17 +1791,17 @@
         "line": 6
       },
       {
-        "path": "services/payment-service/app/main.py",
-        "line": 53
+        "path": "docker-compose.yml",
+        "line": 37
       },
       {
-        "path": "services/notification-service/app/main.py",
+        "path": "services/payment-service/app/main.py",
         "line": 53
       }
     ],
     "verification": [
       {
-        "path": "tests/smoke_purchase.py",
+        "path": "tests/fresh_install.py",
         "line": 1
       },
       {
@@ -1727,7 +1809,7 @@
         "line": 1
       }
     ],
-    "finding": "Checks HTTP de vida presentes; no comprueban readiness de DB/Redis/consumidores. No se afirma salud integral.",
+    "finding": "Healthchecks de cuatro PostgreSQL, Redis, RabbitMQ y gateway; seis endpoints HTTP verificados. Los endpoints de aplicaciones son principalmente liveness.",
     "scope": "MVP / calidad"
   },
   {
@@ -1739,19 +1821,23 @@
     "code": [
       {
         "path": "services/order-service/app/routers/orders.py",
-        "line": 36
+        "line": 1
       },
       {
         "path": "services/cart-service/app/routers/cart.py",
-        "line": 27
+        "line": 1
       },
       {
-        "path": "services/payment-service/app/main.py",
+        "path": "services/order-service/app/checkouts.py",
+        "line": 1
+      },
+      {
+        "path": "services/cart-service/app/storage.py",
         "line": 1
       }
     ],
     "verification": [],
-    "finding": "Modulos por responsabilidad, pero logica de negocio/DB en routers, arranque en importacion y archivos .bak conviven con fuentes activas.",
+    "finding": "Separacion modular mejorada con checkout/storage; routers aun mezclan coordinacion y acceso SQL y varias tablas se crean al importar. Refactorizacion no funcional pendiente; respaldos .bak estan excluidos de Git.",
     "scope": "MVP / calidad"
   },
   {
@@ -1834,15 +1920,19 @@
         "line": 1
       },
       {
-        "path": "tests/order_stability.py",
+        "path": "tests/checkout_stability.py",
         "line": 1
       },
       {
-        "path": "tests/gateway_stability.py",
+        "path": "tests/cart_stability.py",
+        "line": 1
+      },
+      {
+        "path": "tests/demo_release.py",
         "line": 1
       }
     ],
-    "finding": "Suite automatizada ejecutada: 89 unittest y escenarios adicionales. Pytest era una tecnologia propuesta, no el mecanismo real.",
+    "finding": "124 unittest y escenarios HTTP, migraciones, TTL/DLQ y gateway. Runner de entrega incluye demostracion completa; instalacion limpia verificada por separado.",
     "scope": "MVP / calidad"
   },
   {
@@ -1850,7 +1940,7 @@
     "page": 20,
     "requirement": "El proyecto deberá utilizar control de versiones mediante Git.",
     "type": "No funcional",
-    "status": "Parcial",
+    "status": "Cumplido",
     "code": [
       {
         "path": "docs/auditoria/estado-entorno.json",
@@ -1858,7 +1948,7 @@
       }
     ],
     "verification": [],
-    "finding": "Repositorio Git inicializado, pero HEAD no existe y git ls-files esta vacio: no hay commits ni codigo bajo seguimiento.",
+    "finding": "HEAD real, fuentes bajo seguimiento, commits de baseline y correcciones, secretos excluidos. Version de entrega etiquetada localmente; sin remoto configurado no se publica.",
     "scope": "MVP / calidad"
   },
   {
@@ -1902,17 +1992,17 @@
         "line": 1
       },
       {
-        "path": "tests/run_stability.ps1",
+        "path": "tests/fresh_install.py",
         "line": 1
       }
     ],
     "verification": [
       {
-        "path": "tests/smoke_purchase.py",
+        "path": "tests/fresh_install.py",
         "line": 1
       }
     ],
-    "finding": "Verificado Windows con Docker Linux. Runner PowerShell y script legado fork no demuestran ejecucion en macOS/Linux; no se probo instalacion limpia.",
+    "finding": "Instalacion limpia y reinicio verificados en Windows con contenedores Linux. Falta ejecutar la misma verificacion en host Linux/macOS; no se infiere portabilidad completa.",
     "scope": "MVP / calidad"
   },
   {

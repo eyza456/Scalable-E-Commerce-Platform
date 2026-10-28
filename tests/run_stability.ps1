@@ -36,6 +36,8 @@ try {
     if ($LASTEXITCODE -ne 0) { throw 'Regresion de hallazgos de auditoria' }
     python -X utf8 tests/smoke_payment_rejections.py
     if ($LASTEXITCODE -ne 0) { throw 'Fallo en rechazos simulados de pago' }
+    python -X utf8 tests/demo_release.py
+    if ($LASTEXITCODE -ne 0) { throw 'Fallo en demostracion de entrega' }
     docker compose exec -T api-gateway nginx -t
     if ($LASTEXITCODE -ne 0) { throw 'Configuracion de gateway invalida' }
     python -X utf8 tests/gateway_stability.py

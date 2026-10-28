@@ -1,0 +1,66 @@
+{
+  "audit_date": "2026-10-28",
+  "command": "powershell -NoProfile -ExecutionPolicy Bypass -File tests/run_stability.ps1",
+  "observed_exit_code": 0,
+  "unittest_total": 89,
+  "unittest_failures": 0,
+  "unittest_runs": [
+    {
+      "tests": 20,
+      "seconds": 1.252
+    },
+    {
+      "tests": 11,
+      "seconds": 0.402
+    },
+    {
+      "tests": 17,
+      "seconds": 0.593
+    },
+    {
+      "tests": 12,
+      "seconds": 0.487
+    },
+    {
+      "tests": 2,
+      "seconds": 0.011
+    },
+    {
+      "tests": 6,
+      "seconds": 0.224
+    },
+    {
+      "tests": 5,
+      "seconds": 0.004
+    },
+    {
+      "tests": 5,
+      "seconds": 0.004
+    },
+    {
+      "tests": 10,
+      "seconds": 39.983
+    },
+    {
+      "tests": 1,
+      "seconds": 12.183
+    }
+  ],
+  "additional_success_messages": [
+    "OK: migracion y rollback conservan productos y categorias, agrupando duplicados.",
+    "OK: reintento TTL y DLQ reales para order",
+    "OK: reintento TTL y DLQ reales para product",
+    "OK: perfil HTTP, autenticacion, validacion, duplicados, cuenta ajena protegida y login con correo nuevo.",
+    "OK: catalogo HTTP, permisos admin/seller/cliente, categorias, filtros, paginacion y eliminacion protegida.",
+    "OK: 6 health checks; perfil de cliente; permisos; carrito -> pedido -> pago -> stock; Outbox publicado; doble pago rechazado.",
+    "OK: dos compras simultaneas, un PAID y un REJECTED; stock disponible=1.",
+    "OK: caida despues de reservar recuperada automaticamente, sin segundo descuento.",
+    "OK: historial privado, filtros, cancelacion idempotente, reserva real liberada una vez y pago confirmado protegido."
+  ],
+  "nginx_configuration_valid": true,
+  "scope": "Runner canonico completo; no es una prueba de carga ni una instalacion desde cero",
+  "legacy_excluded": {
+    "file": "services/product-service/test_concurrency_53.py",
+    "reason": "Script manual con IDs fijos 9001/9005, transaccion fija y multiprocessing fork; sus invariantes tienen pruebas automatizadas aisladas en product_stability.py"
+  }
+}
