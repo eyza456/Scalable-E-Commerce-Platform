@@ -4,6 +4,7 @@ from decimal import Decimal, InvalidOperation
 from uuid import UUID
 
 import httpx
+from app import http_client
 from fastapi import HTTPException
 from sqlalchemy import text
 
@@ -31,7 +32,7 @@ def lock_user(db, user_id, skip=False):
 
 def cart_call(checkout, action):
     try:
-        response = httpx.post(
+        response = http_client.post(
             settings.CART_SERVICE_URL.rstrip("/") + f"/cart/internal/{checkout.user_id}/checkout/{checkout.id}/{action}",
             headers={"X-Internal-Service-Key": settings.INTERNAL_SERVICE_KEY}, timeout=5,
         )
@@ -65,7 +66,7 @@ def validate_products(snapshot):
         except (KeyError, ValueError, TypeError, InvalidOperation) as exc:
             raise Rejected("INVALID_CART", "Datos de carrito invalidos") from exc
         try:
-            response = httpx.get(f"{settings.PRODUCT_SERVICE_URL}/products/{product_id}", timeout=5)
+            response = http_client.get(f"{settings.PRODUCT_SERVICE_URL}/products/{product_id}", timeout=5)
             product = response.json()
         except (httpx.RequestError, ValueError) as exc:
             raise Unavailable("Catalogo temporalmente no disponible") from exc
@@ -152,7 +153,7 @@ def begin_checkout(db, current_user, key=None):
         db.commit()
         return active.id, False
     try:
-        response = httpx.get(f"{settings.CART_SERVICE_URL}/cart",
+        response = http_client.get(f"{settings.CART_SERVICE_URL}/cart",
                             headers={"Authorization": f"Bearer {current_user['token']}"}, timeout=5)
         cart = response.json()
     except (httpx.RequestError, ValueError) as exc:

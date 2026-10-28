@@ -73,7 +73,7 @@ class PaymentStability(unittest.TestCase):
     def test_simulated_rejections_are_durable_without_stock_or_events(self):
         for result, code in inventory.SIMULATED_REJECTIONS.items():
             with self.subTest(result=result):
-                with patch("app.routers.payments.httpx.get", return_value=self.response):
+                with patch("app.routers.payments.http_client.get", return_value=self.response):
                     with self.assertRaises(HTTPException) as caught:
                         self.simulated_pay(result)
                 self.assertEqual(caught.exception.status_code, 409)
@@ -89,7 +89,7 @@ class PaymentStability(unittest.TestCase):
         self.reserve_stock.assert_not_called()
 
     def test_rejected_authorization_allows_later_successful_attempt(self):
-        with patch("app.routers.payments.httpx.get", return_value=self.response):
+        with patch("app.routers.payments.http_client.get", return_value=self.response):
             with self.assertRaises(HTTPException):
                 self.simulated_pay("insufficient_funds")
             self.pay()
@@ -101,7 +101,7 @@ class PaymentStability(unittest.TestCase):
         self.reserve_stock.assert_called_once()
 
     def test_recovery_preserves_simulated_rejection_after_process_loss(self):
-        with patch("app.routers.payments.httpx.get", return_value=self.response), patch(
+        with patch("app.routers.payments.http_client.get", return_value=self.response), patch(
                 "app.routers.payments.settle_payment", side_effect=RuntimeError("process lost")):
             with self.assertRaises(RuntimeError):
                 self.simulated_pay("expired_card")
@@ -119,7 +119,7 @@ class PaymentStability(unittest.TestCase):
 
     def test_pending_simulation_cannot_be_overridden(self):
         self.reserve_stock.side_effect = inventory.InventoryUnavailable("offline")
-        with patch("app.routers.payments.httpx.get", return_value=self.response):
+        with patch("app.routers.payments.http_client.get", return_value=self.response):
             self.pay()
             with self.assertRaises(HTTPException) as caught:
                 self.simulated_pay("card_declined")
@@ -134,7 +134,7 @@ class PaymentStability(unittest.TestCase):
             PaymentCreate(order_id=91, method="card", simulation_result="random")
 
     def test_cancellation_takes_priority_over_simulated_rejection(self):
-        with patch("app.routers.payments.httpx.get", return_value=self.response), patch(
+        with patch("app.routers.payments.http_client.get", return_value=self.response), patch(
                 "app.routers.payments.settle_payment", side_effect=RuntimeError("process lost")):
             with self.assertRaises(RuntimeError):
                 self.simulated_pay("card_declined")
@@ -148,7 +148,7 @@ class PaymentStability(unittest.TestCase):
         self.reserve_stock.assert_not_called()
 
     def test_payment_and_three_deliveries_commit_together(self):
-        with patch("app.routers.payments.httpx.get", return_value=self.response):
+        with patch("app.routers.payments.http_client.get", return_value=self.response):
             self.pay()
         with self.sessions() as db:
             self.assertEqual(db.query(Payment).one().amount, Decimal("12.30"))
@@ -164,7 +164,7 @@ class PaymentStability(unittest.TestCase):
             raise RuntimeError("outbox unavailable")
         event.listen(OutboxEvent, "before_insert", fail)
         try:
-            with patch("app.routers.payments.httpx.get", return_value=self.response):
+            with patch("app.routers.payments.http_client.get", return_value=self.response):
                 with self.assertRaises(RuntimeError):
                     self.pay()
         finally:
@@ -189,7 +189,7 @@ class PaymentStability(unittest.TestCase):
                 return 201
             except HTTPException as exc:
                 return exc.status_code
-        with patch("app.routers.payments.httpx.get", return_value=self.response):
+        with patch("app.routers.payments.http_client.get", return_value=self.response):
             with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:
                 results = list(pool.map(attempt, range(4)))
         self.assertGreaterEqual(results.count(201), 1)
@@ -200,7 +200,7 @@ class PaymentStability(unittest.TestCase):
             self.assertEqual(db.query(OutboxEvent).count(), 3)
 
     def test_partial_broker_failure_retries_only_pending_destination(self):
-        with patch("app.routers.payments.httpx.get", return_value=self.response):
+        with patch("app.routers.payments.http_client.get", return_value=self.response):
             self.pay()
         def publish(destination, *_):
             if destination == "product_payment_completed":
@@ -311,7 +311,7 @@ class PaymentStability(unittest.TestCase):
 
     def test_wrong_owner_cannot_pay(self):
         self.order["user_id"] = 99
-        with patch("app.routers.payments.httpx.get", return_value=self.response):
+        with patch("app.routers.payments.http_client.get", return_value=self.response):
             with self.assertRaises(HTTPException) as caught:
                 self.pay()
         self.assertEqual(caught.exception.status_code, 403)
@@ -400,7 +400,7 @@ class PaymentStability(unittest.TestCase):
 
     def test_insufficient_stock_rejects_without_paid_event(self):
         self.reserve_stock.side_effect = inventory.StockUnavailable("sold out")
-        with patch("app.routers.payments.httpx.get", return_value=self.response):
+        with patch("app.routers.payments.http_client.get", return_value=self.response):
             with self.assertRaises(HTTPException) as caught:
                 self.pay()
         self.assertEqual(caught.exception.status_code, 409)
@@ -410,7 +410,7 @@ class PaymentStability(unittest.TestCase):
 
     def test_inventory_outage_leaves_recoverable_intent(self):
         self.reserve_stock.side_effect = inventory.InventoryUnavailable("offline")
-        with patch("app.routers.payments.httpx.get", return_value=self.response):
+        with patch("app.routers.payments.http_client.get", return_value=self.response):
             payment = self.pay()
         self.assertEqual(payment.status, "PENDING")
         with self.sessions() as db:
@@ -426,7 +426,7 @@ class PaymentStability(unittest.TestCase):
 
     def test_pending_retry_reuses_same_transaction(self):
         self.reserve_stock.side_effect = inventory.InventoryUnavailable("lost response")
-        with patch("app.routers.payments.httpx.get", return_value=self.response):
+        with patch("app.routers.payments.http_client.get", return_value=self.response):
             first = self.pay()
             self.reserve_stock.side_effect = None
             second = self.pay()
@@ -440,7 +440,7 @@ class PaymentStability(unittest.TestCase):
         from fastapi import Response
         self.reserve_stock.side_effect = inventory.InventoryUnavailable("offline")
         response = Response()
-        with patch("app.routers.payments.httpx.get", return_value=self.response):
+        with patch("app.routers.payments.http_client.get", return_value=self.response):
             with self.sessions() as db:
                 payment = create_payment(PaymentCreate(order_id=91, method="card"), self.user, db, response)
                 self.assertEqual(payment.status, "PENDING")
@@ -448,7 +448,7 @@ class PaymentStability(unittest.TestCase):
 
     def test_rejected_order_can_retry_after_restocking(self):
         self.reserve_stock.side_effect = inventory.StockUnavailable("sold out")
-        with patch("app.routers.payments.httpx.get", return_value=self.response):
+        with patch("app.routers.payments.http_client.get", return_value=self.response):
             with self.assertRaises(HTTPException):
                 self.pay()
             self.reserve_stock.side_effect = None
@@ -461,7 +461,7 @@ class PaymentStability(unittest.TestCase):
         from types import SimpleNamespace
         response = Mock(status_code=409)
         response.json.return_value = {"detail": {"code": "RESERVATION_CONFLICT"}}
-        with patch.object(inventory.httpx, "post", return_value=response):
+        with patch.object(inventory.http_client, "post", return_value=response):
             with self.assertRaises(inventory.InventoryUnavailable):
                 self.real_reserve_stock(SimpleNamespace(transaction_id="TX-TEST"))
 
@@ -469,21 +469,21 @@ class PaymentStability(unittest.TestCase):
         from types import SimpleNamespace
         response = Mock(status_code=409)
         response.json.return_value = {"detail": {"code": "INSUFFICIENT_STOCK"}}
-        with patch.object(inventory.httpx, "post", return_value=response):
+        with patch.object(inventory.http_client, "post", return_value=response):
             with self.assertRaises(inventory.StockUnavailable):
                 self.real_reserve_stock(SimpleNamespace(transaction_id="TX-TEST"))
 
     def test_stock_client_timeout_does_not_confirm_or_reject(self):
         import httpx
         from types import SimpleNamespace
-        with patch.object(inventory.httpx, "post", side_effect=httpx.ReadTimeout("lost response")):
+        with patch.object(inventory.http_client, "post", side_effect=httpx.ReadTimeout("lost response")):
             with self.assertRaises(inventory.InventoryUnavailable):
                 self.real_reserve_stock(SimpleNamespace(transaction_id="TX-TEST"))
 
     def test_cancellation_blocks_stale_create_request(self):
         with self.sessions() as db:
             cancellations.begin_cancellation(db,91,42)
-        with patch("app.routers.payments.httpx.get",return_value=self.response):
+        with patch("app.routers.payments.http_client.get",return_value=self.response):
             with self.assertRaises(HTTPException) as error:
                 self.pay()
             self.assertEqual(error.exception.status_code,409)
@@ -492,7 +492,7 @@ class PaymentStability(unittest.TestCase):
 
     def test_cancellation_stops_pending_recovery(self):
         self.reserve_stock.side_effect=inventory.InventoryUnavailable("offline")
-        with patch("app.routers.payments.httpx.get",return_value=self.response):
+        with patch("app.routers.payments.http_client.get",return_value=self.response):
             payment=self.pay()
         self.reserve_stock.reset_mock()
         with self.sessions() as db:
@@ -502,7 +502,7 @@ class PaymentStability(unittest.TestCase):
         self.reserve_stock.assert_not_called()
 
     def test_paid_payment_prevents_cancellation_barrier(self):
-        with patch("app.routers.payments.httpx.get",return_value=self.response):
+        with patch("app.routers.payments.http_client.get",return_value=self.response):
             self.pay()
         with self.sessions() as db:
             with self.assertRaises(HTTPException) as error:
@@ -515,11 +515,11 @@ class PaymentStability(unittest.TestCase):
         import httpx
         with self.sessions() as db:
             cancellations.begin_cancellation(db,91,42)
-            with patch.object(cancellations.httpx,"post",side_effect=httpx.ReadTimeout("offline")):
+            with patch.object(cancellations.http_client,"post",side_effect=httpx.ReadTimeout("offline")):
                 self.assertEqual(cancellations.finish_cancellation(db,91).status,"PENDING")
         response=Mock(status_code=200)
         response.json.return_value={"order_id":91,"status":"RELEASED"}
-        with patch.object(cancellations,"SessionLocal",self.sessions),patch.object(cancellations.httpx,"post",return_value=response) as remote:
+        with patch.object(cancellations,"SessionLocal",self.sessions),patch.object(cancellations.http_client,"post",return_value=response) as remote:
             cancellations.recover_cancellations()
             cancellations.recover_cancellations()
             remote.assert_called_once()
@@ -528,7 +528,7 @@ class PaymentStability(unittest.TestCase):
 
     def test_payment_confirmation_and_cancellation_cannot_both_win(self):
         self.reserve_stock.side_effect=inventory.InventoryUnavailable("offline")
-        with patch("app.routers.payments.httpx.get",return_value=self.response):
+        with patch("app.routers.payments.http_client.get",return_value=self.response):
             payment=self.pay()
         self.reserve_stock.side_effect=None
         def attempt(action):
@@ -552,7 +552,7 @@ class PaymentStability(unittest.TestCase):
 
     def test_terminal_timestamp_is_set_once_after_pending_recovery(self):
         self.reserve_stock.side_effect=inventory.InventoryUnavailable("offline")
-        with patch("app.routers.payments.httpx.get",return_value=self.response):
+        with patch("app.routers.payments.http_client.get",return_value=self.response):
             payment=self.pay()
         self.assertIsNone(payment.processed_at)
         self.reserve_stock.side_effect=None
@@ -565,13 +565,13 @@ class PaymentStability(unittest.TestCase):
 
     def test_rejected_payment_has_terminal_timestamp(self):
         self.reserve_stock.side_effect=inventory.StockUnavailable("sold out")
-        with patch("app.routers.payments.httpx.get",return_value=self.response),self.assertRaises(HTTPException):
+        with patch("app.routers.payments.http_client.get",return_value=self.response),self.assertRaises(HTTPException):
             self.pay()
         with self.sessions() as db:self.assertIsNotNone(db.query(Payment).one().processed_at)
 
     def test_cancelled_pending_payment_has_terminal_timestamp(self):
         self.reserve_stock.side_effect=inventory.InventoryUnavailable("offline")
-        with patch("app.routers.payments.httpx.get",return_value=self.response):self.pay()
+        with patch("app.routers.payments.http_client.get",return_value=self.response):self.pay()
         with self.sessions() as db:
             cancellations.begin_cancellation(db,91,42)
             self.assertIsNotNone(db.query(Payment).one().processed_at)

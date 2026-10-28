@@ -71,17 +71,17 @@ class OrderStability(unittest.TestCase):
             self.assertEqual(db.get(Order,94).status,"PAID")
 
     def test_successful_cancellation_is_idempotent(self):
-        with self.sessions() as db,patch.object(cancellations.httpx,"post",return_value=self.done) as remote:
+        with self.sessions() as db,patch.object(cancellations.http_client,"post",return_value=self.done) as remote:
             self.assertEqual(cancel_order(91,Response(),self.user,db).status,"CANCELLED")
             self.assertEqual(cancel_order(91,Response(),self.user,db).status,"CANCELLED")
             remote.assert_called_once()
 
     def test_outage_is_durable_and_automatically_recovered(self):
         response = Response()
-        with self.sessions() as db,patch.object(cancellations.httpx,"post",side_effect=httpx.ReadTimeout("offline")):
+        with self.sessions() as db,patch.object(cancellations.http_client,"post",side_effect=httpx.ReadTimeout("offline")):
             self.assertEqual(cancel_order(91,response,self.user,db).status,"CANCELLING")
         self.assertEqual(response.status_code,202)
-        with patch.object(cancellations,"SessionLocal",self.sessions),patch.object(cancellations.httpx,"post",return_value=self.done):
+        with patch.object(cancellations,"SessionLocal",self.sessions),patch.object(cancellations.http_client,"post",return_value=self.done):
             cancellations.recover_cancellations()
         with self.sessions() as db:
             self.assertEqual(db.get(Order,91).status,"CANCELLED")
@@ -89,7 +89,7 @@ class OrderStability(unittest.TestCase):
     def test_payment_wins_race_restores_paid_even_without_event(self):
         response = Mock(status_code=409)
         response.json.return_value = {"detail":{"code":"PAYMENT_CONFIRMED","order_id":91}}
-        with self.sessions() as db,patch.object(cancellations.httpx,"post",return_value=response):
+        with self.sessions() as db,patch.object(cancellations.http_client,"post",return_value=response):
             with self.assertRaises(HTTPException) as error:
                 cancel_order(91,Response(),self.user,db)
             self.assertEqual(error.exception.status_code,409)
@@ -97,7 +97,7 @@ class OrderStability(unittest.TestCase):
 
     def test_wrong_remote_owner_cannot_finalize_cancellation(self):
         self.done.json.return_value["user_id"] = 99
-        with self.sessions() as db,patch.object(cancellations.httpx,"post",return_value=self.done):
+        with self.sessions() as db,patch.object(cancellations.http_client,"post",return_value=self.done):
             self.assertEqual(cancel_order(91,Response(),self.user,db).status,"CANCELLING")
 
     def test_payment_consumer_waits_for_cancellation_decision(self):

@@ -3,6 +3,7 @@ import secrets
 from uuid import UUID
 
 import httpx
+from app import http_client
 from fastapi import APIRouter, Depends, HTTPException, Security
 from fastapi.security import APIKeyHeader
 
@@ -17,7 +18,7 @@ router = APIRouter(prefix="/cart", tags=["Cart"])
 
 def product_snapshot(product_id):
     try:
-        response = httpx.get(f"{settings.PRODUCT_SERVICE_URL}/products/{product_id}", timeout=5)
+        response = http_client.get(f"{settings.PRODUCT_SERVICE_URL}/products/{product_id}", timeout=5)
     except httpx.RequestError as exc:
         raise HTTPException(503, "Product Service no esta disponible") from exc
     if response.status_code == 404:

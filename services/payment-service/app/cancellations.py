@@ -2,6 +2,7 @@ import logging
 from datetime import datetime, timezone
 
 import httpx
+from app import http_client
 from fastapi import HTTPException
 from sqlalchemy import text
 
@@ -37,7 +38,7 @@ def finish_cancellation(db, order_id, skip_locked=False):
         return None
     if cancellation.status != "DONE":
         try:
-            response = httpx.post(
+            response = http_client.post(
                 settings.PRODUCT_SERVICE_URL.rstrip("/") + f"/inventory/internal/orders/{order_id}/release",
                 headers={"X-Internal-Service-Key": settings.INTERNAL_SERVICE_KEY}, timeout=10,
             )

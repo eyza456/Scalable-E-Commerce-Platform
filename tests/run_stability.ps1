@@ -3,6 +3,9 @@ Push-Location (Split-Path $PSScriptRoot -Parent)
 try {
     $checks = @(
         @('payment-service', 'payment_stability.py'),
+        @('payment-service', 'http_pool_stability.py'),
+        @('order-service', 'http_pool_stability.py'),
+        @('cart-service', 'http_pool_stability.py'),
         @('order-service', 'order_stability.py'),
         @('order-service', 'checkout_stability.py'),
         @('cart-service', 'cart_stability.py'),

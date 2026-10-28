@@ -4,6 +4,7 @@ from datetime import datetime, timezone
 from urllib.parse import quote
 
 import httpx
+from app import http_client
 
 from app.core.config import settings
 from app.core.rabbitmq import PAYMENT_QUEUES
@@ -36,7 +37,7 @@ class InventoryUnavailable(Exception):
 
 def reserve_stock(payment):
     try:
-        response = httpx.post(
+        response = http_client.post(
             settings.PRODUCT_SERVICE_URL.rstrip("/") + "/inventory/internal/reservations/"
             + quote(payment.transaction_id, safe=""),
             headers={"X-Internal-Service-Key": settings.INTERNAL_SERVICE_KEY},

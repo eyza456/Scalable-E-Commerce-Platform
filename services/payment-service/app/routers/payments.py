@@ -1,6 +1,7 @@
 import uuid
 
 import httpx
+from app import http_client
 
 from fastapi import APIRouter, Depends, HTTPException, status, Response
 from sqlalchemy.orm import Session
@@ -52,7 +53,7 @@ def create_payment(
     # ==========================================================
 
     try:
-        order_response = httpx.get(
+        order_response = http_client.get(
             f"{settings.ORDER_SERVICE_URL}/orders/{payment_data.order_id}",
             headers={
                 "Authorization": f"Bearer {token}"
@@ -201,7 +202,7 @@ def get_order_cancellation(order_id: int, db: Session = Depends(get_db)):
 @router.post("/internal/orders/{order_id}/cancel", dependencies=[Depends(verify_internal_service)])
 def cancel_order_payments(order_id: int, response: Response, db: Session = Depends(get_db)):
     try:
-        result = httpx.get(settings.ORDER_SERVICE_URL.rstrip("/") + f"/orders/internal/{order_id}",
+        result = http_client.get(settings.ORDER_SERVICE_URL.rstrip("/") + f"/orders/internal/{order_id}",
                            headers={"X-Internal-Service-Key": settings.INTERNAL_SERVICE_KEY}, timeout=10)
         order = result.json()
     except (httpx.RequestError, ValueError) as exc:

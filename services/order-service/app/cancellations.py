@@ -1,5 +1,6 @@
 import logging
 import httpx
+from app import http_client
 
 from app.core.config import settings
 from app.database import SessionLocal
@@ -16,7 +17,7 @@ def finish_cancellation(db, order_id):
     db.rollback()
     outcome = None
     try:
-        response = httpx.post(
+        response = http_client.post(
             settings.PAYMENT_SERVICE_URL.rstrip("/") + f"/payments/internal/orders/{order_id}/cancel",
             headers={"X-Internal-Service-Key": settings.INTERNAL_SERVICE_KEY}, timeout=5,
         )

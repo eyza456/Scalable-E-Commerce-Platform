@@ -1,3 +1,4 @@
+from app.http_client import close as close_http_pool
 from fastapi import FastAPI
 from contextlib import asynccontextmanager
 from threading import Event, Thread
@@ -21,10 +22,13 @@ async def lifespan(app):
     recovery = Thread(target=run_recovery, args=(stop,), daemon=True)
     worker.start()
     recovery.start()
-    yield
-    stop.set()
-    worker.join(timeout=2)
-    recovery.join(timeout=2)
+    try:
+        yield
+    finally:
+        stop.set()
+        worker.join(timeout=2)
+        recovery.join(timeout=2)
+        close_http_pool()
 
 
 app = FastAPI(

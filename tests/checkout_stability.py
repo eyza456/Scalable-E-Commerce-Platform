@@ -41,8 +41,8 @@ class CheckoutStability(unittest.TestCase):
         self.product_status=200
         self.prepare_down=self.commit_down=self.abort_down=False
         self.lock=threading.Lock()
-        self.patches=[patch.object(checkouts.httpx,"get",side_effect=self.get),
-                      patch.object(checkouts.httpx,"post",side_effect=self.post)]
+        self.patches=[patch.object(checkouts.http_client,"get",side_effect=self.get),
+                      patch.object(checkouts.http_client,"post",side_effect=self.post)]
         for p in self.patches:p.start();self.addCleanup(p.stop)
 
     def reply(self,status,data):

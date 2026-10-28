@@ -1,3 +1,4 @@
+from app.http_client import close as close_http_pool
 import threading
 from contextlib import asynccontextmanager
 from app.cancellations import run_recovery
@@ -23,10 +24,13 @@ async def lifespan(app):
     checkout_worker = threading.Thread(target=run_checkout_recovery, args=(stop,), daemon=True)
     worker.start()
     checkout_worker.start()
-    yield
-    stop.set()
-    worker.join(timeout=2)
-    checkout_worker.join(timeout=2)
+    try:
+        yield
+    finally:
+        stop.set()
+        worker.join(timeout=2)
+        checkout_worker.join(timeout=2)
+        close_http_pool()
 
 
 app = FastAPI(
