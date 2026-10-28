@@ -55,7 +55,7 @@ def main():
     from pypdf import PdfReader
     parser = argparse.ArgumentParser()
     parser.add_argument("--pdf", type=Path, default=Path("C:/Users/Usuario/Downloads/Plataforma_escalable_comercio_electronico.pdf"))
-    parser.add_argument("--suite-log", type=Path, default=OUT / "suite-outbox.log")
+    parser.add_argument("--suite-log", type=Path, default=OUT / "suite-sql-http.log")
     parser.add_argument("--suite-exit-code", type=int, required=True, choices=[0])
     args = parser.parse_args()
     criteria = json.loads((OUT / "criterios-revision.json").read_text(encoding="utf-8"))
@@ -72,7 +72,7 @@ def main():
     raw = args.suite_log.read_bytes()
     log = raw.decode("utf-16") if raw.startswith((b"\xff\xfe", b"\xfe\xff")) else raw.decode("utf-8-sig")
     runs = [{"tests": int(n), "seconds": float(t)} for n, t in re.findall(r"Ran (\d+) tests? in ([\d.]+)s", log)]
-    assert sum(r["tests"] for r in runs) == 134, runs
+    assert sum(r["tests"] for r in runs) == 153, runs
     assert len(re.findall(r"^OK\s*$", log, re.M)) == len(runs)
     assert not re.search(r"^FAILED\b|^ERROR:|^FAIL:", log, re.M)
     assert "OK: demostracion completa; datos propios eliminados." in log
@@ -92,7 +92,7 @@ def main():
         error_count = sum(s["errors"] for s in performance["stages"])
         p95 = target["operations"]["purchase_flow"]["p95_ms"] / 1000
         limit = performance["goals"]["latency_ms"]["purchase_flow"]["p95"] / 1000
-        perf_note = (f"La suite funcional fue reejecutada tras optimizar Outbox; el benchmark se realiza por separado. "
+        perf_note = (f"La suite funcional fue reejecutada tras perfilar SQL/HTTP y optimizar transporte e historial; el benchmark se realiza por separado. "
                      f"Benchmark separado: {measured} solicitudes HTTP, {error_count} errores, "
                      f"{performance['invariants']['completed_flows_including_warmup']} compras contando calentamiento. "
                      f"A {target['concurrency']} usuarios: {target['useful_requests_per_second']:.2f} req/s utiles; "
@@ -151,8 +151,8 @@ def main():
            "Cumplido significa capacidad implementada y evidencia indicada; no certifica produccion, carga o portabilidad no probadas. Parcial indica comportamiento o evidencia incompletos. Pendiente indica ausencia de evidencia suficiente.", "",
            "La auditoria original (63 cumplidos, 14 parciales, 1 pendiente) se conserva en [historico-47c5085](historico-47c5085/README.md). El codigo de aquel snapshot se recupera con Git. Los enlaces actuales se recalcularon y validaron contra funciones/lineas reales.", "",
            "## Verificacion vigente", "",
-           "Suite completa: **codigo 0, 134 unittest aprobados y 0 fallos**, mas HTTP de perfil, catalogo, compra, inventario, historial/cancelacion, hallazgos, rechazos y demostracion. Tambien pasan migracion de categorias, TTL/DLQ reales, nginx y resiliencia del gateway.", "",
-           "[Resultado de suite](resultado-suite.json), [demo ejecutada](../entrega/demo-resultados.json), [instalacion limpia](instalacion-desde-cero.json), [OpenAPI observado](openapi-observado.json) y [estado sin secretos](estado-entorno.json). Log local: suite-outbox.log. " + perf_note + "", "",
+           "Suite completa: **codigo 0, 153 unittest aprobados y 0 fallos**, mas HTTP de perfil, catalogo, compra, inventario, historial/cancelacion, hallazgos, rechazos y demostracion. Tambien pasan migracion de categorias, TTL/DLQ reales, nginx y resiliencia del gateway.", "",
+           "[Resultado de suite](resultado-suite.json), [demo ejecutada](../entrega/demo-resultados.json), [instalacion limpia](instalacion-desde-cero.json), [OpenAPI observado](openapi-observado.json) y [estado sin secretos](estado-entorno.json). Log local: suite-sql-http.log. " + perf_note + "", "",
            "## Hallazgos anteriores cerrados", "",
            "| Hallazgo | Cierre y evidencia |", "| --- | --- |",
            "| H-01 Pedido obsoleto | Revalidacion completa y total recalculado; checkout_stability y smoke_audit_fixes. |",

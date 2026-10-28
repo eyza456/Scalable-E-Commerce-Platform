@@ -1,0 +1,80 @@
+{
+  "api-gateway": {
+    "cpu_peak_percent": 22.46,
+    "cpu_mean_percent": 5.882121212121212,
+    "memory_peak_mib": 9.672,
+    "samples": 33
+  },
+  "cart-service": {
+    "cpu_peak_percent": 29.72,
+    "cpu_mean_percent": 12.73969696969697,
+    "memory_peak_mib": 80.3,
+    "samples": 33
+  },
+  "notification-service": {
+    "cpu_peak_percent": 3.45,
+    "cpu_mean_percent": 0.8663636363636363,
+    "memory_peak_mib": 39.89,
+    "samples": 33
+  },
+  "order-db": {
+    "cpu_peak_percent": 42.35,
+    "cpu_mean_percent": 17.444242424242425,
+    "memory_peak_mib": 59.77,
+    "samples": 33
+  },
+  "order-service": {
+    "cpu_peak_percent": 105.57,
+    "cpu_mean_percent": 55.224545454545456,
+    "memory_peak_mib": 83.66,
+    "samples": 33
+  },
+  "payment-db": {
+    "cpu_peak_percent": 44.69,
+    "cpu_mean_percent": 10.886060606060607,
+    "memory_peak_mib": 46.46,
+    "samples": 33
+  },
+  "payment-service": {
+    "cpu_peak_percent": 67.98,
+    "cpu_mean_percent": 32.053030303030305,
+    "memory_peak_mib": 101.8,
+    "samples": 33
+  },
+  "product-db": {
+    "cpu_peak_percent": 36.8,
+    "cpu_mean_percent": 11.111212121212121,
+    "memory_peak_mib": 46.27,
+    "samples": 33
+  },
+  "product-service": {
+    "cpu_peak_percent": 94.16,
+    "cpu_mean_percent": 38.915454545454544,
+    "memory_peak_mib": 101.8,
+    "samples": 33
+  },
+  "rabbitmq": {
+    "cpu_peak_percent": 141.76,
+    "cpu_mean_percent": 43.36242424242424,
+    "memory_peak_mib": 204.0,
+    "samples": 33
+  },
+  "redis": {
+    "cpu_peak_percent": 10.96,
+    "cpu_mean_percent": 2.6472727272727274,
+    "memory_peak_mib": 10.68,
+    "samples": 33
+  },
+  "user-db": {
+    "cpu_peak_percent": 29.77,
+    "cpu_mean_percent": 5.286666666666667,
+    "memory_peak_mib": 43.01,
+    "samples": 33
+  },
+  "user-service": {
+    "cpu_peak_percent": 45.82,
+    "cpu_mean_percent": 12.187272727272727,
+    "memory_peak_mib": 89.62,
+    "samples": 33
+  }
+}

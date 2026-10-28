@@ -1,0 +1,25 @@
+{
+  "source_commit": "9f68f1b2b070c90a3411f11550660c0bdc6d16e8",
+  "goals_unchanged": true,
+  "hash_format": "SHA-256 de bytes UTF-8 con CRLF normalizado a LF",
+  "sha256": {
+    "tests/performance_goals.json": "1fc71a41394ff7974e29b2dff2c4010c27b47cbb863fb59c54f05c8b0d069585",
+    "tests/performance_metrics.py": "63925ce4bbd2a853c6ed4c9b7a75b6ed7e4891139c37b98e5ebb6962a2c31927",
+    "tests/performance_load.py": "16ffed2485d0cd610716d84f34d74c67d776bbfae1bf7fdb1b6f2dee9ef78775",
+    "tests/performance_metrics_test.py": "a2a1a608238d4798dcb591efee8c49e308e55aaf5881f5dac6d01d0ab1567453",
+    "tests/performance_report.py": "40f68dbae5a0665a766519e0bfd5e1e4889fbd08555d7bf658ebd281b9803ff6",
+    "tests/payment_stability.py": "8ce8ff8b37c497eb62afc2f2faab7547430db3d5bd2df859a6f93c6d4f16590e",
+    "tests/fresh_install.py": "513b0b86956c6840a5e68ebff63954713e93ca266cbda69ab691c30483908741",
+    "docker-compose.yml": "c0fefe69d42dc13e8a6b66a8c4a1b023a8393b78b9403abf241844812cd21115",
+    "services/payment-service/app/outbox.py": "c026058b93b64f7d4d35eae462fdc31e80e203907cddcaf4a136e1586273ade1",
+    "services/payment-service/app/core/rabbitmq.py": "ca7b555f76042a0e1ca4bbfe5d0d64ee50f1c7f9e649710b0a0407462ee9c406",
+    "services/order-service/app/http_client.py": "f816e8234dcacc46ad00c87fcadc3f40b0229977a24cbb9600dc0eaae2236a17",
+    "services/payment-service/app/http_client.py": "f816e8234dcacc46ad00c87fcadc3f40b0229977a24cbb9600dc0eaae2236a17",
+    "services/cart-service/app/http_client.py": "f816e8234dcacc46ad00c87fcadc3f40b0229977a24cbb9600dc0eaae2236a17",
+    "services/order-service/app/checkouts.py": "5f31305d3792b0fecea983d8a9ed94826ba6e16bca13b7f4eeb65ed3c8e643ce",
+    "services/payment-service/app/inventory.py": "103d1e0a29d32410cb84fe36087016ee3360d17c327d77cc71d5a6e893ffeca4",
+    "docs/rendimiento/resultado.json": "e069febe239d420e06f62ad1b1de57cebdc9d0e903fd2002e04b1c07a5049f95",
+    "docs/rendimiento/resultado-muestras.jsonl": "a327fe56ddaebf2a3246653745f70e2f2609be6f7d80834e0d81e81cce884e88",
+    "docs/rendimiento/resultado-recursos.json": "1bb92f7ebb68f2ff3079f40d031378979e84ff661a26822d9af629a6d69300dd"
+  }
+}

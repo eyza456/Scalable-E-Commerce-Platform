@@ -9,7 +9,7 @@ import subprocess
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "docs/rendimiento"
-BASE = OUT / "baseline-9b6eeb3"
+BASE = OUT / "baseline-1a8d097"
 
 
 def digest(path):
@@ -22,7 +22,10 @@ def main():
     assert result["status"] in ("passed", "targets-not-met")
     assert result["mode"] == baseline["mode"] == "acceptance-local"
     assert result["source_commit"] != baseline["source_commit"], "El resultado aun corresponde a la linea base"
-    for name in ("services/payment-service/app/outbox.py", "services/payment-service/app/core/rabbitmq.py"):
+    for name in ("services/payment-service/app/outbox.py", "services/payment-service/app/core/rabbitmq.py",
+                 "services/order-service/app/http_client.py", "services/payment-service/app/http_client.py",
+                 "services/cart-service/app/http_client.py", "services/order-service/app/checkouts.py",
+                 "services/payment-service/app/inventory.py", "services/order-service/app/routers/orders.py"):
         measured_source = subprocess.check_output(["git", "show", result["source_commit"] + ":" + name], cwd=ROOT)
         assert digest(ROOT / name) == hashlib.sha256(measured_source.replace(b"\r\n", b"\n")).hexdigest(), "Cambio el codigo medido: " + name
     assert result["goals"] == baseline["goals"], "Los objetivos/perfil han cambiado"
@@ -62,12 +65,12 @@ def main():
     reduction = (1 - after["p95_ms"] / before["p95_ms"]) * 100
     invariant = result["invariants"]
     status = "APROBADO para el perfil local" if result["evaluation"]["passed"] else "OBJETIVOS NO CUMPLIDOS"
-    lines = ["# Rendimiento tras optimizar Outbox", "", f"**Resultado: {status}.**", "",
-             "Se repitio la misma prueba: objetivos JSON, generador, calculo de metricas y preparacion de entorno con hashes identicos a la linea base. No se relajo ningun umbral. [Linea base preservada](baseline-9b6eeb3/README.md) y [objetivos](objetivos.md).", "",
+    lines = ["# Rendimiento tras perfilar SQL y reutilizar conexiones HTTP", "", f"**Resultado: {status}.**", "",
+             "Se repitio la misma prueba: objetivos JSON, generador, calculo de metricas y preparacion de entorno con hashes identicos a la linea base. No se relajo ningun umbral. [Linea base preservada](baseline-1a8d097/README.md) y [objetivos](objetivos.md).", "",
              "## Cambio y garantias", "",
-             "El worker drena inmediatamente cualquier lote sano, completo o parcial. Cuando la cola esta vacia espera un segundo; si falla una entrega o hay excepcion de DB mantiene el backoff de cinco segundos. Cada lote reutiliza una conexion/canal privados y declara una vez cada destino; conserva ACK por mensaje, mandatory, persistencia, IDs estables, SQL, skip_locked y entrega al menos una vez.", "",
-             "Las diez pruebas nuevas verifican drenaje de 120 entregas, backoff con fallos parciales/DB/broker, dos workers concurrentes, recuperacion tras fallo de commit, reutilizacion de canal, NACK, mensajes no enrutables y ausencia de conexiones al broker en vacio. Un fallo de commit despues del ACK puede reenviar el mismo ID; los consumidores siguen siendo idempotentes.", "",
-             "Se conserva tambien el [primer ensayo intermedio](iteracion-1-c81a190/README.md): solo drenar lotes completos dejo p95 en 10,203 s y no aprobo. La version final agrega menor espera en vacio y conexion por lote sin modificar el instrumento.", "",
+             "Order, Payment y Cart comparten un pool HTTP por proceso, con clientes efimeros para aislar encabezados y cookies por llamada. Se reutiliza el transporte y su contexto TLS/conexiones; se mantienen timeouts por llamada, validacion TLS, ausencia de reintentos automaticos y las transacciones/bloqueos de negocio. El pool se cierra al apagar el servicio. El historial valida y copia el mismo modelo publico en el worker, libera la transaccion de lectura y renderiza JSON antes de volver al event loop; no omite la validacion del esquema ni el filtro por propietario. Outbox permanece como en la linea base, con ACK por mensaje, espera de un segundo en vacio y backoff de cinco segundos ante error.", "",
+             "Seis pruebas del pool se ejecutan en cada uno de los tres servicios: transporte reutilizado, aislamiento de tokens/cookies, concurrencia, timeouts/estados preservados, POST sin reintento y cierre/reapertura. Se conservan las pruebas de Outbox, checkout idempotente, revalidacion de stock/precio y cancelacion. No se agregaron indices ni se ampliaron los pools SQL para conseguir el resultado; los planes se capturaron con EXPLAIN ANALYZE/BUFFERS.", "",
+             "El diagnostico SQL/HTTP antes y despues se documenta en [perfilado](../perfilado/informe.md). Es una corrida instrumentada separada, de 30 segundos, que no se usa para aprobar latencias. Los numeros de este informe corresponden al benchmark original sin instrumentacion, a 1/5/10/20 usuarios durante 60 segundos por etapa y objetivos intactos.", "",
              "## Comparacion a 20 usuarios", "",
              "| Metrica | Antes | Despues | Objetivo |", "| --- | ---: | ---: | ---: |",
              f"| Compra p95 (s) | {before['p95_ms']/1000:.3f} | {after['p95_ms']/1000:.3f} | <=10 |",
@@ -79,6 +82,12 @@ def main():
              "## Etapas de la nueva ejecucion", "",
              "| Usuarios | Segundos reales | HTTP | HTTP/s total | HTTP/s util | Errores (%) | Compra p95 (s) | Compra p99 (s) |",
              "| ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |"]
+    at = lines.index("## Etapas de la nueva ejecucion")
+    comparison_rows = ["## APIs objetivo: antes y despues", "",
+                       "| Operacion p95 (ms) | Antes | Despues | Limite |", "| --- | ---: | ---: | ---: |"]
+    for operation in ("history", "checkout", "payment"):
+        comparison_rows.append(f"| {operation} | {old['operations'][operation]['p95_ms']:.2f} | {target['operations'][operation]['p95_ms']:.2f} | {result['goals']['latency_ms'][operation]['p95']} |")
+    lines[at:at] = comparison_rows + [""]
     for stage in result["stages"]:
         flow = stage["operations"]["purchase_flow"]
         lines.append(f"| {stage['concurrency']} | {stage['elapsed_seconds']:.2f} | {stage['requests']} | {stage['requests_per_second']:.2f} | {stage['useful_requests_per_second']:.2f} | {stage['error_percent']:.2f} | {flow['p95_ms']/1000:.3f} | {flow['p99_ms']/1000:.3f} |")
@@ -97,7 +106,7 @@ def main():
         for check in failed:
             lines.append(f"| {check['criterion']} | {check['observed']:.2f} | {check.get('required_max', check.get('required_min'))} |")
         lines += ["", "Al reducir la espera se procesa mas trafico y se generan mas pedidos durante las mismas etapas. Los historiales crecen mas que en la linea base; no es una comparacion de bases con cardinalidad final identica. El perfil inicial, tiempos, objetivos y generador si permanecen iguales.", "",
-                  "El siguiente trabajo es perfilar SQL y tiempos de espera del historial, y las llamadas HTTP/ocupacion de conexiones de checkout y pago bajo 20 usuarios. En el codigo actual se crean clientes HTTP sin reutilizacion por muchas llamadas entre servicios; es un candidato a investigar, no una causa demostrada por esta medicion. Medir trazas y planes antes de cambiar otros componentes. Mantener la mejora Outbox y repetir el mismo perfil despues de corregir esos puntos."]
+                  "Si aun quedan limites incumplidos, usar el perfil SQL/HTTP para investigar materializacion, serializacion, espera de conexiones y dependencias bajo carga. Ya se reutilizan las conexiones HTTP; no atribuir automaticamente toda latencia a SQL ni ampliar recursos sin evidencia. Mantener objetivos y repetir la prueba tras cada correccion."]
     lines += ["", "## Integridad", "",
               f"{requests} solicitudes HTTP medidas; {sum(s['errors'] for s in result['stages'])} errores inesperados. Compras totales contando calentamiento: {invariant['completed_flows_including_warmup']}. Integridad: {'APROBADA' if invariant['passed'] else 'FALLIDA'}.", "",
               f"Pagos: {invariant['payments']}. Pedidos: {invariant['orders']}. Inventario: {invariant['inventory']}.", "",
@@ -111,18 +120,22 @@ def main():
               "Carga cerrada a 1/5/10/20 usuarios, 60 segundos programados por etapa y 15 segundos de calentamiento excluido. La duracion real incluye ciclos en curso. Preparacion, registro y login fuera de la medida. Catalogo de 100 productos; paginas de 20; compra de un producto compartido con stock suficiente; historiales pequenos que crecen por etapa. Los sondeos quedan fuera del throughput util; la compra termina al observar PAID. Integridad de inventario y eventos se verifica despues de drenar pendientes.", "",
               "No demuestra sostenibilidad durante horas, saturacion, tasas abiertas de llegada, grandes bases, replicas, otros hosts ni SLA de produccion. Hay diferencias de carga externa no controladas entre ejecuciones. Las dependencias no estan fijadas, aunque se registran y comparan versiones. La instalacion habitual no se modifica por el benchmark y el proyecto aislado se elimina al terminar.", "",
               "```powershell\npython -X utf8 tests/performance_metrics_test.py\npython -X utf8 tests/performance_load.py\npython -X utf8 tests/performance_report.py\n```", "",
-              "[Resultado](resultado.json), [CSV](metricas.csv), [muestras](resultado-muestras.jsonl), [recursos](resultado-recursos.json), [recursos resumidos](recursos-resumen.json), [comparacion JSON](comparacion-outbox.json), [hashes](evidencias.json), [linea base completa](baseline-9b6eeb3/informe.md). Log local: ejecucion.log. La etiqueta v0.1.0-rc.1 permanece intacta."]
+              "[Resultado](resultado.json), [CSV](metricas.csv), [muestras](resultado-muestras.jsonl), [recursos](resultado-recursos.json), [recursos resumidos](recursos-resumen.json), [comparacion JSON](comparacion-sql-http.json), [hashes](evidencias.json), [linea base completa](baseline-1a8d097/informe.md). Log local: ejecucion.log. La etiqueta v0.1.0-rc.1 permanece intacta."]
     (OUT / "informe.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
-    comparison = {"same_goals": True, "same_instrument": True, "same_dataset": True, "baseline_evidence_commit": "9b6eeb3",
+    comparison = {"same_goals": True, "same_instrument": True, "same_dataset": True, "baseline_evidence_commit": "1a8d097",
                   "same_dependency_versions": result["dependency_versions"] == baseline["dependency_versions"],
                   "baseline_source_commit": baseline["source_commit"], "source_commit": result["source_commit"],
                   "before_p95_ms": before["p95_ms"], "after_p95_ms": after["p95_ms"], "p95_reduction_percent": reduction,
                   "before_useful_rps": old["useful_requests_per_second"], "after_useful_rps": target["useful_requests_per_second"],
+                  "apis": {name: {"before": old["operations"][name], "after": target["operations"][name],
+                                   "targets_ms": result["goals"]["latency_ms"][name]} for name in ("history", "checkout", "payment")},
                   "evaluation": result["evaluation"], "invariants_passed": invariant["passed"]}
-    (OUT / "comparacion-outbox.json").write_text(json.dumps(comparison, indent=2), encoding="utf-8")
+    (OUT / "comparacion-sql-http.json").write_text(json.dumps(comparison, indent=2), encoding="utf-8")
     paths = ["tests/performance_goals.json", "tests/performance_metrics.py", "tests/performance_load.py", "tests/performance_metrics_test.py",
              "tests/performance_report.py", "tests/payment_stability.py", "tests/fresh_install.py", "docker-compose.yml",
              "services/payment-service/app/outbox.py", "services/payment-service/app/core/rabbitmq.py",
+             "services/order-service/app/http_client.py", "services/payment-service/app/http_client.py", "services/cart-service/app/http_client.py",
+             "services/order-service/app/checkouts.py", "services/payment-service/app/inventory.py", "services/order-service/app/routers/orders.py",
              "docs/rendimiento/resultado.json", "docs/rendimiento/resultado-muestras.jsonl", "docs/rendimiento/resultado-recursos.json"]
     (OUT / "evidencias.json").write_text(json.dumps({"source_commit": result["source_commit"], "goals_unchanged": True,
                   "hash_format": "SHA-256 de bytes UTF-8 con CRLF normalizado a LF", "sha256": {name: digest(ROOT / name) for name in paths}}, indent=2), encoding="utf-8")

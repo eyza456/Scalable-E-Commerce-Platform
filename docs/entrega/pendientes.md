@@ -1,6 +1,6 @@
 # Pendientes reales y prioridades
 
-Revision: 28 de octubre de 2026. Matriz vigente: 69 cumplidos, 9 parciales y 0 pendientes de 78. No se incluyen como pendientes los seis defectos iniciales ya corregidos. RNF-01 ya tiene objetivos y evidencia; permanece parcial porque falla un umbral. La RC etiquetada originalmente tenia 69/8/1; esta es la revision posterior. Los 12 criterios basicos de aceptacion de pp.22-23 tienen evidencia; eso no equivale a cumplir todos los RNF.
+Revision: 28 de octubre de 2026. Matriz vigente: 70 cumplidos, 8 parciales y 0 pendientes de 78. No se incluyen como pendientes los seis defectos iniciales ya corregidos. RNF-01 ya cumple los objetivos del perfil local v1 tras el perfilado SQL/HTTP; no representa un SLA productivo. La RC etiquetada originalmente tenia 69/8/1; esta es la revision posterior. Los 12 criterios basicos de aceptacion de pp.22-23 tienen evidencia; eso no equivale a cumplir todos los RNF.
 
 ## Obligatorio para esta entrega candidata
 
@@ -17,7 +17,7 @@ No hay defectos funcionales conocidos abiertos de la auditoria anterior. La entr
 
 | Orden | Requisito | Falta y accion concreta | Evidencia para cerrar |
 | --- | --- | --- | --- |
-| 1 / alta | RNF-01, Parcial | Outbox optimizado: compra p95 8,205 s cumple 10 s. Ahora perfilar historial (p95 804 ms), checkout (2.894 ms) y pago (2.489 ms), que exceden sus limites a 20 usuarios | Repetir el mismo perfil sin relajar umbrales ni ocultar mayor carga; conservar integridad. [Comparacion](../rendimiento/informe.md) |
+| Cerrado en alcance local | RNF-01, Cumplido | Todos los objetivos v1 a 20 usuarios aprobados sin cambiar umbrales: historial 286,88 ms, checkout 770,97 ms, pago 525,38 ms y compra 2,738 s en p95 | [Comparacion](../rendimiento/informe.md) y [perfil SQL/HTTP](../perfilado/informe.md). Ampliar volumen y duracion antes de inferir capacidad productiva |
 | 2 / alta | RNF-05/06, Parcial | Permitir replicas sin nombres/puertos host fijos; probar varias instancias de un servicio y concurrencia entre ellas | Despliegue multinstancia y compra sin duplicados, descuento doble ni errores de enrutamiento |
 | 3 / media | RNF-27, Parcial | Ejecutar instalacion limpia en otro host compatible con Docker, Linux y/o macOS | Reporte del mismo fresh_install.py con host/version y resultado; contenedores Linux en Windows no son otro host |
 | 4 / media | RNF-08/21, Parcial | Extraer negocio/SQL de routers, mover inicializacion fuera de importaciones y acotar contratos HTTP entre servicios | Pruebas de contrato y regresion conservadas; modulos con responsabilidades claras |
@@ -42,4 +42,4 @@ Estos pendientes limitan la afirmacion de cumplimiento del PDF; no se han oculta
 - RNF-15: HTTPS futuro. Sigue parcial; imprescindible antes de exposicion productiva.
 - Pasarela real y reembolsos, Elasticsearch, inventario independiente, notificaciones externas, discovery especializado, logs centralizados, Prometheus/Grafana, CI/CD y autoscaling (pp.8,22,36-37).
 
-Son opciones de evolucion del alcance inicial; no se consideran implementadas por existir carpetas de infraestructura o dependencias. El orden recomendado tras revisar esta RC es reducir las latencias de historial, checkout y pago bajo carga, repetir la medicion, verificar replicas y completar portabilidad, antes de anunciar escalabilidad o disponibilidad productiva.
+Son opciones de evolucion del alcance inicial; no se consideran implementadas por existir carpetas de infraestructura o dependencias. El orden recomendado tras revisar esta RC es verificar replicas y completar portabilidad, y ampliar duracion/volumen de las pruebas de rendimiento, antes de anunciar escalabilidad o disponibilidad productiva.

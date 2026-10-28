@@ -17,6 +17,8 @@ Ver tambien el [cierre de hallazgos de auditoria](auditoria/cierre-hallazgos.md)
 
 La optimizacion Outbox y la comparacion con objetivos intactos se documentan en [rendimiento](rendimiento/informe.md). Las pruebas cubren drenaje, fallos parciales, commit perdido y workers concurrentes.
 
+Los servicios Order, Payment y Cart reutilizan transporte HTTP por proceso con cliente efimero por llamada: tokens y cookies quedan aislados y no hay retry automatico de POST. El historial valida el modelo publico y libera su conexion SQL antes de renderizar en el worker. [Diagnostico SQL/HTTP](perfilado/informe.md).
+
 ## Instalaciones existentes
 
 La migracion `services/payment-service/migrations/003_reconcile_outbox_destination.sql` se aplico al entorno local. Agrega el destino faltante y conserva los eventos antiguos. Las bases nuevas creadas desde el modelo ya incluyen esa columna.
@@ -31,7 +33,7 @@ Desde la raiz del proyecto, con Docker Compose activo:
 powershell -ExecutionPolicy Bypass -File tests/run_stability.ps1
 ```
 
-Las 134 pruebas de regresion verifican perfil, autorizacion, atomicidad de confirmacion/Outbox, reservas y recuperacion, solicitudes y eventos concurrentes, rollback del inventario, confirmaciones Pika y conservacion del original ante fallos de reenvio. Las pruebas PostgreSQL usan esquemas `test_stability_<uuid>` separados y los eliminan al terminar.
+Las 153 pruebas de regresion verifican perfil, autorizacion, atomicidad de confirmacion/Outbox, reservas y recuperacion, solicitudes y eventos concurrentes, rollback del inventario, confirmaciones Pika y conservacion del original ante fallos de reenvio. Las pruebas PostgreSQL usan esquemas `test_stability_<uuid>` separados y los eliminan al terminar.
 
 Adicionalmente, dos verificaciones con RabbitMQ comprueban reintentos TTL y DLQ en colas exclusivas que se eliminan al finalizar. La prueba HTTP comprueba salud de los seis servicios, perfil y permisos, carrito, pedido, pago, descuento de inventario y las tres entregas Outbox. Crea registros propios y los limpia; conserva una compra con eventos pendientes si falla para permitir su diagnostico.
 

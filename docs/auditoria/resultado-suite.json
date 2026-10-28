@@ -1,65 +1,77 @@
 {
-  "audit_date": "2026-10-28T08:15:59.393205+00:00",
+  "audit_date": "2026-10-28T20:16:30.308513+00:00",
   "command": "powershell -NoProfile -ExecutionPolicy Bypass -File tests/run_stability.ps1",
   "observed_exit_code": 0,
-  "unittest_total": 134,
+  "unittest_total": 153,
   "unittest_failures": 0,
   "unittest_runs": [
     {
       "tests": 39,
-      "seconds": 1.356
-    },
-    {
-      "tests": 11,
-      "seconds": 0.271
-    },
-    {
-      "tests": 13,
-      "seconds": 0.404
-    },
-    {
-      "tests": 9,
-      "seconds": 0.101
-    },
-    {
-      "tests": 17,
-      "seconds": 0.43
-    },
-    {
-      "tests": 12,
-      "seconds": 0.398
-    },
-    {
-      "tests": 2,
-      "seconds": 0.001
+      "seconds": 1.87
     },
     {
       "tests": 6,
-      "seconds": 0.143
+      "seconds": 0.024
+    },
+    {
+      "tests": 6,
+      "seconds": 0.029
+    },
+    {
+      "tests": 6,
+      "seconds": 0.027
+    },
+    {
+      "tests": 12,
+      "seconds": 0.343
+    },
+    {
+      "tests": 13,
+      "seconds": 0.54
+    },
+    {
+      "tests": 9,
+      "seconds": 0.12
+    },
+    {
+      "tests": 17,
+      "seconds": 0.84
+    },
+    {
+      "tests": 12,
+      "seconds": 0.982
+    },
+    {
+      "tests": 2,
+      "seconds": 0.003
+    },
+    {
+      "tests": 6,
+      "seconds": 0.233
     },
     {
       "tests": 4,
-      "seconds": 1.587
+      "seconds": 1.793
     },
     {
       "tests": 5,
-      "seconds": 0.003
+      "seconds": 0.005
     },
     {
       "tests": 5,
-      "seconds": 0.003
+      "seconds": 0.005
     },
     {
       "tests": 10,
-      "seconds": 24.284
+      "seconds": 33.588
     },
     {
       "tests": 1,
-      "seconds": 10.324
+      "seconds": 10.788
     }
   ],
-  "log": "suite-outbox.log",
-  "log_sha256": "75be4d82feea6a93530e3ee3e240db757d7e4ae52f182705967d3cf6086437ac",
+  "log": "suite-sql-http.log",
+  "log_sha256": "26afc349a172218d07b68478f84538bc9a047ce80a92fdee721b14d035637fcd",
   "additional_success_messages": [
     "OK: migracion y rollback conservan productos y categorias, agrupando duplicados.",
     "OK: reintento TTL y DLQ reales para order",

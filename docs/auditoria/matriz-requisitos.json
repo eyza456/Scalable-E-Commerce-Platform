@@ -504,11 +504,11 @@
     "code": [
       {
         "path": "services/cart-service/app/routers/cart.py",
-        "line": 47
+        "line": 48
       },
       {
         "path": "services/cart-service/app/routers/cart.py",
-        "line": 64
+        "line": 65
       }
     ],
     "verification": [
@@ -529,7 +529,7 @@
     "code": [
       {
         "path": "services/cart-service/app/routers/cart.py",
-        "line": 47
+        "line": 48
       },
       {
         "path": "services/cart-service/app/storage.py",
@@ -558,7 +558,7 @@
     "code": [
       {
         "path": "services/cart-service/app/routers/cart.py",
-        "line": 69
+        "line": 70
       }
     ],
     "verification": [
@@ -579,7 +579,7 @@
     "code": [
       {
         "path": "services/cart-service/app/routers/cart.py",
-        "line": 84
+        "line": 85
       }
     ],
     "verification": [
@@ -604,7 +604,7 @@
     "code": [
       {
         "path": "services/cart-service/app/routers/cart.py",
-        "line": 95
+        "line": 96
       },
       {
         "path": "services/cart-service/app/storage.py",
@@ -633,7 +633,7 @@
     "code": [
       {
         "path": "services/cart-service/app/routers/cart.py",
-        "line": 64
+        "line": 65
       }
     ],
     "verification": [
@@ -654,7 +654,7 @@
     "code": [
       {
         "path": "services/cart-service/app/routers/cart.py",
-        "line": 64
+        "line": 65
       }
     ],
     "verification": [
@@ -675,11 +675,11 @@
     "code": [
       {
         "path": "services/order-service/app/checkouts.py",
-        "line": 52
+        "line": 53
       },
       {
         "path": "services/order-service/app/checkouts.py",
-        "line": 92
+        "line": 93
       }
     ],
     "verification": [
@@ -704,15 +704,15 @@
     "code": [
       {
         "path": "services/order-service/app/routers/orders.py",
-        "line": 51
+        "line": 52
       },
       {
         "path": "services/order-service/app/checkouts.py",
-        "line": 137
+        "line": 138
       },
       {
         "path": "services/order-service/app/checkouts.py",
-        "line": 92
+        "line": 93
       }
     ],
     "verification": [
@@ -783,7 +783,7 @@
     "code": [
       {
         "path": "services/order-service/app/routers/orders.py",
-        "line": 51
+        "line": 52
       },
       {
         "path": "services/order-service/app/models.py",
@@ -812,13 +812,13 @@
       },
       {
         "path": "services/order-service/app/routers/orders.py",
-        "line": 51
+        "line": 52
       }
     ],
     "verification": [
       {
         "path": "tests/order_stability.py",
-        "line": 46
+        "line": 47
       }
     ],
     "finding": "Items, cantidades y snapshot del producto persistidos.",
@@ -833,7 +833,7 @@
     "code": [
       {
         "path": "services/order-service/app/checkouts.py",
-        "line": 52
+        "line": 53
       }
     ],
     "verification": [
@@ -858,13 +858,13 @@
     "code": [
       {
         "path": "services/order-service/app/routers/orders.py",
-        "line": 75
+        "line": 76
       }
     ],
     "verification": [
       {
         "path": "tests/order_stability.py",
-        "line": 46
+        "line": 47
       },
       {
         "path": "tests/smoke_orders.py",
@@ -883,7 +883,7 @@
     "code": [
       {
         "path": "services/order-service/app/routers/orders.py",
-        "line": 116
+        "line": 122
       }
     ],
     "verification": [
@@ -904,11 +904,11 @@
     "code": [
       {
         "path": "services/order-service/app/routers/orders.py",
-        "line": 142
+        "line": 148
       },
       {
         "path": "services/order-service/app/cancellations.py",
-        "line": 11
+        "line": 12
       }
     ],
     "verification": [
@@ -933,7 +933,7 @@
     "code": [
       {
         "path": "services/order-service/app/routers/orders.py",
-        "line": 142
+        "line": 148
       },
       {
         "path": "services/order-service/app/core/security.py",
@@ -958,7 +958,7 @@
     "code": [
       {
         "path": "services/payment-service/app/routers/payments.py",
-        "line": 41
+        "line": 42
       }
     ],
     "verification": [
@@ -979,7 +979,7 @@
     "code": [
       {
         "path": "services/payment-service/app/inventory.py",
-        "line": 58
+        "line": 59
       },
       {
         "path": "services/payment-service/app/models/payment.py",
@@ -1004,11 +1004,11 @@
     "code": [
       {
         "path": "services/payment-service/app/inventory.py",
-        "line": 16
+        "line": 17
       },
       {
         "path": "services/payment-service/app/inventory.py",
-        "line": 58
+        "line": 59
       }
     ],
     "verification": [
@@ -1033,7 +1033,7 @@
     "code": [
       {
         "path": "services/payment-service/app/inventory.py",
-        "line": 58
+        "line": 59
       },
       {
         "path": "services/payment-service/app/outbox.py",
@@ -1066,7 +1066,7 @@
     "code": [
       {
         "path": "services/payment-service/app/inventory.py",
-        "line": 58
+        "line": 59
       }
     ],
     "verification": [
@@ -1095,7 +1095,7 @@
       },
       {
         "path": "services/payment-service/app/inventory.py",
-        "line": 58
+        "line": 59
       }
     ],
     "verification": [
@@ -1120,11 +1120,11 @@
     "code": [
       {
         "path": "services/payment-service/app/routers/payments.py",
-        "line": 41
+        "line": 42
       },
       {
         "path": "services/payment-service/app/inventory.py",
-        "line": 16
+        "line": 17
       }
     ],
     "verification": [
@@ -1270,7 +1270,7 @@
     "page": 18,
     "requirement": "La plataforma deberá proporcionar tiempos de respuesta adecuados para las operaciones comunes.",
     "type": "No funcional",
-    "status": "Parcial",
+    "status": "Cumplido",
     "code": [
       {
         "path": "tests/performance_goals.json",
@@ -1281,12 +1281,12 @@
         "line": 1
       },
       {
-        "path": "services/payment-service/app/outbox.py",
-        "line": 54
+        "path": "services/order-service/app/routers/orders.py",
+        "line": 76
       },
       {
-        "path": "services/payment-service/app/core/rabbitmq.py",
-        "line": 10
+        "path": "services/order-service/app/http_client.py",
+        "line": 34
       }
     ],
     "verification": [
@@ -1295,19 +1295,19 @@
         "line": 1
       },
       {
-        "path": "tests/performance_metrics_test.py",
+        "path": "docs/perfilado/resumen.json",
         "line": 1
       },
       {
-        "path": "tests/payment_stability.py",
-        "line": 242
+        "path": "tests/http_pool_stability.py",
+        "line": 1
       },
       {
-        "path": "tests/payment_stability.py",
-        "line": 369
+        "path": "tests/order_stability.py",
+        "line": 61
       }
     ],
-    "finding": "Mismo perfil y objetivos locales 1/5/10/20 usuarios. Outbox optimizado: compra p95 8.205 s ya cumple <=10 s; 58.47 req/s utiles, cero errores y 819 compras integras. Aun fallan p95/p99 de historial y checkout, y p95 de pago a 20 usuarios. No se aprueba RNF-01 completo ni SLA productivo; siguiente trabajo perfilar esas APIs sin relajar objetivos.",
+    "finding": "Cumplido para el perfil local-mvp-20vu-v1 sin cambiar objetivos: a 20 usuarios historial p95 286.88 ms, checkout 770.97 ms, pago 525.38 ms y compra 2.738 s; todos los limites p95/p99, errores, muestras y throughput aprobados (122.96 req/s utiles). SQL/HTTP perfilados, transporte reutilizado con cookies/tokens aislados y conexion de historial liberada antes. No certifica produccion, otras cargas ni volumenes grandes.",
     "scope": "MVP / calidad"
   },
   {
@@ -1323,11 +1323,11 @@
       },
       {
         "path": "services/order-service/app/checkouts.py",
-        "line": 26
+        "line": 27
       },
       {
         "path": "services/payment-service/app/inventory.py",
-        "line": 58
+        "line": 59
       }
     ],
     "verification": [
@@ -1348,7 +1348,7 @@
         "line": 1
       }
     ],
-    "finding": "Concurrencia funcional comprobada en carrito, checkout, pagos e inventario y carga local hasta 20 usuarios. Se verificaron 819 compras sin duplicados ni doble descuento; dos workers Outbox con skip_locked y reenvio recuperable probado. No demuestra varias replicas ni capacidad de produccion; RNF-01 conserva limites HTTP incumplidos.",
+    "finding": "Concurrencia funcional y carga local hasta 20 usuarios verificadas: 1.051 compras integras, sin duplicados ni doble descuento. Pool HTTP probado con 40 llamadas concurrentes e identidades aisladas; Outbox mantiene skip_locked y reenvio recuperable. No demuestra replicas reales ni capacidad productiva.",
     "scope": "MVP / calidad"
   },
   {
@@ -1492,7 +1492,7 @@
       },
       {
         "path": "services/order-service/app/routers/orders.py",
-        "line": 51
+        "line": 52
       },
       {
         "path": "services/payment-service/app/core/config.py",
@@ -1600,7 +1600,7 @@
       },
       {
         "path": "services/order-service/app/checkouts.py",
-        "line": 52
+        "line": 53
       }
     ],
     "verification": [
@@ -1760,15 +1760,15 @@
       },
       {
         "path": "services/order-service/app/checkouts.py",
-        "line": 195
+        "line": 196
       },
       {
         "path": "services/order-service/app/cancellations.py",
-        "line": 56
+        "line": 57
       },
       {
         "path": "services/payment-service/app/inventory.py",
-        "line": 140
+        "line": 141
       }
     ],
     "verification": [
@@ -1825,7 +1825,7 @@
       },
       {
         "path": "services/payment-service/app/main.py",
-        "line": 53
+        "line": 57
       }
     ],
     "verification": [
@@ -1911,7 +1911,7 @@
     "code": [
       {
         "path": "services/payment-service/app/main.py",
-        "line": 30
+        "line": 34
       },
       {
         "path": "services/order-service/app/routers/orders.py",
@@ -1961,7 +1961,7 @@
         "line": 1
       }
     ],
-    "finding": "134 unittest y escenarios HTTP, migraciones, TTL/DLQ y gateway, incluida demostracion. Diez regresiones adicionales de Outbox; seis pruebas de metricas y benchmark se ejecutan por separado. Instalacion limpia conserva su evidencia historica.",
+    "finding": "153 unittest y escenarios HTTP/migraciones/TTL-DLQ/gateway, incluida demostracion. Dieciocho regresiones del pool HTTP (seis por servicio) y una de esquema/liberacion SQL del historial; seis pruebas de metricas y benchmark separados. Perfil SQL/HTTP diagnostico y aceptacion se distinguen.",
     "scope": "MVP / calidad"
   },
   {

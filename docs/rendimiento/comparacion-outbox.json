@@ -195,5 +195,7 @@
       }
     ]
   },
-  "invariants_passed": true
+  "invariants_passed": true,
+  "historical_note": "Comparacion Outbox anterior; ver comparacion-sql-http.json para el resultado vigente.",
+  "historical_copy": "baseline-1a8d097/comparacion-outbox.json"
 }

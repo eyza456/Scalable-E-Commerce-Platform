@@ -1,0 +1,77 @@
+{
+  "project": "fresh-130a26f2a039",
+  "executed_at": "2026-10-28T19:31:09.618459+00:00",
+  "checks": {
+    "configuration": "Plantilla independiente; sin .env ni datos locales"
+  },
+  "source_commit": "9f68f1b2b070c90a3411f11550660c0bdc6d16e8",
+  "goals": {
+    "profile": "local-mvp-20vu-v1",
+    "description": "Objetivos iniciales de ingenieria local; no SLA productivo ni objetivos acordados con negocio",
+    "concurrency": [
+      20
+    ],
+    "stage_seconds": 30,
+    "warmup_seconds": 5,
+    "request_timeout_seconds": 10,
+    "flow_timeout_seconds": 20,
+    "target_concurrency": 20,
+    "minimum_samples_per_operation": 100,
+    "maximum_unexpected_error_percent": 1.0,
+    "minimum_useful_requests_per_second": 20,
+    "latency_ms": {
+      "catalog": {
+        "p95": 500,
+        "p99": 1000
+      },
+      "product": {
+        "p95": 500,
+        "p99": 1000
+      },
+      "profile": {
+        "p95": 500,
+        "p99": 1000
+      },
+      "history": {
+        "p95": 500,
+        "p99": 1000
+      },
+      "cart_read": {
+        "p95": 500,
+        "p99": 1000
+      },
+      "cart_add": {
+        "p95": 1500,
+        "p99": 3000
+      },
+      "checkout": {
+        "p95": 1500,
+        "p99": 3000
+      },
+      "payment": {
+        "p95": 2000,
+        "p99": 5000
+      },
+      "purchase_flow": {
+        "p95": 10000,
+        "p99": 15000
+      }
+    }
+  },
+  "mode": "profiling-only-not-acceptance",
+  "host": {
+    "platform": "Windows-11-10.0.26200-SP0",
+    "python": "3.12.0"
+  },
+  "instrument_sha256": "00375148d39cc31b765de36bc40a5b2ec5fb8fbf3098fdb22ca99db6f2f5ad82",
+  "volumes": [
+    "fresh-130a26f2a039_order_postgres_data",
+    "fresh-130a26f2a039_payment_postgres_data",
+    "fresh-130a26f2a039_product_postgres_data",
+    "fresh-130a26f2a039_user_postgres_data"
+  ],
+  "readme_sha256": "7e1ed0c62821e777cfdde5e8b2abb6014b5d352ca4ef64997b46e5a11f878e7c",
+  "status": "failed",
+  "error": "Comando fallo (1); revisar instalacion-desde-cero.log",
+  "cleanup": "Proyecto aislado eliminado; sin volumenes residuales"
+}

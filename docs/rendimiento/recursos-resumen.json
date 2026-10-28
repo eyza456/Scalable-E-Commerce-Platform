@@ -1,80 +1,80 @@
 {
   "api-gateway": {
-    "cpu_peak_percent": 17.55,
-    "cpu_mean_percent": 5.269117647058824,
-    "memory_peak_mib": 12.96,
-    "samples": 34
+    "cpu_peak_percent": 24.45,
+    "cpu_mean_percent": 7.055,
+    "memory_peak_mib": 9.895,
+    "samples": 32
   },
   "cart-service": {
-    "cpu_peak_percent": 41.95,
-    "cpu_mean_percent": 17.15823529411765,
-    "memory_peak_mib": 130.8,
-    "samples": 34
+    "cpu_peak_percent": 34.46,
+    "cpu_mean_percent": 15.26875,
+    "memory_peak_mib": 80.45,
+    "samples": 32
   },
   "notification-service": {
-    "cpu_peak_percent": 1.65,
-    "cpu_mean_percent": 0.586764705882353,
-    "memory_peak_mib": 40.06,
-    "samples": 34
+    "cpu_peak_percent": 6.03,
+    "cpu_mean_percent": 0.876875,
+    "memory_peak_mib": 38.08,
+    "samples": 32
   },
   "order-db": {
-    "cpu_peak_percent": 50.49,
-    "cpu_mean_percent": 14.294117647058824,
-    "memory_peak_mib": 63.39,
-    "samples": 34
+    "cpu_peak_percent": 51.1,
+    "cpu_mean_percent": 17.4140625,
+    "memory_peak_mib": 55.86,
+    "samples": 32
   },
   "order-service": {
-    "cpu_peak_percent": 157.84,
-    "cpu_mean_percent": 76.29882352941176,
-    "memory_peak_mib": 144.3,
-    "samples": 34
+    "cpu_peak_percent": 116.2,
+    "cpu_mean_percent": 63.4921875,
+    "memory_peak_mib": 84.96,
+    "samples": 32
   },
   "payment-db": {
-    "cpu_peak_percent": 24.59,
-    "cpu_mean_percent": 6.806176470588236,
-    "memory_peak_mib": 48.43,
-    "samples": 34
+    "cpu_peak_percent": 26.36,
+    "cpu_mean_percent": 7.9615625,
+    "memory_peak_mib": 54.9,
+    "samples": 32
   },
   "payment-service": {
-    "cpu_peak_percent": 88.34,
-    "cpu_mean_percent": 36.323235294117644,
-    "memory_peak_mib": 181.4,
-    "samples": 34
+    "cpu_peak_percent": 70.68,
+    "cpu_mean_percent": 29.40625,
+    "memory_peak_mib": 104.5,
+    "samples": 32
   },
   "product-db": {
-    "cpu_peak_percent": 21.44,
-    "cpu_mean_percent": 8.573823529411765,
-    "memory_peak_mib": 44.89,
-    "samples": 34
+    "cpu_peak_percent": 72.83,
+    "cpu_mean_percent": 11.23,
+    "memory_peak_mib": 48.45,
+    "samples": 32
   },
   "product-service": {
-    "cpu_peak_percent": 71.97,
-    "cpu_mean_percent": 35.18588235294118,
-    "memory_peak_mib": 102.8,
-    "samples": 34
+    "cpu_peak_percent": 78.42,
+    "cpu_mean_percent": 45.140625,
+    "memory_peak_mib": 101.5,
+    "samples": 32
   },
   "rabbitmq": {
-    "cpu_peak_percent": 146.27,
-    "cpu_mean_percent": 50.90882352941176,
-    "memory_peak_mib": 209.1,
-    "samples": 34
+    "cpu_peak_percent": 141.06,
+    "cpu_mean_percent": 37.0346875,
+    "memory_peak_mib": 202.8,
+    "samples": 32
   },
   "redis": {
-    "cpu_peak_percent": 10.61,
-    "cpu_mean_percent": 2.7144117647058823,
-    "memory_peak_mib": 16.21,
-    "samples": 34
+    "cpu_peak_percent": 22.09,
+    "cpu_mean_percent": 4.46,
+    "memory_peak_mib": 15.77,
+    "samples": 32
   },
   "user-db": {
-    "cpu_peak_percent": 15.82,
-    "cpu_mean_percent": 3.4661764705882354,
-    "memory_peak_mib": 41.69,
-    "samples": 34
+    "cpu_peak_percent": 39.52,
+    "cpu_mean_percent": 4.144375,
+    "memory_peak_mib": 45.21,
+    "samples": 32
   },
   "user-service": {
-    "cpu_peak_percent": 39.38,
-    "cpu_mean_percent": 12.561470588235295,
-    "memory_peak_mib": 89.67,
-    "samples": 34
+    "cpu_peak_percent": 40.99,
+    "cpu_mean_percent": 15.145,
+    "memory_peak_mib": 92.29,
+    "samples": 32
   }
 }

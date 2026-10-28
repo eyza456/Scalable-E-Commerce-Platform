@@ -64,7 +64,11 @@
     "perfresult": "docs/rendimiento/resultado.json",
     "perftest": "tests/performance_metrics_test.py",
     "publisher": "services/payment-service/app/core/rabbitmq.py",
-    "perfreport": "tests/performance_report.py"
+    "perfreport": "tests/performance_report.py",
+    "httporder": "services/order-service/app/http_client.py",
+    "httppooltest": "tests/http_pool_stability.py",
+    "profilesummary": "docs/perfilado/resumen.json",
+    "profileapi": "tests/profile_api.py"
   },
   "requirements": {
     "RF-01": [
@@ -622,20 +626,20 @@
       "Politicas centrales: bloqueo de rutas internas, retirada de clave interna, IP reenviada y trazabilidad. JWT sigue en servicios."
     ],
     "RNF-01": [
-      "Parcial",
+      "Cumplido",
       [
         "perfgoals",
         "perfload",
-        "outbox@run_outbox",
-        "publisher@publisher_batch"
+        "orders@list_orders",
+        "httporder@request"
       ],
       [
         "perfresult",
-        "perftest",
-        "paytest@test_outbox_drains_multiple_batches_before_waiting",
-        "paytest@test_outbox_batch_nack_does_not_mark_failed_delivery_published"
+        "profilesummary",
+        "httppooltest",
+        "ordertest@test_history_releases_read_connection_and_preserves_response_schema"
       ],
-      "Mismo perfil y objetivos locales 1/5/10/20 usuarios. Outbox optimizado: compra p95 8.205 s ya cumple <=10 s; 58.47 req/s utiles, cero errores y 819 compras integras. Aun fallan p95/p99 de historial y checkout, y p95 de pago a 20 usuarios. No se aprueba RNF-01 completo ni SLA productivo; siguiente trabajo perfilar esas APIs sin relajar objetivos."
+      "Cumplido para el perfil local-mvp-20vu-v1 sin cambiar objetivos: a 20 usuarios historial p95 286.88 ms, checkout 770.97 ms, pago 525.38 ms y compra 2.738 s; todos los limites p95/p99, errores, muestras y throughput aprobados (122.96 req/s utiles). SQL/HTTP perfilados, transporte reutilizado con cookies/tokens aislados y conexion de historial liberada antes. No certifica produccion, otras cargas ni volumenes grandes."
     ],
     "RNF-02": [
       "Cumplido",
@@ -650,7 +654,7 @@
         "paytest@test_simultaneous_payments_only_create_one_payment",
         "auditfixes"
       ],
-      "Concurrencia funcional comprobada en carrito, checkout, pagos e inventario y carga local hasta 20 usuarios. Se verificaron 819 compras sin duplicados ni doble descuento; dos workers Outbox con skip_locked y reenvio recuperable probado. No demuestra varias replicas ni capacidad de produccion; RNF-01 conserva limites HTTP incumplidos."
+      "Concurrencia funcional y carga local hasta 20 usuarios verificadas: 1.051 compras integras, sin duplicados ni doble descuento. Pool HTTP probado con 40 llamadas concurrentes e identidades aisladas; Outbox mantiene skip_locked y reenvio recuperable. No demuestra replicas reales ni capacidad productiva."
     ],
     "RNF-03": [
       "Cumplido",
@@ -904,7 +908,7 @@
         "carttest",
         "demo"
       ],
-      "134 unittest y escenarios HTTP, migraciones, TTL/DLQ y gateway, incluida demostracion. Diez regresiones adicionales de Outbox; seis pruebas de metricas y benchmark se ejecutan por separado. Instalacion limpia conserva su evidencia historica."
+      "153 unittest y escenarios HTTP/migraciones/TTL-DLQ/gateway, incluida demostracion. Dieciocho regresiones del pool HTTP (seis por servicio) y una de esquema/liberacion SQL del historial; seis pruebas de metricas y benchmark separados. Perfil SQL/HTTP diagnostico y aceptacion se distinguen."
     ],
     "RNF-25": [
       "Cumplido",

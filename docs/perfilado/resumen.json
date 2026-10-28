@@ -1,0 +1,314 @@
+{
+  "same_instrument": true,
+  "same_diagnostic_profile": true,
+  "source_commits": {
+    "antes": "1a8d0974816b49faf7968dd7666d85e836d1223e",
+    "despues": "7fca5d25f74099710e1c24a98547c929029bce13"
+  },
+  "routes": {
+    "antes": {
+      "GET /orders": {
+        "service": "order-service",
+        "samples": 408,
+        "fields": {
+          "total_ms": {
+            "mean_ms": 278.621428289223,
+            "p50_ms": 268.3651170000303,
+            "p95_ms": 635.2742499998385
+          },
+          "db_connect_ms": {
+            "mean_ms": 9.210136776945832,
+            "p50_ms": 0.13872899990019505,
+            "p95_ms": 57.67321699977401
+          },
+          "db_execute_ms": {
+            "mean_ms": 20.895234191174513,
+            "p50_ms": 13.415982999958942,
+            "p95_ms": 71.80494400063253
+          },
+          "orm_all_ms": {
+            "mean_ms": 37.79870448039001,
+            "p50_ms": 21.9630930000676,
+            "p95_ms": 121.95025899973189
+          },
+          "db_held_ms": {
+            "mean_ms": 128.55674304657828,
+            "p50_ms": 118.33152700000937,
+            "p95_ms": 317.34567700004845
+          },
+          "http_client_init_ms": {
+            "mean_ms": 0,
+            "p50_ms": 0,
+            "p95_ms": 0
+          },
+          "http_send_ms": {
+            "mean_ms": 0,
+            "p50_ms": 0,
+            "p95_ms": 0
+          },
+          "serialize_ms": {
+            "mean_ms": 41.640610352938076,
+            "p50_ms": 31.817298000078154,
+            "p95_ms": 124.68447099990954
+          }
+        },
+        "sql_statements_mean": 1.8529411764705883,
+        "http_calls_mean": 0
+      },
+      "POST /orders": {
+        "service": "order-service",
+        "samples": 132,
+        "fields": {
+          "total_ms": {
+            "mean_ms": 1102.0665387424233,
+            "p50_ms": 1182.3226429996794,
+            "p95_ms": 1618.3527940002023
+          },
+          "db_connect_ms": {
+            "mean_ms": 22.255906507590833,
+            "p50_ms": 0.6057300006432342,
+            "p95_ms": 102.81166400000075
+          },
+          "db_execute_ms": {
+            "mean_ms": 213.8449844847428,
+            "p50_ms": 221.79049499982284,
+            "p95_ms": 346.5646399990874
+          },
+          "orm_all_ms": {
+            "mean_ms": 0,
+            "p50_ms": 0,
+            "p95_ms": 0
+          },
+          "db_held_ms": {
+            "mean_ms": 902.0029777803122,
+            "p50_ms": 948.8124449999304,
+            "p95_ms": 1314.9345719998564
+          },
+          "http_client_init_ms": {
+            "mean_ms": 185.83606500762374,
+            "p50_ms": 178.31034000073487,
+            "p95_ms": 316.3488739996865
+          },
+          "http_send_ms": {
+            "mean_ms": 248.39576461356776,
+            "p50_ms": 235.58273900016502,
+            "p95_ms": 444.2118059996574
+          },
+          "serialize_ms": {
+            "mean_ms": 60.47180040152536,
+            "p50_ms": 50.33380800023224,
+            "p95_ms": 154.90943100030563
+          }
+        },
+        "sql_statements_mean": 17,
+        "http_calls_mean": 4
+      },
+      "POST /payments": {
+        "service": "payment-service",
+        "samples": 132,
+        "fields": {
+          "total_ms": {
+            "mean_ms": 786.7256085454459,
+            "p50_ms": 730.7719539999198,
+            "p95_ms": 1457.7776070000255
+          },
+          "db_connect_ms": {
+            "mean_ms": 11.855040780277925,
+            "p50_ms": 0.5966790004094946,
+            "p95_ms": 75.30180800131347
+          },
+          "db_execute_ms": {
+            "mean_ms": 64.43548991672866,
+            "p50_ms": 41.87684799944691,
+            "p95_ms": 204.38780399945244
+          },
+          "orm_all_ms": {
+            "mean_ms": 0,
+            "p50_ms": 0,
+            "p95_ms": 0
+          },
+          "db_held_ms": {
+            "mean_ms": 382.40072553786706,
+            "p50_ms": 282.70124000027863,
+            "p95_ms": 956.7895279997174
+          },
+          "http_client_init_ms": {
+            "mean_ms": 73.9650155833019,
+            "p50_ms": 62.93160599989278,
+            "p95_ms": 150.82360299993525
+          },
+          "http_send_ms": {
+            "mean_ms": 524.1017354393789,
+            "p50_ms": 478.9538090003589,
+            "p95_ms": 959.1814169998543
+          },
+          "serialize_ms": {
+            "mean_ms": 7.530717848505281,
+            "p50_ms": 2.0453800002542266,
+            "p95_ms": 35.20817300022827
+          }
+        },
+        "sql_statements_mean": 12,
+        "http_calls_mean": 2
+      }
+    },
+    "despues": {
+      "GET /orders": {
+        "service": "order-service",
+        "samples": 465,
+        "fields": {
+          "total_ms": {
+            "mean_ms": 175.17139003010075,
+            "p50_ms": 163.93004700057645,
+            "p95_ms": 411.0494819997257
+          },
+          "db_connect_ms": {
+            "mean_ms": 5.285852058043548,
+            "p50_ms": 0.1232189997608657,
+            "p95_ms": 41.63526499996806
+          },
+          "db_execute_ms": {
+            "mean_ms": 17.815429683897463,
+            "p50_ms": 12.080551999133604,
+            "p95_ms": 54.373171999941405
+          },
+          "orm_all_ms": {
+            "mean_ms": 28.60594211829706,
+            "p50_ms": 17.23904499976925,
+            "p95_ms": 95.68058100012422
+          },
+          "db_held_ms": {
+            "mean_ms": 30.509030008597033,
+            "p50_ms": 22.161769999911485,
+            "p95_ms": 84.02185299928533
+          },
+          "http_client_init_ms": {
+            "mean_ms": 0,
+            "p50_ms": 0,
+            "p95_ms": 0
+          },
+          "http_send_ms": {
+            "mean_ms": 0,
+            "p50_ms": 0,
+            "p95_ms": 0
+          },
+          "serialize_ms": {
+            "mean_ms": 0,
+            "p50_ms": 0,
+            "p95_ms": 0
+          }
+        },
+        "sql_statements_mean": 1.8709677419354838,
+        "http_calls_mean": 0
+      },
+      "POST /orders": {
+        "service": "order-service",
+        "samples": 148,
+        "fields": {
+          "total_ms": {
+            "mean_ms": 870.2506809121575,
+            "p50_ms": 708.3789709995472,
+            "p95_ms": 2514.4542199996067
+          },
+          "db_connect_ms": {
+            "mean_ms": 10.650215945852816,
+            "p50_ms": 0.5568890001086402,
+            "p95_ms": 42.18481199859525
+          },
+          "db_execute_ms": {
+            "mean_ms": 168.27614208109725,
+            "p50_ms": 153.95001400065667,
+            "p95_ms": 308.71942100020533
+          },
+          "orm_all_ms": {
+            "mean_ms": 0,
+            "p50_ms": 0,
+            "p95_ms": 0
+          },
+          "db_held_ms": {
+            "mean_ms": 737.879900385156,
+            "p50_ms": 601.560769999196,
+            "p95_ms": 2340.8517449997817
+          },
+          "http_client_init_ms": {
+            "mean_ms": 0.7965286689537803,
+            "p50_ms": 0.6763029996363912,
+            "p95_ms": 1.2692610007434268
+          },
+          "http_send_ms": {
+            "mean_ms": 237.63997372302092,
+            "p50_ms": 193.48568100031116,
+            "p95_ms": 562.0616860014707
+          },
+          "serialize_ms": {
+            "mean_ms": 45.38128345945331,
+            "p50_ms": 32.573880000200006,
+            "p95_ms": 118.84046199975273
+          }
+        },
+        "sql_statements_mean": 16.966216216216218,
+        "http_calls_mean": 3.9864864864864864
+      },
+      "POST /payments": {
+        "service": "payment-service",
+        "samples": 148,
+        "fields": {
+          "total_ms": {
+            "mean_ms": 660.9416622094478,
+            "p50_ms": 524.516450000192,
+            "p95_ms": 1495.8921589995953
+          },
+          "db_connect_ms": {
+            "mean_ms": 6.297946675720202,
+            "p50_ms": 0.5429820002973429,
+            "p95_ms": 38.46672200052126
+          },
+          "db_execute_ms": {
+            "mean_ms": 55.2535930269494,
+            "p50_ms": 39.75089800042042,
+            "p95_ms": 142.2253050004656
+          },
+          "orm_all_ms": {
+            "mean_ms": 0,
+            "p50_ms": 0,
+            "p95_ms": 0
+          },
+          "db_held_ms": {
+            "mean_ms": 396.9967253987663,
+            "p50_ms": 259.7878310007218,
+            "p95_ms": 1124.191473000792
+          },
+          "http_client_init_ms": {
+            "mean_ms": 0.5857117499987441,
+            "p50_ms": 0.36199500118527794,
+            "p95_ms": 1.2346860003162874
+          },
+          "http_send_ms": {
+            "mean_ms": 458.4599939999751,
+            "p50_ms": 368.1450300000506,
+            "p95_ms": 957.1920440002941
+          },
+          "serialize_ms": {
+            "mean_ms": 8.519301689178777,
+            "p50_ms": 2.627825000672601,
+            "p95_ms": 52.77336199924321
+          }
+        },
+        "sql_statements_mean": 12,
+        "http_calls_mean": 2
+      }
+    }
+  },
+  "hash_format": "SHA-256 UTF-8 con CRLF normalizado a LF",
+  "sha256": {
+    "tests/profile_api.py": "2c12db949fc7fb9b6a8f9c5c4d8ea4e33edf6aee519a020fb15c06c8c5d84a7a",
+    "tests/profile_instrument.py": "0018af044d61081dfc518f059c022f9213a953caeee218dcc60093336b496873",
+    "tests/profile_report.py": "878c5f69f13b831a74eb01924559cf40f95483178c986809e821cd00cf1e381a",
+    "docs\\perfilado\\antes.json": "dbd86cfb0f9db866b695adbdd21ce2e5cf956f6ef5c845597de9e92057582f15",
+    "docs\\perfilado\\antes-requests.jsonl": "3ce8d039e656dbe6bdaee9763e35dd8bedd3abec919e02f69f8894861dc34942",
+    "docs\\perfilado\\antes-planes.json": "865c975b6a13c3ea5218c4a8db5b22fa4ae1717f4e0a74bd3ad636bbf0f987d4",
+    "docs\\perfilado\\despues.json": "0511dc717216813452f24929e6795499451139c4d7f904be5cd7f509410f98bc",
+    "docs\\perfilado\\despues-requests.jsonl": "c02b7ef7c061f7af2b376232ea324a38f6bcdc1eb7abf3ced4e3b8ffcd0fa8be",
+    "docs\\perfilado\\despues-planes.json": "c8e422f423aec8de739166c8334d4f5497be7cd62b5af7726709a7947c5dc402"
+  }
+}

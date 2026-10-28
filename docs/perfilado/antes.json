@@ -1,0 +1,507 @@
+{
+  "project": "fresh-fadca4adaf97",
+  "executed_at": "2026-10-28T19:19:39.440789+00:00",
+  "checks": {
+    "configuration": "Plantilla independiente; sin .env ni datos locales",
+    "alembic": "b1c5a09e3d72 (head); upgrade repetido sin cambios",
+    "initial_start": "13 contenedores activos; 0 reinicios inesperados",
+    "health": [
+      "user-service",
+      "product-service",
+      "cart-service",
+      "order-service",
+      "payment-service",
+      "notification-service",
+      "api-gateway"
+    ],
+    "schemas": {
+      "user-service": {
+        "users": [
+          "email"
+        ]
+      },
+      "order-service": {
+        "orders": [
+          "checkout_id"
+        ],
+        "order_items": [
+          "product_id"
+        ],
+        "checkouts": [
+          "state"
+        ]
+      },
+      "payment-service": {
+        "payments": [
+          "event_payload",
+          "processed_at",
+          "simulation_result",
+          "rejection_code"
+        ],
+        "outbox_events": [
+          "destination"
+        ],
+        "order_cancellations": [
+          "status"
+        ]
+      },
+      "product-service": {
+        "products": [
+          "category_id"
+        ],
+        "categories": [
+          "name"
+        ],
+        "inventory_reservations": [
+          "status"
+        ],
+        "inventory_cancellations": [
+          "order_id"
+        ],
+        "processed_payment_events": [
+          "transaction_id"
+        ]
+      }
+    }
+  },
+  "source_commit": "1a8d0974816b49faf7968dd7666d85e836d1223e",
+  "goals": {
+    "profile": "local-mvp-20vu-v1",
+    "description": "Objetivos iniciales de ingenieria local; no SLA productivo ni objetivos acordados con negocio",
+    "concurrency": [
+      20
+    ],
+    "stage_seconds": 30,
+    "warmup_seconds": 5,
+    "request_timeout_seconds": 10,
+    "flow_timeout_seconds": 20,
+    "target_concurrency": 20,
+    "minimum_samples_per_operation": 100,
+    "maximum_unexpected_error_percent": 1.0,
+    "minimum_useful_requests_per_second": 20,
+    "latency_ms": {
+      "catalog": {
+        "p95": 500,
+        "p99": 1000
+      },
+      "product": {
+        "p95": 500,
+        "p99": 1000
+      },
+      "profile": {
+        "p95": 500,
+        "p99": 1000
+      },
+      "history": {
+        "p95": 500,
+        "p99": 1000
+      },
+      "cart_read": {
+        "p95": 500,
+        "p99": 1000
+      },
+      "cart_add": {
+        "p95": 1500,
+        "p99": 3000
+      },
+      "checkout": {
+        "p95": 1500,
+        "p99": 3000
+      },
+      "payment": {
+        "p95": 2000,
+        "p99": 5000
+      },
+      "purchase_flow": {
+        "p95": 10000,
+        "p99": 15000
+      }
+    }
+  },
+  "mode": "profiling-only-not-acceptance",
+  "host": {
+    "platform": "Windows-11-10.0.26200-SP0",
+    "python": "3.12.0",
+    "docker_cpus": 8,
+    "docker_memory_bytes": 8222969856,
+    "docker_os": "Docker Desktop",
+    "docker_server": "29.7.2"
+  },
+  "instrument_sha256": "00375148d39cc31b765de36bc40a5b2ec5fb8fbf3098fdb22ca99db6f2f5ad82",
+  "volumes": [
+    "fresh-fadca4adaf97_order_postgres_data",
+    "fresh-fadca4adaf97_payment_postgres_data",
+    "fresh-fadca4adaf97_product_postgres_data",
+    "fresh-fadca4adaf97_user_postgres_data"
+  ],
+  "readme_sha256": "7e1ed0c62821e777cfdde5e8b2abb6014b5d352ca4ef64997b46e5a11f878e7c",
+  "dependency_versions": {
+    "python": "3.12.16",
+    "fastapi": "0.162.0",
+    "sqlalchemy": "2.1.6",
+    "uvicorn": "0.54.0",
+    "httpx": "0.28.1",
+    "pika": "1.4.4",
+    "psycopg2-binary": "2.9.13"
+  },
+  "dataset": {
+    "products": 100,
+    "users": 20,
+    "stock_per_product": 1000000,
+    "catalog_page_size": 20,
+    "history_page_size": 20,
+    "shared_purchase_product": true
+  },
+  "stages": [
+    {
+      "operations": {
+        "cart_add": {
+          "samples": 120,
+          "errors": 0,
+          "error_percent": 0.0,
+          "p50_ms": 115.57679995894432,
+          "p95_ms": 309.75919985212386,
+          "p99_ms": 427.4685999844223,
+          "max_ms": 499.5816999580711,
+          "per_second": 3.7854644430327253,
+          "statuses": {
+            "201": 120
+          }
+        },
+        "cart_read": {
+          "samples": 120,
+          "errors": 0,
+          "error_percent": 0.0,
+          "p50_ms": 21.102200029417872,
+          "p95_ms": 185.3251000866294,
+          "p99_ms": 278.6787999793887,
+          "max_ms": 287.4635001644492,
+          "per_second": 3.7854644430327253,
+          "statuses": {
+            "200": 120
+          }
+        },
+        "catalog": {
+          "samples": 372,
+          "errors": 0,
+          "error_percent": 0.0,
+          "p50_ms": 48.77780005335808,
+          "p95_ms": 293.9351999666542,
+          "p99_ms": 407.37449983134866,
+          "max_ms": 433.3508999552578,
+          "per_second": 11.734939773401448,
+          "statuses": {
+            "200": 372
+          }
+        },
+        "checkout": {
+          "samples": 120,
+          "errors": 0,
+          "error_percent": 0.0,
+          "p50_ms": 1189.2043000552803,
+          "p95_ms": 1592.3246999736875,
+          "p99_ms": 1866.6594999376684,
+          "max_ms": 1938.1252999883145,
+          "per_second": 3.7854644430327253,
+          "statuses": {
+            "201": 120
+          }
+        },
+        "history": {
+          "samples": 372,
+          "errors": 0,
+          "error_percent": 0.0,
+          "p50_ms": 283.85100001469254,
+          "p95_ms": 625.016100006178,
+          "p99_ms": 759.8207001574337,
+          "max_ms": 794.0787998959422,
+          "per_second": 11.734939773401448,
+          "statuses": {
+            "200": 372
+          }
+        },
+        "order_poll": {
+          "samples": 292,
+          "errors": 0,
+          "error_percent": 0.0,
+          "p50_ms": 282.9203000292182,
+          "p95_ms": 625.1701000146568,
+          "p99_ms": 743.4183999430388,
+          "max_ms": 891.6893000714481,
+          "per_second": 9.211296811379631,
+          "statuses": {
+            "200": 292
+          }
+        },
+        "payment": {
+          "samples": 120,
+          "errors": 0,
+          "error_percent": 0.0,
+          "p50_ms": 793.333400040865,
+          "p95_ms": 1423.4168999828398,
+          "p99_ms": 1569.748800015077,
+          "max_ms": 1619.5059998426586,
+          "per_second": 3.7854644430327253,
+          "statuses": {
+            "201": 120
+          }
+        },
+        "product": {
+          "samples": 372,
+          "errors": 0,
+          "error_percent": 0.0,
+          "p50_ms": 47.78170003555715,
+          "p95_ms": 230.82569986581802,
+          "p99_ms": 337.6281999517232,
+          "max_ms": 377.4682998191565,
+          "per_second": 11.734939773401448,
+          "statuses": {
+            "200": 372
+          }
+        },
+        "profile": {
+          "samples": 372,
+          "errors": 0,
+          "error_percent": 0.0,
+          "p50_ms": 20.600799936801195,
+          "p95_ms": 61.3604998216033,
+          "p99_ms": 95.37659981288016,
+          "max_ms": 128.65129997953773,
+          "per_second": 11.734939773401448,
+          "statuses": {
+            "200": 372
+          }
+        },
+        "purchase_flow": {
+          "samples": 120,
+          "errors": 0,
+          "error_percent": 0.0,
+          "p50_ms": 3605.3231998812407,
+          "p95_ms": 4760.729700094089,
+          "p99_ms": 5235.698800068349,
+          "max_ms": 5489.5075999666005,
+          "per_second": 3.7854644430327253,
+          "statuses": {
+            "200": 120
+          }
+        }
+      },
+      "elapsed_seconds": 31.70020530000329,
+      "requests": 2260,
+      "errors": 0,
+      "error_percent": 0.0,
+      "requests_per_second": 71.29291367711633,
+      "useful_requests_per_second": 62.08161686573669,
+      "concurrency": 20,
+      "scheduled_seconds": 30,
+      "worker_failures": []
+    }
+  ],
+  "invariants": {
+    "passed": true,
+    "completed_flows_including_warmup": 132,
+    "payments": {
+      "paid": 132,
+      "other": 0,
+      "duplicate_orders": 0,
+      "published": 396
+    },
+    "orders": {
+      "paid": 132,
+      "other": 0,
+      "unfinished_checkouts": 0
+    },
+    "inventory": {
+      "stock": 999868,
+      "consumed": 132,
+      "other": 0,
+      "processed_events": 132
+    }
+  },
+  "evaluation": {
+    "passed": false,
+    "checks": [
+      {
+        "criterion": "catalog.samples",
+        "observed": 372,
+        "required_min": 100,
+        "passed": true
+      },
+      {
+        "criterion": "catalog.p95_ms",
+        "observed": 293.9351999666542,
+        "required_max": 500,
+        "passed": true
+      },
+      {
+        "criterion": "catalog.p99_ms",
+        "observed": 407.37449983134866,
+        "required_max": 1000,
+        "passed": true
+      },
+      {
+        "criterion": "product.samples",
+        "observed": 372,
+        "required_min": 100,
+        "passed": true
+      },
+      {
+        "criterion": "product.p95_ms",
+        "observed": 230.82569986581802,
+        "required_max": 500,
+        "passed": true
+      },
+      {
+        "criterion": "product.p99_ms",
+        "observed": 337.6281999517232,
+        "required_max": 1000,
+        "passed": true
+      },
+      {
+        "criterion": "profile.samples",
+        "observed": 372,
+        "required_min": 100,
+        "passed": true
+      },
+      {
+        "criterion": "profile.p95_ms",
+        "observed": 61.3604998216033,
+        "required_max": 500,
+        "passed": true
+      },
+      {
+        "criterion": "profile.p99_ms",
+        "observed": 95.37659981288016,
+        "required_max": 1000,
+        "passed": true
+      },
+      {
+        "criterion": "history.samples",
+        "observed": 372,
+        "required_min": 100,
+        "passed": true
+      },
+      {
+        "criterion": "history.p95_ms",
+        "observed": 625.016100006178,
+        "required_max": 500,
+        "passed": false
+      },
+      {
+        "criterion": "history.p99_ms",
+        "observed": 759.8207001574337,
+        "required_max": 1000,
+        "passed": true
+      },
+      {
+        "criterion": "cart_read.samples",
+        "observed": 120,
+        "required_min": 100,
+        "passed": true
+      },
+      {
+        "criterion": "cart_read.p95_ms",
+        "observed": 185.3251000866294,
+        "required_max": 500,
+        "passed": true
+      },
+      {
+        "criterion": "cart_read.p99_ms",
+        "observed": 278.6787999793887,
+        "required_max": 1000,
+        "passed": true
+      },
+      {
+        "criterion": "cart_add.samples",
+        "observed": 120,
+        "required_min": 100,
+        "passed": true
+      },
+      {
+        "criterion": "cart_add.p95_ms",
+        "observed": 309.75919985212386,
+        "required_max": 1500,
+        "passed": true
+      },
+      {
+        "criterion": "cart_add.p99_ms",
+        "observed": 427.4685999844223,
+        "required_max": 3000,
+        "passed": true
+      },
+      {
+        "criterion": "checkout.samples",
+        "observed": 120,
+        "required_min": 100,
+        "passed": true
+      },
+      {
+        "criterion": "checkout.p95_ms",
+        "observed": 1592.3246999736875,
+        "required_max": 1500,
+        "passed": false
+      },
+      {
+        "criterion": "checkout.p99_ms",
+        "observed": 1866.6594999376684,
+        "required_max": 3000,
+        "passed": true
+      },
+      {
+        "criterion": "payment.samples",
+        "observed": 120,
+        "required_min": 100,
+        "passed": true
+      },
+      {
+        "criterion": "payment.p95_ms",
+        "observed": 1423.4168999828398,
+        "required_max": 2000,
+        "passed": true
+      },
+      {
+        "criterion": "payment.p99_ms",
+        "observed": 1569.748800015077,
+        "required_max": 5000,
+        "passed": true
+      },
+      {
+        "criterion": "purchase_flow.samples",
+        "observed": 120,
+        "required_min": 100,
+        "passed": true
+      },
+      {
+        "criterion": "purchase_flow.p95_ms",
+        "observed": 4760.729700094089,
+        "required_max": 10000,
+        "passed": true
+      },
+      {
+        "criterion": "purchase_flow.p99_ms",
+        "observed": 5235.698800068349,
+        "required_max": 15000,
+        "passed": true
+      },
+      {
+        "criterion": "unexpected_errors_percent",
+        "observed": 0.0,
+        "required_below": 1.0,
+        "passed": true
+      },
+      {
+        "criterion": "useful_requests_per_second",
+        "observed": 62.08161686573669,
+        "required_min": 20,
+        "passed": true
+      },
+      {
+        "criterion": "business_invariants",
+        "observed": true,
+        "passed": true
+      }
+    ]
+  },
+  "status": "profile-recorded",
+  "cleanup": "Proyecto aislado eliminado; sin volumenes residuales"
+}
