@@ -13,6 +13,7 @@ app = FastAPI(
 app.include_router(
     cart.router
 )
+app.include_router(cart.internal_router)
 
 
 @app.get("/")

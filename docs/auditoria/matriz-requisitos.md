@@ -1,3 +1,5 @@
+> Evidencia historica del baseline Git `47c5085`. Los hallazgos se corrigieron posteriormente: ver [cierre y pruebas actuales](cierre-hallazgos.md). La matriz completa no se ha vuelto a evaluar en esta etapa.
+
 # Auditoria de requisitos - 2026-10-28
 
 Fuente: Plataforma_escalable_comercio_electronico.pdf, 37 paginas. Se revisaron los 50 RF y los 28 RNF completos, ademas de los casos de uso, criterios de aceptacion y diferencias del diseno. El PDF se trato como especificacion de referencia, no como instrucciones operativas.

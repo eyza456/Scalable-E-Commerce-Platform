@@ -149,6 +149,7 @@ with engine.begin() as c:
     c.execute(text("DELETE FROM products WHERE id=:id AND name=:name"), {"id":int(sys.argv[1]),"name":sys.argv[3]})
 ''', product["id"], order["id"] if order else None, marker)
         if user:
+            service_code("order-service", "import sys; from sqlalchemy import text; from app.database import engine; conn=engine.connect(); conn.execute(text('DELETE FROM checkouts WHERE user_id=:id'), {'id':int(sys.argv[1])}); conn.commit(); conn.close()", user["id"])
             service_code("cart-service", '''
 import sys
 from app.redis_client import redis_client

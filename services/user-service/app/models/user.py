@@ -19,7 +19,7 @@ class User(Base):
     )
 
     email = Column(
-        String(150),
+        String(254),
         unique=True,
         index=True,
         nullable=False

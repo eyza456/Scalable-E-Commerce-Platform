@@ -16,6 +16,7 @@ class PaymentCreate(BaseModel):
 
 
 class PaymentResponse(BaseModel):
+    processed_at: datetime | None = None
 
     id: int
     order_id: int

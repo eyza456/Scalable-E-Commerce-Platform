@@ -308,6 +308,32 @@ class PaymentStability(unittest.TestCase):
             self.assertEqual(barrier is not None,state=="CANCELLED")
             self.assertEqual(db.query(OutboxEvent).count(),3 if state=="PAID" else 0)
 
+    def test_terminal_timestamp_is_set_once_after_pending_recovery(self):
+        self.reserve_stock.side_effect=inventory.InventoryUnavailable("offline")
+        with patch("app.routers.payments.httpx.get",return_value=self.response):
+            payment=self.pay()
+        self.assertIsNone(payment.processed_at)
+        self.reserve_stock.side_effect=None
+        with self.sessions() as db:
+            resolved=inventory.settle_payment(db,payment.id)
+            timestamp=resolved.processed_at
+            self.assertIsNotNone(timestamp)
+            self.assertIsNotNone(timestamp.tzinfo)
+            self.assertEqual(inventory.settle_payment(db,payment.id).processed_at,timestamp)
+
+    def test_rejected_payment_has_terminal_timestamp(self):
+        self.reserve_stock.side_effect=inventory.StockUnavailable("sold out")
+        with patch("app.routers.payments.httpx.get",return_value=self.response),self.assertRaises(HTTPException):
+            self.pay()
+        with self.sessions() as db:self.assertIsNotNone(db.query(Payment).one().processed_at)
+
+    def test_cancelled_pending_payment_has_terminal_timestamp(self):
+        self.reserve_stock.side_effect=inventory.InventoryUnavailable("offline")
+        with patch("app.routers.payments.httpx.get",return_value=self.response):self.pay()
+        with self.sessions() as db:
+            cancellations.begin_cancellation(db,91,42)
+            self.assertIsNotNone(db.query(Payment).one().processed_at)
+
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)

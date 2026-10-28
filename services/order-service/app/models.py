@@ -16,6 +16,7 @@ from app.database import Base
 class Order(Base):
 
     __tablename__ = "orders"
+    checkout_id = Column(String(36), nullable=True, unique=True)
 
     id = Column(
         Integer,
@@ -97,3 +98,14 @@ class OrderItem(Base):
         "Order",
         back_populates="items"
     )
+
+
+class Checkout(Base):
+    __tablename__ = "checkouts"
+    id = Column(String(36), primary_key=True)
+    user_id = Column(Integer, nullable=False, index=True)
+    state = Column(String(20), nullable=False, default="PENDING", index=True)
+    order_id = Column(Integer, ForeignKey("orders.id", ondelete="CASCADE"), nullable=True)
+    error_code = Column(String(50), nullable=True)
+    error_message = Column(String(1000), nullable=True)
+    created_at = Column(DateTime(timezone=True), default=datetime.utcnow, nullable=False)

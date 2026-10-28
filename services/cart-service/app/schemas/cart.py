@@ -29,6 +29,9 @@ class CartItemResponse(BaseModel):
 
 
 class CartResponse(BaseModel):
+    version: str | None = None
+    checkout_id: str | None = None
+    last_checkout_id: str | None = None
 
     user_id: int
 

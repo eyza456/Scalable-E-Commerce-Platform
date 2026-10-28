@@ -1,0 +1,32 @@
+{
+  "executed_at": "2026-10-28T06:38:03.967857+00:00",
+  "command": "powershell -NoProfile -ExecutionPolicy Bypass -File tests/run_stability.ps1",
+  "exit_code": 0,
+  "unittest_total": 118,
+  "unittest_failures": 0,
+  "runs": [
+    23,
+    11,
+    13,
+    9,
+    17,
+    12,
+    2,
+    6,
+    4,
+    5,
+    5,
+    10,
+    1
+  ],
+  "log_sha256": "e2f07a972bead4577a4d11c3bd5c1c178b07126660e7e690ef00e6a61a12ecc3",
+  "additional_checks": [
+    "catalog migration",
+    "RabbitMQ TTL/DLQ: order and product",
+    "HTTP: profile, catalog, purchase, inventory, orders, audit fixes",
+    "nginx -t",
+    "gateway routes and resilience"
+  ],
+  "baseline_commit": "47c5085",
+  "branch": "codex/fix-audit-findings"
+}

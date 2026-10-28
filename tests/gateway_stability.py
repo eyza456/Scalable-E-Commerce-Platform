@@ -75,6 +75,7 @@ class GatewayRoutes(unittest.TestCase):
             ("GET", "/api/orders/internal/1"),
             ("GET", "/api/payments/internal/transactions/TX-MISSING"),
             ("POST", "/api/payments/internal/orders/1/cancel"),
+            ("POST", "/api/cart/internal/1/checkout/00000000-0000-0000-0000-000000000001/prepare"),
             ("POST", "/api/inventory/internal/reservations/TX-MISSING"),
             ("POST", "/api/inventory/internal/orders/1/release"),
         ):

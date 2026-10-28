@@ -1,456 +1,130 @@
-import json
 from decimal import Decimal
+import secrets
+from uuid import UUID
 
 import httpx
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, Security
+from fastapi.security import APIKeyHeader
 
 from app.core.config import settings
 from app.core.security import get_current_user
 from app.redis_client import redis_client
-from app.schemas import (
-    CartItemCreate,
-    CartItemResponse,
-    CartItemUpdate,
-    CartResponse
-)
+from app.schemas import CartItemCreate, CartItemUpdate, CartResponse
+from app.storage import atomic, changed, prepare, finish
 
-router = APIRouter(
-    prefix="/cart",
-    tags=["Cart"]
-)
+router = APIRouter(prefix="/cart", tags=["Cart"])
 
 
-@router.post(
-    "/items",
-    status_code=status.HTTP_201_CREATED
-)
-def add_item_to_cart(
-    item: CartItemCreate,
-    current_user: dict = Depends(get_current_user)
-):
-
-    user_id = current_user["id"]
-
-    # =========================
-    # CONSULTAR PRODUCT SERVICE
-    # =========================
-
+def product_snapshot(product_id):
     try:
-
-        response = httpx.get(
-            f"{settings.PRODUCT_SERVICE_URL}/products/{item.product_id}",
-            timeout=5.0
-        )
-
-    except httpx.RequestError:
-
-        raise HTTPException(
-            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
-            detail="Product Service no está disponible"
-        )
-
-    # =========================
-    # PRODUCTO NO EXISTE
-    # =========================
-
+        response = httpx.get(f"{settings.PRODUCT_SERVICE_URL}/products/{product_id}", timeout=5)
+    except httpx.RequestError as exc:
+        raise HTTPException(503, "Product Service no esta disponible") from exc
     if response.status_code == 404:
-
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="Producto no encontrado"
-        )
-
-    # =========================
-    # ERROR PRODUCT SERVICE
-    # =========================
-
+        raise HTTPException(404, "Producto no encontrado")
     if response.status_code != 200:
-
-        raise HTTPException(
-            status_code=status.HTTP_502_BAD_GATEWAY,
-            detail="Error al consultar Product Service"
-        )
-
+        raise HTTPException(502, "No se pudo consultar el producto")
     product = response.json()
+    if not product.get("is_active"):
+        raise HTTPException(409, "Producto no disponible")
+    return product
 
-    # =========================
-    # COMPROBAR STOCK
-    # =========================
 
-    if product["stock"] < item.quantity:
-
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Stock insuficiente"
-        )
-
-    # =========================
-    # CLAVE REDIS
-    # =========================
-
-    cart_key = f"cart:{user_id}"
-
-    # =========================
-    # OBTENER CARRITO ACTUAL
-    # =========================
-
-    cart_data = redis_client.get(cart_key)
-
-    if cart_data:
-
-        cart = json.loads(cart_data)
-
-    else:
-
-        cart = {
-            "items": []
-        }
-
-    # =========================
-    # BUSCAR PRODUCTO
-    # =========================
-
-    existing_item = None
-
-    for cart_item in cart["items"]:
-
-        if cart_item["product_id"] == item.product_id:
-
-            existing_item = cart_item
-            break
-
-    # =========================
-    # AGREGAR / ACTUALIZAR
-    # =========================
-
-    if existing_item:
-
-        new_quantity = (
-            existing_item["quantity"]
-            + item.quantity
-        )
-
-        if new_quantity > product["stock"]:
-
-            raise HTTPException(
-                status_code=status.HTTP_400_BAD_REQUEST,
-                detail="La cantidad solicitada supera el stock disponible"
-            )
-
-        existing_item["quantity"] = new_quantity
-
-    else:
-
-        cart["items"].append({
-
-            "product_id": item.product_id,
-
-            "name": product["name"],
-
-            "price": str(product["price"]),
-
-            "quantity": item.quantity
-
-        })
-
-    # =========================
-    # GUARDAR EN REDIS
-    # =========================
-
-    redis_client.set(
-        cart_key,
-        json.dumps(cart)
-    )
-
-    return {
-        "message": "Producto agregado al carrito",
-        "cart": cart
-    }
-
-@router.get(
-    "",
-    response_model=CartResponse
-)
-def get_cart(
-    current_user: dict = Depends(get_current_user)
-):
-
-    user_id = current_user["id"]
-
-    cart_key = f"cart:{user_id}"
-
-    # =========================
-    # OBTENER CARRITO DE REDIS
-    # =========================
-
-    cart_data = redis_client.get(cart_key)
-
-    # =========================
-    # CARRITO VACÍO
-    # =========================
-
-    if not cart_data:
-
-        return {
-            "user_id": user_id,
-            "items": [],
-            "total": Decimal("0.00")
-        }
-
-    cart = json.loads(cart_data)
-
+def cart_response(user_id, cart):
     items = []
-
     total = Decimal("0.00")
-
-    # =========================
-    # CALCULAR SUBTOTALES
-    # =========================
-
     for item in cart["items"]:
-
         price = Decimal(item["price"])
-
-        quantity = item["quantity"]
-
-        subtotal = price * quantity
-
+        subtotal = price * item["quantity"]
         total += subtotal
+        items.append({**item, "price": price, "subtotal": subtotal})
+    return {"user_id": user_id, "items": items, "total": total,
+            "version": cart["version"], "checkout_id": cart["checkout_id"],
+            "last_checkout_id": cart["last_checkout_id"]}
 
-        items.append({
-            "product_id": item["product_id"],
-            "name": item["name"],
-            "quantity": quantity,
-            "price": price,
-            "subtotal": subtotal
-        })
 
-    return {
-        "user_id": user_id,
-        "items": items,
-        "total": total
-    }
-@router.put(
-    "/items/{product_id}"
-)
-def update_cart_item(
-    product_id: int,
-    item_update: CartItemUpdate,
-    current_user: dict = Depends(get_current_user)
-):
+@router.post("/items", status_code=201)
+def add_item_to_cart(item: CartItemCreate, current_user: dict = Depends(get_current_user)):
+    product = product_snapshot(item.product_id)
+    def change(cart):
+        existing = next((p for p in cart["items"] if p["product_id"] == item.product_id), None)
+        quantity = (existing["quantity"] if existing else 0) + item.quantity
+        if quantity > product["stock"] or quantity > 100:
+            raise HTTPException(400, "Stock insuficiente o cantidad superior a 100")
+        if existing is None:
+            existing = {"product_id": item.product_id}
+            cart["items"].append(existing)
+        existing.update(name=product["name"], price=str(product["price"]), quantity=quantity)
+        changed(cart)
+    cart = atomic(redis_client, current_user["id"], change)
+    return {"message": "Producto agregado al carrito", "cart": cart}
 
-    user_id = current_user["id"]
 
-    cart_key = f"cart:{user_id}"
+@router.get("", response_model=CartResponse)
+def get_cart(current_user: dict = Depends(get_current_user)):
+    return cart_response(current_user["id"], atomic(redis_client, current_user["id"]))
 
-    # =========================
-    # OBTENER CARRITO
-    # =========================
 
-    cart_data = redis_client.get(cart_key)
+@router.put("/items/{product_id}")
+def update_cart_item(product_id: int, item_update: CartItemUpdate, current_user: dict = Depends(get_current_user)):
+    product = product_snapshot(product_id)
+    def change(cart):
+        existing = next((p for p in cart["items"] if p["product_id"] == product_id), None)
+        if existing is None:
+            raise HTTPException(404, "Producto no encontrado en el carrito")
+        if item_update.quantity > product["stock"]:
+            raise HTTPException(400, "Stock insuficiente")
+        existing.update(quantity=item_update.quantity, name=product["name"], price=str(product["price"]))
+        changed(cart)
+    cart = atomic(redis_client, current_user["id"], change)
+    return {"message": "Cantidad y precio actualizados", "cart": cart}
 
-    if not cart_data:
 
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="El carrito está vacío"
-        )
+@router.delete("/items/{product_id}")
+def delete_cart_item(product_id: int, current_user: dict = Depends(get_current_user)):
+    def change(cart):
+        if not any(p["product_id"] == product_id for p in cart["items"]):
+            raise HTTPException(404, "Producto no encontrado en el carrito")
+        cart["items"] = [p for p in cart["items"] if p["product_id"] != product_id]
+        changed(cart)
+    cart = atomic(redis_client, current_user["id"], change)
+    return {"message": "Producto eliminado correctamente", "cart": cart}
 
-    cart = json.loads(cart_data)
-
-    # =========================
-    # BUSCAR PRODUCTO
-    # =========================
-
-    existing_item = None
-
-    for cart_item in cart["items"]:
-
-        if cart_item["product_id"] == product_id:
-
-            existing_item = cart_item
-            break
-
-    if not existing_item:
-
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="Producto no encontrado en el carrito"
-        )
-
-    # =========================
-    # CONSULTAR PRODUCT SERVICE
-    # =========================
-
-    try:
-
-        response = httpx.get(
-            f"{settings.PRODUCT_SERVICE_URL}/products/{product_id}",
-            timeout=5.0
-        )
-
-    except httpx.RequestError:
-
-        raise HTTPException(
-            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
-            detail="Product Service no está disponible"
-        )
-
-    if response.status_code == 404:
-
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="El producto ya no existe"
-        )
-
-    if response.status_code != 200:
-
-        raise HTTPException(
-            status_code=status.HTTP_502_BAD_GATEWAY,
-            detail="Error al consultar Product Service"
-        )
-
-    product = response.json()
-
-    # =========================
-    # VALIDAR STOCK
-    # =========================
-
-    if item_update.quantity > product["stock"]:
-
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="La cantidad solicitada supera el stock disponible"
-        )
-
-    # =========================
-    # ACTUALIZAR CANTIDAD
-    # =========================
-
-    existing_item["quantity"] = item_update.quantity
-
-    # =========================
-    # GUARDAR EN REDIS
-    # =========================
-
-    redis_client.set(
-        cart_key,
-        json.dumps(cart)
-    )
-
-    return {
-        "message": "Cantidad actualizada correctamente",
-        "cart": cart
-    }
-
-@router.delete(
-    "/items/{product_id}"
-)
-def delete_cart_item(
-    product_id: int,
-    current_user: dict = Depends(get_current_user)
-):
-
-    user_id = current_user["id"]
-
-    cart_key = f"cart:{user_id}"
-
-    # =========================
-    # OBTENER CARRITO
-    # =========================
-
-    cart_data = redis_client.get(cart_key)
-
-    if not cart_data:
-
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="El carrito está vacío"
-        )
-
-    cart = json.loads(cart_data)
-
-    # =========================
-    # BUSCAR PRODUCTO
-    # =========================
-
-    item_found = False
-
-    for item in cart["items"]:
-
-        if item["product_id"] == product_id:
-
-            cart["items"].remove(item)
-
-            item_found = True
-
-            break
-
-    # =========================
-    # PRODUCTO NO ENCONTRADO
-    # =========================
-
-    if not item_found:
-
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="Producto no encontrado en el carrito"
-        )
-
-    # =========================
-    # CARRITO QUEDÓ VACÍO
-    # =========================
-
-    if not cart["items"]:
-
-        redis_client.delete(cart_key)
-
-        return {
-            "message": "Producto eliminado. El carrito está vacío"
-        }
-
-    # =========================
-    # ACTUALIZAR REDIS
-    # =========================
-
-    redis_client.set(
-        cart_key,
-        json.dumps(cart)
-    )
-
-    return {
-        "message": "Producto eliminado correctamente",
-        "cart": cart
-    }
 
 @router.delete("")
-def clear_cart(
-    current_user: dict = Depends(get_current_user)
-):
+def clear_cart(current_user: dict = Depends(get_current_user)):
+    def change(cart):
+        if not cart["items"]:
+            raise HTTPException(404, "El carrito ya esta vacio")
+        cart["items"] = []
+        changed(cart)
+    atomic(redis_client, current_user["id"], change)
+    return {"message": "Carrito vaciado correctamente"}
 
-    user_id = current_user["id"]
 
-    cart_key = f"cart:{user_id}"
+key_header = APIKeyHeader(name="X-Internal-Service-Key", auto_error=False)
 
-    # =========================
-    # COMPROBAR SI EXISTE
-    # =========================
 
-    cart_exists = redis_client.exists(cart_key)
+def internal_only(key: str | None = Security(key_header)):
+    if not key or not secrets.compare_digest(key, settings.INTERNAL_SERVICE_KEY):
+        raise HTTPException(403, "Acceso interno no autorizado")
 
-    if not cart_exists:
 
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="El carrito ya está vacío"
-        )
+internal_router = APIRouter(prefix="/cart/internal", tags=["Checkout"], dependencies=[Depends(internal_only)])
 
-    # =========================
-    # ELIMINAR CARRITO
-    # =========================
 
-    redis_client.delete(cart_key)
+@internal_router.post("/{user_id}/checkout/{checkout_id}/prepare", response_model=CartResponse)
+def prepare_checkout(user_id: int, checkout_id: UUID):
+    return cart_response(user_id, prepare(redis_client, user_id, str(checkout_id)))
 
-    return {
-        "message": "Carrito vaciado correctamente"
-    }
+
+@internal_router.post("/{user_id}/checkout/{checkout_id}/commit")
+def commit_checkout(user_id: int, checkout_id: UUID):
+    finish(redis_client, user_id, str(checkout_id), committed=True)
+    return {"checkout_id": str(checkout_id), "state": "COMMITTED"}
+
+
+@internal_router.post("/{user_id}/checkout/{checkout_id}/abort")
+def abort_checkout(user_id: int, checkout_id: UUID):
+    finish(redis_client, user_id, str(checkout_id), committed=False)
+    return {"checkout_id": str(checkout_id), "state": "ABORTED"}

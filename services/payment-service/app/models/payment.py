@@ -12,6 +12,7 @@ class Payment(Base):
     # Snapshot persistido ANTES de cualquier llamada al inventario.
     # NULL identifica pagos historicos, que no se recuperan como intentos nuevos.
     event_payload = Column(JSON, nullable=True)
+    processed_at = Column(DateTime(timezone=True), nullable=True)
 
     id = Column(
         Integer,

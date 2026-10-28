@@ -12,6 +12,7 @@ class Settings(BaseSettings):
     JWT_ALGORITHM: str = "HS256"
 
     PRODUCT_SERVICE_URL: str = "http://product-service:8000"
+    INTERNAL_SERVICE_KEY: str
 
 
 settings = Settings()

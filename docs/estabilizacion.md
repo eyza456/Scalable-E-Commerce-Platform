@@ -2,6 +2,8 @@
 
 Actualizacion: se implementaron [reservas de inventario y recuperacion de pagos](reservas-inventario.md). Esa documentacion describe el flujo vigente de confirmacion y los estados HTTP 201, 202 y 409.
 
+Ver tambien el [cierre de hallazgos de auditoria](auditoria/cierre-hallazgos.md).
+
 ## Cambios
 
 - `/users/me` devuelve el perfil autenticado; la prueba administrativa conserva su ruta y permisos propios.
@@ -27,7 +29,7 @@ Desde la raiz del proyecto, con Docker Compose activo:
 powershell -ExecutionPolicy Bypass -File tests/run_stability.ps1
 ```
 
-Las 89 pruebas de regresion verifican perfil, autorizacion, atomicidad de confirmacion/Outbox, reservas y recuperacion, solicitudes y eventos concurrentes, rollback del inventario, confirmaciones Pika y conservacion del original ante fallos de reenvio. Las pruebas PostgreSQL usan esquemas `test_stability_<uuid>` separados y los eliminan al terminar.
+Las 118 pruebas de regresion verifican perfil, autorizacion, atomicidad de confirmacion/Outbox, reservas y recuperacion, solicitudes y eventos concurrentes, rollback del inventario, confirmaciones Pika y conservacion del original ante fallos de reenvio. Las pruebas PostgreSQL usan esquemas `test_stability_<uuid>` separados y los eliminan al terminar.
 
 Adicionalmente, dos verificaciones con RabbitMQ comprueban reintentos TTL y DLQ en colas exclusivas que se eliminan al finalizar. La prueba HTTP comprueba salud de los seis servicios, perfil y permisos, carrito, pedido, pago, descuento de inventario y las tres entregas Outbox. Crea registros propios y los limpia; conserva una compra con eventos pendientes si falla para permitir su diagnostico.
 

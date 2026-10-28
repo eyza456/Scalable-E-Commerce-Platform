@@ -1,5 +1,11 @@
 from datetime import datetime
-from pydantic import BaseModel, ConfigDict, EmailStr, Field, model_validator
+from pydantic import BaseModel, ConfigDict, EmailStr, Field, model_validator, field_validator
+
+
+def bcrypt_input(value: str) -> str:
+    if len(value.encode("utf-8")) > 72:
+        raise ValueError("La contrasena admite un maximo de 72 bytes UTF-8")
+    return value
 
 
 class UserCreate(BaseModel):
@@ -8,16 +14,19 @@ class UserCreate(BaseModel):
         max_length=100
     )
 
-    email: EmailStr 
+    email: EmailStr = Field(max_length=254)
 
     password: str = Field(
         min_length=6,
-        max_length=100
+        max_length=72
     )
 
+    _password_bytes = field_validator("password")(bcrypt_input)
+
 class UserLogin(BaseModel):
-    email: EmailStr
-    password: str
+    email: EmailStr = Field(max_length=254)
+    password: str = Field(max_length=72)
+    _password_bytes = field_validator("password")(bcrypt_input)
 
 class UserResponse(BaseModel):
     id: int 
@@ -39,7 +48,7 @@ class TokenResponse(BaseModel):
 class UserUpdate(BaseModel):
     model_config = ConfigDict(extra="forbid", str_strip_whitespace=True)
     name: str | None = Field(default=None, min_length=3, max_length=100)
-    email: EmailStr | None = Field(default=None, max_length=150)
+    email: EmailStr | None = Field(default=None, max_length=254)
 
     @model_validator(mode="after")
     def valid_changes(self):

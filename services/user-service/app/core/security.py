@@ -8,6 +8,8 @@ from app.core.config import settings
 
 def hash_password(password: str) -> str:
     password_bytes = password.encode("utf-8")
+    if len(password_bytes) > 72:
+        raise ValueError("Contrasena fuera del limite de bcrypt")
 
     salt = bcrypt.gensalt()
 
@@ -24,10 +26,13 @@ def verify_password(
     hashed_password: str
 ) -> bool:
 
-    return bcrypt.checkpw(
-        plain_password.encode("utf-8"),
-        hashed_password.encode("utf-8")
-    )
+    password_bytes = plain_password.encode("utf-8")
+    if len(password_bytes) > 72:
+        return False
+    try:
+        return bcrypt.checkpw(password_bytes, hashed_password.encode("utf-8"))
+    except ValueError:
+        return False
 
 
 def create_access_token(

@@ -242,6 +242,7 @@ def get_payment_by_transaction(
         "order_id": payment.order_id,
         "status": payment.status,
         "amount": float(payment.amount),
+        "processed_at": payment.processed_at,
         "method": payment.method
     }
 
@@ -271,6 +272,7 @@ def get_internal_payment_transaction(
         "order_id": payment.order_id,
         "user_id": payment.user_id,
         "status": payment.status,
+        "processed_at": payment.processed_at,
         "items": (payment.event_payload or {}).get("items"),
         "inventory_reservation_id": (payment.event_payload or {}).get("inventory_reservation_id"),
         "amount": str(payment.amount)

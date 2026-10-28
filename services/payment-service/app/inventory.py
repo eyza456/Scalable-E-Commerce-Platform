@@ -1,5 +1,6 @@
 """Confirmacion recuperable de pagos simulados tras reservar inventario."""
 import logging
+from datetime import datetime, timezone
 from urllib.parse import quote
 
 import httpx
@@ -71,6 +72,7 @@ def settle_payment(db, payment_id, skip_locked=False):
         return payment
     if db.get(OrderCancellation, order_id):
         payment.status = "CANCELLED"
+        payment.processed_at = datetime.now(timezone.utc)
         db.commit()
         return payment
     try:
@@ -89,6 +91,7 @@ def settle_payment(db, payment_id, skip_locked=False):
                 event_type="PAYMENT_COMPLETED", aggregate_id=payment.order_id,
                 destination=destination, payload=payment.event_payload,
             ))
+    payment.processed_at = datetime.now(timezone.utc)
     try:
         # PAID y todas sus entregas son atomicos. PENDING permanece durable
         # si este commit falla; no se libera stock ante una respuesta incierta.

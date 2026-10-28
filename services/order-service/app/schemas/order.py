@@ -23,6 +23,7 @@ class OrderItemResponse(BaseModel):
 
 
 class OrderResponse(BaseModel):
+    checkout_id: str | None = None
 
     id: int
 
@@ -39,6 +40,11 @@ class OrderResponse(BaseModel):
     model_config = ConfigDict(
         from_attributes=True
     )
+
+
+class CheckoutPendingResponse(BaseModel):
+    checkout_id: str
+    checkout_status: Literal["PENDING"] = "PENDING"
 
 
 class OrderStatusUpdate(BaseModel):

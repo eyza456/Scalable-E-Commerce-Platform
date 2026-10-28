@@ -4,11 +4,14 @@ try {
     $checks = @(
         @('payment-service', 'payment_stability.py'),
         @('order-service', 'order_stability.py'),
+        @('order-service', 'checkout_stability.py'),
+        @('cart-service', 'cart_stability.py'),
         @('product-service', 'product_stability.py'),
         @('product-service', 'catalog_stability.py'),
         @('product-service', 'catalog_migration.py'),
         @('user-service', 'user_stability.py'),
         @('user-service', 'profile_stability.py'),
+        @('user-service', 'input_limits.py'),
         @('order-service', 'messaging_stability.py'),
         @('product-service', 'messaging_stability.py'),
         @('order-service', 'messaging_broker.py'),
@@ -29,6 +32,8 @@ try {
     if ($LASTEXITCODE -ne 0) { throw 'Fallo en reservas y recuperacion HTTP' }
     python -X utf8 tests/smoke_orders.py
     if ($LASTEXITCODE -ne 0) { throw 'Fallo en historial y cancelacion HTTP' }
+    python -X utf8 tests/smoke_audit_fixes.py
+    if ($LASTEXITCODE -ne 0) { throw 'Regresion de hallazgos de auditoria' }
     docker compose exec -T api-gateway nginx -t
     if ($LASTEXITCODE -ne 0) { throw 'Configuracion de gateway invalida' }
     python -X utf8 tests/gateway_stability.py

@@ -162,3 +162,7 @@ Usa las credenciales de tu entorno local; no se versionan.
 ## 📄 Licencia
 
 Este proyecto está bajo la Licencia MIT.
+
+## Cierre de hallazgos de auditoria
+
+Se corrigieron la concurrencia del carrito, los pedidos duplicados, la revalidacion del catalogo, los limites de registro y la fecha final de pagos. Consultar [contrato HTTP, migraciones y pruebas](docs/auditoria/cierre-hallazgos.md).

@@ -13,7 +13,7 @@ Content-Type: application/json
 La respuesta contiene los campos habituales del perfil y `access_token` / `token_type`. El cliente debe sustituir su token por el renovado: incluye el correo actualizado para los servicios de pedidos, pagos y notificaciones. Los tokens anteriores mantienen su validez hasta expirar; este cambio no implementa revocacion de sesiones.
 
 - `name`: entre 3 y 100 caracteres, recortando espacios externos.
-- `email`: correo valido de hasta 150 caracteres. Debe ser unico sin distinguir mayusculas, incluso ante solicitudes concurrentes.
+- `email`: correo valido de hasta 254 caracteres. Debe ser unico sin distinguir mayusculas, incluso ante solicitudes concurrentes.
 - Campos vacios, null, cuerpo vacio o campos adicionales devuelven 422.
 - `id`, `role`, `is_active`, contrasena y hash no pueden modificarse mediante este endpoint.
 - Correo ocupado: 409; no se guarda ninguna parte del cambio.

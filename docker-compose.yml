@@ -231,6 +231,7 @@ services:
       JWT_ALGORITHM: ${JWT_ALGORITHM}
 
       PRODUCT_SERVICE_URL: http://product-service:8000
+      INTERNAL_SERVICE_KEY: ${INTERNAL_SERVICE_KEY:?INTERNAL_SERVICE_KEY is required}
 
     volumes:
       - ./services/cart-service/app:/app/app

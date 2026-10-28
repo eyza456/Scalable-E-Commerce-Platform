@@ -137,9 +137,8 @@ with engine.begin() as c:c.execute(text("DELETE FROM users WHERE email=:email"),
     return results
 
 
-if __name__=="__main__":
-    results={"cart_concurrency":cart_concurrency(),"duplicate_checkout":duplicate_checkout(),
-             "stale_checkout":stale_checkout(),"registration_limits":registration_limits()}
-    output=Path("docs/auditoria/sondas-2026-10-28.json")
-    output.write_text(json.dumps(results,ensure_ascii=False,indent=2),encoding="utf-8")
-    print(json.dumps(results,ensure_ascii=False,indent=2))
+if __name__ == "__main__":
+    # Las reproducciones anteriores corresponden al baseline 47c5085.
+    # Ejecutar ahora la regresion vigente sin sobrescribir la evidencia historica.
+    from smoke_audit_fixes import main
+    main()

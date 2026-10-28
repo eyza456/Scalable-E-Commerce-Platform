@@ -1,6 +1,7 @@
 import threading
 from contextlib import asynccontextmanager
 from app.cancellations import run_recovery
+from app.checkouts import run_recovery as run_checkout_recovery
 
 
 from fastapi import FastAPI
@@ -19,10 +20,13 @@ Base.metadata.create_all(
 async def lifespan(app):
     stop = threading.Event()
     worker = threading.Thread(target=run_recovery, args=(stop,), daemon=True)
+    checkout_worker = threading.Thread(target=run_checkout_recovery, args=(stop,), daemon=True)
     worker.start()
+    checkout_worker.start()
     yield
     stop.set()
     worker.join(timeout=2)
+    checkout_worker.join(timeout=2)
 
 
 app = FastAPI(

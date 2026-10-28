@@ -1,4 +1,5 @@
 import logging
+from datetime import datetime, timezone
 
 import httpx
 from fastapi import HTTPException
@@ -23,7 +24,7 @@ def begin_cancellation(db, order_id, user_id):
     elif cancellation.user_id != user_id:
         raise HTTPException(409, "El propietario no coincide")
     db.query(Payment).filter_by(order_id=order_id, status="PENDING").update(
-        {"status": "CANCELLED"}, synchronize_session=False)
+        {"status": "CANCELLED", "processed_at": datetime.now(timezone.utc)}, synchronize_session=False)
     db.commit()
     return cancellation
 

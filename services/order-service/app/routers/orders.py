@@ -1,14 +1,18 @@
 import httpx
 
-from fastapi import APIRouter, Depends, HTTPException, status, Query, Response
+from fastapi import APIRouter, Depends, HTTPException, status, Query, Response, Header
 from sqlalchemy.orm import Session, selectinload
-from typing import Literal
+from typing import Literal, Annotated
 from app.cancellations import finish_cancellation
 
 from app.core.config import settings
 from app.core.security import get_current_user, require_admin
 from app.database import get_db
-from app.models import Order, OrderItem
+from app.models import Order, OrderItem, Checkout
+from app.checkouts import begin_checkout, process_checkout
+from app.schemas.order import CheckoutPendingResponse
+from sqlalchemy.exc import SQLAlchemyError
+from uuid import UUID
 from app.schemas import OrderResponse, OrderStatusUpdate
 from app.core.internal_security import verify_internal_service
 
@@ -28,129 +32,44 @@ def orders_health():
     }
 
 
-@router.post(
-    "",
-    response_model=OrderResponse,
-    status_code=status.HTTP_201_CREATED
-)
+def checkout_result(db, checkout_id, user_id, response, created=False):
+    checkout = db.get(Checkout, checkout_id)
+    if checkout is None or checkout.user_id != user_id:
+        raise HTTPException(404, "Checkout no encontrado")
+    if checkout.order_id is not None:
+        response.status_code = 201 if created else 200
+        response.headers["X-Checkout-Status"] = checkout.state
+        return db.query(Order).options(selectinload(Order.items)).filter_by(id=checkout.order_id).one()
+    if checkout.state in ("ABORTING", "REJECTED"):
+        raise HTTPException(409, {"code": checkout.error_code, "message": checkout.error_message,
+                                  "checkout_id": checkout.id})
+    response.status_code = 202
+    return CheckoutPendingResponse(checkout_id=checkout.id)
+
+
+@router.post("", response_model=OrderResponse | CheckoutPendingResponse, status_code=201)
 def create_order(
     current_user: dict = Depends(get_current_user),
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    response: Response = None,
+    idempotency_key: Annotated[UUID | None, Header()] = None,
 ):
-
-    user_id = current_user["id"]
-
-    # ==================================
-    # 1. OBTENER CARRITO
-    # ==================================
-
+    if response is None:
+        response = Response()
+    checkout_id, created = begin_checkout(db, current_user, idempotency_key)
     try:
+        process_checkout(db, checkout_id)
+    except SQLAlchemyError as exc:
+        db.rollback()
+        raise HTTPException(503, {"checkout_id": checkout_id, "message": "Reintentar con el mismo checkout"}) from exc
+    return checkout_result(db, checkout_id, current_user["id"], response, created)
 
-        response = httpx.get(
-            f"{settings.CART_SERVICE_URL}/cart",
-            headers={
-                "Authorization": f"Bearer {current_user['token']}"
-            },
-            timeout=10.0
-        )
 
-    except httpx.RequestError:
+@router.get("/checkouts/{checkout_id}", response_model=OrderResponse | CheckoutPendingResponse)
+def get_checkout(checkout_id: UUID, response: Response,
+                 current_user: dict = Depends(get_current_user), db: Session = Depends(get_db)):
+    return checkout_result(db, str(checkout_id), current_user["id"], response)
 
-        raise HTTPException(
-            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
-            detail="No se pudo conectar con Cart Service"
-        )
-
-    if response.status_code != 200:
-
-        raise HTTPException(
-            status_code=response.status_code,
-            detail="No se pudo obtener el carrito"
-        )
-
-    cart = response.json()
-
-    # ==================================
-    # 2. VALIDAR CARRITO
-    # ==================================
-
-    items = cart.get("items", [])
-
-    if not items:
-
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="No se puede crear una orden con el carrito vacío"
-        )
-
-    # ==================================
-    # 3. CREAR ORDEN
-    # ==================================
-
-    order = Order(
-        user_id=user_id,
-        status="PENDING",
-        total=cart["total"]
-    )
-
-    db.add(order)
-
-    db.flush()
-
-    # ==================================
-    # 4. CREAR ITEMS DE LA ORDEN
-    # ==================================
-
-    for item in items:
-
-        order_item = OrderItem(
-            order_id=order.id,
-            product_id=item["product_id"],
-            product_name=item["name"],
-            quantity=item["quantity"],
-            price=item["price"],
-            subtotal=item["subtotal"]
-        )
-
-        db.add(order_item)
-
-    # ==================================
-    # 5. GUARDAR
-    # ==================================
-
-    db.commit()
-
-    db.refresh(order)
-
-    # ==================================
-    # 6. VACIAR CARRITO
-    # ==================================
-
-    try:
-
-        clear_response = httpx.delete(
-            f"{settings.CART_SERVICE_URL}/cart",
-            headers={
-                "Authorization": f"Bearer {current_user['token']}"
-            },
-            timeout=10.0
-        )
-
-        if clear_response.status_code not in [200, 404]:
-
-            raise HTTPException(
-                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-                detail="La orden fue creada pero no se pudo vaciar el carrito"
-            )
-
-    except httpx.RequestError:
-
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail="La orden fue creada pero no se pudo vaciar el carrito"
-        )
-
-    return order
 
 @router.get("", response_model=list[OrderResponse])
 def list_orders(
