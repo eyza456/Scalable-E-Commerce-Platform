@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+
+<html class="h-full bg-background text-on-background" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Catálogo Editorial | Nexo</title>
+<!-- Google Fonts: Playfair Display & Plus Jakarta Sans -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;family=Plus+Jakarta+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS v3 with Forms & Container Queries -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-surface-variant": "#424843",
+            "on-primary": "#ffffff",
+            "outline-variant": "#c1c8c1",
+            "on-tertiary-fixed": "#131e12",
+            "surface-variant": "#e4e2dd",
+            "on-error-container": "#93000a",
+            "on-tertiary-fixed-variant": "#3d4a3b",
+            "on-primary-fixed": "#002112",
+            "surface-dim": "#dbdad5",
+            "surface-container-low": "#f5f4ee",
+            "secondary-container": "#fed5b6",
+            "on-tertiary": "#ffffff",
+            "outline": "#727973",
+            "tertiary": "#1a2619",
+            "on-primary-container": "#87aa94",
+            "secondary": "#765840",
+            "tertiary-fixed-dim": "#bccbb7",
+            "inverse-on-surface": "#f2f1eb",
+            "on-background": "#1b1c19",
+            "surface-tint": "#446652",
+            "primary-fixed-dim": "#aacfb8",
+            "background": "#fbf9f4",
+            "surface-container-highest": "#e4e2dd",
+            "on-surface": "#1b1c19",
+            "inverse-surface": "#30312d",
+            "surface-container": "#efeee9",
+            "surface-bright": "#fbf9f4",
+            "inverse-primary": "#aacfb8",
+            "surface": "#fbf9f4",
+            "primary-fixed": "#c6ebd3",
+            "on-secondary-fixed-variant": "#5c412a",
+            "primary": "#062919",
+            "primary-container": "#1e3f2e",
+            "on-secondary-fixed": "#2b1704",
+            "surface-container-lowest": "#ffffff",
+            "on-primary-fixed-variant": "#2c4d3c",
+            "secondary-fixed-dim": "#e6bfa1",
+            "on-error": "#ffffff",
+            "error": "#ba1a1a",
+            "error-container": "#ffdad6",
+            "secondary-fixed": "#ffdcc1",
+            "on-secondary": "#ffffff",
+            "on-tertiary-container": "#98a694",
+            "on-secondary-container": "#795b42",
+            "tertiary-fixed": "#d8e7d2",
+            "tertiary-container": "#2f3c2e",
+            "surface-container-high": "#e9e8e3"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "space-sm": "0.5rem",
+            "space-lg": "1.5rem",
+            "space-md": "1rem",
+            "space-xs": "0.25rem",
+            "space-xl": "2.5rem",
+            "gutter-sm": "1rem",
+            "gutter-lg": "2rem",
+            "margin-lg": "4rem",
+            "margin-sm": "1rem",
+            "space-2xl": "4rem",
+            "margin": "2rem",
+            "gutter": "1.5rem"
+          },
+          "fontFamily": {
+            "headline-sm": ["Playfair Display"],
+            "headline-lg-mobile": ["Playfair Display"],
+            "label-sm": ["Plus Jakarta Sans"],
+            "body-md": ["Plus Jakarta Sans"],
+            "label-md": ["Plus Jakarta Sans"],
+            "display": ["Playfair Display"],
+            "body-sm": ["Plus Jakarta Sans"],
+            "body-lg": ["Plus Jakarta Sans"],
+            "display-mobile": ["Playfair Display"],
+            "title-md": ["Plus Jakarta Sans"],
+            "title-sm": ["Plus Jakarta Sans"],
+            "headline-lg": ["Playfair Display"],
+            "headline-md": ["Playfair Display"]
+          },
+          "fontSize": {
+            "headline-sm": ["22px", { "lineHeight": "30px", "fontWeight": "500" }],
+            "headline-lg-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "500" }],
+            "label-sm": ["11px", { "lineHeight": "16px", "letterSpacing": "0.06em", "fontWeight": "600" }],
+            "body-md": ["15px", { "lineHeight": "24px", "fontWeight": "400" }],
+            "label-md": ["13px", { "lineHeight": "18px", "letterSpacing": "0.04em", "fontWeight": "600" }],
+            "display": ["56px", { "lineHeight": "64px", "letterSpacing": "-0.02em", "fontWeight": "400" }],
+            "body-sm": ["13px", { "lineHeight": "20px", "fontWeight": "400" }],
+            "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+            "display-mobile": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.01em", "fontWeight": "400" }],
+            "title-md": ["18px", { "lineHeight": "26px", "fontWeight": "600" }],
+            "title-sm": ["16px", { "lineHeight": "24px", "fontWeight": "600" }],
+            "headline-lg": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.01em", "fontWeight": "400" }],
+            "headline-md": ["28px", { "lineHeight": "36px", "fontWeight": "500" }]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 350, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    /* Editorial subtle custom range styling */
+    input[type=range] {
+      -webkit-appearance: none;
+      background: #e4e2dd;
+      height: 2px;
+    }
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      height: 14px;
+      width: 14px;
+      border-radius: 50%;
+      background: #1e3f2e;
+      cursor: pointer;
+      border: 2px solid #fbf9f4;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+    }
+    input[type=range]:focus-visible {
+      outline: 2px solid #1e3f2e; outline-offset: 4px;
+    }
+  </style>
+</head>
+<body class="min-h-full flex flex-col bg-surface text-on-surface antialiased selection:bg-primary-container selection:text-on-primary">
+<!-- Top Announcement Bar (Subtle, Editorial) -->
+<div class="bg-surface-container-low border-b border-surface-variant text-on-surface-variant text-center py-1.5 px-margin-sm">
+<p class="font-label-sm text-label-sm tracking-wide">
+      PROTOTIPO VISUAL • DATOS DE EJEMPLO • SIN COMPRAS REALES
+    </p>
+</div>
+<!-- Shared Component: TopNavBar -->
+<header class="w-full bg-surface border-b border-surface-variant sticky top-0 z-40">
+<div class="w-full px-margin md:px-margin-lg max-w-7xl mx-auto flex items-center justify-between py-space-md gap-gutter">
+<!-- Brand Logo Anchor -->
+<div class="flex items-center gap-space-xl">
+<a aria-label="Nexo Inicio" class="font-headline-md text-headline-md tracking-tight text-primary uppercase focus:ring-2 focus:ring-primary focus:outline-none rounded-DEFAULT" href="#">
+          Nexo
+        </a>
+<!-- Desktop Navigation Links -->
+<nav aria-label="Navegación por categorías" class="hidden md:flex items-center gap-space-lg">
+<a class="text-on-surface-variant hover:text-on-surface transition-colors pb-1 font-body-md text-body-md focus:ring-2 focus:ring-primary focus:outline-none" href="#">Hogar</a>
+<a class="text-on-surface-variant hover:text-on-surface transition-colors pb-1 font-body-md text-body-md focus:ring-2 focus:ring-primary focus:outline-none" href="#">Tecnología</a>
+<a class="text-on-surface-variant hover:text-on-surface transition-colors pb-1 font-body-md text-body-md focus:ring-2 focus:ring-primary focus:outline-none" href="#">Oficina</a>
+<a class="text-on-surface-variant hover:text-on-surface transition-colors pb-1 font-body-md text-body-md focus:ring-2 focus:ring-primary focus:outline-none" href="#">Iluminación</a>
+</nav>
+</div>
+<!-- Search & Trailing Actions -->
+<div class="flex items-center gap-space-md md:gap-space-lg">
+<!-- Integrated Search Bar -->
+<div class="relative hidden sm:block w-48 lg:w-64">
+<label class="sr-only" for="catalog-search">Buscar piezas de diseño</label>
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-outline">
+<span class="material-symbols-outlined text-base" data-icon="search">search</span>
+</div>
+<input class="w-full pl-9 pr-3 py-1.5 bg-surface-container-low border border-surface-variant rounded-DEFAULT font-body-sm text-body-sm text-on-surface placeholder:text-outline focus:bg-surface-container-lowest focus:border-primary-container focus:ring-2 focus:ring-primary-container focus:outline-none transition-colors" id="catalog-search" placeholder="Buscar piezas..." type="search"/>
+</div>
+<!-- Trailing Links / Actions -->
+<div class="flex items-center gap-space-sm md:gap-space-md">
+<a aria-label="Consultar Mis pedidos" class="hidden lg:inline-flex items-center gap-1 text-on-surface-variant hover:text-primary transition-colors text-body-sm font-body-sm focus:ring-2 focus:ring-primary focus:outline-none px-2 py-1 rounded-DEFAULT" href="#">
+<span class="material-symbols-outlined text-base" data-icon="receipt_long">receipt_long</span>
+<span>Mis pedidos</span>
+</a>
+<a aria-label="Ir a Mi cuenta" class="inline-flex items-center gap-1 text-on-surface-variant hover:text-primary transition-colors text-body-sm font-body-sm focus:ring-2 focus:ring-primary focus:outline-none px-2 py-1 rounded-DEFAULT" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="person">person</span>
+<span class="hidden md:inline">Mi cuenta</span>
+</a>
+<!-- Cart Action with Count Pill -->
+<button aria-label="Carrito de compras, 3 artículos agregados" class="relative inline-flex items-center gap-2 px-3 py-1.5 border border-primary-container bg-surface text-primary-container hover:bg-primary-container hover:text-on-primary transition-all duration-200 rounded-DEFAULT focus:ring-2 focus:ring-primary focus:outline-none" id="cart-trigger" type="button">
+<span class="material-symbols-outlined text-lg" data-icon="shopping_bag">shopping_bag</span>
+<span class="hidden sm:inline font-label-md text-label-md">Carrito</span>
+<span class="inline-flex items-center justify-center min-w-[20px] h-5 px-1.5 text-xs font-semibold bg-primary-container text-on-primary rounded-full transition-transform" id="cart-counter">
+              3
+            </span>
+</button>
+</div>
+</div>
+</div>
+</header>
+<!-- Notification Toast Container -->
+<aside aria-live="polite" class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 pointer-events-none transition-all duration-300 ease-out bg-surface-container-lowest border border-surface-variant shadow-lg px-space-lg py-space-md rounded-DEFAULT max-w-sm flex items-start gap-space-md" id="toast-notification" role="status">
+<span class="material-symbols-outlined text-primary-container text-xl mt-0.5" data-icon="check_circle">check_circle</span>
+<div>
+<p class="font-title-sm text-title-sm text-on-surface" id="toast-title">Artículo añadido</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant" id="toast-desc">Se ha agregado a tu bolsa de compra.</p>
+</div>
+<button aria-label="Cerrar notificación" class="text-outline hover:text-on-surface ml-auto p-1 focus:outline-none" onclick="dismissToast()" type="button">
+<span class="material-symbols-outlined text-sm" data-icon="close">close</span>
+</button>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-grow max-w-7xl w-full mx-auto px-margin md:px-margin-lg py-space-xl" id="main-content">
+<!-- Editorial Page Header -->
+<header class="mb-space-2xl border-b border-surface-variant pb-space-xl">
+<div class="max-w-3xl">
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-2">
+          Colección de demostración
+        </p>
+<h1 class="font-headline-lg text-headline-lg md:text-display text-primary tracking-tight mb-4">
+          Encuentra tu próximo favorito
+        </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed mb-6">
+          Una selección curada de piezas esenciales para el hogar contemporáneo y herramientas tecnológicas de diseño atemporal.
+        </p>
+<div class="inline-flex items-center gap-2 px-3 py-1 bg-surface-container-low border border-surface-variant rounded-DEFAULT">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+<span class="font-label-md text-label-md text-on-surface" id="results-count">8 productos encontrados</span>
+</div>
+</div>
+</header>
+<!-- Controls and Filtering Bar -->
+<section aria-label="Controles y filtros de catálogo" class="mb-space-xl">
+<div class="bg-surface-container-low border border-surface-variant p-4 lg:p-space-lg rounded-DEFAULT flex flex-col gap-6">
+<!-- Category Chips & Sort Selector -->
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+<!-- Category Tabs -->
+<div aria-label="Filtrar por colección" class="flex flex-wrap items-center gap-2" role="tablist">
+<button aria-selected="true" class="category-btn active px-4 py-2 font-label-md text-label-md rounded-DEFAULT transition-all focus:ring-2 focus:ring-primary focus:outline-none bg-primary-container text-on-primary border border-primary-container" data-category="all" role="tab" type="button">
+              Todas
+            </button>
+<button aria-selected="false" class="category-btn px-4 py-2 font-label-md text-label-md rounded-DEFAULT transition-all focus:ring-2 focus:ring-primary focus:outline-none bg-surface border border-surface-variant text-on-surface hover:border-outline" data-category="hogar" role="tab" type="button">
+              Hogar
+            </button>
+<button aria-selected="false" class="category-btn px-4 py-2 font-label-md text-label-md rounded-DEFAULT transition-all focus:ring-2 focus:ring-primary focus:outline-none bg-surface border border-surface-variant text-on-surface hover:border-outline" data-category="tecnologia" role="tab" type="button">
+              Tecnología
+            </button>
+<button aria-selected="false" class="category-btn px-4 py-2 font-label-md text-label-md rounded-DEFAULT transition-all focus:ring-2 focus:ring-primary focus:outline-none bg-surface border border-surface-variant text-on-surface hover:border-outline" data-category="oficina" role="tab" type="button">
+              Oficina
+            </button>
+<button aria-selected="false" class="category-btn px-4 py-2 font-label-md text-label-md rounded-DEFAULT transition-all focus:ring-2 focus:ring-primary focus:outline-none bg-surface border border-surface-variant text-on-surface hover:border-outline" data-category="iluminacion" role="tab" type="button">
+              Iluminación
+            </button>
+</div>
+<!-- Sort Select Menu -->
+<div class="flex items-center gap-3 self-end lg:self-auto">
+<label class="font-label-md text-label-md text-on-surface-variant whitespace-nowrap" for="catalog-sort">Ordenar por:</label>
+<div class="relative min-w-[200px]">
+<select class="w-full appearance-none bg-surface border border-surface-variant text-on-surface font-body-sm text-body-sm py-2 pl-3 pr-8 rounded-DEFAULT focus:ring-2 focus:ring-primary focus:border-primary-container focus:outline-none transition-colors cursor-pointer" id="catalog-sort">
+<option value="recent">Más recientes</option>
+<option value="price-asc">Precio: menor a mayor</option>
+<option value="price-desc">Precio: mayor a menor</option>
+<option value="name-az">Nombre A-Z</option>
+</select>
+<div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-base" data-icon="keyboard_arrow_down">keyboard_arrow_down</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Price Range Control & Reset Bar -->
+<div class="pt-4 border-t border-surface-variant flex flex-col md:flex-row md:items-center justify-between gap-4">
+<div class="flex items-center gap-4 flex-1 max-w-md">
+<label class="font-label-md text-label-md text-on-surface-variant whitespace-nowrap" for="price-range">
+              Rango de precio:
+            </label>
+<input aria-valuemax="3500" aria-valuemin="150" aria-valuenow="3500" class="w-full cursor-pointer accent-primary-container" id="price-range" max="3500" min="150" step="50" type="range" value="3500"/>
+<span class="font-title-sm text-title-sm text-primary whitespace-nowrap min-w-[140px] text-right" id="price-display">
+              Hasta Bs 3.500
+            </span>
+</div>
+<!-- Availability Quick Indicator -->
+<div class="flex items-center gap-3 text-body-sm text-on-surface-variant font-body-sm">
+<span class="inline-flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span> Disponibilidad de ejemplo
+            </span>
+</div>
+</div>
+</div>
+</section>
+<!-- Product Catalog Grid -->
+<section aria-label="Productos disponibles" class="mb-space-2xl">
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-gutter lg:gap-gutter-lg" id="product-grid">
+<!-- Product 1: Lámpara de mesa cerámica -->
+<article class="product-card group flex flex-col bg-surface-container-lowest border border-surface-variant rounded-DEFAULT overflow-hidden transition-all duration-300 hover:border-outline focus-within:ring-2 focus-within:ring-primary" data-category="iluminacion" data-name="Lámpara de mesa cerámica" data-price="420">
+<div class="relative aspect-[3/4] bg-surface-container-low overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.02]" data-alt="An artisanal ceramic table lamp with a textured matte stone glaze in warm ivory tones, resting on a clean wooden console against an architectural neutral interior backdrop. Soft natural diffused morning light highlights the tactile surface and tactile organic curvature. The serene scene exudes Nordic minimalism and warm editorial restraint." loading="lazy" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAxeqRS4BvfARCY7A_DH3HH4JJYlpS6ohMWXPIhFC8WQbhPaBQ2Hhnu32MmSBftkbp9KK2CkPd9TEELMPhw2gVzB2-bhVMALxwFHgiy6hk6IRwPVdXrw9GI_8U71LKMuBAFBTDBB2thjtxZXs9d2FO8Iq8glOwAstXO0x4lGeFh02FGTSFAIiibbWsu-JH7y0cOBwjB2VRGZfkjFYVErnCseNTjlmzLqvidXpZWNQwODq_yg5-i52csxZ2JA6h3XRP2TCB3Avr8Alc"/>
+<div class="absolute top-3 left-3">
+<span class="px-2.5 py-1 bg-surface-container-lowest/95 backdrop-blur-sm border border-surface-variant text-primary-container font-label-sm text-label-sm rounded-DEFAULT">
+                En stock
+              </span>
+</div>
+</div>
+<div class="p-5 flex flex-col flex-1 justify-between bg-surface-container-lowest">
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-1">Iluminación</p>
+<h2 class="font-title-sm text-title-sm text-on-surface mb-2 leading-snug">Lámpara de mesa cerámica</h2>
+<p class="font-headline-sm text-headline-sm text-primary mb-4">Bs 420</p>
+</div>
+<button class="add-to-cart-btn w-full py-3 px-4 bg-primary-container text-on-primary font-title-sm text-title-sm rounded-DEFAULT hover:bg-primary transition-colors focus:ring-2 focus:ring-primary focus:outline-none flex items-center justify-center gap-2" data-name="Lámpara de mesa cerámica" data-price="Bs 420" type="button">
+<span class="material-symbols-outlined text-lg" data-icon="shopping_bag">shopping_bag</span>
+<span>Agregar al carrito</span>
+</button>
+</div>
+</article>
+<!-- Product 2: Altavoz inalámbrico de aluminio acústico -->
+<article class="product-card group flex flex-col bg-surface-container-lowest border border-surface-variant rounded-DEFAULT overflow-hidden transition-all duration-300 hover:border-outline focus-within:ring-2 focus-within:ring-primary" data-category="tecnologia" data-name="Altavoz inalámbrico de aluminio acústico" data-price="1150">
+<div class="relative aspect-[3/4] bg-surface-container-low overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.02]" data-alt="A precision engineered portable wireless speaker crafted from bead-blasted anodized aluminum with micro-perforated sound grilles, sitting on a pale ash surface next to architectural monographs. Studio softbox illumination creates delicate metal reflections without harsh glare. Warm editorial product photography emphasizing craftsmanship and Scandinavian acoustic purity." loading="lazy" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBTKNUMC7Sx2tO3T-fOr5R6SL4Oli83kKSlQBGMEQubib8If8kJw3rb-j31GII19BggvAU1GIc-A8Yx7s2T2W2OIsLEjnmIcf7HI7g9Vh6G6S5BmrUP0Va_j7QbVmXzdQK7wauEgpmn_4Wxu0czh0RbQ9CHiNxudr6FQZBQJJ1VeaCHGttOJTksv-DqoGUdlCeFcA2kX_9zAdeVPLz-giZ7qqN20V-tbIRflChIQEmZiZhrnbnwp6bwmY7yqxEJOmECCz6wy8RF5zg"/>
+<div class="absolute top-3 left-3">
+<span class="px-2.5 py-1 bg-surface-container-lowest/95 backdrop-blur-sm border border-surface-variant text-primary-container font-label-sm text-label-sm rounded-DEFAULT">
+                En stock
+              </span>
+</div>
+</div>
+<div class="p-5 flex flex-col flex-1 justify-between bg-surface-container-lowest">
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-1">Tecnología</p>
+<h2 class="font-title-sm text-title-sm text-on-surface mb-2 leading-snug">Altavoz inalámbrico de aluminio acústico</h2>
+<p class="font-headline-sm text-headline-sm text-primary mb-4">Bs 1.150</p>
+</div>
+<button class="add-to-cart-btn w-full py-3 px-4 bg-primary-container text-on-primary font-title-sm text-title-sm rounded-DEFAULT hover:bg-primary transition-colors focus:ring-2 focus:ring-primary focus:outline-none flex items-center justify-center gap-2" data-name="Altavoz inalámbrico de aluminio acústico" data-price="Bs 1.150" type="button">
+<span class="material-symbols-outlined text-lg" data-icon="shopping_bag">shopping_bag</span>
+<span>Agregar al carrito</span>
+</button>
+</div>
+</article>
+<!-- Product 3: Tetera de acero y madera -->
+<article class="product-card group flex flex-col bg-surface-container-lowest border border-surface-variant rounded-DEFAULT overflow-hidden transition-all duration-300 hover:border-outline focus-within:ring-2 focus-within:ring-primary" data-category="hogar" data-name="Tetera de acero y madera" data-price="680">
+<div class="relative aspect-[3/4] bg-surface-container-low overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.02]" data-alt="A sculptural pour-over teapot made of brushed matte black stainless steel paired with a hand-carved natural oiled walnut wooden handle, centered on a neutral limestone countertop. Gentle directional daylight emphasizes the clean geometric silhouette and tactile balance of metal and raw timber. Minimalist kitchenware catalog aesthetic." loading="lazy" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB437Ohk88WdsYnfo1jK9PZXTl9L8zy4H0NjQ8axBj2goLeWFhImj2Rb9Jg4Q7UDaZQoZn28XV5DgJO15aD2ogLgAdKSoB7OLYvCeu6QiPnmNN5jLFlT62whj8qMS9dj05rLauLkeDs2tgsOL73KY20HgJEK1QDOZBPBVhH8wnjV0IOwdX6R-nFOOlYaA0hl3CbA9vGxyR6NRYgTKPjygp8lNsM0zR0ap1vpSCHys53K5XJK77swM-8U33C5dQFTLZN8iNl61r6CT0"/>
+<div class="absolute top-3 left-3">
+<span class="px-2.5 py-1 bg-surface-container-lowest/95 backdrop-blur-sm border border-surface-variant text-on-surface-variant font-label-sm text-label-sm rounded-DEFAULT">
+                Pocas unidades
+              </span>
+</div>
+</div>
+<div class="p-5 flex flex-col flex-1 justify-between bg-surface-container-lowest">
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-1">Hogar</p>
+<h2 class="font-title-sm text-title-sm text-on-surface mb-2 leading-snug">Tetera de acero y madera</h2>
+<p class="font-headline-sm text-headline-sm text-primary mb-4">Bs 680</p>
+</div>
+<button class="add-to-cart-btn w-full py-3 px-4 bg-primary-container text-on-primary font-title-sm text-title-sm rounded-DEFAULT hover:bg-primary transition-colors focus:ring-2 focus:ring-primary focus:outline-none flex items-center justify-center gap-2" data-name="Tetera de acero y madera" data-price="Bs 680" type="button">
+<span class="material-symbols-outlined text-lg" data-icon="shopping_bag">shopping_bag</span>
+<span>Agregar al carrito</span>
+</button>
+</div>
+</article>
+<!-- Product 4: Teclado mecánico minimalista -->
+<article class="product-card group flex flex-col bg-surface-container-lowest border border-surface-variant rounded-DEFAULT overflow-hidden transition-all duration-300 hover:border-outline focus-within:ring-2 focus-within:ring-primary" data-category="oficina" data-name="Teclado mecánico minimalista" data-price="980">
+<div class="relative aspect-[3/4] bg-surface-container-low overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.02]" data-alt="A low-profile compact mechanical keyboard featuring seamless aluminum unibody construction and neutral PBT keycaps in shades of stone grey and forest accent. Positioned elegantly on an unbleached wool felt desk mat in an architect studio workstation. Soft ambient daylight highlights precise industrial craftsmanship and uncluttered ergonomics." loading="lazy" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAlwU8tJpP1Jkyd-canUyt9AhCXr0-fpLMXL3wXL7WHRa6XTAHFbfjabStpu4WJO4F_CydjlXcNar1zTo_KyVV2HwaWKisRvCU4hAZhLvm1h_c11pDPpHV2pQprU7yRNuomelkqBKghk0QB4-RaSilLM_i4k2_m_YXSFKldDb2YOkQoTx3lyBAPbcw16XSMYwZ2jmg9FidsIYoJbXZRJYdM97gXki6W_1IGNOo7gmMtTnVLelX3Rw9nJKdCmUkDLmCsYQzy-VtrsnI"/>
+<div class="absolute top-3 left-3">
+<span class="px-2.5 py-1 bg-surface-container-lowest/95 backdrop-blur-sm border border-surface-variant text-primary-container font-label-sm text-label-sm rounded-DEFAULT">
+                En stock
+              </span>
+</div>
+</div>
+<div class="p-5 flex flex-col flex-1 justify-between bg-surface-container-lowest">
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-1">Oficina</p>
+<h2 class="font-title-sm text-title-sm text-on-surface mb-2 leading-snug">Teclado mecánico minimalista</h2>
+<p class="font-headline-sm text-headline-sm text-primary mb-4">Bs 980</p>
+</div>
+<button class="add-to-cart-btn w-full py-3 px-4 bg-primary-container text-on-primary font-title-sm text-title-sm rounded-DEFAULT hover:bg-primary transition-colors focus:ring-2 focus:ring-primary focus:outline-none flex items-center justify-center gap-2" data-name="Teclado mecánico minimalista" data-price="Bs 980" type="button">
+<span class="material-symbols-outlined text-lg" data-icon="shopping_bag">shopping_bag</span>
+<span>Agregar al carrito</span>
+</button>
+</div>
+</article>
+<!-- Product 5: Difusor aromático de terracota -->
+<article class="product-card group flex flex-col bg-surface-container-lowest border border-surface-variant rounded-DEFAULT overflow-hidden transition-all duration-300 hover:border-outline focus-within:ring-2 focus-within:ring-primary" data-category="hogar" data-name="Difusor aromático de terracota" data-price="350">
+<div class="relative aspect-[3/4] bg-surface-container-low overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.02]" data-alt="An understated ultrasonic essential oil diffuser clad in raw textured terracotta stoneware, releasing a whisper of fine vapor on a floating beige limestone shelf. Soft morning window illumination illuminates the earthy tones and natural tactile clay finish. Clean serene mood celebrating wellness and organic living." loading="lazy" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDL5gIqewTBst0n7G0DPMYJLIPW6lBAUrJlkOfRgnTkYyWUhm5osLGKIPyd3yHYIv1JXQhLUx1V0KW1baLWMEqWxuKcBrvJoO8Jzrmwfjfh6XrvewD-fVAPAxN47ocy2QWkRHT9QWqcB5d0bxiJ8pV6xFGccXtSwUdGLaBJ_2BUjHgjhML4z-wlUxcXC5fLltEaY0nw8b1UFzpZ5tBCAogtIn1lcVDFWKzRDG24KNQ023uJUYLeXLOWjGyk7agsaYgctPeQuI8atKA"/>
+<div class="absolute top-3 left-3">
+<span class="px-2.5 py-1 bg-surface-container-lowest/95 backdrop-blur-sm border border-surface-variant text-primary-container font-label-sm text-label-sm rounded-DEFAULT">
+                En stock
+              </span>
+</div>
+</div>
+<div class="p-5 flex flex-col flex-1 justify-between bg-surface-container-lowest">
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-1">Hogar</p>
+<h2 class="font-title-sm text-title-sm text-on-surface mb-2 leading-snug">Difusor aromático de terracota</h2>
+<p class="font-headline-sm text-headline-sm text-primary mb-4">Bs 350</p>
+</div>
+<button class="add-to-cart-btn w-full py-3 px-4 bg-primary-container text-on-primary font-title-sm text-title-sm rounded-DEFAULT hover:bg-primary transition-colors focus:ring-2 focus:ring-primary focus:outline-none flex items-center justify-center gap-2" data-name="Difusor aromático de terracota" data-price="Bs 350" type="button">
+<span class="material-symbols-outlined text-lg" data-icon="shopping_bag">shopping_bag</span>
+<span>Agregar al carrito</span>
+</button>
+</div>
+</article>
+<!-- Product 6: Auriculares supraaurales de estudio -->
+<article class="product-card group flex flex-col bg-surface-container-lowest border border-surface-variant rounded-DEFAULT overflow-hidden transition-all duration-300 hover:border-outline focus-within:ring-2 focus-within:ring-primary" data-category="tecnologia" data-name="Auriculares supraaurales de estudio" data-price="1890">
+<div class="relative aspect-[3/4] bg-surface-container-low overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.02]" data-alt="Premium over-ear reference headphones crafted with machined dark metal armatures, supple vegetable-tanned leather cushions, and woven acoustic textiles. Resting quietly on a solid white oak stand against a muted cream studio backdrop. Balanced directional lighting reveals subtle material reflections and high-end engineering detail." loading="lazy" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBbd7LXqzavAXgWJH6UuSiQaKoB8b81xqm2tstxOAaQX6DB7LL7PqG5PumbTmbjNne-Dkm6LBrcUwj4CS37XV0q7MwcAel5TKwg2RCFYVrqIw2YLYXlX_kZAWN4ueW8QqHgqEkze6a4q3zAdQRFR2Z20u1NmJzINRnyUi9PQdqIFtnRSi1bETat4eSH7N6_ikduJd7cNQkywBVh4tAqbphJEuwnuRc4IVqdy_XUwarkKqkfBzhEh-WSkN0jxz1e3SuWne4lDXvLZaU"/>
+<div class="absolute top-3 left-3">
+<span class="px-2.5 py-1 bg-surface-container-lowest/95 backdrop-blur-sm border border-surface-variant text-on-surface-variant font-label-sm text-label-sm rounded-DEFAULT">
+                Pocas unidades
+              </span>
+</div>
+</div>
+<div class="p-5 flex flex-col flex-1 justify-between bg-surface-container-lowest">
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-1">Tecnología</p>
+<h2 class="font-title-sm text-title-sm text-on-surface mb-2 leading-snug">Auriculares supraaurales de estudio</h2>
+<p class="font-headline-sm text-headline-sm text-primary mb-4">Bs 1.890</p>
+</div>
+<button class="add-to-cart-btn w-full py-3 px-4 bg-primary-container text-on-primary font-title-sm text-title-sm rounded-DEFAULT hover:bg-primary transition-colors focus:ring-2 focus:ring-primary focus:outline-none flex items-center justify-center gap-2" data-name="Auriculares supraaurales de estudio" data-price="Bs 1.890" type="button">
+<span class="material-symbols-outlined text-lg" data-icon="shopping_bag">shopping_bag</span>
+<span>Agregar al carrito</span>
+</button>
+</div>
+</article>
+<!-- Product 7: Macetero arquitectónico -->
+<article class="product-card group flex flex-col bg-surface-container-lowest border border-surface-variant rounded-DEFAULT overflow-hidden transition-all duration-300 hover:border-outline focus-within:ring-2 focus-within:ring-primary" data-category="hogar" data-name="Macetero arquitectónico" data-price="290">
+<div class="relative aspect-[3/4] bg-surface-container-low overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.02]" data-alt="A monolithic geometric stoneware planter with fluted architectural ridges, holding a vibrant sculptural succulent. Placed upon a sunlit polished concrete plinth against an off-white plaster wall. Crisp natural shadows emphasize the bold vertical texture and refined proportions. Calm organic architectural publication aesthetic." loading="lazy" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDsfyPDeVh-1NglWb2w-4lYO0eCqRd80Wf4_hmbIa2UBzuHYeF3MMFD28306DelUYyJJ6aoNWB0v0Ti4NEzlF9bb_7VHyPmTvHZjE8_sXM7QbnVOmqEeFTaL0_ZoUhRChy9MTH1o_0NB7dKO_TnLWvsddW2MZOKcB-BEyIa2BiMIr7IrFSeswmDkGPP36dJIXnT2fpr2Yva9u_Ox8xH-V6D87rvXYIo5jW_Bea7ddPwnjpRBmfMl-_zx0AupynY7J9INIdTZXMPVvs"/>
+<div class="absolute top-3 left-3">
+<span class="px-2.5 py-1 bg-surface-container-lowest/95 backdrop-blur-sm border border-surface-variant text-primary-container font-label-sm text-label-sm rounded-DEFAULT">
+                En stock
+              </span>
+</div>
+</div>
+<div class="p-5 flex flex-col flex-1 justify-between bg-surface-container-lowest">
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-1">Hogar</p>
+<h2 class="font-title-sm text-title-sm text-on-surface mb-2 leading-snug">Macetero arquitectónico</h2>
+<p class="font-headline-sm text-headline-sm text-primary mb-4">Bs 290</p>
+</div>
+<button class="add-to-cart-btn w-full py-3 px-4 bg-primary-container text-on-primary font-title-sm text-title-sm rounded-DEFAULT hover:bg-primary transition-colors focus:ring-2 focus:ring-primary focus:outline-none flex items-center justify-center gap-2" data-name="Macetero arquitectónico" data-price="Bs 290" type="button">
+<span class="material-symbols-outlined text-lg" data-icon="shopping_bag">shopping_bag</span>
+<span>Agregar al carrito</span>
+</button>
+</div>
+</article>
+<!-- Product 8: Soporte ergonómico de roble -->
+<article class="product-card group flex flex-col bg-surface-container-lowest border border-surface-variant rounded-DEFAULT overflow-hidden transition-all duration-300 hover:border-outline focus-within:ring-2 focus-within:ring-primary" data-category="oficina" data-name="Soporte ergonómico de roble" data-price="490">
+<div class="relative aspect-[3/4] bg-surface-container-low overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.02]" data-alt="An ergonomic laptop riser crafted from a single bent sheet of European white oak with subtle chamfered edges and dark cork lining. Positioned cleanly in an inspiring modern workspace with a ceramic cup and notebook nearby. Natural daylight streaming from side windows highlighting the authentic wood grain and minimalist curve." loading="lazy" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBA37ovhuWKPRsmrOKmGm0iwzBw_VXwvMKhKz-0Teebm-wf8i0T6au3T3Tl89ac_-0RYWYZur9IyVxe7PPJDYY_DuLwXjQiC1ZodpFv71f39xMXpsTWQQsSoIU9TWfomsLTtU7xaLpRHhXEWqplRLfflWwqGauAymnUUOWLSHjchJs79q44HNNGr_Okemr3UVIfA6dBwGrYML-VScNIrj41ydf3lxV3K8cQNiTnsBUIHEBs1N2bpKQ4Gnnd7cLwlxHP0doji7Dsw5M"/>
+<div class="absolute top-3 left-3">
+<span class="px-2.5 py-1 bg-surface-container-lowest/95 backdrop-blur-sm border border-surface-variant text-primary-container font-label-sm text-label-sm rounded-DEFAULT">
+                En stock
+              </span>
+</div>
+</div>
+<div class="p-5 flex flex-col flex-1 justify-between bg-surface-container-lowest">
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-1">Oficina</p>
+<h2 class="font-title-sm text-title-sm text-on-surface mb-2 leading-snug">Soporte ergonómico de roble</h2>
+<p class="font-headline-sm text-headline-sm text-primary mb-4">Bs 490</p>
+</div>
+<button class="add-to-cart-btn w-full py-3 px-4 bg-primary-container text-on-primary font-title-sm text-title-sm rounded-DEFAULT hover:bg-primary transition-colors focus:ring-2 focus:ring-primary focus:outline-none flex items-center justify-center gap-2" data-name="Soporte ergonómico de roble" data-price="Bs 490" type="button">
+<span class="material-symbols-outlined text-lg" data-icon="shopping_bag">shopping_bag</span>
+<span>Agregar al carrito</span>
+</button>
+</div>
+</article>
+</div>
+<!-- Empty State Container (for zero search/filter match) -->
+<div class="hidden text-center py-space-2xl bg-surface-container-low border border-surface-variant rounded-DEFAULT my-8" id="no-results">
+<span class="material-symbols-outlined text-4xl text-outline mb-2" data-icon="filter_list_off">filter_list_off</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-1">Sin resultados coincidentes</h3>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-md mx-auto mb-4">
+          Prueba ampliando el rango de precio o explorando todas nuestras categorías de diseño.
+        </p>
+<button class="px-4 py-2 border border-on-surface text-on-surface hover:bg-on-surface hover:text-surface font-title-sm text-title-sm transition-colors rounded-DEFAULT focus:ring-2 focus:ring-primary focus:outline-none" onclick="resetFilters()" type="button">
+          Restablecer filtros
+        </button>
+</div>
+</section>
+<!-- Editorial Monograph Banner / Narrative Insert -->
+<section class="border-t border-surface-variant pt-space-xl pb-space-lg">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-lg">
+<div class="border-l-2 border-primary-container pl-4">
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-1">Catálogo de ejemplo</p>
+<h3 class="font-title-sm text-title-sm text-on-surface mb-1">Hogar y tecnología</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Productos ilustrativos para revisar la experiencia de navegación.</p>
+</div>
+<div class="border-l-2 border-primary-container pl-4">
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-1">Moneda Nacional</p>
+<h3 class="font-title-sm text-title-sm text-on-surface mb-1">Transparencia en Bolivianos</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Precios de ejemplo expresados en Bs. La integración consultará los importes vigentes del servidor.</p>
+</div>
+<div class="border-l-2 border-primary-container pl-4">
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-1">Recorrido de compra</p>
+<h3 class="font-title-sm text-title-sm text-on-surface mb-1">Pago simulado</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Este prototipo no procesa pagos reales ni gestiona envíos.</p>
+</div>
+</div>
+</section>
+</main>
+<!-- Shared Component: Footer -->
+<footer class="w-full bg-surface-container-low border-t border-surface-variant mt-auto">
+<div class="w-full px-margin md:px-margin-lg py-space-2xl max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-space-lg">
+<!-- Footer Brand & Legal statement -->
+<div class="flex flex-col gap-2 text-center md:text-left">
+<span class="font-headline-sm text-headline-sm text-primary tracking-tight">Nexo</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+          Nexo · Prototipo visual con datos de ejemplo. Precios expresados en Bolivianos (Bs).
+        </p>
+</div>
+<!-- Footer Anchor Links -->
+<nav aria-label="Enlaces de soporte y legales" class="flex flex-wrap justify-center md:justify-end gap-x-6 gap-y-2">
+<a class="text-on-surface-variant hover:text-primary transition-colors font-body-sm text-body-sm focus:ring-2 focus:ring-primary focus:outline-none" href="#">Catálogo</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-body-sm text-body-sm focus:ring-2 focus:ring-primary focus:outline-none" href="#">Mi cuenta</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-body-sm text-body-sm focus:ring-2 focus:ring-primary focus:outline-none" href="#">Mis pedidos</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-body-sm text-body-sm focus:ring-2 focus:ring-primary focus:outline-none" href="#">Términos y condiciones</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-body-sm text-body-sm focus:ring-2 focus:ring-primary focus:outline-none" href="#">Política de privacidad</a>
+</nav>
+</div>
+</footer>
+<!-- Vanilla Micro-interactions and Functional Logic -->
+<script>
+    // State
+    let cartTotalItems = 3;
+    let currentCategory = 'all';
+    let currentMaxPrice = 3500;
+    let currentSort = 'recent';
+    let searchQuery = '';
+
+    // DOM Elements
+    const cartCounterEl = document.getElementById('cart-counter');
+    const toastEl = document.getElementById('toast-notification');
+    const toastTitleEl = document.getElementById('toast-title');
+    const toastDescEl = document.getElementById('toast-desc');
+    const categoryButtons = document.querySelectorAll('.category-btn');
+    const priceRangeInput = document.getElementById('price-range');
+    const priceDisplay = document.getElementById('price-display');
+    const sortSelect = document.getElementById('catalog-sort');
+    const searchInput = document.getElementById('catalog-search');
+    const productGrid = document.getElementById('product-grid');
+    const productCards = Array.from(document.querySelectorAll('.product-card'));
+    const resultsCountEl = document.getElementById('results-count');
+    const noResultsEl = document.getElementById('no-results');
+
+    let toastTimer = null;
+
+    // Toast Trigger
+    function showToast(title, desc) {
+      if (toastTimer) clearTimeout(toastTimer);
+      toastTitleEl.textContent = title;
+      toastDescEl.textContent = desc;
+      toastEl.classList.remove('opacity-0', 'translate-y-24', 'pointer-events-none');
+      toastEl.classList.add('opacity-100', 'translate-y-0', 'pointer-events-auto');
+
+      toastTimer = setTimeout(() => {
+        dismissToast();
+      }, 3500);
+    }
+
+    function dismissToast() {
+      toastEl.classList.remove('opacity-100', 'translate-y-0', 'pointer-events-auto');
+      toastEl.classList.add('opacity-0', 'translate-y-24', 'pointer-events-none');
+    }
+
+    // Add to cart click event
+    document.querySelectorAll('.add-to-cart-btn').forEach(button => {
+      button.addEventListener('click', (e) => {
+        const name = button.getAttribute('data-name');
+        const price = button.getAttribute('data-price');
+
+        cartTotalItems++;
+        cartCounterEl.textContent = cartTotalItems;
+
+        // Micro scale animation
+        cartCounterEl.classList.add('scale-125');
+        setTimeout(() => cartCounterEl.classList.remove('scale-125'), 200);
+
+        showToast(
+          'Agregado a tu pedido',
+          `${name} (${price}) sumado a la bolsa de compra.`
+        );
+      });
+    });
+
+    // Category Filter Handlers
+    categoryButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        categoryButtons.forEach(b => {
+          b.classList.remove('bg-primary-container', 'text-on-primary', 'border-primary-container');
+          b.classList.add('bg-surface', 'border-surface-variant', 'text-on-surface');
+          b.setAttribute('aria-selected', 'false');
+        });
+
+        btn.classList.add('bg-primary-container', 'text-on-primary', 'border-primary-container');
+        btn.classList.remove('bg-surface', 'border-surface-variant', 'text-on-surface');
+        btn.setAttribute('aria-selected', 'true');
+
+        currentCategory = btn.getAttribute('data-category');
+        applyFiltersAndSort();
+      });
+    });
+
+    // Price Range Filter
+    priceRangeInput.addEventListener('input', (e) => {
+      currentMaxPrice = parseInt(e.target.value, 10);
+      priceDisplay.textContent = `Hasta Bs ${currentMaxPrice.toLocaleString('es-BO')}`;
+      applyFiltersAndSort();
+    });
+
+    // Sorting Handler
+    sortSelect.addEventListener('change', (e) => {
+      currentSort = e.target.value;
+      applyFiltersAndSort();
+    });
+
+    // Search Handler
+    if (searchInput) {
+      searchInput.addEventListener('input', (e) => {
+        searchQuery = e.target.value.toLowerCase().trim();
+        applyFiltersAndSort();
+      });
+    }
+
+    // Filter, Search, and Sort Logic
+    function applyFiltersAndSort() {
+      let visibleCount = 0;
+
+      // Filter
+      productCards.forEach(card => {
+        const category = card.getAttribute('data-category');
+        const price = parseInt(card.getAttribute('data-price'), 10);
+        const name = card.getAttribute('data-name').toLowerCase();
+
+        const matchesCategory = currentCategory === 'all' || category === currentCategory;
+        const matchesPrice = price <= currentMaxPrice;
+        const matchesSearch = !searchQuery || name.includes(searchQuery);
+
+        if (matchesCategory && matchesPrice && matchesSearch) {
+          card.style.display = 'flex';
+          visibleCount++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      // Sort visible cards
+      const visibleCards = productCards.filter(card => card.style.display !== 'none');
+
+      visibleCards.sort((a, b) => {
+        const priceA = parseInt(a.getAttribute('data-price'), 10);
+        const priceB = parseInt(b.getAttribute('data-price'), 10);
+        const nameA = a.getAttribute('data-name');
+        const nameB = b.getAttribute('data-name');
+
+        if (currentSort === 'price-asc') return priceA - priceB;
+        if (currentSort === 'price-desc') return priceB - priceA;
+        if (currentSort === 'name-az') return nameA.localeCompare(nameB);
+        return 0; // Default or recent (natural DOM order)
+      });
+
+      // Re-append sorted cards in DOM
+      visibleCards.forEach(card => productGrid.appendChild(card));
+
+      // Results Count label
+      resultsCountEl.textContent = `${visibleCount} producto${visibleCount === 1 ? '' : 's'} encontrado${visibleCount === 1 ? '' : 's'}`;
+
+      // Empty State Toggle
+      if (visibleCount === 0) {
+        noResultsEl.classList.remove('hidden');
+      } else {
+        noResultsEl.classList.add('hidden');
+      }
+    }
+
+    // Reset filters
+    function resetFilters() {
+      currentCategory = 'all';
+      currentMaxPrice = 3500;
+      searchQuery = '';
+      if (searchInput) searchInput.value = '';
+      priceRangeInput.value = 3500;
+      priceDisplay.textContent = 'Hasta Bs 3.500';
+
+      categoryButtons.forEach((b, idx) => {
+        if (idx === 0) {
+          b.classList.add('bg-primary-container', 'text-on-primary', 'border-primary-container');
+          b.classList.remove('bg-surface', 'border-surface-variant', 'text-on-surface');
+          b.setAttribute('aria-selected', 'true');
+        } else {
+          b.classList.remove('bg-primary-container', 'text-on-primary', 'border-primary-container');
+          b.classList.add('bg-surface', 'border-surface-variant', 'text-on-surface');
+          b.setAttribute('aria-selected', 'false');
+        }
+      });
+
+      sortSelect.value = 'recent';
+      currentSort = 'recent';
+
+      applyFiltersAndSort();
+    }
+  </script>
+</body></html>

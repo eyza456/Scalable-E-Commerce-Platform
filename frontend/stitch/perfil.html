@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+
+<html class="h-full" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Mi perfil — Nexo</title>
+<!-- Google Fonts & Material Symbols -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&amp;family=Plus+Jakarta+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS with custom configuration -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "tertiary-container": "#2f3c2e",
+            "on-tertiary-fixed-variant": "#3d4a3b",
+            "surface-container": "#efeee9",
+            "surface-dim": "#dbdad5",
+            "on-error-container": "#93000a",
+            "on-primary-fixed": "#002112",
+            "surface-bright": "#fbf9f4",
+            "error": "#ba1a1a",
+            "error-container": "#ffdad6",
+            "on-tertiary-container": "#98a694",
+            "on-surface": "#1b1c19",
+            "on-primary-container": "#87aa94",
+            "secondary-fixed-dim": "#e6bfa1",
+            "on-primary": "#ffffff",
+            "on-primary-fixed-variant": "#2c4d3c",
+            "surface-tint": "#446652",
+            "on-tertiary": "#ffffff",
+            "on-secondary": "#ffffff",
+            "surface-container-low": "#f5f4ee",
+            "secondary": "#765840",
+            "surface-container-highest": "#e4e2dd",
+            "primary-container": "#1e3f2e",
+            "primary": "#062919",
+            "surface-container-lowest": "#ffffff",
+            "on-secondary-fixed": "#2b1704",
+            "inverse-primary": "#aacfb8",
+            "surface-container-high": "#e9e8e3",
+            "on-secondary-container": "#795b42",
+            "primary-fixed-dim": "#aacfb8",
+            "on-secondary-fixed-variant": "#5c412a",
+            "primary-fixed": "#c6ebd3",
+            "outline": "#727973",
+            "outline-variant": "#c1c8c1",
+            "background": "#fbf9f4",
+            "secondary-container": "#fed5b6",
+            "secondary-fixed": "#ffdcc1",
+            "tertiary-fixed": "#d8e7d2",
+            "surface-variant": "#e4e2dd",
+            "inverse-on-surface": "#f2f1eb",
+            "on-tertiary-fixed": "#131e12",
+            "on-error": "#ffffff",
+            "tertiary-fixed-dim": "#bccbb7",
+            "on-background": "#1b1c19",
+            "surface": "#fbf9f4",
+            "inverse-surface": "#30312d",
+            "tertiary": "#1a2619",
+            "on-surface-variant": "#424843"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "gutter-lg": "2rem",
+            "space-xl": "2.5rem",
+            "space-sm": "0.5rem",
+            "space-2xl": "4rem",
+            "gutter": "1.5rem",
+            "margin": "2rem",
+            "space-lg": "1.5rem",
+            "gutter-sm": "1rem",
+            "margin-lg": "4rem",
+            "space-xs": "0.25rem",
+            "space-md": "1rem",
+            "margin-sm": "1rem"
+          },
+          "fontFamily": {
+            "body-sm": ["Plus Jakarta Sans"],
+            "body-lg": ["Plus Jakarta Sans"],
+            "label-sm": ["Plus Jakarta Sans"],
+            "body-md": ["Plus Jakarta Sans"],
+            "headline-sm": ["Playfair Display"],
+            "headline-lg-mobile": ["Playfair Display"],
+            "headline-lg": ["Playfair Display"],
+            "display-mobile": ["Playfair Display"],
+            "title-sm": ["Plus Jakarta Sans"],
+            "headline-md": ["Playfair Display"],
+            "title-md": ["Plus Jakarta Sans"],
+            "label-md": ["Plus Jakarta Sans"],
+            "display": ["Playfair Display"]
+          },
+          "fontSize": {
+            "body-sm": ["13px", {"lineHeight": "20px", "fontWeight": "400"}],
+            "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+            "label-sm": ["11px", {"lineHeight": "16px", "letterSpacing": "0.06em", "fontWeight": "600"}],
+            "body-md": ["15px", {"lineHeight": "24px", "fontWeight": "400"}],
+            "headline-sm": ["22px", {"lineHeight": "30px", "fontWeight": "500"}],
+            "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "500"}],
+            "headline-lg": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.01em", "fontWeight": "400"}],
+            "display-mobile": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.01em", "fontWeight": "400"}],
+            "title-sm": ["16px", {"lineHeight": "24px", "fontWeight": "600"}],
+            "headline-md": ["28px", {"lineHeight": "36px", "fontWeight": "500"}],
+            "title-md": ["18px", {"lineHeight": "26px", "fontWeight": "600"}],
+            "label-md": ["13px", {"lineHeight": "18px", "letterSpacing": "0.04em", "fontWeight": "600"}],
+            "display": ["56px", {"lineHeight": "64px", "letterSpacing": "-0.02em", "fontWeight": "400"}]
+          }
+        },
+      },
+    }
+  </script>
+</head>
+<body class="bg-background text-on-surface antialiased min-h-full flex flex-col selection:bg-primary selection:text-on-primary">
+<!-- Top Navigation Bar (Shared Component) -->
+<header class="w-full bg-surface border-b border-surface-variant z-30">
+<div class="w-full px-margin md:px-margin-lg max-w-7xl mx-auto flex items-center justify-between py-space-md">
+<!-- Brand Logo Anchor -->
+<div class="flex items-center gap-space-lg">
+<a class="font-headline-md text-headline-md tracking-tight text-primary uppercase focus:outline-none focus:ring-2 focus:ring-primary-container" href="#">
+          Nexo
+        </a>
+</div>
+<!-- Center Navigation Links -->
+<nav aria-label="Navegación principal" class="hidden md:flex items-center space-x-8">
+<a class="text-on-surface-variant hover:text-on-surface transition-colors pb-1 font-body-md text-body-md" href="#">Hogar</a>
+<a class="text-on-surface-variant hover:text-on-surface transition-colors pb-1 font-body-md text-body-md" href="#">Tecnología</a>
+<a class="text-on-surface-variant hover:text-on-surface transition-colors pb-1 font-body-md text-body-md" href="#">Oficina</a>
+<a class="text-on-surface-variant hover:text-on-surface transition-colors pb-1 font-body-md text-body-md" href="#">Iluminación</a>
+</nav>
+<!-- Trailing Action Cluster (Mi cuenta is strictly active) -->
+<div class="flex items-center space-x-6">
+<a class="hidden sm:flex items-center gap-1.5 text-on-surface-variant hover:text-on-surface transition-colors font-body-md text-body-md" href="#" title="Pedidos">
+<span class="material-symbols-outlined text-[20px]" data-icon="receipt_long">receipt_long</span>
+<span class="text-label-md font-label-md">Mis pedidos</span>
+</a>
+<!-- Trailing Secondary Action: Active State per Semantic Shell Rule -->
+<a aria-current="page" class="flex items-center gap-1.5 text-primary border-b-2 border-primary pb-1 font-title-sm text-title-sm" href="#" title="Cuenta">
+<span class="material-symbols-outlined text-[20px]" data-icon="person" data-weight="fill" style="font-variation-settings: 'FILL' 1;">person</span>
+<span>Mi cuenta</span>
+</a>
+<!-- Trailing Primary Action -->
+<a class="relative flex items-center gap-1.5 text-on-surface-variant hover:text-on-surface transition-colors font-body-md text-body-md" href="#" title="Carrito de compras">
+<span class="material-symbols-outlined text-[20px]" data-icon="shopping_bag">shopping_bag</span>
+<span class="hidden md:inline font-label-md text-label-md">Carrito</span>
+<span class="sr-only">0 artículos</span>
+</a>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow w-full max-w-7xl mx-auto px-margin md:px-margin-lg py-space-xl md:py-space-2xl" id="main-content">
+<!-- Editorial Page Header -->
+<header class="mb-space-xl pb-space-lg border-b border-surface-variant">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-space-md">
+<div>
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-secondary mb-1 block">Gestión de usuario</span>
+<h1 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary tracking-tight">Mi perfil</h1>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1.5">Información de tu cuenta y sesión activa en Nexo.</p>
+</div>
+<!-- Live JWT Session Status Indicator -->
+<div aria-live="polite" class="inline-flex items-center gap-2.5 px-3.5 py-2 bg-surface-container border border-surface-variant text-on-surface rounded-DEFAULT self-start md:self-auto" role="status">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-primary-container"></span>
+</span>
+<div class="flex flex-col sm:flex-row sm:items-center sm:gap-1.5 text-left">
+<span class="font-label-sm text-label-sm text-primary uppercase font-semibold">Estado de sesión:</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Sesión de demostración; sin conexión al servidor</span>
+</div>
+</div>
+</div>
+</header>
+<!-- Structural Bento-style Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-start">
+<!-- Primary Column: Personal Information Form (7 Cols) -->
+<section aria-labelledby="form-heading" class="lg:col-span-7 bg-surface-container-lowest p-space-lg md:p-space-xl border border-surface-variant shadow-[0_4px_16px_-2px_rgba(28,29,26,0.03)]">
+<div class="flex items-center justify-between pb-space-md border-b border-surface-variant mb-space-lg">
+<div>
+<h2 class="font-headline-sm text-headline-sm text-primary" id="form-heading">Datos personales</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Actualiza el nombre y correo asociados a tus despachos y notificaciones.</p>
+</div>
+<span class="material-symbols-outlined text-outline" data-icon="badge">badge</span>
+</div>
+<!-- Dynamic Success Feedback Banner -->
+<div aria-live="assertive" class="hidden mb-space-lg p-space-md bg-surface-container-low border-l-2 border-primary-container flex items-start gap-3 transition-opacity" id="success-banner" role="alert">
+<span class="material-symbols-outlined text-primary-container text-[20px] mt-0.5" data-icon="check_circle">check_circle</span>
+<div>
+<p class="font-title-sm text-title-sm text-primary font-medium">Datos actualizados correctamente</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Los cambios han sido guardados en el registro central de Nexo.</p>
+</div>
+</div>
+<form class="space-y-space-lg" id="profile-form" novalidate="" onsubmit="handleFormSubmit(event)">
+<!-- Full Name Field -->
+<div>
+<label class="block font-label-sm text-label-sm uppercase text-on-surface mb-2" for="fullName">
+              Nombre completo <span aria-hidden="true" class="text-error">*</span>
+</label>
+<div class="relative">
+<input aria-describedby="fullName-hint" class="w-full bg-surface-container-low border border-surface-variant px-4 py-3 font-body-md text-body-md text-on-surface rounded-DEFAULT focus:bg-surface-container-lowest focus:border-primary-container focus:ring-2 focus:ring-primary-container focus:outline-none transition-colors" id="fullName" name="fullName" required="" type="text" value="Mariana Albarracín"/>
+</div>
+<p class="mt-1.5 font-body-sm text-body-sm text-on-surface-variant" id="fullName-hint">Como aparecerá en las guías de envío y facturación oficial.</p>
+</div>
+<!-- Email Address Field -->
+<div>
+<label class="block font-label-sm text-label-sm uppercase text-on-surface mb-2" for="email">
+              Correo electrónico <span aria-hidden="true" class="text-error">*</span>
+</label>
+<div class="relative">
+<input aria-describedby="email-hint" class="w-full bg-surface-container-low border border-surface-variant px-4 py-3 font-body-md text-body-md text-on-surface rounded-DEFAULT focus:bg-surface-container-lowest focus:border-primary-container focus:ring-2 focus:ring-primary-container focus:outline-none transition-colors" id="email" name="email" required="" type="email" value="demo@nexo.bo"/>
+</div>
+<p class="mt-1.5 font-body-sm text-body-sm text-on-surface-variant" id="email-hint">Canal prioritario para confirmaciones y comprobantes de compra.</p>
+</div>
+<!-- Security Callout Box -->
+<div class="p-space-md bg-surface-container-low border border-surface-variant flex items-start gap-3 rounded-DEFAULT">
+<span class="material-symbols-outlined text-secondary text-[20px] mt-0.5 flex-shrink-0" data-icon="lock">lock</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+<strong class="font-title-sm text-on-surface block mb-0.5">Nota de seguridad:</strong>
+              Para cambiar tu contraseña o credenciales, comunícate con el administrador del sistema.
+            </p>
+</div>
+<!-- Action Row -->
+<div class="pt-space-md border-t border-surface-variant flex items-center justify-between">
+<button class="inline-flex items-center justify-center px-7 py-3.5 bg-primary-container text-on-primary font-title-sm text-title-sm rounded-DEFAULT hover:bg-primary transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-container focus:ring-offset-2 disabled:opacity-75 disabled:cursor-not-allowed" id="submit-button" type="submit">
+<span class="hidden mr-2 animate-spin material-symbols-outlined text-[18px]" data-icon="progress_activity" id="button-spinner">progress_activity</span>
+<span id="button-label">Guardar cambios</span>
+</button>
+<span class="font-label-sm text-label-sm text-outline">Modificado recientemente</span>
+</div>
+</form>
+</section>
+<!-- Secondary Column: Session Details, Credentials & Account Actions (5 Cols) -->
+<aside aria-label="Información y acciones de sesión" class="lg:col-span-5 space-y-space-lg">
+<!-- User Metadata Card -->
+<div class="bg-surface-container-lowest p-space-lg border border-surface-variant">
+<div class="flex items-center gap-space-md mb-space-md pb-space-md border-b border-surface-variant">
+<div class="w-12 h-12 rounded-DEFAULT bg-surface-container flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined text-[28px]" data-icon="account_circle">account_circle</span>
+</div>
+<div>
+<p class="font-title-sm text-title-sm text-on-surface">Identificador de cuenta</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Registro verificado de Nexo</p>
+</div>
+</div>
+<dl class="space-y-3.5">
+<div class="flex justify-between items-center py-1">
+<dt class="font-label-sm text-label-sm uppercase text-on-surface-variant">ID de usuario</dt>
+<dd class="font-mono text-body-sm text-primary font-semibold bg-surface-container px-2 py-0.5 rounded-DEFAULT">usr_98a72f01</dd>
+</div>
+<div class="flex justify-between items-center py-1 border-t border-surface-variant/60">
+<dt class="font-label-sm text-label-sm uppercase text-on-surface-variant">Tipo de autenticación</dt>
+<dd class="font-body-sm text-body-sm text-on-surface">Acceso de demostración</dd>
+</div>
+<div class="flex justify-between items-center py-1 border-t border-surface-variant/60">
+<dt class="font-label-sm text-label-sm uppercase text-on-surface-variant">Región de servicio</dt>
+<dd class="font-body-sm text-body-sm text-on-surface">Bolivia (BO)</dd>
+</div>
+</dl>
+</div>
+<!-- Orders Direct Link Tile -->
+<a class="group block bg-surface-container-lowest p-space-lg border border-surface-variant hover:border-primary-container transition-all" href="#">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary-container text-[24px]" data-icon="local_shipping">local_shipping</span>
+<div>
+<h3 class="font-title-sm text-title-sm text-on-surface group-hover:text-primary transition-colors">Historial de pedidos</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Consulta estados de entrega, recibos y trazabilidad.</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:translate-x-1 transition-transform" data-icon="arrow_forward">arrow_forward</span>
+</div>
+<div class="mt-4 pt-3 border-t border-surface-variant/60 flex items-center justify-between">
+<span class="font-label-sm text-label-sm uppercase text-secondary">Ver historial de pedidos</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Catálogo y seguimiento</span>
+</div>
+</a>
+<!-- Sign-out Zone -->
+<div class="bg-surface-container p-space-lg border border-surface-variant">
+<div class="mb-space-md">
+<h3 class="font-headline-sm text-headline-sm text-primary">Cierre de sesión</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+              Sal de la sesión de demostración de Nexo.
+            </p>
+</div>
+<!-- Contrasting Logout Button -->
+<button class="w-full flex items-center justify-center gap-2 px-5 py-3.5 bg-surface text-error border border-error hover:bg-error hover:text-on-error font-title-sm text-title-sm rounded-DEFAULT transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-error focus:ring-offset-2" onclick="openLogoutDialog()" type="button">
+<span class="material-symbols-outlined text-[20px]" data-icon="logout">logout</span>
+<span>Cerrar sesión</span>
+</button>
+</div>
+</aside>
+</div>
+</main>
+<!-- Logout Confirmation Dialog (Accessible Modal) -->
+<div aria-describedby="modal-desc" aria-labelledby="modal-title" aria-modal="true" class="fixed inset-0 z-50 hidden bg-on-surface/40 backdrop-blur-sm flex items-center justify-center p-4 transition-opacity" id="logout-modal" role="dialog">
+<div class="bg-surface-container-lowest max-w-md w-full border border-surface-variant p-space-lg md:p-space-xl shadow-[0_12px_32px_-4px_rgba(28,29,26,0.12)]">
+<div class="flex items-center gap-3 mb-space-md text-error">
+<span class="material-symbols-outlined text-[28px]" data-icon="warning">warning</span>
+<h3 class="font-headline-sm text-headline-sm text-primary" id="modal-title">¿Cerrar sesión en Nexo?</h3>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-space-lg" id="modal-desc">
+        Esta acción cerrará la sesión de demostración. Deberás ingresar tus credenciales nuevamente para acceder a tu perfil y compras.
+      </p>
+<div class="flex flex-col-reverse sm:flex-row items-center justify-end gap-3">
+<button class="w-full sm:w-auto px-5 py-2.5 bg-surface-container text-on-surface font-title-sm text-title-sm hover:bg-surface-variant rounded-DEFAULT focus:outline-none focus:ring-2 focus:ring-primary-container" onclick="closeLogoutDialog()" type="button">
+          Cancelar
+        </button>
+<button class="w-full sm:w-auto px-5 py-2.5 bg-error text-on-error font-title-sm text-title-sm rounded-DEFAULT hover:bg-red-700 transition-colors focus:outline-none focus:ring-2 focus:ring-error focus:ring-offset-1" onclick="confirmLogout()" type="button">
+          Sí, cerrar sesión
+        </button>
+</div>
+</div>
+</div>
+<!-- Editorial Footer (Shared Component) -->
+<footer class="w-full bg-surface-container-low border-t border-surface-variant mt-auto">
+<div class="w-full px-margin md:px-margin-lg py-space-2xl max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-space-lg">
+<div class="flex flex-col items-center md:items-start text-center md:text-left">
+<span class="font-headline-sm text-headline-sm text-primary tracking-tight">Nexo</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1 max-w-md">
+          © 2025 Nexo. Curation &amp; Design. Todos los derechos reservados. Precios expresados en Bolivianos (Bs).
+        </p>
+</div>
+<nav aria-label="Enlaces legales y de navegación" class="flex flex-wrap justify-center gap-x-6 gap-y-2">
+<a class="text-on-surface-variant hover:underline hover:text-primary transition-colors font-body-sm text-body-sm" href="#">Catálogo</a>
+<a class="text-primary font-title-sm text-title-sm" href="#">Mi cuenta</a>
+<a class="text-on-surface-variant hover:underline hover:text-primary transition-colors font-body-sm text-body-sm" href="#">Mis pedidos</a>
+<a class="text-on-surface-variant hover:underline hover:text-primary transition-colors font-body-sm text-body-sm" href="#">Términos y condiciones</a>
+<a class="text-on-surface-variant hover:underline hover:text-primary transition-colors font-body-sm text-body-sm" href="#">Política de privacidad</a>
+</nav>
+</div>
+</footer>
+<!-- Vanilla JS micro-interactions for profile saving and logout -->
+<script>
+    function handleFormSubmit(e) {
+      e.preventDefault();
+      const submitBtn = document.getElementById('submit-button');
+      const spinner = document.getElementById('button-spinner');
+      const label = document.getElementById('button-label');
+      const successBanner = document.getElementById('success-banner');
+
+      // Accessible saving state
+      submitBtn.disabled = true;
+      spinner.classList.remove('hidden');
+      label.textContent = 'Guardando...';
+
+      setTimeout(() => {
+        submitBtn.disabled = false;
+        spinner.classList.add('hidden');
+        label.textContent = 'Guardar cambios';
+
+        // Show success message
+        successBanner.classList.remove('hidden');
+        successBanner.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }, 700);
+    }
+
+    function openLogoutDialog() {
+      const modal = document.getElementById('logout-modal');
+      modal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLogoutDialog() {
+      const modal = document.getElementById('logout-modal');
+      modal.classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+
+    function confirmLogout() {
+      // In practice: localStorage.removeItem('jwt_token')
+      const btn = event.target;
+      btn.textContent = 'Cerrando sesión...';
+      btn.disabled = true;
+      setTimeout(() => {
+        window.location.href = '#catalogo-login';
+        closeLogoutDialog();
+      }, 500);
+    }
+
+    // Close modal on Escape key press
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeLogoutDialog();
+      }
+    });
+  </script>
+</body></html>

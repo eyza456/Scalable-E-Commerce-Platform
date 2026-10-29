@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Nexo — Pasarela de Pago Simulado</title>
+<!-- Google Fonts: Playfair Display & Plus Jakarta Sans -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..700;1,400..700&amp;family=Plus+Jakarta+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS v3 -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "tertiary-container": "#2f3c2e",
+            "on-tertiary-fixed-variant": "#3d4a3b",
+            "surface-container": "#efeee9",
+            "surface-dim": "#dbdad5",
+            "on-error-container": "#93000a",
+            "on-primary-fixed": "#002112",
+            "surface-bright": "#fbf9f4",
+            "error": "#ba1a1a",
+            "error-container": "#ffdad6",
+            "on-tertiary-container": "#98a694",
+            "on-surface": "#1b1c19",
+            "on-primary-container": "#87aa94",
+            "secondary-fixed-dim": "#e6bfa1",
+            "on-primary": "#ffffff",
+            "on-primary-fixed-variant": "#2c4d3c",
+            "surface-tint": "#446652",
+            "on-tertiary": "#ffffff",
+            "on-secondary": "#ffffff",
+            "surface-container-low": "#f5f4ee",
+            "secondary": "#765840",
+            "surface-container-highest": "#e4e2dd",
+            "primary-container": "#1e3f2e",
+            "primary": "#062919",
+            "surface-container-lowest": "#ffffff",
+            "on-secondary-fixed": "#2b1704",
+            "inverse-primary": "#aacfb8",
+            "surface-container-high": "#e9e8e3",
+            "on-secondary-container": "#795b42",
+            "primary-fixed-dim": "#aacfb8",
+            "on-secondary-fixed-variant": "#5c412a",
+            "primary-fixed": "#c6ebd3",
+            "outline": "#727973",
+            "background": "#fbf9f4",
+            "secondary-container": "#fed5b6",
+            "secondary-fixed": "#ffdcc1",
+            "tertiary-fixed": "#d8e7d2",
+            "surface-variant": "#e4e2dd",
+            "inverse-on-surface": "#f2f1eb",
+            "on-tertiary-fixed": "#131e12",
+            "on-error": "#ffffff",
+            "tertiary-fixed-dim": "#bccbb7",
+            "on-background": "#1b1c19",
+            "surface": "#fbf9f4",
+            "inverse-surface": "#30312d",
+            "tertiary": "#1a2619",
+            "outline-variant": "#c1c8c1",
+            "on-surface-variant": "#424843"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "gutter-lg": "2rem",
+            "space-xl": "2.5rem",
+            "space-sm": "0.5rem",
+            "space-2xl": "4rem",
+            "gutter": "1.5rem",
+            "margin": "2rem",
+            "space-lg": "1.5rem",
+            "gutter-sm": "1rem",
+            "margin-lg": "4rem",
+            "space-xs": "0.25rem",
+            "space-md": "1rem",
+            "margin-sm": "1rem"
+          },
+          "fontFamily": {
+            "body-sm": ["Plus Jakarta Sans"],
+            "body-lg": ["Plus Jakarta Sans"],
+            "label-sm": ["Plus Jakarta Sans"],
+            "body-md": ["Plus Jakarta Sans"],
+            "headline-sm": ["Playfair Display"],
+            "headline-lg-mobile": ["Playfair Display"],
+            "headline-lg": ["Playfair Display"],
+            "display-mobile": ["Playfair Display"],
+            "title-sm": ["Plus Jakarta Sans"],
+            "headline-md": ["Playfair Display"],
+            "title-md": ["Plus Jakarta Sans"],
+            "label-md": ["Plus Jakarta Sans"],
+            "display": ["Playfair Display"]
+          },
+          "fontSize": {
+            "body-sm": ["13px", {"lineHeight": "20px", "fontWeight": "400"}],
+            "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+            "label-sm": ["11px", {"lineHeight": "16px", "letterSpacing": "0.06em", "fontWeight": "600"}],
+            "body-md": ["15px", {"lineHeight": "24px", "fontWeight": "400"}],
+            "headline-sm": ["22px", {"lineHeight": "30px", "fontWeight": "500"}],
+            "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "500"}],
+            "headline-lg": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.01em", "fontWeight": "400"}],
+            "display-mobile": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.01em", "fontWeight": "400"}],
+            "title-sm": ["16px", {"lineHeight": "24px", "fontWeight": "600"}],
+            "headline-md": ["28px", {"lineHeight": "36px", "fontWeight": "500"}],
+            "title-md": ["18px", {"lineHeight": "26px", "fontWeight": "600"}],
+            "label-md": ["13px", {"lineHeight": "18px", "letterSpacing": "0.04em", "fontWeight": "600"}],
+            "display": ["56px", {"lineHeight": "64px", "letterSpacing": "-0.02em", "fontWeight": "400"}]
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col font-body-md text-body-md antialiased selection:bg-surface-tint selection:text-surface-bright">
+<!-- TopNavBar (Shared Component) -->
+<header class="w-full bg-surface border-b border-surface-variant">
+<div class="w-full px-margin md:px-margin-lg max-w-7xl mx-auto flex items-center justify-between py-space-md">
+<!-- Brand Logo -->
+<a class="font-headline-md text-headline-md tracking-tight text-primary uppercase" href="#">
+        Nexo
+      </a>
+<!-- Desktop Navigation Links -->
+<nav class="hidden md:flex items-center gap-space-lg">
+<a class="text-on-surface-variant hover:text-on-surface transition-colors pb-1 font-body-md text-body-md" href="#">Hogar</a>
+<a class="text-on-surface-variant hover:text-on-surface transition-colors pb-1 font-body-md text-body-md" href="#">Tecnología</a>
+<a class="text-on-surface-variant hover:text-on-surface transition-colors pb-1 font-body-md text-body-md" href="#">Oficina</a>
+<a class="text-on-surface-variant hover:text-on-surface transition-colors pb-1 font-body-md text-body-md" href="#">Iluminación</a>
+</nav>
+<!-- Trailing Action Cluster -->
+<div class="flex items-center gap-space-md">
+<button class="flex items-center gap-space-xs text-on-surface-variant hover:text-primary transition-colors duration-200" type="button">
+<span class="material-symbols-outlined text-[20px]" data-icon="receipt_long">receipt_long</span>
+<span class="hidden sm:inline font-label-md text-label-md">Mis pedidos</span>
+</button>
+<button class="flex items-center gap-space-xs text-on-surface-variant hover:text-primary transition-colors duration-200" type="button">
+<span class="material-symbols-outlined text-[20px]" data-icon="person">person</span>
+<span class="hidden sm:inline font-label-md text-label-md">Mi cuenta</span>
+</button>
+<button class="flex items-center gap-space-xs bg-surface-container-high px-3 py-1.5 rounded text-primary hover:bg-surface-variant transition-colors" type="button">
+<span class="material-symbols-outlined text-[20px]" data-icon="shopping_bag">shopping_bag</span>
+<span class="font-label-md text-label-md">Carrito</span>
+<span class="font-label-sm text-label-sm bg-primary text-on-primary rounded-full px-1.5 py-0.5 ml-1">2</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Technical Demonstration Warning Banner -->
+<aside aria-label="Aviso de demostración técnica" class="w-full bg-surface-container border-b border-surface-variant px-margin md:px-margin-lg py-3" role="region">
+<div class="max-w-7xl mx-auto flex items-start sm:items-center gap-3">
+<span class="material-symbols-outlined text-secondary text-[20px] flex-shrink-0 mt-0.5 sm:mt-0" data-icon="science">science</span>
+<div class="flex-1 flex flex-col sm:flex-row sm:items-center justify-between gap-1 sm:gap-4">
+<p class="font-label-md text-label-md text-on-surface-variant tracking-normal">
+<strong class="font-title-sm text-primary font-semibold">Entorno de demostración técnica:</strong> El pago y procesamiento de órdenes son estrictamente simulados. No ingrese información bancaria real ni datos sensibles.
+        </p>
+<span class="font-label-sm text-label-sm uppercase bg-surface-container-highest px-2 py-0.5 rounded text-secondary self-start sm:self-auto flex items-center gap-1 font-semibold tracking-wider">
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span> Pago de prueba
+        </span>
+</div>
+</div>
+</aside>
+<!-- Main Canvas -->
+<main class="flex-1 w-full max-w-7xl mx-auto px-margin md:px-margin-lg py-space-xl">
+<!-- Breadcrumb & Editorial Header -->
+<div class="mb-space-xl">
+<div class="flex items-center gap-2 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-2">
+<span>Catálogo</span>
+<span>/</span>
+<span>Carrito</span>
+<span>/</span>
+<span class="text-primary font-semibold">Validación y Pago Simulado</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg font-medium text-primary">
+        Checkout de Verificación
+      </h1>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1 max-w-2xl">
+        Revise los parámetros de despacho y defina la respuesta esperada de la pasarela de prueba para certificar el flujo transaccional.
+      </p>
+</div>
+<!-- Editorial 12-Column Checkout Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter-lg items-start">
+<!-- Columna Izquierda: Simulación & Datos (7 Columnas en Desktop) -->
+<section class="lg:col-span-7 flex flex-col gap-space-lg">
+<!-- Bloque 1: Resumen de Identidad JWT -->
+<article class="bg-surface-container-low border border-surface-variant rounded p-space-lg">
+<div class="flex items-center justify-between mb-space-md pb-space-sm border-b border-surface-variant">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[20px]" data-icon="badge">badge</span>
+<h2 class="font-title-sm text-title-sm text-primary">1. Identidad de Sesión Simulada</h2>
+</div>
+<span class="font-label-sm text-label-sm text-surface-tint border border-outline-variant bg-surface px-2 py-0.5 rounded">
+              Token Activo
+            </span>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-space-md">
+<div class="p-space-sm bg-surface rounded border border-surface-variant">
+<span class="font-label-sm text-label-sm text-on-surface-variant block uppercase">Usuario Autenticado</span>
+<p class="font-title-sm text-title-sm text-on-surface mt-0.5 font-mono">demo@nexo.bo</p>
+</div>
+<div class="p-space-sm bg-surface rounded border border-surface-variant">
+<span class="font-label-sm text-label-sm text-on-surface-variant block uppercase">Rol Transaccional</span>
+<p class="font-title-sm text-title-sm text-on-surface mt-0.5">QA Tester / Comprador Demo</p>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-space-sm flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-primary" data-icon="lock">lock</span>
+            Sesión validada mediante claim bearer simulado. No expone credenciales críticas.
+          </p>
+</article>
+<!-- Bloque 2: Datos de Contacto y Entrega de Demostración -->
+<article class="bg-surface-container-low border border-surface-variant rounded p-space-lg">
+<div class="flex items-center gap-space-xs mb-space-md pb-space-sm border-b border-surface-variant">
+<span class="material-symbols-outlined text-primary text-[20px]" data-icon="local_shipping">local_shipping</span>
+<h2 class="font-title-sm text-title-sm text-primary">2. Contacto &amp; Destino de Prueba</h2>
+</div>
+<div class="space-y-space-md">
+<div>
+<label class="block font-label-sm text-label-sm uppercase text-on-surface-variant mb-1" for="contact-name">
+                Nombre de contacto para la entrega
+              </label>
+<input class="w-full bg-surface border border-surface-variant text-on-surface px-3 py-2.5 rounded font-body-md text-body-md focus:border-primary-container focus:ring-1 focus:ring-primary-container outline-none transition-colors" id="contact-name" type="text" value="Valeria Arteaga Méndez"/>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-space-md">
+<div>
+<label class="block font-label-sm text-label-sm uppercase text-on-surface-variant mb-1" for="delivery-city">
+                  Ciudad / Nodo de distribución
+                </label>
+<select class="w-full bg-surface border border-surface-variant text-on-surface px-3 py-2.5 rounded font-body-md text-body-md focus:border-primary-container focus:ring-1 focus:ring-primary-container outline-none transition-colors" id="delivery-city">
+<option selected="">Santa Cruz de la Sierra — Hub Central</option>
+<option>La Paz — Estación Sopocachi</option>
+<option>Cochabamba — Nodo Recoleta</option>
+<option>Sucre — Centro Histórico</option>
+</select>
+</div>
+<div>
+<label class="block font-label-sm text-label-sm uppercase text-on-surface-variant mb-1" for="pickup-point">
+                  Punto de recogida o entrega simplificada
+                </label>
+<input class="w-full bg-surface border border-surface-variant text-on-surface px-3 py-2.5 rounded font-body-md text-body-md focus:border-primary-container focus:ring-1 focus:ring-primary-container outline-none transition-colors" id="pickup-point" type="text" value="Galería Equipetrol Norte (Pick-up Nexo)"/>
+</div>
+</div>
+<div class="p-3 bg-surface-container rounded border border-surface-variant flex items-start gap-2.5">
+<span class="material-symbols-outlined text-[18px] text-secondary mt-0.5" data-icon="info">info</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                No se solicitan formularios de tarjetas bancarias, CVV ni direcciones extensas. El despacho opera como simulación de logística física.
+              </p>
+</div>
+</div>
+</article>
+<!-- Bloque 3: Selector de Resultado de Prueba -->
+<article class="bg-surface-container-low border border-surface-variant rounded p-space-lg">
+<div class="flex items-center justify-between mb-space-md pb-space-sm border-b border-surface-variant">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[20px]" data-icon="tune">tune</span>
+<h2 class="font-title-sm text-title-sm text-primary">3. Control de Respuesta de la Pasarela</h2>
+</div>
+<span class="font-label-sm text-label-sm text-secondary uppercase font-semibold">Test Driver</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-space-md">
+            Seleccione el código de estado simulado que el webhook ficticio responderá para validar las rutas de éxito o contingencia de su integración:
+          </p>
+<fieldset class="space-y-3">
+<legend class="sr-only">Seleccione el resultado de la prueba</legend>
+<!-- Opción A: Aprobación Exitosa -->
+<label class="flex items-start gap-3 p-space-md rounded border-2 border-primary bg-surface cursor-pointer transition-all duration-200 shadow-sm" id="label-approved">
+<input checked="" class="mt-1 h-4.5 w-4.5 text-primary-container focus:ring-primary-container border-outline" name="simulation-outcome" onchange="updateOutcomeSelection()" type="radio" value="success"/>
+<div class="flex-1">
+<div class="flex items-center justify-between">
+<span class="font-title-sm text-title-sm text-primary font-semibold">Opción A: Simular aprobación exitosa</span>
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded bg-primary text-on-primary font-mono">Aprobado</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+                  Confirma disponibilidad y emite identificador fiscal de orden ficticio (#NX-8429).
+                </p>
+</div>
+</label>
+<!-- Opción B: Rechazo / Fondos Insuficientes -->
+<label class="flex items-start gap-3 p-space-md rounded border border-surface-variant bg-surface hover:border-outline cursor-pointer transition-all duration-200" id="label-rejected">
+<input class="mt-1 h-4.5 w-4.5 text-primary-container focus:ring-primary-container border-outline" name="simulation-outcome" onchange="updateOutcomeSelection()" type="radio" value="failure"/>
+<div class="flex-1">
+<div class="flex items-center justify-between">
+<span class="font-title-sm text-title-sm text-on-surface font-semibold">Opción B: Simular rechazo / fondos insuficientes</span>
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded bg-error-container text-on-error-container font-mono">Rechazado</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+                  Activa el manejador de excepciones de liquidez retenida sin procesar el cobro.
+                </p>
+</div>
+</label>
+</fieldset>
+</article>
+<!-- Bloque 4: Botón de Acción Principal -->
+<div class="pt-2">
+<button class="w-full bg-primary-container text-on-primary py-3.5 px-6 rounded font-title-sm text-title-sm hover:bg-primary transition-all duration-200 flex items-center justify-center gap-2 group shadow-sm" id="process-btn" onclick="executeMockCheckout()" type="button">
+<span class="material-symbols-outlined text-[20px] transition-transform group-hover:scale-110" data-icon="bolt">bolt</span>
+<span>Procesar transacción de prueba (Bs 3.400)</span>
+</button>
+<p class="text-center font-label-sm text-label-sm text-on-surface-variant mt-2.5">
+            Ambiente sandbox aislado. Ninguna transacción monetaria será debitada de ninguna cuenta.
+          </p>
+</div>
+</section>
+<!-- Columna Derecha: Resumen Condensado del Pedido (5 Columnas en Desktop) -->
+<aside class="lg:col-span-5 bg-surface-container-low border border-surface-variant rounded p-space-lg sticky top-6">
+<div class="flex items-center justify-between pb-space-sm border-b border-surface-variant mb-space-md">
+<h2 class="font-headline-sm text-headline-sm text-primary">Resumen del Pedido</h2>
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">2 Artículos</span>
+</div>
+<!-- Lista de Artículos de Colección Curada -->
+<div class="divide-y divide-surface-variant">
+<!-- Item 1 -->
+<article class="py-space-md flex gap-space-md">
+<div class="w-20 h-24 bg-surface-container rounded overflow-hidden flex-shrink-0 border border-surface-variant flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary text-[32px]" data-icon="chair">chair</span>
+</div>
+<div class="flex-1 flex flex-col justify-between">
+<div>
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-wider block">Mobiliario / Roble Ahumado</span>
+<h3 class="font-title-sm text-title-sm text-on-surface mt-0.5">Silla Lounge Stockholm</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Cantidad: 1 · Serie Limitada</p>
+</div>
+<div class="font-title-sm text-title-sm text-primary font-semibold text-right">
+                Bs 2.200
+              </div>
+</div>
+</article>
+<!-- Item 2 -->
+<article class="py-space-md flex gap-space-md">
+<div class="w-20 h-24 bg-surface-container rounded overflow-hidden flex-shrink-0 border border-surface-variant flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary text-[32px]" data-icon="light">light</span>
+</div>
+<div class="flex-1 flex flex-col justify-between">
+<div>
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-wider block">Iluminación / Latón Mate</span>
+<h3 class="font-title-sm text-title-sm text-on-surface mt-0.5">Lámpara Colgante Kumo</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Cantidad: 1 · Pantalla Vidrio Opal</p>
+</div>
+<div class="font-title-sm text-title-sm text-primary font-semibold text-right">
+                Bs 1.200
+              </div>
+</div>
+</article>
+</div>
+<!-- Desglose Financiero Simulador -->
+<div class="mt-space-md pt-space-md border-t border-surface-variant space-y-2.5 font-body-md text-body-md">
+<div class="flex justify-between text-on-surface-variant">
+<span>Subtotal de catálogo</span>
+<span class="font-medium text-on-surface">Bs 3.400</span>
+</div>
+<div class="flex justify-between text-on-surface-variant">
+<span>Envío estándar a nodo de entrega</span>
+<span class="text-primary font-medium">Bonificado (Bs 0)</span>
+</div>
+<div class="flex justify-between text-on-surface-variant">
+<span>Impuestos y tasas locales (Simulado)</span>
+<span>Incluidos</span>
+</div>
+<div class="pt-3 border-t border-surface-variant flex justify-between items-baseline">
+<div>
+<span class="font-title-sm text-title-sm text-primary block">Total Transaccional</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Moneda oficial de Bolivia</span>
+</div>
+<span class="font-headline-sm text-headline-sm text-primary font-semibold font-headline-sm">
+              Bs 3.400
+            </span>
+</div>
+</div>
+<!-- Respaldo de Transparencia de Marca -->
+<div class="mt-space-lg p-space-md bg-surface rounded border border-surface-variant flex items-center gap-3">
+<span class="material-symbols-outlined text-surface-tint text-[22px]" data-icon="verified_user">verified_user</span>
+<div class="font-body-sm text-body-sm text-on-surface-variant">
+            Garantía editorial de 3 años y protocolo de trazabilidad de origen en cada pieza.
+          </div>
+</div>
+</aside>
+</div>
+</main>
+<!-- Modal / Overlay Interactivo de Resultados de Prueba -->
+<div class="fixed inset-0 bg-inverse-surface/40 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4" id="result-modal">
+<!-- Contenedor Modal de Éxito (200 OK) -->
+<div class="bg-surface max-w-lg w-full rounded border border-surface-variant shadow-xl p-space-lg sm:p-space-xl flex flex-col hidden animate-fadeIn" id="modal-success">
+<div class="w-12 h-12 rounded-full bg-primary-fixed flex items-center justify-center text-primary mb-space-md">
+<span class="material-symbols-outlined text-[28px]" data-icon="check_circle">check_circle</span>
+</div>
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-secondary font-semibold">Resultado de ejemplo: aprobado</span>
+<h3 class="font-headline-sm text-headline-sm text-primary mt-1">
+        Pago Aprobado: Pedido #NX-8429 generado exitosamente
+      </h3>
+<p class="font-body-md text-body-md text-on-surface-variant mt-space-sm">
+        La pasarela ficticia ha acreditado la orden por <strong>Bs 3.400</strong> con cargo de prueba asociado a la cuenta autenticada <em>demo@nexo.bo</em>.
+      </p>
+<div class="mt-space-md p-space-md bg-surface-container-low rounded border border-surface-variant font-mono font-body-sm text-body-sm space-y-1">
+<div class="flex justify-between">
+<span class="text-on-surface-variant">ID Transacción:</span>
+<span class="text-primary font-semibold">TX_SIM_987412093</span>
+</div>
+<div class="flex justify-between">
+<span class="text-on-surface-variant">Punto Despacho:</span>
+<span>Galería Equipetrol Norte</span>
+</div>
+<div class="flex justify-between">
+<span class="text-on-surface-variant">Tiempo de Procesamiento:</span>
+<span>142 ms</span>
+</div>
+</div>
+<div class="mt-space-lg flex flex-col sm:flex-row gap-space-sm">
+<a class="flex-1 bg-primary text-on-primary py-3 px-4 rounded font-title-sm text-title-sm text-center hover:bg-primary-container transition-colors flex items-center justify-center gap-1.5" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="receipt_long">receipt_long</span>
+<span>Ver en Mis Pedidos</span>
+</a>
+<button class="py-3 px-4 border border-on-surface text-on-surface rounded font-body-md text-body-md hover:bg-surface-variant transition-colors" onclick="closeModal()" type="button">
+          Cerrar simulador
+        </button>
+</div>
+</div>
+<!-- Contenedor Modal de Rechazo (402 ERROR) -->
+<div class="bg-surface max-w-lg w-full rounded border border-error/30 shadow-xl p-space-lg sm:p-space-xl flex flex-col hidden animate-fadeIn" id="modal-failure">
+<div class="w-12 h-12 rounded-full bg-error-container flex items-center justify-center text-on-error-container mb-space-md">
+<span class="material-symbols-outlined text-[28px]" data-icon="error_outline">error_outline</span>
+</div>
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-error font-semibold">Resultado de ejemplo: rechazado</span>
+<h3 class="font-headline-sm text-headline-sm text-primary mt-1">
+        Pago Rechazado: Simulación de fallo en transacción
+      </h3>
+<p class="font-body-md text-body-md text-on-surface-variant mt-space-sm">
+        El canal de cobro virtual devolvió un rechazo con motivo <em>'FONDOS_INSUFICIENTES_SIMULADO'</em>. No se generó orden definitiva ni reserva de stock.
+      </p>
+<div class="mt-space-md p-space-md bg-surface-container-low rounded border border-surface-variant font-mono font-body-sm text-body-sm space-y-1">
+<div class="flex justify-between">
+<span class="text-on-surface-variant">Código de Error:</span>
+<span class="text-error font-semibold">ERR_INSUFFICIENT_FUNDS_SANDBOX</span>
+</div>
+<div class="flex justify-between">
+<span class="text-on-surface-variant">Monto Intentado:</span>
+<span>Bs 3.400</span>
+</div>
+<div class="flex justify-between">
+<span class="text-on-surface-variant">Estado de Formulario:</span>
+<span class="text-secondary font-semibold">Preservado sin pérdidas</span>
+</div>
+</div>
+<div class="mt-space-lg flex flex-col sm:flex-row gap-space-sm">
+<button class="flex-1 bg-primary text-on-primary py-3 px-4 rounded font-title-sm text-title-sm hover:bg-primary-container transition-colors flex items-center justify-center gap-1.5" onclick="retryPayment()" type="button">
+<span class="material-symbols-outlined text-[18px]" data-icon="refresh">refresh</span>
+<span>Reintentar pago</span>
+</button>
+<button class="py-3 px-4 border border-outline text-on-surface rounded font-body-md text-body-md hover:bg-surface-variant transition-colors" onclick="closeModal()" type="button">
+          Modificar parámetros
+        </button>
+</div>
+</div>
+</div>
+<!-- Footer (Shared Component) -->
+<footer class="w-full bg-surface-container-low border-t border-surface-variant mt-space-2xl">
+<div class="w-full px-margin md:px-margin-lg py-space-2xl max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-space-lg">
+<div class="flex flex-col items-center md:items-start gap-1">
+<span class="font-headline-sm text-headline-sm text-primary tracking-tight">Nexo</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant text-center md:text-left">
+          © 2025 Nexo. Curation &amp; Design. Todos los derechos reservados. Precios expresados en Bolivianos (Bs).
+        </p>
+</div>
+<nav class="flex flex-wrap justify-center gap-x-space-lg gap-y-2">
+<a class="text-on-surface-variant hover:text-primary transition-colors font-body-sm text-body-sm" href="#">Catálogo</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-body-sm text-body-sm" href="#">Mi cuenta</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-body-sm text-body-sm" href="#">Mis pedidos</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-body-sm text-body-sm" href="#">Términos y condiciones</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-body-sm text-body-sm" href="#">Política de privacidad</a>
+</nav>
+</div>
+</footer>
+<!-- Interacciones JavaScript Vanilla -->
+<script>
+    function updateOutcomeSelection() {
+      const selected = document.querySelector('input[name="simulation-outcome"]:checked').value;
+      const labelApproved = document.getElementById('label-approved');
+      const labelRejected = document.getElementById('label-rejected');
+
+      if (selected === 'success') {
+        labelApproved.classList.add('border-primary', 'border-2');
+        labelApproved.classList.remove('border-surface-variant', 'border');
+        labelRejected.classList.remove('border-primary', 'border-2');
+        labelRejected.classList.add('border-surface-variant', 'border');
+      } else {
+        labelRejected.classList.add('border-primary', 'border-2');
+        labelRejected.classList.remove('border-surface-variant', 'border');
+        labelApproved.classList.remove('border-primary', 'border-2');
+        labelApproved.classList.add('border-surface-variant', 'border');
+      }
+    }
+
+    function executeMockCheckout() {
+      const button = document.getElementById('process-btn');
+      const originalHTML = button.innerHTML;
+
+      // Estado de carga realista
+      button.disabled = true;
+      button.innerHTML = `
+        <span class="material-symbols-outlined animate-spin text-[20px]" data-icon="progress_activity">progress_activity</span>
+        <span>Comunicando con sandbox...</span>
+      `;
+
+      setTimeout(() => {
+        button.disabled = false;
+        button.innerHTML = originalHTML;
+
+        const outcome = document.querySelector('input[name="simulation-outcome"]:checked').value;
+        const modal = document.getElementById('result-modal');
+        const modalSuccess = document.getElementById('modal-success');
+        const modalFailure = document.getElementById('modal-failure');
+
+        modal.classList.remove('hidden');
+
+        if (outcome === 'success') {
+          modalSuccess.classList.remove('hidden');
+          modalFailure.classList.add('hidden');
+        } else {
+          modalFailure.classList.remove('hidden');
+          modalSuccess.classList.add('hidden');
+        }
+      }, 700);
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('result-modal');
+      const modalSuccess = document.getElementById('modal-success');
+      const modalFailure = document.getElementById('modal-failure');
+
+      modal.classList.add('hidden');
+      modalSuccess.classList.add('hidden');
+      modalFailure.classList.add('hidden');
+    }
+
+    function retryPayment() {
+      closeModal();
+      // Cambiar automáticamente la selección a éxito para facilitar la segunda prueba sin perder inputs
+      const radioSuccess = document.querySelector('input[name="simulation-outcome"][value="success"]');
+      if (radioSuccess) {
+        radioSuccess.checked = true;
+        updateOutcomeSelection();
+      }
+      // Pequeño highlight en el botón
+      const btn = document.getElementById('process-btn');
+      btn.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  </script>
+</body></html>

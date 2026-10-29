@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="referrer" content="no-referrer">
+  <title>Nexo · Catálogo</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#main">Ir al contenido</a>
+  <div class="notice">NEXO · HOGAR Y TECNOLOGÍA</div>
+  <header class="header">
+    <a href="#catalogo" class="brand" aria-label="Nexo, catálogo">NEXO</a>
+    <nav aria-label="Navegación principal">
+      <a href="#catalogo">Catálogo</a>
+      <a href="#cuenta" id="account-link">Iniciar sesión</a>
+      <button id="logout" class="link-button" hidden>Cerrar sesión</button>
+    </nav>
+  </header>
+  <main id="main" tabindex="-1">
+    <section id="catalog-view" aria-labelledby="catalog-title">
+      <div class="intro"><p class="eyebrow">OBJETOS PARA TU DÍA A DÍA</p>
+        <h1 id="catalog-title">Encuentra tu próximo favorito</h1>
+        <p class="lead">Explora nuestro catálogo de productos y encuentra lo que buscas.</p>
+      </div>
+      <form id="filters" class="filters" role="search" aria-label="Buscar productos">
+        <div><label for="search">Buscar productos</label><input id="search" name="name" type="search" maxlength="150" placeholder="¿Qué estás buscando?"></div>
+        <div><label for="category">Categoría</label><select id="category" name="category_id"><option value="">Todas las categorías</option></select><small id="category-status" role="status"></small></div>
+        <label class="checkbox"><input type="checkbox" id="available" name="available"> Solo disponibles</label>
+        <button type="submit">Buscar</button><button type="button" id="reset-filters" class="secondary">Limpiar</button>
+      </form>
+      <div class="results-line"><p id="catalog-status" role="status" aria-live="polite"></p><span class="muted">Precios del catálogo</span></div>
+      <div id="catalog-error" class="feedback error" role="alert" hidden></div>
+      <button id="retry-catalog" class="secondary" hidden>Volver a cargar</button>
+      <div id="products" class="products" aria-busy="false"></div>
+      <div class="pagination"><button id="previous" class="secondary" disabled>Anterior</button><span id="page-label">Página 1</span><button id="next" class="secondary" disabled>Siguiente</button></div>
+    </section>
+
+    <section id="account-view" aria-labelledby="account-title" hidden>
+      <div class="account-layout">
+        <div class="account-intro"><p class="eyebrow">TU ESPACIO NEXO</p><h1 id="account-title">Bienvenido a tu cuenta</h1><p class="lead">Inicia sesión o crea tu cuenta para acceder a tu perfil.</p><p class="muted">Por tu privacidad, la sesión termina al recargar o cerrar esta página.</p></div>
+        <div class="account-panel">
+          <div class="tabs" role="group" aria-label="Acceso a la cuenta"><button id="login-tab" class="secondary" aria-pressed="true">Iniciar sesión</button><button id="register-tab" class="secondary" aria-pressed="false">Crear cuenta</button></div>
+          <form id="login-form">
+            <h2>Iniciar sesión</h2>
+            <label for="login-email">Correo electrónico</label><input id="login-email" type="email" autocomplete="username" required maxlength="254">
+            <label for="login-password">Contraseña</label><input id="login-password" type="password" autocomplete="current-password" required maxlength="72">
+            <p class="feedback error" id="login-error" role="alert" hidden></p>
+            <button type="submit">Iniciar sesión</button>
+          </form>
+          <form id="register-form" hidden>
+            <h2>Crear cuenta</h2>
+            <label for="register-name">Nombre</label><input id="register-name" autocomplete="name" required minlength="3" maxlength="100">
+            <label for="register-email">Correo electrónico</label><input id="register-email" type="email" autocomplete="email" required maxlength="254">
+            <label for="register-password">Contraseña</label><input id="register-password" type="password" autocomplete="new-password" required minlength="6" maxlength="72" aria-describedby="password-hint">
+            <small id="password-hint">Al menos 6 caracteres. Máximo 72 bytes; letras con acento y emojis ocupan más de un byte.</small>
+            <label for="confirm-password">Repetir contraseña</label><input id="confirm-password" type="password" autocomplete="new-password" required maxlength="72">
+            <p class="feedback error" id="register-error" role="alert" hidden></p>
+            <button type="submit">Crear cuenta</button>
+          </form>
+          <p id="account-status" class="feedback" role="status" aria-live="polite"></p>
+          <div id="profile" hidden><h2>Mi cuenta</h2><dl><dt>Nombre</dt><dd id="profile-name"></dd><dt>Correo electrónico</dt><dd id="profile-email"></dd></dl><a href="#catalogo" class="button">Explorar el catálogo</a></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="detail-view" aria-labelledby="detail-title" hidden>
+      <a href="#catalogo" class="back">← Volver al catálogo</a>
+      <p id="detail-status" role="status"></p><div id="detail-error" class="feedback error" role="alert" hidden></div>
+      <div id="detail" class="detail" hidden><div id="detail-image"></div><div><p id="detail-category" class="eyebrow"></p><h1 id="detail-title"></h1><p id="detail-price" class="price"></p><p id="detail-stock"></p><p id="detail-description" class="description"></p><p class="muted">La compra desde esta interfaz estará disponible en la siguiente etapa.</p></div></div>
+    </section>
+  </main>
+  <footer><span class="brand">Nexo</span><p>Objetos para tu día a día.</p><small>Catálogo y cuentas conectados. Carrito, pedidos y pagos pendientes de integración visual.</small></footer>
+</body>
+</html>

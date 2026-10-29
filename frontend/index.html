@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Nexo · Propuestas de interfaz</title>
+  <style>
+    *{box-sizing:border-box}body{margin:0;background:#fbf9f4;color:#1b1c19;font:15px system-ui,sans-serif}
+    header{padding:18px 24px;border-bottom:1px solid #ddd7cb}h1{font:28px Georgia,serif;margin:0 0 8px;color:#1e3f2e}
+    p{margin:0 0 14px;line-height:1.5}nav{display:flex;gap:8px;flex-wrap:wrap}a,button{font:inherit;color:#1e3f2e;background:transparent;border:1px solid #aaa;padding:8px 12px;border-radius:4px;text-decoration:none;cursor:pointer}
+    a[aria-current=page]{background:#1e3f2e;color:white}a:focus-visible,button:focus-visible{outline:3px solid #1e3f2e;outline-offset:3px}
+    .controls{display:flex;gap:8px;margin-top:12px;align-items:center;flex-wrap:wrap}.canvas{padding:16px;overflow:auto;background:#e9e8e3}
+    iframe{display:block;width:100%;height:calc(100vh - 230px);min-height:540px;border:1px solid #ddd7cb;margin:auto;background:#fbf9f4}
+    iframe.mobile{width:390px;max-width:100%}small{color:#424843} @media(max-width:600px){header{padding:16px}iframe{height:75vh}.canvas{padding:8px}}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Nexo · Galería de pantallas</h1>
+    <p>Prototipos creados con Stitch. Datos de ejemplo, sin conexión al backend. No introduzcas credenciales reales.</p>
+    <nav aria-label="Pantallas del prototipo">
+      <a href="stitch/catalogo.html" target="preview" aria-current="page">Catálogo</a>
+      <a href="stitch/acceso.html" target="preview">Acceso</a>
+      <a href="stitch/producto.html" target="preview">Producto</a>
+      <a href="stitch/carrito.html" target="preview">Carrito</a>
+      <a href="stitch/checkout.html" target="preview">Checkout</a>
+      <a href="stitch/pedidos.html" target="preview">Pedidos</a>
+      <a href="stitch/perfil.html" target="preview">Perfil</a>
+    </nav>
+    <div class="controls">
+      <button id="desktop" aria-pressed="true">Escritorio</button>
+      <button id="mobile" aria-pressed="false">Móvil · 390 px</button>
+      <small>La vista móvil ayuda a revisar la adaptación; aún requiere validación.</small>
+    </div>
+  </header>
+  <main class="canvas"><iframe name="preview" title="Vista previa del catálogo Nexo" src="stitch/catalogo.html" sandbox="allow-scripts allow-same-origin"></iframe></main>
+  <script>
+    const frame=document.querySelector('iframe');
+    document.querySelectorAll('nav a').forEach(link=>link.addEventListener('click',()=>{
+      document.querySelectorAll('nav a').forEach(a=>a.removeAttribute('aria-current'));
+      link.setAttribute('aria-current','page');frame.title='Vista previa: '+link.textContent;
+    }));
+    for(const id of ['desktop','mobile'])document.getElementById(id).addEventListener('click',()=>{
+      frame.classList.toggle('mobile',id==='mobile');
+      for(const other of ['desktop','mobile'])document.getElementById(other).setAttribute('aria-pressed',String(other===id));
+    });
+  </script>
+</body>
+</html>

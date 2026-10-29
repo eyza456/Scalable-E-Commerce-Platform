@@ -1,0 +1,43 @@
+{
+  "projectId": "3316878412824520653",
+  "designSystem": "assets/9517570eada443e0aaea25b0f5bc4afe",
+  "status": "visual-prototypes-not-integrated",
+  "screens": [
+    {
+      "name": "projects/3316878412824520653/screens/f6c114cf2ea1420f94e10bb78fb20ea9",
+      "title": "Nexo - Catálogo Editorial",
+      "local": "stitch/catalogo.html"
+    },
+    {
+      "name": "projects/3316878412824520653/screens/d2c2b9c29fe34ac1989dcf0d59f80af4",
+      "title": "Nexo - Autenticación y Registro",
+      "local": "stitch/acceso.html"
+    },
+    {
+      "name": "projects/3316878412824520653/screens/0b9b99cc4c1842f4a465dc7da23b9cbe",
+      "title": "Nexo - Detalle de Producto",
+      "local": "stitch/producto.html"
+    },
+    {
+      "name": "projects/3316878412824520653/screens/24ca90dd96674b30ba959bfc827437e6",
+      "title": "Nexo - Carrito de Compras",
+      "local": "stitch/carrito.html"
+    },
+    {
+      "name": "projects/3316878412824520653/screens/4d9af268c62d4097a2dd4eaf58f781ed",
+      "title": "Nexo - Checkout y Pago Simulado",
+      "local": "stitch/checkout.html"
+    },
+    {
+      "name": "projects/3316878412824520653/screens/e83b01bae32a41b69ebfdec1263b8bc1",
+      "title": "Nexo - Mis Pedidos",
+      "local": "stitch/pedidos.html"
+    },
+    {
+      "name": "projects/3316878412824520653/screens/7f2a28e40d25414586267354c1ff916e",
+      "title": "Nexo - Mi Perfil",
+      "local": "stitch/perfil.html"
+    }
+  ],
+  "localChanges": "Avisos de demostracion, eliminacion de promesas de envio y textos tecnicos incorrectos. La copia local puede diferir de Stitch."
+}

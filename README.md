@@ -204,6 +204,21 @@ Este proyecto está bajo la Licencia MIT.
 
 ## Cierre de hallazgos de auditoria
 
+### Frontend visual Nexo
+
+La interfaz de registro, inicio de sesion, catalogo y detalle ya consulta el backend
+mediante el API Gateway. Con el backend configurado y sus migraciones aplicadas:
+
+```powershell
+docker compose -f docker-compose.yml -f compose.frontend.yml up -d --build frontend
+```
+
+Abrir `http://127.0.0.1:8080/`. Carrito, pedidos y pagos siguen pendientes de
+integracion visual. La galeria de Stitch en el puerto 5173 es una referencia con
+datos ficticios. Ver [alcance, arranque y pruebas del frontend](frontend/README.md).
+Este complemento es posterior a la evidencia de instalacion limpia del backend;
+su verificacion especifica esta en `docs/frontend/integracion.json`.
+
 Se corrigieron la concurrencia del carrito, los pedidos duplicados, la revalidacion del catalogo, los limites de registro y la fecha final de pagos. Consultar [contrato HTTP, migraciones y pruebas](docs/auditoria/cierre-hallazgos.md).
 
 Los pagos simulados tambien permiten rechazos por fondos insuficientes, tarjeta vencida y rechazo del emisor. Ver [uso y pruebas](docs/pagos-simulados.md).

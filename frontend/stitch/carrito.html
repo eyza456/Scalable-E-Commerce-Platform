@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+
+<html class="h-full" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Tu selección — Nexo</title>
+<!-- Google Fonts: Playfair Display & Plus Jakarta Sans -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&amp;family=Plus+Jakarta+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "tertiary-container": "#2f3c2e",
+            "on-tertiary-fixed-variant": "#3d4a3b",
+            "surface-container": "#efeee9",
+            "surface-dim": "#dbdad5",
+            "on-error-container": "#93000a",
+            "on-primary-fixed": "#002112",
+            "surface-bright": "#fbf9f4",
+            "error": "#ba1a1a",
+            "error-container": "#ffdad6",
+            "on-tertiary-container": "#98a694",
+            "on-surface": "#1b1c19",
+            "on-primary-container": "#87aa94",
+            "secondary-fixed-dim": "#e6bfa1",
+            "on-primary": "#ffffff",
+            "on-primary-fixed-variant": "#2c4d3c",
+            "surface-tint": "#446652",
+            "on-tertiary": "#ffffff",
+            "on-secondary": "#ffffff",
+            "surface-container-low": "#f5f4ee",
+            "secondary": "#765840",
+            "surface-container-highest": "#e4e2dd",
+            "primary-container": "#1e3f2e",
+            "primary": "#062919",
+            "surface-container-lowest": "#ffffff",
+            "on-secondary-fixed": "#2b1704",
+            "inverse-primary": "#aacfb8",
+            "surface-container-high": "#e9e8e3",
+            "on-secondary-container": "#795b42",
+            "primary-fixed-dim": "#aacfb8",
+            "on-secondary-fixed-variant": "#5c412a",
+            "primary-fixed": "#c6ebd3",
+            "outline": "#727973",
+            "background": "#fbf9f4",
+            "secondary-container": "#fed5b6",
+            "secondary-fixed": "#ffdcc1",
+            "tertiary-fixed": "#d8e7d2",
+            "surface-variant": "#e4e2dd",
+            "inverse-on-surface": "#f2f1eb",
+            "on-tertiary-fixed": "#131e12",
+            "on-error": "#ffffff",
+            "tertiary-fixed-dim": "#bccbb7",
+            "on-background": "#1b1c19",
+            "surface": "#fbf9f4",
+            "inverse-surface": "#30312d",
+            "tertiary": "#1a2619",
+            "outline-variant": "#c1c8c1",
+            "on-surface-variant": "#424843"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "gutter-lg": "2rem",
+            "space-xl": "2.5rem",
+            "space-sm": "0.5rem",
+            "space-2xl": "4rem",
+            "gutter": "1.5rem",
+            "margin": "2rem",
+            "space-lg": "1.5rem",
+            "gutter-sm": "1rem",
+            "margin-lg": "4rem",
+            "space-xs": "0.25rem",
+            "space-md": "1rem",
+            "margin-sm": "1rem"
+          },
+          "fontFamily": {
+            "body-sm": ["Plus Jakarta Sans"],
+            "body-lg": ["Plus Jakarta Sans"],
+            "label-sm": ["Plus Jakarta Sans"],
+            "body-md": ["Plus Jakarta Sans"],
+            "headline-sm": ["Playfair Display"],
+            "headline-lg-mobile": ["Playfair Display"],
+            "headline-lg": ["Playfair Display"],
+            "display-mobile": ["Playfair Display"],
+            "title-sm": ["Plus Jakarta Sans"],
+            "headline-md": ["Playfair Display"],
+            "title-md": ["Plus Jakarta Sans"],
+            "label-md": ["Plus Jakarta Sans"],
+            "display": ["Playfair Display"]
+          },
+          "fontSize": {
+            "body-sm": ["13px", {"lineHeight": "20px", "fontWeight": "400"}],
+            "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+            "label-sm": ["11px", {"lineHeight": "16px", "letterSpacing": "0.06em", "fontWeight": "600"}],
+            "body-md": ["15px", {"lineHeight": "24px", "fontWeight": "400"}],
+            "headline-sm": ["22px", {"lineHeight": "30px", "fontWeight": "500"}],
+            "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "500"}],
+            "headline-lg": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.01em", "fontWeight": "400"}],
+            "display-mobile": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.01em", "fontWeight": "400"}],
+            "title-sm": ["16px", {"lineHeight": "24px", "fontWeight": "600"}],
+            "headline-md": ["28px", {"lineHeight": "36px", "fontWeight": "500"}],
+            "title-md": ["18px", {"lineHeight": "26px", "fontWeight": "600"}],
+            "label-md": ["13px", {"lineHeight": "18px", "letterSpacing": "0.04em", "fontWeight": "600"}],
+            "display": ["56px", {"lineHeight": "64px", "letterSpacing": "-0.02em", "fontWeight": "400"}]
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-background text-on-background min-h-full flex flex-col font-body-md text-body-md antialiased selection:bg-primary selection:text-surface">
+<!-- TOPNAVBAR (Shared Component Implementation) -->
+<header class="w-full bg-surface dark:bg-surface border-b border-surface-variant dark:border-outline-variant sticky top-0 z-40 bg-surface/95 backdrop-blur-sm transition-all duration-200">
+<div class="w-full px-margin md:px-margin-lg max-w-7xl mx-auto flex items-center justify-between py-space-md">
+<!-- Brand Logo Anchor -->
+<div class="flex items-center gap-space-lg">
+<a class="font-headline-md text-headline-md tracking-tight text-primary dark:text-inverse-primary uppercase transition-transform hover:opacity-90" href="#">
+          Nexo
+        </a>
+<!-- Desktop Navigation Category Links -->
+<nav aria-label="Navegación principal" class="hidden md:flex items-center gap-space-md ml-space-xl">
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-on-surface dark:hover:text-on-surface transition-colors pb-1 font-body-md text-body-md" href="#">Hogar</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-on-surface dark:hover:text-on-surface transition-colors pb-1 font-body-md text-body-md" href="#">Tecnología</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-on-surface dark:hover:text-on-surface transition-colors pb-1 font-body-md text-body-md" href="#">Oficina</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-on-surface dark:hover:text-on-surface transition-colors pb-1 font-body-md text-body-md" href="#">Iluminación</a>
+</nav>
+</div>
+<!-- Trailing Action Cluster -->
+<div class="flex items-center gap-space-md">
+<!-- Search Bar Right -->
+<div class="hidden lg:flex items-center bg-surface-container-low border border-surface-variant rounded-lg px-space-sm py-1.5 focus-within:border-primary-container focus-within:bg-surface-container-lowest transition-all">
+<span class="material-symbols-outlined text-outline text-[20px] mr-1.5" data-icon="search">search</span>
+<input class="bg-transparent border-none text-body-sm font-body-sm text-on-surface focus:ring-0 focus:outline-none placeholder:text-outline w-36 xl:w-48 p-0" placeholder="Buscar catálogo..." type="text"/>
+</div>
+<a class="hidden sm:inline-flex items-center gap-1.5 text-on-surface-variant hover:text-primary transition-colors text-body-sm font-body-sm px-2 py-1" href="#" title="Historial y pedidos">
+<span class="material-symbols-outlined text-[20px]" data-icon="receipt_long">receipt_long</span>
+<span class="hidden md:inline">Mis pedidos</span>
+</a>
+<a class="inline-flex items-center gap-1.5 text-on-surface-variant hover:text-primary transition-colors text-body-sm font-body-sm px-2 py-1" href="#" title="Mi cuenta">
+<span class="material-symbols-outlined text-[20px]" data-icon="person">person</span>
+<span class="hidden md:inline">Mi cuenta</span>
+</a>
+<!-- Cart Primary Trailing with badge (Active Intent) -->
+<a aria-current="page" class="text-primary dark:text-inverse-primary border-b-2 border-primary dark:border-inverse-primary pb-1 font-title-sm text-title-sm inline-flex items-center gap-2 group" href="#">
+<div class="relative flex items-center">
+<span class="material-symbols-outlined text-[22px]" data-icon="shopping_bag">shopping_bag</span>
+<span class="absolute -top-1.5 -right-2 bg-primary-container text-on-primary text-[10px] font-label-sm w-4 h-4 rounded-full flex items-center justify-center" id="nav-cart-badge">3</span>
+</div>
+<span class="hidden sm:inline">Carrito</span>
+</a>
+</div>
+</div>
+</header>
+<!-- MAIN CANVAS -->
+<main class="flex-grow w-full max-w-7xl mx-auto px-margin md:px-margin-lg py-space-xl">
+<!-- Editorial Header Row -->
+<div class="border-b border-surface-variant pb-space-lg mb-space-xl flex flex-col md:flex-row md:items-end justify-between gap-space-md">
+<div>
+<div class="flex items-center gap-2 text-label-sm font-label-sm text-secondary uppercase tracking-widest mb-1.5">
+<span>Colección Curada</span>
+<span class="text-outline-variant">•</span>
+<span>Nexo Bolivia</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg md:text-headline-lg font-normal tracking-tight text-primary">
+          Tu selección
+        </h1>
+</div>
+<div class="flex items-center gap-space-sm text-on-surface-variant font-body-md text-body-md">
+<span class="material-symbols-outlined text-[18px] text-primary" data-icon="check_circle">check_circle</span>
+<span id="items-count-indicator">3 piezas seleccionadas</span>
+<button class="ml-4 text-label-sm font-label-sm text-outline hover:text-primary underline underline-offset-4 transition-colors" id="toggle-empty-demo">
+          Probar vista vacía
+        </button>
+</div>
+</div>
+<!-- MAIN CART CONTENT VIEW (Active) -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter-lg items-start" id="cart-content-view">
+<!-- LEFT: Items Editorial Table / List (8 cols) -->
+<section aria-label="Productos en el carrito" class="lg:col-span-8 space-y-space-md">
+<!-- Table Column Headers (Desktop) -->
+<div class="hidden md:grid grid-cols-12 text-label-sm font-label-sm uppercase tracking-wider text-outline border-b border-surface-variant pb-space-sm px-2">
+<div class="col-span-6">Objeto / Detalles</div>
+<div class="col-span-2 text-right">Precio unitario</div>
+<div class="col-span-2 text-center">Cantidad</div>
+<div class="col-span-2 text-right">Subtotal</div>
+</div>
+<!-- Cart Item 1 -->
+<article class="cart-item bg-surface-container-lowest border border-surface-variant rounded-lg p-space-md md:p-space-lg transition-all duration-300 hover:border-outline" data-id="item-1" data-price="420">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-space-md items-center">
+<!-- Visual & Description (6 cols) -->
+<div class="md:col-span-6 flex gap-space-md items-center">
+<div class="w-20 h-24 sm:w-24 sm:h-32 bg-surface-container flex-shrink-0 rounded overflow-hidden relative border border-surface-variant">
+<img alt="Lámpara de mesa cerámica" class="w-full h-full object-cover object-center transition-transform duration-500 hover:scale-105" data-alt="A sculptural Nordic ceramic table lamp positioned in a serene sunlit architectural interior with textured linen curtains and soft warm daylight casting gentle shadows, editorial design magazine photography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuArB3poP8T-G8h5PuqauF5mUtP6nI2AAIzB_bF0-OOPq0ZJ0D-XfiOxEE4tKdT2I-g_NOYNTMWi1X-R18qRikOigmxxcyWjEJL21TZiYKRQNqT1YjAV6Img6in9pM2m3bI3rtVciPEiBKOYT-8SDVR17XBs93rGXlvh4GOO8KigQ_9ZxHULpQwz-EiwWQzuXwy_5y5nNQV1cGB_J-hR3oRTw0vvhRWHeK4PM3R3V4q9MqaykEdGsFl0fl4Inbu3kapryh62_hijb3Q"/>
+</div>
+<div class="space-y-1">
+<span class="text-label-sm font-label-sm text-secondary uppercase tracking-wider">Iluminación</span>
+<h2 class="font-headline-sm text-title-md text-on-surface font-medium leading-snug">
+                  Lámpara de mesa cerámica
+                </h2>
+<p class="text-body-sm font-body-sm text-on-surface-variant line-clamp-1">
+                  Base en gres mate, pantalla de lino crudo artesanal.
+                </p>
+<div class="md:hidden pt-1 text-label-md font-label-md text-primary">
+                  Bs 420
+                </div>
+</div>
+</div>
+<!-- Unit Price (2 cols - Desktop) -->
+<div class="hidden md:block md:col-span-2 text-right font-body-md text-body-md text-on-surface-variant">
+              Bs 420
+            </div>
+<!-- Quantity Controls (2 cols) -->
+<div class="md:col-span-2 flex items-center justify-between md:justify-center">
+<span class="md:hidden text-label-sm font-label-sm text-outline">Cantidad</span>
+<div class="flex items-center border border-outline-variant rounded bg-surface-container-low px-1 py-0.5">
+<button aria-label="Reducir cantidad de Lámpara de mesa cerámica" class="btn-qty-minus text-on-surface-variant hover:text-primary w-7 h-7 flex items-center justify-center transition-colors focus:outline-none" type="button">
+<span class="material-symbols-outlined text-[16px]" data-icon="remove">remove</span>
+</button>
+<span class="item-qty w-7 text-center font-title-sm text-title-sm text-on-surface select-none">1</span>
+<button aria-label="Aumentar cantidad de Lámpara de mesa cerámica" class="btn-qty-plus text-on-surface-variant hover:text-primary w-7 h-7 flex items-center justify-center transition-colors focus:outline-none" type="button">
+<span class="material-symbols-outlined text-[16px]" data-icon="add">add</span>
+</button>
+</div>
+</div>
+<!-- Subtotal & Actions (2 cols) -->
+<div class="md:col-span-2 flex md:flex-col items-center md:items-end justify-between pt-2 md:pt-0 border-t md:border-t-0 border-surface-variant">
+<span class="md:hidden text-label-sm font-label-sm text-outline">Subtotal</span>
+<span class="item-subtotal font-title-md text-title-md text-primary font-semibold">
+                Bs 420
+              </span>
+<button class="btn-remove-item mt-2 text-label-sm font-label-sm text-error hover:text-on-error-container hover:underline inline-flex items-center gap-1 transition-colors" data-target="item-1" type="button">
+<span class="material-symbols-outlined text-[14px]" data-icon="delete">delete</span>
+                Quitar
+              </button>
+</div>
+</div>
+</article>
+<!-- Cart Item 2 -->
+<article class="cart-item bg-surface-container-lowest border border-surface-variant rounded-lg p-space-md md:p-space-lg transition-all duration-300 hover:border-outline" data-id="item-2" data-price="1150">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-space-md items-center">
+<!-- Visual & Description (6 cols) -->
+<div class="md:col-span-6 flex gap-space-md items-center">
+<div class="w-20 h-24 sm:w-24 sm:h-32 bg-surface-container flex-shrink-0 rounded border border-surface-variant overflow-hidden relative">
+<img alt="Altavoz inalámbrico de aluminio acústico" class="w-full h-full object-cover object-center transition-transform duration-500 hover:scale-105" data-alt="An anodized acoustic aluminum wireless portable speaker resting on a white oiled oak credenza in an impeccably curated Scandinavian living room with soft overcast natural lighting, editorial still life." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCHf3fzIbpTZC1rDRZdfuNnYC9sG8nOwoBcxxmkTzRqs68d51nu2QLwoQXzaU5Hl0_GEKTG-A0YTpV5BJ0fKPcGW3tUZ4pIl6MqPudyTH-XhnfcrTvu2zL5kSA1JGGSxLmkcoZ1MacVqWMGpfmfZYHUDNmck_JGVWGYt_sR3qi22tfoommenPSivclzeIC7SqSCiRMnh2aCsp0Ov3Vs8-ZY18wEycL6qHn4fTXJ-Cqw4bvih7vfWe4Eow4JDrz5CRQUmFLAFzF92ds"/>
+</div>
+<div class="space-y-1">
+<span class="text-label-sm font-label-sm text-secondary uppercase tracking-wider">Tecnología</span>
+<h2 class="font-headline-sm text-title-md text-on-surface font-medium leading-snug">
+                  Altavoz inalámbrico de aluminio acústico
+                </h2>
+<p class="text-body-sm font-body-sm text-on-surface-variant line-clamp-1">
+                  Acabado anodizado natural, diafragma pasivo de neodimio.
+                </p>
+<div class="md:hidden pt-1 text-label-md font-label-md text-primary">
+                  Bs 1.150
+                </div>
+</div>
+</div>
+<!-- Unit Price (2 cols - Desktop) -->
+<div class="hidden md:block md:col-span-2 text-right font-body-md text-body-md text-on-surface-variant">
+              Bs 1.150
+            </div>
+<!-- Quantity Controls (2 cols) -->
+<div class="md:col-span-2 flex items-center justify-between md:justify-center">
+<span class="md:hidden text-label-sm font-label-sm text-outline">Cantidad</span>
+<div class="flex items-center border border-outline-variant rounded bg-surface-container-low px-1 py-0.5">
+<button aria-label="Reducir cantidad de Altavoz inalámbrico de aluminio acústico" class="btn-qty-minus text-on-surface-variant hover:text-primary w-7 h-7 flex items-center justify-center transition-colors focus:outline-none" type="button">
+<span class="material-symbols-outlined text-[16px]" data-icon="remove">remove</span>
+</button>
+<span class="item-qty w-7 text-center font-title-sm text-title-sm text-on-surface select-none">2</span>
+<button aria-label="Aumentar cantidad de Altavoz inalámbrico de aluminio acústico" class="btn-qty-plus text-on-surface-variant hover:text-primary w-7 h-7 flex items-center justify-center transition-colors focus:outline-none" type="button">
+<span class="material-symbols-outlined text-[16px]" data-icon="add">add</span>
+</button>
+</div>
+</div>
+<!-- Subtotal & Actions (2 cols) -->
+<div class="md:col-span-2 flex md:flex-col items-center md:items-end justify-between pt-2 md:pt-0 border-t md:border-t-0 border-surface-variant">
+<span class="md:hidden text-label-sm font-label-sm text-outline">Subtotal</span>
+<span class="item-subtotal font-title-md text-title-md text-primary font-semibold">
+                Bs 2.300
+              </span>
+<button class="btn-remove-item mt-2 text-label-sm font-label-sm text-error hover:text-on-error-container hover:underline inline-flex items-center gap-1 transition-colors" data-target="item-2" type="button">
+<span class="material-symbols-outlined text-[14px]" data-icon="delete">delete</span>
+                Quitar
+              </button>
+</div>
+</div>
+</article>
+<!-- Cart Item 3 -->
+<article class="cart-item bg-surface-container-lowest border border-surface-variant rounded-lg p-space-md md:p-space-lg transition-all duration-300 hover:border-outline" data-id="item-3" data-price="680">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-space-md items-center">
+<!-- Visual & Description (6 cols) -->
+<div class="md:col-span-6 flex gap-space-md items-center">
+<div class="w-20 h-24 sm:w-24 sm:h-32 bg-surface-container flex-shrink-0 rounded border border-surface-variant overflow-hidden relative">
+<img alt="Tetera de acero y madera" class="w-full h-full object-cover object-center transition-transform duration-500 hover:scale-105" data-alt="A minimalist brushed stainless steel teapot featuring a sculptured natural walnut handle standing elegantly on a matte stone countertop, soft ambient studio lighting, Nordic kitchen aesthetics." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDYAMYBZiXQ36jSdEHcf3tVszqxFsa8dFAs4hbLg5FQNAqx_obtApNtq-8ehbYO6ZIeRHTcdjlac47jsaEiiwwKrYGKKH5I8YLXsEGbk_dTZEv5pvB4OKD3Uc-eXD5rB6jkLm8RUuSJ7eZO2owBSbQm3-XcCxW5MWioD-NRnYqm373ELCJI6uBuZcqIYVvyQus6wyWfrpqNpcaDMXGzuAy0YblQhYeZrYUTMQdqBDAsUjcRZdIwvaD4O9BYDrUq24THLEFG2Ii7oic"/>
+</div>
+<div class="space-y-1">
+<span class="text-label-sm font-label-sm text-secondary uppercase tracking-wider">Hogar</span>
+<h2 class="font-headline-sm text-title-md text-on-surface font-medium leading-snug">
+                  Tetera de acero y madera
+                </h2>
+<p class="text-body-sm font-body-sm text-on-surface-variant line-clamp-1">
+                  Acero inoxidable cepillado con mango de nogal macizo.
+                </p>
+<div class="md:hidden pt-1 text-label-md font-label-md text-primary">
+                  Bs 680
+                </div>
+</div>
+</div>
+<!-- Unit Price (2 cols - Desktop) -->
+<div class="hidden md:block md:col-span-2 text-right font-body-md text-body-md text-on-surface-variant">
+              Bs 680
+            </div>
+<!-- Quantity Controls (2 cols) -->
+<div class="md:col-span-2 flex items-center justify-between md:justify-center">
+<span class="md:hidden text-label-sm font-label-sm text-outline">Cantidad</span>
+<div class="flex items-center border border-outline-variant rounded bg-surface-container-low px-1 py-0.5">
+<button aria-label="Reducir cantidad de Tetera de acero y madera" class="btn-qty-minus text-on-surface-variant hover:text-primary w-7 h-7 flex items-center justify-center transition-colors focus:outline-none" type="button">
+<span class="material-symbols-outlined text-[16px]" data-icon="remove">remove</span>
+</button>
+<span class="item-qty w-7 text-center font-title-sm text-title-sm text-on-surface select-none">1</span>
+<button aria-label="Aumentar cantidad de Tetera de acero y madera" class="btn-qty-plus text-on-surface-variant hover:text-primary w-7 h-7 flex items-center justify-center transition-colors focus:outline-none" type="button">
+<span class="material-symbols-outlined text-[16px]" data-icon="add">add</span>
+</button>
+</div>
+</div>
+<!-- Subtotal & Actions (2 cols) -->
+<div class="md:col-span-2 flex md:flex-col items-center md:items-end justify-between pt-2 md:pt-0 border-t md:border-t-0 border-surface-variant">
+<span class="md:hidden text-label-sm font-label-sm text-outline">Subtotal</span>
+<span class="item-subtotal font-title-md text-title-md text-primary font-semibold">
+                Bs 680
+              </span>
+<button class="btn-remove-item mt-2 text-label-sm font-label-sm text-error hover:text-on-error-container hover:underline inline-flex items-center gap-1 transition-colors" data-target="item-3" type="button">
+<span class="material-symbols-outlined text-[14px]" data-icon="delete">delete</span>
+                Quitar
+              </button>
+</div>
+</div>
+</article>
+<!-- Guarantee Note Below Table -->
+<div class="pt-space-md flex items-start gap-3 text-on-surface-variant bg-surface-container-low p-space-md rounded-lg border border-surface-variant">
+<span class="material-symbols-outlined text-primary-container text-[20px] mt-0.5" data-icon="verified_user">verified_user</span>
+<div class="text-body-sm font-body-sm leading-relaxed">
+<span class="font-title-sm text-on-surface">Compromiso de Autenticidad Nexo.</span> Cada objeto se inspecciona meticulosamente en origen y se entrega con su certificado de manufactura y número de serie catalogado.
+          </div>
+</div>
+</section>
+<!-- RIGHT: Strict Order Summary Sidebar (4 cols) -->
+<aside aria-label="Resumen de compra" class="lg:col-span-4 sticky top-28">
+<div class="bg-surface-container-low border border-surface-variant rounded-lg p-space-lg shadow-sm">
+<h2 class="font-headline-sm text-headline-sm text-primary border-b border-surface-variant pb-space-sm mb-space-md">
+            Resumen de compra
+          </h2>
+<!-- Strict breakdown: No invented fees, no fake shipping, no fake coupons -->
+<div class="space-y-space-sm mb-space-lg text-body-md font-body-md">
+<div class="flex justify-between items-center text-on-surface-variant">
+<span>Subtotal de productos</span>
+<span class="font-title-sm text-on-surface" id="summary-subtotal">Bs 3.400</span>
+</div>
+<div class="flex justify-between items-center text-on-surface-variant">
+<span>Coordinación de entrega</span>
+<span class="text-label-sm font-label-sm text-secondary font-semibold uppercase">Directa / Sin recargo</span>
+</div>
+<div class="pt-space-md border-t border-surface-variant flex justify-between items-baseline">
+<div>
+<span class="block font-headline-sm text-headline-sm text-primary font-normal">Total a pagar</span>
+<span class="text-label-sm font-label-sm text-outline">Importe final exacto</span>
+</div>
+<span class="font-headline-md text-headline-md text-primary font-bold" id="summary-total">
+                Bs 3.400
+              </span>
+</div>
+</div>
+<!-- Transparency Notice -->
+<div class="mb-space-lg p-space-sm bg-surface-container-lowest rounded border border-surface-variant flex gap-2.5 items-start">
+<span class="material-symbols-outlined text-primary-container text-[18px] shrink-0 mt-0.5" data-icon="info">info</span>
+<p class="text-body-sm font-body-sm text-on-surface-variant leading-snug">
+              Precios finales en Bolivianos (Bs). La entrega se coordina de manera directa sin recargos ocultos.
+            </p>
+</div>
+<!-- Actions -->
+<div class="space-y-space-sm">
+<!-- Primary Action -->
+<button class="w-full bg-primary-container hover:bg-primary text-on-primary py-3.5 px-space-md rounded-lg font-title-sm text-title-sm transition-all duration-200 shadow-sm flex items-center justify-center gap-2 group" id="btn-checkout" type="button">
+<span>Continuar al pago simulado</span>
+<span class="material-symbols-outlined text-[18px] transition-transform group-hover:translate-x-1" data-icon="arrow_forward">arrow_forward</span>
+</button>
+<!-- Secondary Action -->
+<a class="w-full bg-surface border border-on-surface text-on-surface hover:bg-on-surface hover:text-surface py-3 px-space-md rounded-lg font-title-sm text-title-sm transition-colors duration-200 text-center block" href="#">
+              Seguir explorando catálogo
+            </a>
+</div>
+<!-- Safe badges -->
+<div class="mt-space-lg pt-space-md border-t border-surface-variant flex items-center justify-center gap-space-lg text-outline text-label-sm font-label-sm">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]" data-icon="lock">lock</span>
+<span>Conexión segura</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]" data-icon="inventory_2">inventory_2</span>
+<span>Embalaje editorial</span>
+</div>
+</div>
+</div>
+</aside>
+</div>
+<!-- EMPTY CART STATE (Accessible Preview / Collapsible) -->
+<div class="hidden py-space-2xl text-center max-w-xl mx-auto space-y-space-md" id="empty-cart-view">
+<div class="w-20 h-20 mx-auto rounded-full bg-surface-container flex items-center justify-center border border-surface-variant text-outline">
+<span class="material-symbols-outlined text-[36px]" data-icon="production_quantity_limits">production_quantity_limits</span>
+</div>
+<div class="space-y-2">
+<h2 class="font-headline-md text-headline-md text-primary font-normal">
+          Tu carrito está vacío
+        </h2>
+<p class="text-body-md font-body-md text-on-surface-variant max-w-md mx-auto">
+          No tienes piezas añadidas en este momento. Explora nuestra curaduría de objetos atemporales para comenzar.
+        </p>
+</div>
+<div class="pt-space-md flex flex-col sm:flex-row items-center justify-center gap-space-md">
+<button class="w-full sm:w-auto bg-primary-container text-on-primary py-3 px-space-lg rounded-lg font-title-sm text-title-sm hover:bg-primary transition-colors" id="btn-restore-cart" type="button">
+          Restaurar piezas de muestra
+        </button>
+<a class="w-full sm:w-auto border border-on-surface text-on-surface bg-surface hover:bg-on-surface hover:text-surface py-3 px-space-lg rounded-lg font-title-sm text-title-sm transition-colors" href="#">
+          Ver catálogo completo
+        </a>
+</div>
+</div>
+<!-- Remove Confirmation Modal (Editorial minimal modal) -->
+<div class="fixed inset-0 z-50 bg-black/40 backdrop-blur-xs flex items-center justify-center p-4 hidden opacity-0 transition-opacity duration-200" id="delete-modal">
+<div class="bg-surface-container-lowest border border-surface-variant max-w-md w-full p-space-lg rounded-lg shadow-xl transform scale-95 transition-transform duration-200">
+<div class="flex items-start gap-space-md">
+<div class="w-10 h-10 rounded-full bg-error-container text-on-error-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[20px]" data-icon="delete_outline">delete_outline</span>
+</div>
+<div class="space-y-1">
+<h3 class="font-headline-sm text-title-md text-on-surface font-medium">¿Quitar este objeto de tu selección?</h3>
+<p class="text-body-sm font-body-sm text-on-surface-variant">
+              El artículo se eliminará del carrito actual. Podrás volver a encontrarlo en el catálogo en cualquier momento.
+            </p>
+</div>
+</div>
+<div class="mt-space-lg flex justify-end gap-space-sm">
+<button class="px-space-md py-2 text-body-sm font-title-sm text-on-surface-variant hover:text-on-surface rounded border border-surface-variant transition-colors" id="modal-cancel-btn" type="button">
+            Cancelar
+          </button>
+<button class="px-space-md py-2 text-body-sm font-title-sm bg-error text-on-error rounded hover:bg-on-error-container transition-colors" id="modal-confirm-btn" type="button">
+            Sí, quitar
+          </button>
+</div>
+</div>
+</div>
+</main>
+<!-- FOOTER (Shared Component Implementation) -->
+<footer class="w-full bg-surface-container-low dark:bg-surface-container border-t border-surface-variant dark:border-outline-variant mt-space-2xl">
+<div class="w-full px-margin md:px-margin-lg py-space-2xl max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-space-lg">
+<!-- Brand & Editorial Claim -->
+<div class="text-center md:text-left space-y-1">
+<div class="font-headline-sm text-headline-sm text-primary dark:text-inverse-primary tracking-tight">
+          Nexo
+        </div>
+<p class="text-on-surface-variant dark:text-surface-variant font-body-sm text-body-sm max-w-md">
+          © 2025 Nexo. Curation &amp; Design. Todos los derechos reservados. Precios expresados en Bolivianos (Bs).
+        </p>
+</div>
+<!-- Footer Navigation Links -->
+<nav aria-label="Enlaces del pie" class="flex flex-wrap justify-center md:justify-end gap-x-space-lg gap-y-space-sm">
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-colors font-body-sm text-body-sm hover:underline" href="#">Catálogo</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-colors font-body-sm text-body-sm hover:underline" href="#">Mi cuenta</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-colors font-body-sm text-body-sm hover:underline" href="#">Mis pedidos</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-colors font-body-sm text-body-sm hover:underline" href="#">Términos y condiciones</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-colors font-body-sm text-body-sm hover:underline" href="#">Política de privacidad</a>
+</nav>
+</div>
+</footer>
+<!-- CART LOGIC INTERACTION SCRIPT -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+      let pendingDeleteTarget = null;
+
+      const formatBs = (num) => {
+        return 'Bs ' + num.toLocaleString('es-BO');
+      };
+
+      const recalculateTotal = () => {
+        const items = document.querySelectorAll('.cart-item');
+        let total = 0;
+        let count = 0;
+
+        items.forEach(item => {
+          const price = parseInt(item.getAttribute('data-price'), 10) || 0;
+          const qtyElem = item.querySelector('.item-qty');
+          const qty = parseInt(qtyElem.textContent, 10) || 0;
+          const subtotal = price * qty;
+
+          item.querySelector('.item-subtotal').textContent = formatBs(subtotal);
+          total += subtotal;
+          count += qty;
+        });
+
+        // Update summaries
+        const subtotalSummary = document.getElementById('summary-subtotal');
+        const totalSummary = document.getElementById('summary-total');
+        const badge = document.getElementById('nav-cart-badge');
+        const indicator = document.getElementById('items-count-indicator');
+
+        if (subtotalSummary) subtotalSummary.textContent = formatBs(total);
+        if (totalSummary) totalSummary.textContent = formatBs(total);
+        if (badge) badge.textContent = count;
+        if (indicator) {
+          indicator.textContent = count === 1 ? '1 pieza seleccionada' : `${count} piezas seleccionadas`;
+        }
+
+        // Toggle empty view if 0
+        if (items.length === 0) {
+          showEmptyView(true);
+        }
+      };
+
+      const showEmptyView = (empty) => {
+        const cartContent = document.getElementById('cart-content-view');
+        const emptyCart = document.getElementById('empty-cart-view');
+        const badge = document.getElementById('nav-cart-badge');
+        const indicator = document.getElementById('items-count-indicator');
+
+        if (empty) {
+          cartContent.classList.add('hidden');
+          emptyCart.classList.remove('hidden');
+          if (badge) badge.textContent = '0';
+          if (indicator) indicator.textContent = '0 piezas seleccionadas';
+        } else {
+          cartContent.classList.remove('hidden');
+          emptyCart.classList.add('hidden');
+        }
+      };
+
+      // Quantity Plus & Minus
+      document.addEventListener('click', (e) => {
+        const plusBtn = e.target.closest('.btn-qty-plus');
+        const minusBtn = e.target.closest('.btn-qty-minus');
+
+        if (plusBtn) {
+          const item = plusBtn.closest('.cart-item');
+          const qtyElem = item.querySelector('.item-qty');
+          let qty = parseInt(qtyElem.textContent, 10) || 1;
+          qtyElem.textContent = qty + 1;
+          recalculateTotal();
+        }
+
+        if (minusBtn) {
+          const item = minusBtn.closest('.cart-item');
+          const qtyElem = item.querySelector('.item-qty');
+          let qty = parseInt(qtyElem.textContent, 10) || 1;
+          if (qty > 1) {
+            qtyElem.textContent = qty - 1;
+            recalculateTotal();
+          } else {
+            // Confirm removal when lowering from 1
+            openModal(item.getAttribute('data-id'));
+          }
+        }
+      });
+
+      // Remove triggers
+      document.querySelectorAll('.btn-remove-item').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const targetId = btn.getAttribute('data-target');
+          openModal(targetId);
+        });
+      });
+
+      // Confirmation Modal Handlers
+      const modal = document.getElementById('delete-modal');
+      const cancelBtn = document.getElementById('modal-cancel-btn');
+      const confirmBtn = document.getElementById('modal-confirm-btn');
+
+      const openModal = (id) => {
+        pendingDeleteTarget = id;
+        modal.classList.remove('hidden');
+        requestAnimationFrame(() => {
+          modal.classList.remove('opacity-0');
+          modal.firstElementChild.classList.remove('scale-95');
+        });
+      };
+
+      const closeModal = () => {
+        pendingDeleteTarget = null;
+        modal.classList.add('opacity-0');
+        modal.firstElementChild.classList.add('scale-95');
+        setTimeout(() => {
+          modal.classList.add('hidden');
+        }, 200);
+      };
+
+      cancelBtn.addEventListener('click', closeModal);
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+      });
+
+      confirmBtn.addEventListener('click', () => {
+        if (pendingDeleteTarget) {
+          const itemElem = document.querySelector(`.cart-item[data-id="${pendingDeleteTarget}"]`);
+          if (itemElem) {
+            itemElem.classList.add('opacity-0', '-translate-x-4');
+            setTimeout(() => {
+              itemElem.remove();
+              recalculateTotal();
+            }, 300);
+          }
+        }
+        closeModal();
+      });
+
+      // Demo empty state toggle button
+      const toggleDemoBtn = document.getElementById('toggle-empty-demo');
+      toggleDemoBtn.addEventListener('click', () => {
+        const isCurrentlyEmpty = !document.getElementById('empty-cart-view').classList.contains('hidden');
+        showEmptyView(!isCurrentlyEmpty);
+        toggleDemoBtn.textContent = !isCurrentlyEmpty ? 'Volver a carrito' : 'Probar vista vacía';
+      });
+
+      // Restore cart button from empty state
+      document.getElementById('btn-restore-cart').addEventListener('click', () => {
+        location.reload();
+      });
+
+      // Checkout click simulation
+      document.getElementById('btn-checkout').addEventListener('click', () => {
+        alert('Redirigiendo al flujo seguro de pago simulado de Nexo...');
+      });
+    });
+  </script>
+</body></html>

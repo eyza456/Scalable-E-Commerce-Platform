@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+
+<html class="h-full" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Acceso &amp; Registro | Nexo</title>
+<!-- Google Fonts: Playfair Display & Plus Jakarta Sans -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..700;1,400..700&amp;family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS v3 with Plugins -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Theme Configuration -->
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "tertiary-container": "#2f3c2e",
+            "on-tertiary-fixed-variant": "#3d4a3b",
+            "surface-container": "#efeee9",
+            "surface-dim": "#dbdad5",
+            "on-error-container": "#93000a",
+            "on-primary-fixed": "#002112",
+            "surface-bright": "#fbf9f4",
+            "error": "#ba1a1a",
+            "error-container": "#ffdad6",
+            "on-tertiary-container": "#98a694",
+            "on-surface": "#1b1c19",
+            "on-primary-container": "#87aa94",
+            "secondary-fixed-dim": "#e6bfa1",
+            "on-primary": "#ffffff",
+            "on-primary-fixed-variant": "#2c4d3c",
+            "surface-tint": "#446652",
+            "on-tertiary": "#ffffff",
+            "on-secondary": "#ffffff",
+            "surface-container-low": "#f5f4ee",
+            "secondary": "#765840",
+            "surface-container-highest": "#e4e2dd",
+            "primary-container": "#1e3f2e",
+            "primary": "#062919",
+            "surface-container-lowest": "#ffffff",
+            "on-secondary-fixed": "#2b1704",
+            "inverse-primary": "#aacfb8",
+            "surface-container-high": "#e9e8e3",
+            "on-secondary-container": "#795b42",
+            "primary-fixed-dim": "#aacfb8",
+            "on-secondary-fixed-variant": "#5c412a",
+            "primary-fixed": "#c6ebd3",
+            "outline": "#727973",
+            "outline-variant": "#c1c8c1",
+            "background": "#fbf9f4",
+            "secondary-container": "#fed5b6",
+            "secondary-fixed": "#ffdcc1",
+            "tertiary-fixed": "#d8e7d2",
+            "surface-variant": "#e4e2dd",
+            "inverse-on-surface": "#f2f1eb",
+            "on-tertiary-fixed": "#131e12",
+            "on-error": "#ffffff",
+            "tertiary-fixed-dim": "#bccbb7",
+            "on-background": "#1b1c19",
+            "surface": "#fbf9f4",
+            "inverse-surface": "#30312d",
+            "tertiary": "#1a2619",
+            "on-surface-variant": "#424843"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "gutter-lg": "2rem",
+            "space-xl": "2.5rem",
+            "space-sm": "0.5rem",
+            "space-2xl": "4rem",
+            "gutter": "1.5rem",
+            "margin": "2rem",
+            "space-lg": "1.5rem",
+            "gutter-sm": "1rem",
+            "margin-lg": "4rem",
+            "space-xs": "0.25rem",
+            "space-md": "1rem",
+            "margin-sm": "1rem"
+          },
+          "fontFamily": {
+            "body-sm": ["Plus Jakarta Sans"],
+            "body-lg": ["Plus Jakarta Sans"],
+            "label-sm": ["Plus Jakarta Sans"],
+            "body-md": ["Plus Jakarta Sans"],
+            "headline-sm": ["Playfair Display"],
+            "headline-lg-mobile": ["Playfair Display"],
+            "headline-lg": ["Playfair Display"],
+            "display-mobile": ["Playfair Display"],
+            "title-sm": ["Plus Jakarta Sans"],
+            "headline-md": ["Playfair Display"],
+            "title-md": ["Plus Jakarta Sans"],
+            "label-md": ["Plus Jakarta Sans"],
+            "display": ["Playfair Display"]
+          },
+          "fontSize": {
+            "body-sm": ["13px", { "lineHeight": "20px", "fontWeight": "400" }],
+            "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+            "label-sm": ["11px", { "lineHeight": "16px", "letterSpacing": "0.06em", "fontWeight": "600" }],
+            "body-md": ["15px", { "lineHeight": "24px", "fontWeight": "400" }],
+            "headline-sm": ["22px", { "lineHeight": "30px", "fontWeight": "500" }],
+            "headline-lg-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "500" }],
+            "headline-lg": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.01em", "fontWeight": "400" }],
+            "display-mobile": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.01em", "fontWeight": "400" }],
+            "title-sm": ["16px", { "lineHeight": "24px", "fontWeight": "600" }],
+            "headline-md": ["28px", { "lineHeight": "36px", "fontWeight": "500" }],
+            "title-md": ["18px", { "lineHeight": "26px", "fontWeight": "600" }],
+            "label-md": ["13px", { "lineHeight": "18px", "letterSpacing": "0.04em", "fontWeight": "600" }],
+            "display": ["56px", { "lineHeight": "64px", "letterSpacing": "-0.02em", "fontWeight": "400" }]
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-background text-on-surface min-h-full flex flex-col font-body-md antialiased selection:bg-primary-fixed selection:text-primary">
+<!-- TOP APP BAR / HEADER (Shared Component from JSON) -->
+<header class="w-full bg-surface dark:bg-surface border-b border-surface-variant dark:border-outline-variant sticky top-0 z-40">
+<div class="w-full px-margin md:px-margin-lg max-w-7xl mx-auto flex items-center justify-between py-space-md">
+<!-- Logo / Brand -->
+<div class="flex items-center gap-space-lg">
+<a class="font-headline-md text-headline-md tracking-tight text-primary dark:text-inverse-primary uppercase focus:outline-none focus:ring-2 focus:ring-primary dark:focus:ring-inverse-primary" href="#">
+          Nexo
+        </a>
+</div>
+<!-- Navigation Links (Desktop) -->
+<nav aria-label="Navegación principal" class="hidden md:flex items-center space-x-8">
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-on-surface dark:hover:text-on-surface transition-colors pb-1 font-body-md text-body-md" href="#">
+          Hogar
+        </a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-on-surface dark:hover:text-on-surface transition-colors pb-1 font-body-md text-body-md" href="#">
+          Tecnología
+        </a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-on-surface dark:hover:text-on-surface transition-colors pb-1 font-body-md text-body-md" href="#">
+          Oficina
+        </a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-on-surface dark:hover:text-on-surface transition-colors pb-1 font-body-md text-body-md" href="#">
+          Iluminación
+        </a>
+</nav>
+<!-- Trailing Actions & Search -->
+<div class="flex items-center space-x-6">
+<button aria-label="Historial de compras" class="text-on-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-colors focus:outline-none" type="button">
+<span class="material-symbols-outlined align-middle" data-icon="receipt_long">receipt_long</span>
+</button>
+<!-- Active Context: Mi cuenta is active -->
+<a aria-current="page" class="text-primary dark:text-inverse-primary border-b-2 border-primary dark:border-inverse-primary pb-1 font-title-sm text-title-sm flex items-center gap-1.5 focus:outline-none" href="#">
+<span class="material-symbols-outlined align-middle" data-icon="person">person</span>
+<span class="hidden sm:inline">Mi cuenta</span>
+</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-on-surface dark:hover:text-on-surface transition-colors pb-1 font-body-md text-body-md flex items-center gap-1.5 focus:outline-none" href="#">
+<span class="material-symbols-outlined align-middle" data-icon="shopping_bag">shopping_bag</span>
+<span class="hidden sm:inline">Carrito</span>
+</a>
+</div>
+</div>
+</header>
+<!-- MAIN EDITORIAL CONTENT CANVAS -->
+<main class="flex-1 w-full max-w-7xl mx-auto px-margin md:px-margin-lg py-space-xl md:py-space-2xl">
+<!-- Editorial Two-Column Split Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-xl lg:gap-gutter-lg items-start">
+<!-- Left Column: Form & Interaction Hub (7 cols on lg) -->
+<section class="lg:col-span-7 bg-surface-container-lowest border border-[#E7E2D8] rounded p-6 sm:p-10 md:p-12 shadow-none">
+<!-- Tab Selector: Segmented Control -->
+<div aria-label="Tipo de autenticación" class="flex border-b border-surface-variant pb-1 mb-8" role="tablist">
+<button aria-controls="panel-login" aria-selected="true" class="pb-3 px-1 mr-8 font-title-md text-title-md border-b-2 border-primary text-primary transition-colors focus:outline-none" id="tab-login" onclick="switchAuthTab('login')" role="tab">
+            Iniciar sesión
+          </button>
+<button aria-controls="panel-register" aria-selected="false" class="pb-3 px-1 font-title-md text-title-md border-b-2 border-transparent text-on-surface-variant hover:text-on-surface transition-colors focus:outline-none" id="tab-register" onclick="switchAuthTab('register')" role="tab">
+            Crear cuenta
+          </button>
+</div>
+<!-- Accessible Validation & Status Banner -->
+<div aria-live="polite" class="mb-6 hidden" id="status-live-region">
+<!-- Populated dynamically or toggled via test trigger -->
+</div>
+<!-- Simulated Error / Feedback Toggle for Testing -->
+<div class="mb-6 p-3 bg-surface-container-low border border-[#DDD7CB] rounded flex items-center justify-between text-body-sm font-body-sm text-on-surface-variant">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-outline" data-icon="tune">tune</span>
+<span>Simulación de estado:</span>
+</div>
+<button class="underline text-primary font-title-sm hover:text-primary-container text-body-sm" onclick="toggleErrorDemo()" type="button">
+            Alternar error de prueba
+          </button>
+</div>
+<!-- TAB PANEL: INICIAR SESIÓN -->
+<div aria-labelledby="tab-login" class="space-y-6" id="panel-login" role="tabpanel">
+<div class="space-y-1">
+<h1 class="font-headline-md text-headline-md text-on-surface">Bienvenido a su espacio Nexo</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Acceda a su catálogo personal, seguimiento de piezas y pedidos en curso.</p>
+</div>
+<!-- Login Form -->
+<form class="space-y-5" id="login-form" novalidate="" onsubmit="handleLoginSubmit(event)">
+<!-- Email Input -->
+<div class="space-y-1.5">
+<label class="block font-label-sm text-label-sm uppercase tracking-wider text-on-surface" for="login-email">
+                Correo electrónico
+              </label>
+<input aria-describedby="login-email-desc" autocomplete="email" class="w-full bg-surface-container-low border border-[#DDD7CB] text-on-surface rounded p-3 font-body-md text-body-md focus:bg-surface-container-lowest focus:border-primary-container focus:ring-2 focus:ring-primary-container focus:outline-none transition-colors" id="login-email" name="email" placeholder="nombre@ejemplo.bo" required="" type="email" value="demo@nexo.bo"/>
+<span class="block font-body-sm text-body-sm text-on-surface-variant" id="login-email-desc">
+                Utilice su correo registrado en el territorio boliviano.
+              </span>
+</div>
+<!-- Password Input -->
+<div class="space-y-1.5">
+<div class="flex items-center justify-between">
+<label class="block font-label-sm text-label-sm uppercase tracking-wider text-on-surface" for="login-password">
+                  Contraseña
+                </label>
+</div>
+<input autocomplete="current-password" class="w-full bg-surface-container-low border border-[#DDD7CB] text-on-surface rounded p-3 font-body-md text-body-md focus:bg-surface-container-lowest focus:border-primary-container focus:ring-2 focus:ring-primary-container focus:outline-none transition-colors" id="login-password" name="password" placeholder="••••••••••••" required="" type="password" value="nexo2025"/>
+</div>
+<!-- Primary Action: Iniciar sesión -->
+<div class="pt-2">
+<button class="w-full bg-primary-container hover:bg-[#162F22] text-on-primary font-title-sm text-title-sm py-3.5 px-6 rounded transition-colors flex items-center justify-center gap-2 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2" type="submit">
+<span>Iniciar sesión</span>
+<span class="material-symbols-outlined text-sm" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</form>
+<!-- Subtle Technical Notice -->
+<div class="mt-6 pt-6 border-t border-[#E7E2D8] bg-surface-container-low/60 p-4 rounded text-left">
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary-container mt-0.5 text-lg" data-icon="key">key</span>
+<div class="font-body-sm text-body-sm text-on-surface-variant">
+<span class="font-title-sm text-on-surface block mb-0.5">Demostración técnica del sistema</span>
+                Demostración visual. Datos ficticios para explorar el formulario:
+                <span class="font-mono text-xs font-semibold text-primary">demo@nexo.bo</span> /
+                <span class="font-mono text-xs font-semibold text-primary">nexo2025</span>
+</div>
+</div>
+</div>
+</div>
+<!-- TAB PANEL: CREAR CUENTA (Initially Hidden) -->
+<div aria-labelledby="tab-register" class="space-y-6 hidden" id="panel-register" role="tabpanel">
+<div class="space-y-1">
+<h1 class="font-headline-md text-headline-md text-on-surface">Forme parte de Nexo</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Cree su cuenta para adquirir piezas de diseño escandinavo y gestión de colecciones.</p>
+</div>
+<!-- Register Form -->
+<form class="space-y-5" id="register-form" novalidate="" onsubmit="handleRegisterSubmit(event)">
+<!-- Full Name -->
+<div class="space-y-1.5">
+<label class="block font-label-sm text-label-sm uppercase tracking-wider text-on-surface" for="reg-name">
+                Nombre completo
+              </label>
+<input class="w-full bg-surface-container-low border border-[#DDD7CB] text-on-surface rounded p-3 font-body-md text-body-md focus:bg-surface-container-lowest focus:border-primary-container focus:ring-2 focus:ring-primary-container focus:outline-none transition-colors" id="reg-name" name="name" placeholder="ej. Valeria Suárez" required="" type="text"/>
+</div>
+<!-- Email -->
+<div class="space-y-1.5">
+<label class="block font-label-sm text-label-sm uppercase tracking-wider text-on-surface" for="reg-email">
+                Correo electrónico institucional o personal
+              </label>
+<input class="w-full bg-surface-container-low border border-[#DDD7CB] text-on-surface rounded p-3 font-body-md text-body-md focus:bg-surface-container-lowest focus:border-primary-container focus:ring-2 focus:ring-primary-container focus:outline-none transition-colors" id="reg-email" name="email" placeholder="suarez@estudio.bo" required="" type="email"/>
+</div>
+<!-- Password -->
+<div class="space-y-1.5">
+<label class="block font-label-sm text-label-sm uppercase tracking-wider text-on-surface" for="reg-password">
+                Contraseña
+              </label>
+<input class="w-full bg-surface-container-low border border-[#DDD7CB] text-on-surface rounded p-3 font-body-md text-body-md focus:bg-surface-container-lowest focus:border-primary-container focus:ring-2 focus:ring-primary-container focus:outline-none transition-colors" id="reg-password" name="password" oninput="checkPasswordRequirements(this.value)" placeholder="Mínimo 8 caracteres" required="" type="password"/>
+<!-- Visual Requirement Checklist -->
+<div class="mt-2 space-y-1.5 text-body-sm font-body-sm text-on-surface-variant p-3 bg-surface-container-low rounded border border-[#E7E2D8]">
+<div class="text-label-sm font-label-sm uppercase text-on-surface mb-1">Requisitos de seguridad:</div>
+<div class="flex items-center gap-2 text-on-surface-variant" id="req-length">
+<span class="material-symbols-outlined text-base" data-icon="check_circle">check_circle</span>
+<span>Mínimo 8 caracteres</span>
+</div>
+<div class="flex items-center gap-2 text-on-surface-variant" id="req-number">
+<span class="material-symbols-outlined text-base" data-icon="check_circle">check_circle</span>
+<span>Al menos un número o símbolo</span>
+</div>
+</div>
+</div>
+<!-- Password Confirmation -->
+<div class="space-y-1.5">
+<label class="block font-label-sm text-label-sm uppercase tracking-wider text-on-surface" for="reg-password-confirm">
+                Confirmar contraseña
+              </label>
+<input class="w-full bg-surface-container-low border border-[#DDD7CB] text-on-surface rounded p-3 font-body-md text-body-md focus:bg-surface-container-lowest focus:border-primary-container focus:ring-2 focus:ring-primary-container focus:outline-none transition-colors" id="reg-password-confirm" name="password_confirm" placeholder="Repita su contraseña" required="" type="password"/>
+</div>
+<!-- Submit Registration -->
+<div class="pt-2">
+<button class="w-full bg-primary-container hover:bg-[#162F22] text-on-primary font-title-sm text-title-sm py-3.5 px-6 rounded transition-colors flex items-center justify-center gap-2 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2" type="submit">
+<span>Crear cuenta</span>
+<span class="material-symbols-outlined text-sm" data-icon="check">check</span>
+</button>
+</div>
+</form>
+<!-- Subtle Notice -->
+<div class="mt-6 pt-4 text-center">
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+              Este formulario es una demostración; no crea cuentas reales.
+            </p>
+</div>
+</div>
+</section>
+<!-- Right Column: Editorial Atmosphere & Curation Note (5 cols on lg) -->
+<section class="lg:col-span-5 flex flex-col justify-between space-y-8 lg:pl-6">
+<!-- Architectural / Curated Image Container -->
+<div class="relative bg-surface-container-low rounded overflow-hidden border border-[#E7E2D8] aspect-[4/5] flex items-end p-8">
+<img alt="Interiorismo y curaduría escandinava" class="absolute inset-0 w-full h-full object-cover" data-alt="An exquisite architectural still life showcasing Scandinavian furniture in warm morning light. A minimalist oak dining chair and an brushed brass lamp stand on untreated concrete flooring beside a raw linen drapery. The palette relies on soft ivory, rich forest greens, and deep charcoal contours, projecting warm tactile minimalism and serene editorial elegance." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAlwt55L0kbDLVzeX-3RVK17NVfNcNB6R9MktLeYuuXIXx6K6eMsyphhV69xmXq92ItPKt0-iVA9zKcJ04Agrpe20CJ2C87M2DXtdcNSnN4VVWBkBdrqFpascL8QFjTbvZybQTIsayZ5qHItutxIKU7qwrcpNxK1eY-gDfS6x5J7LBjtY8B8zDzWywdinhn190vNnspvRmklBHUj-qQ5CDkDOO9KILH9aeQi0xWELTWxc0SVn5UWxaeYkbOjf7yQwKam6NYsPXwhKA"/>
+<!-- Ambient Overlay -->
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/30 to-transparent"></div>
+<!-- Editorial Floating Caption -->
+<div class="relative z-10 text-on-primary space-y-2">
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-primary-fixed">Manifiesto 01 / 2025</span>
+<p class="font-headline-sm text-headline-sm italic leading-snug">
+              «El diseño consciente no busca saturar el espacio, sino otorgarle propósito y silencio.»
+            </p>
+<p class="font-body-sm text-body-sm text-primary-fixed-dim pt-1">
+              Colección permanente en Bolivia
+            </p>
+</div>
+</div>
+<!-- Curated Benefits Bento Strip -->
+<div class="bg-surface-container-low border border-[#E7E2D8] rounded p-6 space-y-4">
+<h2 class="font-title-sm text-title-sm text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container text-lg" data-icon="verified">verified</span>
+            Ventajas de su cuenta personal
+          </h2>
+<ul class="space-y-3 font-body-sm text-body-sm text-on-surface-variant">
+<li class="flex items-start gap-2.5">
+<span class="material-symbols-outlined text-primary text-base mt-0.5" data-icon="inventory_2">inventory_2</span>
+<span>Reserva y trazabilidad prioritaria de piezas importadas desde Dinamarca y Suecia.</span>
+</li>
+<li class="flex items-start gap-2.5">
+<span class="material-symbols-outlined text-primary text-base mt-0.5" data-icon="payments">payments</span>
+<span>Emisión de comprobantes fiscales inmediatos en Bolivianos (Bs).</span>
+</li>
+<li class="flex items-start gap-2.5">
+<span class="material-symbols-outlined text-primary text-base mt-0.5" data-icon="security">security</span>
+<span>Demostración del acceso a tu cuenta.</span>
+</li>
+</ul>
+</div>
+</section>
+</div>
+</main>
+<!-- EDITORIAL FOOTER (Shared Component from JSON) -->
+<footer class="w-full bg-surface-container-low dark:bg-surface-container border-t border-surface-variant dark:border-outline-variant mt-auto">
+<div class="w-full px-margin md:px-margin-lg py-space-2xl max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-space-lg">
+<div class="flex flex-col items-center md:items-start gap-2">
+<a class="font-headline-sm text-headline-sm text-primary dark:text-inverse-primary tracking-tight" href="#">
+          Nexo
+        </a>
+<p class="font-body-sm text-body-sm text-on-surface-variant dark:text-surface-variant text-center md:text-left max-w-md">
+          © 2025 Nexo. Curation &amp; Design. Todos los derechos reservados. Precios expresados en Bolivianos (Bs).
+        </p>
+</div>
+<nav aria-label="Enlaces secundarios" class="flex flex-wrap justify-center items-center gap-6">
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-colors font-body-sm text-body-sm" href="#">
+          Catálogo
+        </a>
+<a class="text-primary dark:text-inverse-primary font-title-sm text-title-sm" href="#">
+          Mi cuenta
+        </a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-colors font-body-sm text-body-sm" href="#">
+          Mis pedidos
+        </a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-colors font-body-sm text-body-sm" href="#">
+          Términos y condiciones
+        </a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-colors font-body-sm text-body-sm" href="#">
+          Política de privacidad
+        </a>
+</nav>
+</div>
+</footer>
+<!-- Micro-Interactions & Accessible State Management Script -->
+<script>
+    let isErrorStateSimulated = false;
+
+    function switchAuthTab(targetTab) {
+      const tabLogin = document.getElementById('tab-login');
+      const tabRegister = document.getElementById('tab-register');
+      const panelLogin = document.getElementById('panel-login');
+      const panelRegister = document.getElementById('panel-register');
+      const liveRegion = document.getElementById('status-live-region');
+
+      if (targetTab === 'login') {
+        tabLogin.setAttribute('aria-selected', 'true');
+        tabLogin.className = "pb-3 px-1 mr-8 font-title-md text-title-md border-b-2 border-primary text-primary transition-colors focus:outline-none";
+
+        tabRegister.setAttribute('aria-selected', 'false');
+        tabRegister.className = "pb-3 px-1 font-title-md text-title-md border-b-2 border-transparent text-on-surface-variant hover:text-on-surface transition-colors focus:outline-none";
+
+        panelLogin.classList.remove('hidden');
+        panelRegister.classList.add('hidden');
+      } else {
+        tabRegister.setAttribute('aria-selected', 'true');
+        tabRegister.className = "pb-3 px-1 font-title-md text-title-md border-b-2 border-primary text-primary transition-colors focus:outline-none";
+
+        tabLogin.setAttribute('aria-selected', 'false');
+        tabLogin.className = "pb-3 px-1 mr-8 font-title-md text-title-md border-b-2 border-transparent text-on-surface-variant hover:text-on-surface transition-colors focus:outline-none";
+
+        panelRegister.classList.remove('hidden');
+        panelLogin.classList.add('hidden');
+      }
+
+      // Clear alert banner on tab change
+      liveRegion.classList.add('hidden');
+      liveRegion.innerHTML = '';
+    }
+
+    function toggleErrorDemo() {
+      const liveRegion = document.getElementById('status-live-region');
+      isErrorStateSimulated = !isErrorStateSimulated;
+
+      if (isErrorStateSimulated) {
+        liveRegion.classList.remove('hidden');
+        liveRegion.innerHTML = `
+          <div class="bg-error-container text-on-error-container p-4 rounded border border-error/30 flex items-start gap-3">
+            <span class="material-symbols-outlined text-error text-xl mt-0.5" data-icon="error">error</span>
+            <div>
+              <p class="font-title-sm text-title-sm text-error">No se pudo iniciar sesión</p>
+              <p class="font-body-sm text-body-sm mt-0.5">El par de credenciales ingresado es inválido o el token ha expirado. Por favor, verifique e intente nuevamente.</p>
+            </div>
+          </div>
+        `;
+      } else {
+        liveRegion.classList.remove('hidden');
+        liveRegion.innerHTML = `
+          <div class="bg-[#e2f1e6] text-[#0d381e] p-4 rounded border border-[#b2d8be] flex items-start gap-3">
+            <span class="material-symbols-outlined text-primary text-xl mt-0.5" data-icon="check_circle">check_circle</span>
+            <div>
+              <p class="font-title-sm text-title-sm text-primary">Estado del servicio óptimo</p>
+              <p class="font-body-sm text-body-sm mt-0.5">Estado de ejemplo. No se ha consultado al servidor.</p>
+            </div>
+          </div>
+        `;
+      }
+    }
+
+    function checkPasswordRequirements(val) {
+      const reqLength = document.getElementById('req-length');
+      const reqNumber = document.getElementById('req-number');
+
+      // Check length >= 8
+      if (val.length >= 8) {
+        reqLength.classList.remove('text-on-surface-variant');
+        reqLength.classList.add('text-primary-container', 'font-medium');
+      } else {
+        reqLength.classList.add('text-on-surface-variant');
+        reqLength.classList.remove('text-primary-container', 'font-medium');
+      }
+
+      // Check number or symbol
+      if (/[0-9\W]/.test(val)) {
+        reqNumber.classList.remove('text-on-surface-variant');
+        reqNumber.classList.add('text-primary-container', 'font-medium');
+      } else {
+        reqNumber.classList.add('text-on-surface-variant');
+        reqNumber.classList.remove('text-primary-container', 'font-medium');
+      }
+    }
+
+    function handleLoginSubmit(event) {
+      event.preventDefault();
+      const liveRegion = document.getElementById('status-live-region');
+      liveRegion.classList.remove('hidden');
+      liveRegion.innerHTML = `
+        <div class="bg-primary-fixed/50 text-on-primary-fixed p-4 rounded border border-primary/20 flex items-start gap-3">
+          <span class="material-symbols-outlined text-primary text-xl mt-0.5" data-icon="token">token</span>
+          <div>
+            <p class="font-title-sm text-title-sm text-primary">Acceso de demostración</p>
+            <p class="font-body-sm text-body-sm mt-0.5">Sesión demostrativa autorizada para <span class="font-semibold">demo@nexo.bo</span>. Redirigiendo a Mi cuenta...</p>
+          </div>
+        </div>
+      `;
+    }
+
+    function handleRegisterSubmit(event) {
+      event.preventDefault();
+      const liveRegion = document.getElementById('status-live-region');
+      const pass = document.getElementById('reg-password').value;
+      const passConfirm = document.getElementById('reg-password-confirm').value;
+
+      if (pass !== passConfirm) {
+        liveRegion.classList.remove('hidden');
+        liveRegion.innerHTML = `
+          <div class="bg-error-container text-on-error-container p-4 rounded border border-error/30 flex items-start gap-3">
+            <span class="material-symbols-outlined text-error text-xl mt-0.5" data-icon="warning">warning</span>
+            <div>
+              <p class="font-title-sm text-title-sm text-error">Discrepancia en contraseñas</p>
+              <p class="font-body-sm text-body-sm mt-0.5">La confirmación de la contraseña no coincide con el campo inicial.</p>
+            </div>
+          </div>
+        `;
+        return;
+      }
+
+      liveRegion.classList.remove('hidden');
+      liveRegion.innerHTML = `
+        <div class="bg-primary-fixed/50 text-on-primary-fixed p-4 rounded border border-primary/20 flex items-start gap-3">
+          <span class="material-symbols-outlined text-primary text-xl mt-0.5" data-icon="how_to_reg">how_to_reg</span>
+          <div>
+            <p class="font-title-sm text-title-sm text-primary">Cuenta creada satisfactoriamente</p>
+            <p class="font-body-sm text-body-sm mt-0.5">Se ha emitido el token inicial. Bienvenido a Nexo.</p>
+          </div>
+        </div>
+      `;
+    }
+  </script>
+</body></html>

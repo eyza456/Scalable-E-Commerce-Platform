@@ -1,0 +1,30 @@
+{
+  "scope": "real frontend + gateway; owned fixtures; injected failures explicitly identified",
+  "checks": [
+    "real catalog search, category and availability filters",
+    "real product detail renders untrusted description as text and rejects unsafe image URL",
+    "catalog empty state is distinct from service failure",
+    "injected 503 shows retry and recovery uses real catalog",
+    "UTF-8 password byte limit prevents request",
+    "real registration succeeds without pretending to log in",
+    "duplicate registration surfaces backend error",
+    "incorrect login remains signed out",
+    "real login verifies authenticated user and avoids persistent token storage",
+    "reload clears in-memory session; explicit logout clears account view",
+    "injected expired session during user verification never shows authenticated profile",
+    "frontend proxy preserves protected and internal gateway route restrictions",
+    "mobile catalog and access fit a 390px viewport"
+  ],
+  "cleanup": true,
+  "status": "passed",
+  "date": "2026-10-29T16:20:26.463Z",
+  "sha256": {
+    "frontend/app/index.html": "f7e6c186f9bac9d09d5fbcf80f2b36cf620ba852fc969ef06ad7a5a8ec53cce7",
+    "frontend/app/app.js": "33126499d7530f6da674ee14bb6bbed8158f2c136d33b2bf56f8d794b304fbbe",
+    "frontend/app/styles.css": "58b8c45e1f7ea9a95da04d6b178f4a01945b24d6f6407c946b27c5bde69716bd",
+    "frontend/nginx.conf": "b8b0cb91a4d13ebe2907bb52a25e8cc49215e7dc2e6dbf8ca7ff8ba09ff68e3e",
+    "frontend/Dockerfile": "15308c7c91faac8bdbf37762ff95ca19fbb120549b7aa25a678fc80b1d773411",
+    "compose.frontend.yml": "28192dae4badfce6b8aded5f34ef8eee5b443b75c566cfb383b0d30c1d545f96",
+    "tests/frontend_browser.cjs": "b5d68639ee6197a21fd6bb6abc59bbc1d723d68e5d29dea3a797b7344a63a5ef"
+  }
+}

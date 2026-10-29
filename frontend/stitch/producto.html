@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+
+<html class="h-full" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Lámpara de mesa cerámica | Nexo Curation &amp; Design</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;family=Plus+Jakarta+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config Verbatim -->
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "tertiary-container": "#2f3c2e",
+            "on-tertiary-fixed-variant": "#3d4a3b",
+            "surface-container": "#efeee9",
+            "surface-dim": "#dbdad5",
+            "on-error-container": "#93000a",
+            "on-primary-fixed": "#002112",
+            "surface-bright": "#fbf9f4",
+            "error": "#ba1a1a",
+            "error-container": "#ffdad6",
+            "on-tertiary-container": "#98a694",
+            "on-surface": "#1b1c19",
+            "on-primary-container": "#87aa94",
+            "secondary-fixed-dim": "#e6bfa1",
+            "on-primary": "#ffffff",
+            "on-primary-fixed-variant": "#2c4d3c",
+            "surface-tint": "#446652",
+            "on-tertiary": "#ffffff",
+            "on-secondary": "#ffffff",
+            "surface-container-low": "#f5f4ee",
+            "secondary": "#765840",
+            "surface-container-highest": "#e4e2dd",
+            "primary-container": "#1e3f2e",
+            "primary": "#062919",
+            "surface-container-lowest": "#ffffff",
+            "on-secondary-fixed": "#2b1704",
+            "inverse-primary": "#aacfb8",
+            "surface-container-high": "#e9e8e3",
+            "on-secondary-container": "#795b42",
+            "primary-fixed-dim": "#aacfb8",
+            "on-secondary-fixed-variant": "#5c412a",
+            "primary-fixed": "#c6ebd3",
+            "outline": "#727973",
+            "background": "#fbf9f4",
+            "secondary-container": "#fed5b6",
+            "secondary-fixed": "#ffdcc1",
+            "tertiary-fixed": "#d8e7d2",
+            "surface-variant": "#e4e2dd",
+            "inverse-on-surface": "#f2f1eb",
+            "on-tertiary-fixed": "#131e12",
+            "on-error": "#ffffff",
+            "tertiary-fixed-dim": "#bccbb7",
+            "on-background": "#1b1c19",
+            "surface": "#fbf9f4",
+            "inverse-surface": "#30312d",
+            "tertiary": "#1a2619",
+            "outline-variant": "#c1c8c1",
+            "on-surface-variant": "#424843"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "gutter-lg": "2rem",
+            "space-xl": "2.5rem",
+            "space-sm": "0.5rem",
+            "space-2xl": "4rem",
+            "gutter": "1.5rem",
+            "margin": "2rem",
+            "space-lg": "1.5rem",
+            "gutter-sm": "1rem",
+            "margin-lg": "4rem",
+            "space-xs": "0.25rem",
+            "space-md": "1rem",
+            "margin-sm": "1rem"
+          },
+          "fontFamily": {
+            "body-sm": [
+              "Plus Jakarta Sans"
+            ],
+            "body-lg": [
+              "Plus Jakarta Sans"
+            ],
+            "label-sm": [
+              "Plus Jakarta Sans"
+            ],
+            "body-md": [
+              "Plus Jakarta Sans"
+            ],
+            "headline-sm": [
+              "Playfair Display"
+            ],
+            "headline-lg-mobile": [
+              "Playfair Display"
+            ],
+            "headline-lg": [
+              "Playfair Display"
+            ],
+            "display-mobile": [
+              "Playfair Display"
+            ],
+            "title-sm": [
+              "Plus Jakarta Sans"
+            ],
+            "headline-md": [
+              "Playfair Display"
+            ],
+            "title-md": [
+              "Plus Jakarta Sans"
+            ],
+            "label-md": [
+              "Plus Jakarta Sans"
+            ],
+            "display": [
+              "Playfair Display"
+            ]
+          },
+          "fontSize": {
+            "body-sm": [
+              "13px",
+              {
+                "lineHeight": "20px",
+                "fontWeight": "400"
+              }
+            ],
+            "body-lg": [
+              "18px",
+              {
+                "lineHeight": "28px",
+                "fontWeight": "400"
+              }
+            ],
+            "label-sm": [
+              "11px",
+              {
+                "lineHeight": "16px",
+                "letterSpacing": "0.06em",
+                "fontWeight": "600"
+              }
+            ],
+            "body-md": [
+              "15px",
+              {
+                "lineHeight": "24px",
+                "fontWeight": "400"
+              }
+            ],
+            "headline-sm": [
+              "22px",
+              {
+                "lineHeight": "30px",
+                "fontWeight": "500"
+              }
+            ],
+            "headline-lg-mobile": [
+              "28px",
+              {
+                "lineHeight": "36px",
+                "fontWeight": "500"
+              }
+            ],
+            "headline-lg": [
+              "40px",
+              {
+                "lineHeight": "48px",
+                "letterSpacing": "-0.01em",
+                "fontWeight": "400"
+              }
+            ],
+            "display-mobile": [
+              "36px",
+              {
+                "lineHeight": "44px",
+                "letterSpacing": "-0.01em",
+                "fontWeight": "400"
+              }
+            ],
+            "title-sm": [
+              "16px",
+              {
+                "lineHeight": "24px",
+                "fontWeight": "600"
+              }
+            ],
+            "headline-md": [
+              "28px",
+              {
+                "lineHeight": "36px",
+                "fontWeight": "500"
+              }
+            ],
+            "title-md": [
+              "18px",
+              {
+                "lineHeight": "26px",
+                "fontWeight": "600"
+              }
+            ],
+            "label-md": [
+              "13px",
+              {
+                "lineHeight": "18px",
+                "letterSpacing": "0.04em",
+                "fontWeight": "600"
+              }
+            ],
+            "display": [
+              "56px",
+              {
+                "lineHeight": "64px",
+                "letterSpacing": "-0.02em",
+                "fontWeight": "400"
+              }
+            ]
+          }
+        },
+      },
+    }
+  </script>
+</head>
+<body class="bg-background text-on-surface antialiased min-h-full flex flex-col font-body-md text-body-md selection:bg-primary-container selection:text-on-primary">
+<!-- TopNavBar (Shared Component JSON Source of Truth) -->
+<header class="w-full bg-surface dark:bg-surface border-b border-surface-variant dark:border-outline-variant sticky top-0 z-40">
+<div class="w-full border-b border-surface-variant dark:border-outline-variant px-margin md:px-margin-lg max-w-7xl mx-auto flex items-center justify-between py-space-md">
+<!-- Brand Logo & Mobile Trigger -->
+<div class="flex items-center gap-space-lg">
+<button aria-label="Abrir menú" class="md:hidden text-primary focus:ring-2 focus:ring-primary focus:outline-none p-1" type="button">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<a class="font-headline-md text-headline-md tracking-tight text-primary dark:text-inverse-primary uppercase font-bold" href="#">
+          Nexo
+        </a>
+</div>
+<!-- Navigation Links (Active mapping: Iluminación) -->
+<nav class="hidden md:flex items-center gap-space-xl">
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-on-surface dark:hover:text-on-surface transition-colors pb-1 font-body-md text-body-md" href="#">Hogar</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-on-surface dark:hover:text-on-surface transition-colors pb-1 font-body-md text-body-md" href="#">Tecnología</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-on-surface dark:hover:text-on-surface transition-colors pb-1 font-body-md text-body-md" href="#">Oficina</a>
+<a class="text-primary dark:text-inverse-primary border-b-2 border-primary dark:border-inverse-primary pb-1 font-title-sm text-title-sm" href="#">Iluminación</a>
+</nav>
+<!-- Trailing Action Cluster & Search -->
+<div class="flex items-center gap-space-md">
+<!-- Search bar on right -->
+<div class="relative hidden sm:block">
+<input class="bg-surface-container-low border border-outline-variant rounded-lg text-on-surface text-body-sm font-body-sm pl-9 pr-3 py-1.5 focus:bg-surface focus:border-primary focus:ring-2 focus:ring-primary focus:outline-none transition-colors w-44 lg:w-56" placeholder="Buscar en catálogo..." type="text"/>
+<span class="material-symbols-outlined absolute left-2.5 top-1/2 -translate-y-1/2 text-on-surface-variant text-body-md pointer-events-none" data-icon="search">search</span>
+</div>
+<div class="flex items-center gap-space-xs text-primary dark:text-inverse-primary">
+<a class="p-2 transition-all duration-200 ease-out focus:ring-2 focus:ring-primary focus:outline-none hover:text-primary rounded-lg flex items-center justify-center" href="#" title="Mis pedidos">
+<span class="material-symbols-outlined" data-icon="receipt_long">receipt_long</span>
+</a>
+<a class="p-2 transition-all duration-200 ease-out focus:ring-2 focus:ring-primary focus:outline-none hover:text-primary rounded-lg flex items-center justify-center" href="#" title="Mi cuenta">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+</a>
+<button class="p-2 transition-all duration-200 ease-out focus:ring-2 focus:ring-primary focus:outline-none hover:text-primary rounded-lg flex items-center justify-center relative" title="Carrito" type="button">
+<span class="material-symbols-outlined" data-icon="shopping_bag">shopping_bag</span>
+<span class="absolute top-1 right-1 w-2 h-2 rounded-full bg-primary-container hidden" id="header-cart-badge"></span>
+</button>
+</div>
+</div>
+</div>
+</header>
+<!-- Notification Toast Container -->
+<div aria-live="polite" class="fixed top-20 right-6 z-50 transform translate-y-[-20px] opacity-0 pointer-events-none transition-all duration-300 ease-out bg-surface-container-lowest border border-outline-variant rounded-lg p-space-md shadow-lg flex items-start gap-space-md max-w-sm" id="toast-notification" role="status">
+<span class="material-symbols-outlined text-primary-container shrink-0" data-icon="check_circle">check_circle</span>
+<div class="flex-1">
+<p class="font-title-sm text-title-sm text-on-surface">Agregado al carrito</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5"><span id="toast-qty">1</span>x Lámpara de mesa cerámica ha sido registrada en su selección.</p>
+</div>
+<button aria-label="Cerrar aviso" class="text-on-surface-variant hover:text-on-surface p-0.5" onclick="dismissToast()" type="button">
+<span class="material-symbols-outlined text-body-md" data-icon="close">close</span>
+</button>
+</div>
+<!-- Main Content Canvas -->
+<main class="flex-1 max-w-7xl w-full mx-auto px-margin-sm md:px-margin lg:px-margin-lg py-space-xl">
+<!-- Editorial Two-Column Structure -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter lg:gap-gutter-lg items-start">
+<!-- Columna Izquierda: Galería Editorial (7 cols en Desktop) -->
+<section aria-label="Galería visual del producto" class="lg:col-span-7 flex flex-col gap-space-lg">
+<!-- Main Image Container -->
+<div class="relative bg-surface-container border border-surface-variant rounded-lg overflow-hidden group">
+<div class="aspect-[4/5] sm:aspect-[3/4] w-full flex items-center justify-center overflow-hidden">
+<img alt="Lámpara de mesa cerámica de gres esmaltado" class="w-full h-full object-cover object-center transition-transform duration-500 ease-out group-hover:scale-[1.02]" data-alt="Editorial photograph of an artisanal ceramic table lamp on a neutral textured limestone surface in a warm Nordic architectural interior with soft natural morning light, matte textured ivory stoneware glaze, subtle earthen clay undertones, and a refined tactile linen lampshade." id="main-product-image" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAuA4qfeD1cdTsvuLZzkas5HkccLvLTEsjAoHE7Ycms-xg0HpSU2KoK16Ea8aLYaO5Nxy8XdDJIkj2Lb1fJFZPFuAnSAHvihqzhu7BZgnpzst8MvS0WSZ1Z7aZPaMHai_eZYPisdTa4lP4-RYyq6VUwcuhfv-yNfpkyijp-n1vMp8oc8AvclfL2tcjlbHsnQ-ITnhZdoUEKkNypE4F4DJe25CX48D5DUM8-FwTKUdJ35hbTDkywY2WT-ek8nJG6hFAR_zR4EdOi7m4"/>
+</div>
+<div class="absolute top-4 left-4">
+<span class="bg-surface-bright/90 backdrop-blur-sm text-primary font-label-sm text-label-sm px-3 py-1.5 rounded border border-surface-variant uppercase tracking-wider">
+              Edición Artesanal
+            </span>
+</div>
+</div>
+<!-- Material Thumbnail Selector -->
+<div aria-label="Vistas detalladas del producto" class="grid grid-cols-4 gap-space-sm sm:gap-space-md" role="tablist">
+<!-- Thumb 1 (Active) -->
+<button aria-selected="true" class="thumb-btn border-2 border-primary-container rounded-lg overflow-hidden bg-surface-container aspect-square p-0.5 focus:outline-none focus:ring-2 focus:ring-primary" onclick="switchImage(this, 'main')" role="tab" type="button">
+<img alt="Vista completa frontal" class="w-full h-full object-cover" data-alt="Close up architectural detail of an artisanal ceramic lamp base displaying handcrafted ivory matte glaze with natural micro-speckles and soft organic curvature under quiet studio lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDPAUgt1xH0KUmCAeCM51pQbrLpzGyVlPGZdo4YURfPReW5AWe0LgvFR8hXOxCjLi-LBbI6cPiNa_aedyN4pR__Gh_6LkyK-J1h_iBJCZ8CN9wjdtC2E2Xu-9EJdYk8pjjWTcyA0_wqemg2eWRIoZfsfFoQlGsa6cukMfEuyiJc1KuEsSjaIxKKtNi68F77jKoeM6QqqyyZhVcCl3muoRqv8pDYw1XNxMey5t4-0I2Xwhr3VmcdBWXi7Sm47zWGdKg3mTrwySkkhSM"/>
+</button>
+<!-- Thumb 2 -->
+<button aria-selected="false" class="thumb-btn border border-outline-variant hover:border-on-surface rounded-lg overflow-hidden bg-surface-container aspect-square p-0.5 focus:outline-none focus:ring-2 focus:ring-primary transition-colors" onclick="switchImage(this, 'texture')" role="tab" type="button">
+<img alt="Detalle de textura cerámica" class="w-full h-full object-cover" data-alt="Extreme macro editorial view of tactile stoneware ceramic surface showing subtle porous texture and smooth warm ivory matte enamel transitions with delicate lighting reflections." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDdM7bdiR2oqEHuIL6mFB30yeSn6A4oybagjDes2PfKPFkXZ3c4EWprF9W11TnMLVuN09ylvUGwNO1dyzQ76H-P4U5naZ4HkrVuGBHKV_iDMza6ffBd5f1M86292U7rT_XX9efjuHgUI_t4mrdMShBtCDGti1FwZ4ivFzlssIkViMEhHnjF85J2zUYTB30W7NndSGuCl1N_0eUPuZA09GKAmhJpXRYV2-O67yNVXaA58z48eE3mWwKuQ8Cs9CnbLrqld2laRNO9ezo"/>
+</button>
+<!-- Thumb 3 -->
+<button aria-selected="false" class="thumb-btn border border-outline-variant hover:border-on-surface rounded-lg overflow-hidden bg-surface-container aspect-square p-0.5 focus:outline-none focus:ring-2 focus:ring-primary transition-colors" onclick="switchImage(this, 'shade')" role="tab" type="button">
+<img alt="Detalle pantalla de lino natural" class="w-full h-full object-cover" data-alt="Detailed macro shot of an unbleached raw natural linen lampshade weave illuminated warmly from behind showing organic fiber textures and brass fastener hardware." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAUr4HcfLgI_o-Puy1i_1zXtOSG7DmZ6QA1Ns9m-aJSo2Qz5XEqATh_ISjBdlf8Qmz2jwR8WuxYjnP_vE0n36RtXAlzSS7wQTU9ZoQu4mUWVvgzm_UH-rKXS0HRSAprzUP1XlfIWNwrRJtRi3Csd-REPsLBcRRam0uNbcnOlprOxnew0q0GK6Uw9512dzmJsyVRo55HCX279zCHT6vfSqwirgfyWniAmVaqEA6ljMTEE4jMXBZw7naMi4icFjzjO84WUh0_jiMEbo8"/>
+</button>
+<!-- Thumb 4 -->
+<button aria-selected="false" class="thumb-btn border border-outline-variant hover:border-on-surface rounded-lg overflow-hidden bg-surface-container aspect-square p-0.5 focus:outline-none focus:ring-2 focus:ring-primary transition-colors" onclick="switchImage(this, 'base')" role="tab" type="button">
+<img alt="Perspectiva ambientada en espacio" class="w-full h-full object-cover" data-alt="Interior styling photograph of a ceramic Nordic table lamp placed over an oiled oak wood console beside stacked architectural monographs in a calm sunlit room." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAbHj9COdpwlUZOYWMm756NabXa-nR7GUJ1Pw45coOfldeXFo9PfkLVlC5Xn0z32XUFSSEhdkS5XgXrUWYRBHaINHJhBj-t6HtOTAHF261QU4Gw-7rfJeFkehoMONllHd_f8qN4KYajQRwEEwnYep_jg85W3VeaSIf3a9BmgRraxTWgpPTgeb8T4mibVAeYnC9U5Cw45jUZN3LoTZvWFHPV67uEH9Q09tsP66TJZFvjZRAANRNl9d6RfoQe0j9ZcVRTZ8367IJ7Jik"/>
+</button>
+</div>
+<!-- Indicador de Disponibilidad Real -->
+<div class="flex items-center gap-space-sm px-space-md py-space-sm bg-surface-container-low border border-surface-variant rounded-lg mt-space-xs">
+<span class="w-2 h-2 rounded-full bg-primary-container animate-pulse shrink-0"></span>
+<span class="font-body-sm text-body-sm text-on-surface">
+<strong class="font-medium text-primary">En stock</strong> — 14 unidades disponibles en almacén.
+          </span>
+</div>
+</section>
+<!-- Columna Derecha: Información Editorial & Compra (5 cols en Desktop) -->
+<section aria-label="Detalles de compra y ficha técnica" class="lg:col-span-5 flex flex-col justify-start lg:sticky lg:top-28 gap-space-lg">
+<!-- Breadcrumb & Categoría -->
+<div>
+<nav aria-label="Miga de pan" class="flex items-center gap-2 text-on-surface-variant font-label-sm text-label-sm mb-3">
+<a class="hover:text-primary transition-colors" href="#">Inicio</a>
+<span class="text-outline-variant">/</span>
+<a class="hover:text-primary transition-colors" href="#">Iluminación</a>
+<span class="text-outline-variant">/</span>
+<span class="text-on-surface font-medium truncate max-w-[160px] sm:max-w-none">Lámpara de mesa cerámica</span>
+</nav>
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-widest block font-semibold">
+            Iluminación
+          </span>
+<h1 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary tracking-tight mt-1">
+            Lámpara de mesa cerámica
+          </h1>
+</div>
+<!-- Precio Transparente en Bolivianos -->
+<div class="flex items-baseline gap-space-sm border-b border-surface-variant pb-space-lg">
+<span class="font-headline-md text-headline-md text-primary font-semibold">
+            Bs 420
+          </span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">
+            precio unitario neto
+          </span>
+</div>
+<!-- Descripción Narrativa Breve -->
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+          Pieza escultórica moldeada en gres cerámico de alta temperatura con esmaltado marfil satinado. Su silueta orgánica proyecta una luminosidad difusa y serena, complementada con una pantalla artesanal confeccionada en lino crudo.
+        </p>
+<!-- Selector de Cantidad e Interacción de Compra -->
+<div class="flex flex-col gap-space-md pt-space-xs">
+<label class="font-label-sm text-label-sm text-on-surface uppercase tracking-wider block" for="product-quantity-display">
+            Cantidad
+          </label>
+<div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-space-md">
+<!-- Stepper interactivo con tope de 14 -->
+<div class="inline-flex items-center justify-between border border-outline-variant bg-surface-container rounded-lg px-2 py-1 sm:w-36 h-12">
+<button aria-label="Disminuir cantidad" class="w-8 h-8 flex items-center justify-center text-on-surface hover:text-primary disabled:opacity-30 disabled:cursor-not-allowed focus:outline-none focus:ring-1 focus:ring-primary rounded transition-colors" disabled="" id="btn-decrement" onclick="changeQuantity(-1)" type="button">
+<span class="material-symbols-outlined text-body-md" data-icon="remove">remove</span>
+</button>
+<span aria-live="polite" class="font-title-sm text-title-sm text-on-surface select-none px-2" id="product-quantity-display">
+                1
+              </span>
+<button aria-label="Aumentar cantidad" class="w-8 h-8 flex items-center justify-center text-on-surface hover:text-primary disabled:opacity-30 disabled:cursor-not-allowed focus:outline-none focus:ring-1 focus:ring-primary rounded transition-colors" id="btn-increment" onclick="changeQuantity(1)" type="button">
+<span class="material-symbols-outlined text-body-md" data-icon="add">add</span>
+</button>
+</div>
+<!-- Botón Principal: Agregar al Carrito -->
+<button class="flex-1 h-12 bg-primary-container text-on-primary font-title-sm text-title-sm rounded-lg hover:bg-primary transition-all duration-200 ease-out flex items-center justify-center gap-space-sm px-6 focus:ring-2 focus:ring-primary focus:outline-none shadow-none cursor-pointer" id="btn-add-to-cart" onclick="addToCart()" type="button">
+<span class="material-symbols-outlined text-title-sm" data-icon="shopping_bag" id="btn-cart-icon">shopping_bag</span>
+<span id="btn-cart-text">Agregar al carrito</span>
+<!-- Spinner oculto por defecto -->
+<svg class="animate-spin h-5 w-5 text-on-primary hidden" fill="none" id="btn-cart-spinner" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+<path class="opacity-75" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" fill="currentColor" stroke-width="4"></path>
+</svg>
+</button>
+</div>
+<p class="text-body-sm font-body-sm text-on-surface-variant min-h-[20px] transition-opacity" id="stock-feedback">
+            Máximo 14 unidades por pedido según inventario local inmediato.
+          </p>
+</div>
+<!-- Aclaración Transparente de Entrega Local (Conformidad de Restricciones) -->
+<div class="p-space-md bg-surface-container-low border border-surface-variant rounded-lg space-y-2">
+<div class="flex items-center gap-space-xs text-primary font-title-sm text-title-sm">
+<span class="material-symbols-outlined text-body-md" data-icon="local_shipping">local_shipping</span>
+<span>Entrega local coordinada</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-normal">
+            Coordinación directa de entrega según disponibilidad y radio urbano. Nexo no aplica recargos ocultos ni procesa promociones infladas. Transacciones directas y transparentes en Bolivianos (Bs).
+          </p>
+</div>
+<!-- Ficha Técnica Concisa -->
+<div class="border-t border-surface-variant pt-space-lg">
+<h2 class="font-title-sm text-title-sm text-primary mb-space-md">
+            Ficha técnica &amp; materiales
+          </h2>
+<dl class="divide-y divide-surface-variant text-body-sm font-body-sm">
+<div class="py-2.5 flex justify-between gap-space-md">
+<dt class="text-on-surface-variant font-medium">Materialidad</dt>
+<dd class="text-on-surface text-right">Cerámica gres esmaltada a mano, difusor de lino natural</dd>
+</div>
+<div class="py-2.5 flex justify-between gap-space-md">
+<dt class="text-on-surface-variant font-medium">Dimensiones</dt>
+<dd class="text-on-surface text-right">38 cm altura × 24 cm diámetro base</dd>
+</div>
+<div class="py-2.5 flex justify-between gap-space-md">
+<dt class="text-on-surface-variant font-medium">Casquillo / Foco</dt>
+<dd class="text-on-surface text-right">E27 (hasta 40W / Compatible LED cálido)</dd>
+</div>
+<div class="py-2.5 flex justify-between gap-space-md">
+<dt class="text-on-surface-variant font-medium">Cableado</dt>
+<dd class="text-on-surface text-right">Textil trenzado tono marfil, 1.8 metros con interruptor manual</dd>
+</div>
+<div class="py-2.5 flex justify-between gap-space-md">
+<dt class="text-on-surface-variant font-medium">Procedencia</dt>
+<dd class="text-on-surface text-right">Curaduría de taller artesanal</dd>
+</div>
+</dl>
+</div>
+</section>
+</div>
+<!-- Editorial Story Strip (Narrativa complementaria de diseño y artesanía) -->
+<section class="mt-space-2xl border-t border-surface-variant pt-space-2xl">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<div class="p-space-lg bg-surface-container-low border border-surface-variant rounded-lg flex flex-col justify-between">
+<div>
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-widest block mb-2">01 / Proceso</span>
+<h3 class="font-headline-sm text-headline-sm text-primary mb-2">Cerámica de alta temperatura</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Cada base se tornea y cuece a 1.250 °C garantizando consistencia mineral y una resonancia visual atemporal.</p>
+</div>
+<div class="mt-4 pt-4 border-t border-surface-variant/60 flex items-center gap-2 text-on-surface font-title-sm text-title-sm">
+<span class="material-symbols-outlined text-body-md" data-icon="palette">palette</span>
+<span class="font-body-sm text-body-sm">Acabado satinado mate</span>
+</div>
+</div>
+<div class="p-space-lg bg-surface-container-low border border-surface-variant rounded-lg flex flex-col justify-between">
+<div>
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-widest block mb-2">02 / Calidez</span>
+<h3 class="font-headline-sm text-headline-sm text-primary mb-2">Lino sin blanquear</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">La pantalla tamiza la fuente lumínica eliminando destellos agresivos y proyectando un halo de calma sobre la estancia.</p>
+</div>
+<div class="mt-4 pt-4 border-t border-surface-variant/60 flex items-center gap-2 text-on-surface font-title-sm text-title-sm">
+<span class="material-symbols-outlined text-body-md" data-icon="light_mode">light_mode</span>
+<span class="font-body-sm text-body-sm">Difusión suave 2700K</span>
+</div>
+</div>
+<div class="p-space-lg bg-surface-container-low border border-surface-variant rounded-lg flex flex-col justify-between">
+<div>
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-widest block mb-2">03 / Longevidad</span>
+<h3 class="font-headline-sm text-headline-sm text-primary mb-2">Componentes reparables</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Sin obsolescencia plástica: portalámparas de latón sólido y cordaje textil reemplazable diseñados para perdurar décadas.</p>
+</div>
+<div class="mt-4 pt-4 border-t border-surface-variant/60 flex items-center gap-2 text-on-surface font-title-sm text-title-sm">
+<span class="material-symbols-outlined text-body-md" data-icon="handyman">handyman</span>
+<span class="font-body-sm text-body-sm">Mantenimiento circular</span>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer (Shared Component JSON Source of Truth) -->
+<footer class="w-full bg-surface-container-low dark:bg-surface-container border-t border-surface-variant dark:border-outline-variant mt-space-2xl">
+<div class="w-full border-t border-surface-variant dark:border-outline-variant px-margin md:px-margin-lg py-space-2xl max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-space-lg">
+<!-- Logo & Copyright -->
+<div class="flex flex-col items-center md:items-start gap-space-xs text-center md:text-left">
+<a class="font-headline-sm text-headline-sm text-primary dark:text-inverse-primary tracking-tight font-medium" href="#">
+          Nexo
+        </a>
+<p class="font-body-sm text-body-sm text-on-surface-variant dark:text-surface-variant max-w-md">
+          © 2025 Nexo. Curation &amp; Design. Todos los derechos reservados. Precios expresados en Bolivianos (Bs).
+        </p>
+</div>
+<!-- Footer Navigation Links -->
+<nav aria-label="Enlaces secundarios" class="flex flex-wrap justify-center items-center gap-x-space-lg gap-y-space-xs">
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-colors font-body-sm text-body-sm hover:underline" href="#">Catálogo</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-colors font-body-sm text-body-sm hover:underline" href="#">Mi cuenta</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-colors font-body-sm text-body-sm hover:underline" href="#">Mis pedidos</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-colors font-body-sm text-body-sm hover:underline" href="#">Términos y condiciones</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-colors font-body-sm text-body-sm hover:underline" href="#">Política de privacidad</a>
+</nav>
+</div>
+</footer>
+<!-- Micro-interactions Script -->
+<script>
+    const MAX_STOCK = 14;
+    let currentQty = 1;
+    let toastTimeout = null;
+
+    function changeQuantity(delta) {
+      const nextVal = currentQty + delta;
+      if (nextVal >= 1 && nextVal <= MAX_STOCK) {
+        currentQty = nextVal;
+        document.getElementById('product-quantity-display').textContent = currentQty;
+
+        // Update button states
+        document.getElementById('btn-decrement').disabled = (currentQty <= 1);
+        document.getElementById('btn-increment').disabled = (currentQty >= MAX_STOCK);
+
+        const feedback = document.getElementById('stock-feedback');
+        if (currentQty === MAX_STOCK) {
+          feedback.textContent = 'Has alcanzado el inventario total disponible (14 unidades).';
+          feedback.classList.add('text-secondary');
+        } else {
+          feedback.textContent = 'Máximo 14 unidades por pedido según inventario local inmediato.';
+          feedback.classList.remove('text-secondary');
+        }
+      }
+    }
+
+    function addToCart() {
+      const btn = document.getElementById('btn-add-to-cart');
+      const icon = document.getElementById('btn-cart-icon');
+      const text = document.getElementById('btn-cart-text');
+      const spinner = document.getElementById('btn-cart-spinner');
+
+      // Set loading state
+      btn.disabled = true;
+      icon.classList.add('hidden');
+      text.textContent = 'Añadiendo...';
+      spinner.classList.remove('hidden');
+
+      setTimeout(() => {
+        // Reset button
+        spinner.classList.add('hidden');
+        icon.classList.remove('hidden');
+        text.textContent = 'Agregar al carrito';
+        btn.disabled = false;
+
+        // Show cart badge in navbar
+        const badge = document.getElementById('header-cart-badge');
+        if (badge) badge.classList.remove('hidden');
+
+        // Show toast notification
+        showToast(currentQty);
+      }, 450);
+    }
+
+    function showToast(qty) {
+      const toast = document.getElementById('toast-notification');
+      const toastQty = document.getElementById('toast-qty');
+      toastQty.textContent = qty;
+
+      if (toastTimeout) clearTimeout(toastTimeout);
+
+      toast.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-[-20px]');
+      toast.classList.add('opacity-100', 'translate-y-0');
+
+      toastTimeout = setTimeout(() => {
+        dismissToast();
+      }, 4000);
+    }
+
+    function dismissToast() {
+      const toast = document.getElementById('toast-notification');
+      toast.classList.remove('opacity-100', 'translate-y-0');
+      toast.classList.add('opacity-0', 'pointer-events-none', 'translate-y-[-20px]');
+    }
+
+    function switchImage(buttonElement, view) {
+      // Manage active thumbnail borders
+      const buttons = document.querySelectorAll('.thumb-btn');
+      buttons.forEach(btn => {
+        btn.classList.remove('border-2', 'border-primary-container');
+        btn.classList.add('border', 'border-outline-variant');
+        btn.setAttribute('aria-selected', 'false');
+      });
+
+      buttonElement.classList.add('border-2', 'border-primary-container');
+      buttonElement.classList.remove('border', 'border-outline-variant');
+      buttonElement.setAttribute('aria-selected', 'true');
+    }
+  </script>
+</body></html>

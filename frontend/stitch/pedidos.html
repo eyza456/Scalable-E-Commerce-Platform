@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Mis pedidos — Nexo</title>
+<!-- Google Fonts: Playfair Display & Plus Jakarta Sans -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..700;1,400..700&amp;family=Plus+Jakarta+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS v3 -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "tertiary-container": "#2f3c2e",
+            "on-tertiary-fixed-variant": "#3d4a3b",
+            "surface-container": "#efeee9",
+            "surface-dim": "#dbdad5",
+            "on-error-container": "#93000a",
+            "on-primary-fixed": "#002112",
+            "surface-bright": "#fbf9f4",
+            "error": "#ba1a1a",
+            "error-container": "#ffdad6",
+            "on-tertiary-container": "#98a694",
+            "on-surface": "#1b1c19",
+            "on-primary-container": "#87aa94",
+            "secondary-fixed-dim": "#e6bfa1",
+            "on-primary": "#ffffff",
+            "on-primary-fixed-variant": "#2c4d3c",
+            "surface-tint": "#446652",
+            "on-tertiary": "#ffffff",
+            "on-secondary": "#ffffff",
+            "surface-container-low": "#f5f4ee",
+            "secondary": "#765840",
+            "surface-container-highest": "#e4e2dd",
+            "primary-container": "#1e3f2e",
+            "primary": "#062919",
+            "surface-container-lowest": "#ffffff",
+            "on-secondary-fixed": "#2b1704",
+            "inverse-primary": "#aacfb8",
+            "surface-container-high": "#e9e8e3",
+            "on-secondary-container": "#795b42",
+            "primary-fixed-dim": "#aacfb8",
+            "on-secondary-fixed-variant": "#5c412a",
+            "primary-fixed": "#c6ebd3",
+            "outline": "#727973",
+            "background": "#fbf9f4",
+            "secondary-container": "#fed5b6",
+            "secondary-fixed": "#ffdcc1",
+            "tertiary-fixed": "#d8e7d2",
+            "surface-variant": "#e4e2dd",
+            "inverse-on-surface": "#f2f1eb",
+            "on-tertiary-fixed": "#131e12",
+            "on-error": "#ffffff",
+            "tertiary-fixed-dim": "#bccbb7",
+            "on-background": "#1b1c19",
+            "surface": "#fbf9f4",
+            "inverse-surface": "#30312d",
+            "tertiary": "#1a2619",
+            "outline-variant": "#c1c8c1",
+            "on-surface-variant": "#424843"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "gutter-lg": "2rem",
+            "space-xl": "2.5rem",
+            "space-sm": "0.5rem",
+            "space-2xl": "4rem",
+            "gutter": "1.5rem",
+            "margin": "2rem",
+            "space-lg": "1.5rem",
+            "gutter-sm": "1rem",
+            "margin-lg": "4rem",
+            "space-xs": "0.25rem",
+            "space-md": "1rem",
+            "margin-sm": "1rem"
+          },
+          "fontFamily": {
+            "body-sm": ["Plus Jakarta Sans"],
+            "body-lg": ["Plus Jakarta Sans"],
+            "label-sm": ["Plus Jakarta Sans"],
+            "body-md": ["Plus Jakarta Sans"],
+            "headline-sm": ["Playfair Display"],
+            "headline-lg-mobile": ["Playfair Display"],
+            "headline-lg": ["Playfair Display"],
+            "display-mobile": ["Playfair Display"],
+            "title-sm": ["Plus Jakarta Sans"],
+            "headline-md": ["Playfair Display"],
+            "title-md": ["Plus Jakarta Sans"],
+            "label-md": ["Plus Jakarta Sans"],
+            "display": ["Playfair Display"]
+          },
+          "fontSize": {
+            "body-sm": ["13px", { "lineHeight": "20px", "fontWeight": "400" }],
+            "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+            "label-sm": ["11px", { "lineHeight": "16px", "letterSpacing": "0.06em", "fontWeight": "600" }],
+            "body-md": ["15px", { "lineHeight": "24px", "fontWeight": "400" }],
+            "headline-sm": ["22px", { "lineHeight": "30px", "fontWeight": "500" }],
+            "headline-lg-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "500" }],
+            "headline-lg": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.01em", "fontWeight": "400" }],
+            "display-mobile": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.01em", "fontWeight": "400" }],
+            "title-sm": ["16px", { "lineHeight": "24px", "fontWeight": "600" }],
+            "headline-md": ["28px", { "lineHeight": "36px", "fontWeight": "500" }],
+            "title-md": ["18px", { "lineHeight": "26px", "fontWeight": "600" }],
+            "label-md": ["13px", { "lineHeight": "18px", "letterSpacing": "0.04em", "fontWeight": "600" }],
+            "display": ["56px", { "lineHeight": "64px", "letterSpacing": "-0.02em", "fontWeight": "400" }]
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-background text-on-surface antialiased min-h-screen flex flex-col selection:bg-primary selection:text-on-primary">
+<!-- TOPNAVBAR (Shared Components JSON Anchor) -->
+<header class="w-full bg-surface border-b border-surface-variant z-40 sticky top-0">
+<div class="w-full px-margin md:px-margin-lg max-w-7xl mx-auto flex items-center justify-between py-space-md">
+<!-- Brand Logo -->
+<a class="font-headline-md text-headline-md tracking-tight text-primary uppercase" href="#">
+        Nexo
+      </a>
+<!-- Navigation Links (Desktop) -->
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-on-surface-variant hover:text-on-surface transition-colors pb-1 font-body-md text-body-md" href="#">Hogar</a>
+<a class="text-on-surface-variant hover:text-on-surface transition-colors pb-1 font-body-md text-body-md" href="#">Tecnología</a>
+<a class="text-on-surface-variant hover:text-on-surface transition-colors pb-1 font-body-md text-body-md" href="#">Oficina</a>
+<a class="text-on-surface-variant hover:text-on-surface transition-colors pb-1 font-body-md text-body-md" href="#">Iluminación</a>
+</nav>
+<!-- Trailing Action Cluster & Search -->
+<div class="flex items-center gap-5">
+<!-- Search bar on right -->
+<div class="hidden lg:flex items-center gap-2 bg-surface-container-low px-3 py-1.5 border border-outline-variant rounded">
+<span class="material-symbols-outlined text-outline text-[18px]">search</span>
+<input class="bg-transparent text-on-surface placeholder:text-outline border-none p-0 focus:ring-0 text-body-sm font-body-sm w-36 outline-none" placeholder="Buscar catálogo..." type="text"/>
+</div>
+<!-- Trailing Icon Actions & Links -->
+<div class="flex items-center gap-4">
+<!-- Active Account Anchor according to JSON -->
+<a class="flex items-center gap-1.5 text-primary border-b-2 border-primary pb-0.5 font-title-sm text-title-sm hover:text-primary transition-colors" href="#" title="Mi cuenta / Mis pedidos">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">person</span>
+<span class="hidden sm:inline font-label-md text-label-md">Mi cuenta</span>
+</a>
+<!-- Mis pedidos icon indicator -->
+<a class="text-primary hover:text-primary transition-colors relative p-1" href="#" title="Mis pedidos">
+<span class="material-symbols-outlined text-[20px]">receipt_long</span>
+<span class="absolute top-0 right-0 w-1.5 h-1.5 bg-primary rounded-full"></span>
+</a>
+<!-- Cart Action -->
+<a class="flex items-center gap-1 text-on-surface-variant hover:text-on-surface transition-colors p-1" href="#" title="Carrito">
+<span class="material-symbols-outlined text-[20px]">shopping_bag</span>
+<span class="hidden sm:inline font-label-sm text-label-sm">Carrito</span>
+</a>
+</div>
+</div>
+</div>
+</header>
+<!-- MAIN EDITORIAL CONTENT WRAPPER -->
+<main class="flex-1 max-w-7xl w-full mx-auto px-margin md:px-margin-lg py-space-xl md:py-space-2xl">
+<!-- BREADCRUMB & CONTEXT -->
+<div class="flex items-center gap-2 text-outline font-label-sm text-label-sm mb-6 tracking-wider uppercase">
+<a class="hover:text-primary transition-colors" href="#">Inicio</a>
+<span>/</span>
+<a class="hover:text-primary transition-colors" href="#">Mi cuenta</a>
+<span>/</span>
+<span class="text-primary font-semibold">Mis pedidos</span>
+</div>
+<!-- EDITORIAL HEADER SECTION -->
+<div class="border-b border-surface-variant pb-8 mb-10 flex flex-col md:flex-row md:items-end justify-between gap-6">
+<div class="max-w-2xl">
+<span class="font-label-sm text-label-sm text-primary tracking-widest uppercase mb-2 block font-semibold">Archivo de Adquisiciones</span>
+<h1 class="font-headline-lg text-headline-lg text-primary tracking-tight font-normal">
+          Mis pedidos
+        </h1>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2 max-w-xl">
+          Historial de compras y seguimiento de transacciones registradas con tu cuenta. Todos los montos se encuentran expresados en Bolivianos (Bs).
+        </p>
+</div>
+<!-- Live Currency & Account Spec -->
+<div class="bg-surface-container-low border border-outline-variant p-4 rounded text-left md:text-right shrink-0">
+<span class="font-label-sm text-label-sm text-outline block uppercase tracking-wide">Moneda oficial del catálogo</span>
+<span class="font-title-sm text-title-sm text-primary font-semibold">Bolivianos (BOB - Bs)</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant block mt-0.5">3 registros históricos</span>
+</div>
+</div>
+<!-- FILTER TABS (STATUS CHIPS) -->
+<div class="flex flex-wrap items-center gap-2.5 mb-10">
+<button class="filter-btn px-4 py-2 text-label-sm font-label-sm rounded transition-all bg-primary-container text-on-primary border border-primary-container" id="btn-filter-all" onclick="filterOrders('all')">
+        Todos (3)
+      </button>
+<button class="filter-btn px-4 py-2 text-label-sm font-label-sm rounded transition-all bg-surface-container-low text-on-surface-variant border border-outline-variant hover:border-primary" id="btn-filter-pending" onclick="filterOrders('pending')">
+        Pendiente (1)
+      </button>
+<button class="filter-btn px-4 py-2 text-label-sm font-label-sm rounded transition-all bg-surface-container-low text-on-surface-variant border border-outline-variant hover:border-primary" id="btn-filter-confirmed" onclick="filterOrders('confirmed')">
+        Confirmado (1)
+      </button>
+<button class="filter-btn px-4 py-2 text-label-sm font-label-sm rounded transition-all bg-surface-container-low text-on-surface-variant border border-outline-variant hover:border-primary" id="btn-filter-cancelled" onclick="filterOrders('cancelled')">
+        Cancelado (1)
+      </button>
+<button class="ml-auto text-outline hover:text-primary font-label-sm text-label-sm underline underline-offset-4 flex items-center gap-1.5 transition-colors" id="btn-filter-empty" onclick="toggleEmptyState()">
+<span class="material-symbols-outlined text-[16px]">visibility</span>
+        Ver vista previa sin compras
+      </button>
+</div>
+<!-- ORDERS CONTAINER -->
+<div class="space-y-6" id="orders-stack">
+<!-- ITEM 1: Pedido #NX-8429 (Pendiente) -->
+<article class="order-card border border-outline-variant bg-surface-container-lowest transition-all hover:border-primary rounded" data-status="pending">
+<!-- Summary Header Bar -->
+<div class="p-6 md:p-8 flex flex-col lg:flex-row lg:items-center justify-between gap-6 border-b border-surface-container-high">
+<div class="flex flex-wrap items-baseline gap-x-6 gap-y-2">
+<div>
+<span class="font-label-sm text-label-sm text-outline uppercase block">Identificador</span>
+<span class="font-headline-sm text-headline-sm text-primary">#NX-8429</span>
+</div>
+<div class="border-l border-surface-container-high pl-6">
+<span class="font-label-sm text-label-sm text-outline uppercase block">Fecha de compra</span>
+<span class="font-body-md text-body-md text-on-surface">24 de Octubre, 2025</span>
+</div>
+<div class="border-l border-surface-container-high pl-6">
+<span class="font-label-sm text-label-sm text-outline uppercase block">Total liquidado</span>
+<span class="font-headline-sm text-headline-sm text-primary font-serif">Bs 3.400</span>
+</div>
+</div>
+<!-- Status badge & toggle trigger -->
+<div class="flex items-center gap-4 self-start lg:self-center">
+<!-- Badge Ámbar Sutil -->
+<span class="inline-flex items-center gap-1.5 px-3 py-1 bg-[#F9F4E8] text-[#8C6D1F] border border-[#E7DEBE] rounded font-label-sm text-label-sm uppercase tracking-wider">
+<span class="w-1.5 h-1.5 rounded-full bg-[#8C6D1F] animate-pulse"></span>
+              Pendiente de confirmación
+            </span>
+<button class="p-1 text-on-surface-variant hover:text-primary transition-transform duration-200" onclick="toggleAccordion('content-NX-8429', this)" title="Ver desglose del pedido">
+<span class="material-symbols-outlined text-[24px] transform transition-transform">expand_more</span>
+</button>
+</div>
+</div>
+<!-- Accordion Body Detail -->
+<div class="p-6 md:p-8 bg-surface-bright" id="content-NX-8429">
+<div class="mb-6 flex items-center justify-between">
+<h2 class="font-label-sm text-label-sm uppercase tracking-wider text-outline">Ítems incluidos en el paquete editorial</h2>
+<span class="font-label-sm text-label-sm text-primary">3 referencias</span>
+</div>
+<!-- Products Asymmetric Grid / Structured Items -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+<!-- Product 1 -->
+<div class="border border-outline-variant p-4 bg-surface-container-lowest flex gap-4 items-center rounded">
+<img class="w-20 h-20 object-cover rounded bg-surface-container shrink-0" data-alt="A warm minimal ceramic table lamp with soft diffused lighting situated on an untreated raw birch wood desk. The atmosphere evokes Nordic tranquility with creamy beige and deep forest green natural tones, pristine editorial studio photography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD6i3TteJGQ3ydzDqnYRvcory0njidPGRDHrb8fdhZyMuw4rUBYD5MusibtSLrmSL0vFFwz15T2IfHYLf3cTrmUAhFH9ySn01Tnbiyn4oRTrTpPgBHic9B7qmAjX4V-tXCeXrRaWcQAsCImwPsFxgrZJKyjHpudKgjVXo6SSmjSaJ7TfvR64rq4SpAJYH1-06v1DL5qv2rt1MXTj-HkPbdyalBSjpk2PeHTywF6TfBpxeGvxHkXM9os0qehHIGT6NdZLwhgD5gcLTs"/>
+<div class="flex-1">
+<span class="font-label-sm text-label-sm text-outline block">1 unidad</span>
+<h3 class="font-title-sm text-title-sm text-primary">Lámpara de mesa cerámica</h3>
+<span class="font-body-sm text-body-sm text-on-surface-variant mt-1 block">Bs 1.200 c/u</span>
+</div>
+</div>
+<!-- Product 2 -->
+<div class="border border-outline-variant p-4 bg-surface-container-lowest flex gap-4 items-center rounded">
+<img class="w-20 h-20 object-cover rounded bg-surface-container shrink-0" data-alt="A sculptural wireless audio speaker wrapped in tactile warm gray wool fabric with a solid brass rotary dial. High-end modern audio equipment placed against a soft ivory textured plaster backdrop in quiet morning daylight." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCjb9ZK1p7K8TRUgg1g5DdPXQanUXQVgvZS1BIUU--r5xl8wlMXGyUYyFaEjZZ-uTxI2HykSj4xEbEI7ebhRZCHENxGDuL-oOmLEO7yDrhVtNvzqtWFk7_L5_YwBtT5uQ8Q3FpuERo2fAh8QlXlUWg2xK5Fl62DaQ9pJ6svlch2lXRy5gAcTJTOyz9PO6Kukcb5GSZ9Vlsa2OuAcHSOF-7_2Ih5_WKbocEbwFj4aeRtSRWFWYbmnzmfchjcTUuFczNT1uGab-ECTms"/>
+<div class="flex-1">
+<span class="font-label-sm text-label-sm text-outline block">2 unidades</span>
+<h3 class="font-title-sm text-title-sm text-primary">Altavoz inalámbrico</h3>
+<span class="font-body-sm text-body-sm text-on-surface-variant mt-1 block">Bs 850 c/u (Bs 1.700)</span>
+</div>
+</div>
+<!-- Product 3 -->
+<div class="border border-outline-variant p-4 bg-surface-container-lowest flex gap-4 items-center rounded">
+<img class="w-20 h-20 object-cover rounded bg-surface-container shrink-0" data-alt="A matte brushed stainless steel pour-over teapot featuring an ergonomic blackened oak wood handle. Set against warm ivory marble in soft indirect natural window lighting, clean geometric scandinavian industrial design." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD977uzZ9oIAAbwyg-oRWuY5Ca6tjV5Oim-n0fIh9veIizWgwYsLmObQxzIhwZuWnu2oxjn2OXkqVwmis4CdltUmYrXHDF3MzWxXqjhnbLp-CPKzHSEBAG1zdkRQJlquS2ncXOUNWit9ZtfoLRIbMFrC9ZDyx_1NdkKoiVVc2bGG9xUbXLzYv3ArI2X1KLuwSZfTYcLVG88KlDe7nqAViO8Fcx24jPPqhG6dzSgyuAXcEY2zRXX6HOGSGh92TI2cAJZyUWlGafZzFE"/>
+<div class="flex-1">
+<span class="font-label-sm text-label-sm text-outline block">1 unidad</span>
+<h3 class="font-title-sm text-title-sm text-primary">Tetera de acero</h3>
+<span class="font-body-sm text-body-sm text-on-surface-variant mt-1 block">Bs 500 c/u</span>
+</div>
+</div>
+</div>
+<!-- Business Rules & Action Bar -->
+<div class="pt-6 border-t border-surface-variant flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+<div class="flex items-center gap-2 text-outline font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-[18px]">info</span>
+<span>Este pedido aún no ha entrado al taller de preparación. Puede solicitarse la anulación directa.</span>
+</div>
+<!-- Permitted Cancellation Button (Business Rule: only allowed in pending) -->
+<div class="flex items-center gap-3 w-full sm:w-auto">
+<button class="w-full sm:w-auto px-5 py-2.5 border border-error text-error hover:bg-error hover:text-white transition-colors duration-200 rounded font-label-md text-label-md flex items-center justify-center gap-2" onclick="openCancelModal('NX-8429', 'Bs 3.400')">
+<span class="material-symbols-outlined text-[18px]">close</span>
+                Cancelar pedido
+              </button>
+</div>
+</div>
+</div>
+</article>
+<!-- ITEM 2: Pedido #NX-7910 (Confirmado) -->
+<article class="order-card border border-outline-variant bg-surface-container-lowest transition-all hover:border-primary rounded" data-status="confirmed">
+<!-- Summary Header Bar -->
+<div class="p-6 md:p-8 flex flex-col lg:flex-row lg:items-center justify-between gap-6 border-b border-surface-container-high">
+<div class="flex flex-wrap items-baseline gap-x-6 gap-y-2">
+<div>
+<span class="font-label-sm text-label-sm text-outline uppercase block">Identificador</span>
+<span class="font-headline-sm text-headline-sm text-primary">#NX-7910</span>
+</div>
+<div class="border-l border-surface-container-high pl-6">
+<span class="font-label-sm text-label-sm text-outline uppercase block">Fecha de compra</span>
+<span class="font-body-md text-body-md text-on-surface">12 de Octubre, 2025</span>
+</div>
+<div class="border-l border-surface-container-high pl-6">
+<span class="font-label-sm text-label-sm text-outline uppercase block">Total liquidado</span>
+<span class="font-headline-sm text-headline-sm text-primary font-serif">Bs 980</span>
+</div>
+</div>
+<!-- Status badge & toggle trigger -->
+<div class="flex items-center gap-4 self-start lg:self-center">
+<!-- Badge Verde Bosque Sutil -->
+<span class="inline-flex items-center gap-1.5 px-3 py-1 bg-[#EEF4F0] text-[#1E3F2E] border border-[#CBD9D0] rounded font-label-sm text-label-sm uppercase tracking-wider font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-[#1E3F2E]"></span>
+              Confirmado / En preparación
+            </span>
+<button class="p-1 text-on-surface-variant hover:text-primary transition-transform duration-200" onclick="toggleAccordion('content-NX-7910', this)" title="Ver desglose del pedido">
+<span class="material-symbols-outlined text-[24px]">expand_more</span>
+</button>
+</div>
+</div>
+<!-- Accordion Body Detail -->
+<div class="p-6 md:p-8 bg-surface-bright" id="content-NX-7910">
+<div class="mb-6 flex items-center justify-between">
+<h2 class="font-label-sm text-label-sm uppercase tracking-wider text-outline">Ítems incluidos en el paquete editorial</h2>
+<span class="font-label-sm text-label-sm text-primary">1 referencia</span>
+</div>
+<!-- Single Product Showcase -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+<div class="border border-outline-variant p-4 bg-surface-container-lowest flex gap-4 items-center rounded">
+<img class="w-20 h-20 object-cover rounded bg-surface-container shrink-0" data-alt="An ultra-minimal low-profile mechanical keyboard with charcoal grey keycaps, tactile textured surface, and precision anodized aluminum frame on an ivory desktop. Quiet natural lighting highlighting architectural design aesthetics." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDCM-LIfKrHRDsUTTOKQd6yQkRgwY7fhhtkhgzBKDmYG25gOM22eBGqDvpXq7yYttlYEJahSVz4ix71kPb8nqbBUEJTIZXBqfpc1ONUNi6RWiBZdsfUGKAUizSMsY9rCBoVFHb4z--qxxBnlM5d5pIWn4NwA8ZJ9aqVTAekYL-fuNDEPw6SQWwLXuyS64enQMAoeHsZfp18GE8HuUXQg9lIPOZKYmChyb2q0a9hAAUXoubo-TKCgg62-2AYTWxBqtMtGqDU3BbBj3M"/>
+<div class="flex-1">
+<span class="font-label-sm text-label-sm text-outline block">1 unidad</span>
+<h3 class="font-title-sm text-title-sm text-primary">Teclado mecánico minimalista</h3>
+<span class="font-body-sm text-body-sm text-on-surface-variant mt-1 block">Bs 980 c/u</span>
+</div>
+</div>
+</div>
+<!-- Non-cancelable notice according to business rule -->
+<div class="pt-6 border-t border-surface-variant flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+<div class="flex items-center gap-2 text-on-surface-variant font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-[18px] text-primary">lock</span>
+<span>El pedido ya ha sido registrado y procesado en nuestro depósito central.</span>
+</div>
+<div class="inline-flex items-center gap-2 px-3 py-1.5 bg-surface-container-high text-outline rounded font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[16px]">block</span>
+              No cancelable en este estado
+            </div>
+</div>
+</div>
+</article>
+<!-- ITEM 3: Pedido #NX-6102 (Cancelado) -->
+<article class="order-card border border-outline-variant bg-surface-container-lowest opacity-85 transition-all hover:opacity-100 rounded" data-status="cancelled">
+<!-- Summary Header Bar -->
+<div class="p-6 md:p-8 flex flex-col lg:flex-row lg:items-center justify-between gap-6 border-b border-surface-container-high">
+<div class="flex flex-wrap items-baseline gap-x-6 gap-y-2">
+<div>
+<span class="font-label-sm text-label-sm text-outline uppercase block">Identificador</span>
+<span class="font-headline-sm text-headline-sm text-outline line-through">#NX-6102</span>
+</div>
+<div class="border-l border-surface-container-high pl-6">
+<span class="font-label-sm text-label-sm text-outline uppercase block">Fecha de compra</span>
+<span class="font-body-md text-body-md text-outline">28 de Septiembre, 2025</span>
+</div>
+<div class="border-l border-surface-container-high pl-6">
+<span class="font-label-sm text-label-sm text-outline uppercase block">Total liquidado</span>
+<span class="font-headline-sm text-headline-sm text-outline font-serif">Bs 420</span>
+</div>
+</div>
+<!-- Status badge & toggle trigger -->
+<div class="flex items-center gap-4 self-start lg:self-center">
+<!-- Badge Gris Apagado -->
+<span class="inline-flex items-center gap-1.5 px-3 py-1 bg-surface-container-high text-outline border border-outline-variant rounded font-label-sm text-label-sm uppercase tracking-wider">
+<span class="w-1.5 h-1.5 rounded-full bg-outline"></span>
+              Cancelado
+            </span>
+<button class="p-1 text-on-surface-variant hover:text-primary transition-transform duration-200" onclick="toggleAccordion('content-NX-6102', this)" title="Ver desglose del pedido">
+<span class="material-symbols-outlined text-[24px]">expand_more</span>
+</button>
+</div>
+</div>
+<!-- Accordion Body Detail -->
+<div class="p-6 md:p-8 bg-surface-container-low hidden" id="content-NX-6102">
+<div class="mb-4 flex items-center justify-between">
+<h2 class="font-label-sm text-label-sm uppercase tracking-wider text-outline">Operación anulada</h2>
+<span class="font-label-sm text-label-sm text-outline">Transacción no completada</span>
+</div>
+<div class="p-4 border border-outline-variant bg-surface-container rounded mb-4 flex items-center gap-3">
+<span class="material-symbols-outlined text-outline text-[20px]">info</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+              Esta orden fue anulada de acuerdo con el protocolo del usuario. No se efectuaron cargos pendientes a su cuenta comercial registrada.
+            </p>
+</div>
+</div>
+</article>
+</div>
+<!-- EMPTY STATE DEMO WRAPPER (Illustrated block for new accounts) -->
+<div class="hidden mt-8 border border-dashed border-outline-variant p-12 lg:p-20 text-center rounded bg-surface-container-low" id="empty-state-block">
+<div class="max-w-md mx-auto">
+<div class="w-16 h-16 mx-auto mb-6 rounded-full bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[32px]">folder_open</span>
+</div>
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider block mb-2 font-semibold">Sin registros históricos</span>
+<h3 class="font-headline-md text-headline-md text-primary font-normal mb-3">No tienes pedidos registrados</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-8">
+          Explora nuestras colecciones curadas para comenzar tu primera adquisición de diseño y mobiliario consciente.
+        </p>
+<a class="inline-flex items-center gap-2 bg-primary-container text-on-primary px-7 py-3 rounded font-body-md text-body-md hover:bg-[#162F22] transition-colors" href="#">
+<span>Explorar Catálogo</span>
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</a>
+</div>
+</div>
+<!-- EDITORIAL NOTE / POLICY REINFORCEMENT -->
+<section class="mt-16 pt-8 border-t border-surface-variant grid grid-cols-1 md:grid-cols-3 gap-8">
+<div class="flex items-start gap-4">
+<span class="material-symbols-outlined text-primary text-[24px]">verified</span>
+<div>
+<h4 class="font-title-sm text-title-sm text-primary mb-1">Criterio de Cancelación</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+            La anulación solo es procesable mientras el estado figure como "Pendiente de confirmación".
+          </p>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<span class="material-symbols-outlined text-primary text-[24px]">payments</span>
+<div>
+<h4 class="font-title-sm text-title-sm text-primary mb-1">Valores Claros</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+            Sin recargos ocultos. Las transacciones se consolidan en moneda local (Bolivianos - Bs).
+          </p>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<span class="material-symbols-outlined text-primary text-[24px]">support_agent</span>
+<div>
+<h4 class="font-title-sm text-title-sm text-primary mb-1">Soporte Personalizado</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+            Ante cualquier inquietud sobre sus pedidos consolidados, consulte con nuestro equipo editorial.
+          </p>
+</div>
+</div>
+</section>
+</main>
+<!-- ACCESSIBLE MODAL DIALOG: CANCEL ORDER CONFIRMATION -->
+<div class="fixed inset-0 z-50 bg-black/40 backdrop-blur-[2px] hidden items-center justify-center p-4 transition-opacity" id="cancel-dialog">
+<div class="bg-surface-container-lowest max-w-lg w-full border border-outline-variant p-8 rounded shadow-2xl relative">
+<!-- Close Icon -->
+<button aria-label="Cerrar modal" class="absolute top-6 right-6 text-outline hover:text-on-surface transition-colors" onclick="closeCancelModal()">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+<div class="w-12 h-12 rounded bg-error-container text-on-error-container flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-[24px]">warning</span>
+</div>
+<span class="font-label-sm text-label-sm text-error uppercase tracking-wider block mb-1 font-semibold">Confirmación Requerida</span>
+<h3 class="font-headline-sm text-headline-sm text-primary font-normal mb-3">¿Deseas cancelar el pedido <span class="font-semibold text-primary" id="modal-order-id">#NX-8429</span>?</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">
+        Esta acción detendrá de manera irrevocable la preparación de tus piezas. La orden quedará archivada como cancelada por un total de <span class="font-semibold text-on-surface" id="modal-order-total">Bs 3.400</span>.
+      </p>
+<div class="p-4 bg-surface-container-low border border-surface-variant rounded mb-8">
+<div class="flex items-center gap-2 text-on-surface-variant text-body-sm font-body-sm">
+<span class="material-symbols-outlined text-[18px] text-primary">info</span>
+<span>Regla de negocio: La cancelación solo es viable en estado pendiente.</span>
+</div>
+</div>
+<div class="flex flex-col-reverse sm:flex-row items-center justify-end gap-3">
+<button class="w-full sm:w-auto px-6 py-2.5 border border-outline-variant text-on-surface hover:bg-surface-container transition-colors rounded font-body-md text-body-md" onclick="closeCancelModal()">
+          Mantener pedido
+        </button>
+<button class="w-full sm:w-auto px-6 py-2.5 bg-error text-white hover:bg-red-800 transition-colors rounded font-body-md text-body-md font-semibold" onclick="confirmCancellationAction()">
+          Sí, anular pedido
+        </button>
+</div>
+</div>
+</div>
+<!-- FOOTER (Shared Components JSON Anchor) -->
+<footer class="w-full bg-surface-container-low border-t border-surface-variant">
+<div class="w-full px-margin md:px-margin-lg py-space-2xl max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-space-lg">
+<!-- Brand & Copyright -->
+<div class="flex flex-col gap-2 text-center md:text-left">
+<a class="font-headline-sm text-headline-sm text-primary tracking-tight" href="#">Nexo</a>
+<p class="text-on-surface-variant font-body-sm text-body-sm">
+          © 2025 Nexo. Curation &amp; Design. Todos los derechos reservados. Precios expresados en Bolivianos (Bs).
+        </p>
+</div>
+<!-- Links (Identical Casing & Names to JSON) -->
+<nav class="flex flex-wrap justify-center gap-x-6 gap-y-2 text-on-surface-variant font-body-sm text-body-sm">
+<a class="hover:underline hover:text-primary transition-colors" href="#">Catálogo</a>
+<a class="hover:underline hover:text-primary transition-colors" href="#">Mi cuenta</a>
+<a class="text-primary font-title-sm text-title-sm hover:underline transition-colors" href="#">Mis pedidos</a>
+<a class="hover:underline hover:text-primary transition-colors" href="#">Términos y condiciones</a>
+<a class="hover:underline hover:text-primary transition-colors" href="#">Política de privacidad</a>
+</nav>
+</div>
+</footer>
+<!-- CLIENT-SIDE SCRIPT FOR INTERACTIONS -->
+<script>
+    // Accordion Toggle
+    function toggleAccordion(id, btn) {
+      const panel = document.getElementById(id);
+      const icon = btn.querySelector('.material-symbols-outlined');
+      if (panel.classList.contains('hidden')) {
+        panel.classList.remove('hidden');
+        if (icon) icon.style.transform = 'rotate(180deg)';
+      } else {
+        panel.classList.add('hidden');
+        if (icon) icon.style.transform = 'rotate(0deg)';
+      }
+    }
+
+    // Status Filter Handler
+    function filterOrders(status) {
+      const emptyBlock = document.getElementById('empty-state-block');
+      const ordersStack = document.getElementById('orders-stack');
+      emptyBlock.classList.add('hidden');
+      ordersStack.classList.remove('hidden');
+
+      const cards = document.querySelectorAll('.order-card');
+      cards.forEach(card => {
+        if (status === 'all' || card.getAttribute('data-status') === status) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+
+      // Update Button Styles
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.className = 'filter-btn px-4 py-2 text-label-sm font-label-sm rounded transition-all bg-surface-container-low text-on-surface-variant border border-outline-variant hover:border-primary';
+      });
+      const activeBtn = document.getElementById('btn-filter-' + status);
+      if (activeBtn) {
+        activeBtn.className = 'filter-btn px-4 py-2 text-label-sm font-label-sm rounded transition-all bg-primary-container text-on-primary border border-primary-container';
+      }
+    }
+
+    // Toggle Empty State for demonstration
+    function toggleEmptyState() {
+      const emptyBlock = document.getElementById('empty-state-block');
+      const ordersStack = document.getElementById('orders-stack');
+      const isHidden = emptyBlock.classList.contains('hidden');
+
+      if (isHidden) {
+        emptyBlock.classList.remove('hidden');
+        ordersStack.classList.add('hidden');
+      } else {
+        emptyBlock.classList.add('hidden');
+        ordersStack.classList.remove('hidden');
+      }
+    }
+
+    // Modal Control for Order Cancellation
+    function openCancelModal(orderId, total) {
+      document.getElementById('modal-order-id').innerText = '#' + orderId;
+      document.getElementById('modal-order-total').innerText = total;
+      const dialog = document.getElementById('cancel-dialog');
+      dialog.classList.remove('hidden');
+      dialog.classList.add('flex');
+    }
+
+    function closeCancelModal() {
+      const dialog = document.getElementById('cancel-dialog');
+      dialog.classList.add('hidden');
+      dialog.classList.remove('flex');
+    }
+
+    // Confirm Cancellation Action (Updates the UI reactively)
+    function confirmCancellationAction() {
+      const pendingCard = document.querySelector('[data-status="pending"]');
+      if (pendingCard) {
+        pendingCard.setAttribute('data-status', 'cancelled');
+        pendingCard.classList.add('opacity-85');
+
+        // Update header & badges
+        const badgeSpan = pendingCard.querySelector('.inline-flex');
+        if (badgeSpan) {
+          badgeSpan.className = 'inline-flex items-center gap-1.5 px-3 py-1 bg-surface-container-high text-outline border border-outline-variant rounded font-label-sm text-label-sm uppercase tracking-wider';
+          badgeSpan.innerHTML = '<span class="w-1.5 h-1.5 rounded-full bg-outline"></span> Cancelado';
+        }
+
+        // Remove cancel button & update footer text
+        const actionArea = pendingCard.querySelector('.border-t');
+        if (actionArea) {
+          actionArea.innerHTML = '<div class="flex items-center gap-2 text-outline font-body-sm text-body-sm"><span class="material-symbols-outlined text-[18px]">check_circle</span><span>Este pedido ha sido anulado con éxito según tu solicitud.</span></div>';
+        }
+      }
+      closeCancelModal();
+    }
+  </script>
+</body></html>
