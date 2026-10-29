@@ -1133,7 +1133,7 @@
         "line": 1
       }
     ],
-    "note": "El frontend no cierra este requisito parcial. Instalacion probada en el mismo host Windows/Docker Linux, sin replicas ni TLS productivo."
+    "note": "Este requisito sigue parcial. Instalacion y replicas locales verificadas en el mismo host Windows/Docker Linux; no se acreditan reparto del gateway, Kubernetes, TLS ni otro host por tener interfaz visual."
   },
   {
     "id": "RF-50",
@@ -1202,11 +1202,19 @@
     "code": [],
     "verification": [
       {
-        "path": "docs/frontend/instalacion-desde-cero.json",
+        "path": "docs/escalabilidad/resultado.json",
+        "line": 1
+      },
+      {
+        "path": "docs/escalabilidad/independencia.json",
+        "line": 1
+      },
+      {
+        "path": "docs/escalabilidad/carga/resultado.json",
         "line": 1
       }
     ],
-    "note": "El frontend no cierra este requisito parcial. Instalacion probada en el mismo host Windows/Docker Linux, sin replicas ni TLS productivo."
+    "note": "Perfil multinstancia local verificado con frontend/proxy, seis servicios replicados y concurrencia entre procesos. No implica GUI administrativa, TLS, otro host ni alta disponibilidad productiva."
   },
   {
     "id": "RNF-06",
@@ -1215,11 +1223,19 @@
     "code": [],
     "verification": [
       {
-        "path": "docs/frontend/instalacion-desde-cero.json",
+        "path": "docs/escalabilidad/resultado.json",
+        "line": 1
+      },
+      {
+        "path": "docs/escalabilidad/independencia.json",
+        "line": 1
+      },
+      {
+        "path": "docs/escalabilidad/carga/resultado.json",
         "line": 1
       }
     ],
-    "note": "El frontend no cierra este requisito parcial. Instalacion probada en el mismo host Windows/Docker Linux, sin replicas ni TLS productivo."
+    "note": "Perfil multinstancia local verificado con frontend/proxy, seis servicios replicados y concurrencia entre procesos. No implica GUI administrativa, TLS, otro host ni alta disponibilidad productiva."
   },
   {
     "id": "RNF-07",
@@ -1232,7 +1248,7 @@
         "line": 1
       }
     ],
-    "note": "El frontend no cierra este requisito parcial. Instalacion probada en el mismo host Windows/Docker Linux, sin replicas ni TLS productivo."
+    "note": "Este requisito sigue parcial. Instalacion y replicas locales verificadas en el mismo host Windows/Docker Linux; no se acreditan reparto del gateway, Kubernetes, TLS ni otro host por tener interfaz visual."
   },
   {
     "id": "RNF-11",
@@ -1319,7 +1335,7 @@
         "line": 1
       }
     ],
-    "note": "El frontend no cierra este requisito parcial. Instalacion probada en el mismo host Windows/Docker Linux, sin replicas ni TLS productivo."
+    "note": "Este requisito sigue parcial. Instalacion y replicas locales verificadas en el mismo host Windows/Docker Linux; no se acreditan reparto del gateway, Kubernetes, TLS ni otro host por tener interfaz visual."
   },
   {
     "id": "RNF-17",
@@ -1588,7 +1604,7 @@
         "line": 1
       }
     ],
-    "note": "El frontend no cierra este requisito parcial. Instalacion probada en el mismo host Windows/Docker Linux, sin replicas ni TLS productivo."
+    "note": "Este requisito sigue parcial. Instalacion y replicas locales verificadas en el mismo host Windows/Docker Linux; no se acreditan reparto del gateway, Kubernetes, TLS ni otro host por tener interfaz visual."
   },
   {
     "id": "RNF-28",

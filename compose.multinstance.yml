@@ -1,0 +1,45 @@
+# Local multinstancia: usar un proyecto y .env independientes. Compose >=2.24.4.
+# Infraestructura unica; solo aplicaciones admiten --scale.
+services:
+  user-db:
+    container_name: !reset null
+    ports: !reset []
+  product-db:
+    container_name: !reset null
+    ports: !reset []
+  order-db:
+    container_name: !reset null
+    ports: !reset []
+  payment-db:
+    container_name: !reset null
+    ports: !reset []
+  redis:
+    container_name: !reset null
+    ports: !reset []
+  rabbitmq:
+    container_name: !reset null
+    ports: !reset []
+  user-service:
+    container_name: !reset null
+    ports: !reset []
+  product-service:
+    container_name: !reset null
+    ports: !reset []
+  cart-service:
+    container_name: !reset null
+    ports: !reset []
+  order-service:
+    container_name: !reset null
+    ports: !reset []
+  payment-service:
+    container_name: !reset null
+    ports: !reset []
+  notification-service:
+    container_name: !reset null
+    ports: !reset []
+  api-gateway:
+    ports: !override
+      - "127.0.0.1:${MULTI_GATEWAY_PORT:-0}:80"
+  frontend:
+    ports: !override
+      - "127.0.0.1:${MULTI_FRONTEND_PORT:-0}:80"

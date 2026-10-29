@@ -91,7 +91,13 @@
     "uipayresult": "docs/frontend/pagos.json",
     "uiorderresult": "docs/frontend/pedidos.json",
     "uiprofileresult": "docs/frontend/perfil.json",
-    "latestpaymenttest": "tests/payment_latest.py"
+    "latestpaymenttest": "tests/payment_latest.py",
+    "multicompose": "compose.multinstance.yml",
+    "multitest": "tests/multinstance.py",
+    "multiall": "tests/multinstance_independence.py",
+    "multiresult": "docs/escalabilidad/resultado.json",
+    "multiindependent": "docs/escalabilidad/independencia.json",
+    "multiload": "docs/escalabilidad/carga/resultado.json"
   },
   "requirements": {
     "RF-01": [
@@ -629,12 +635,14 @@
       "Parcial",
       [
         "gw@resolver",
-        "proxy@proxy_pass"
+        "proxy@proxy_pass",
+        "multicompose"
       ],
       [
-        "resilience"
+        "resilience",
+        "multiindependent"
       ],
-      "Base Nginx/DNS preparada y recuperacion por cambio de IP probada; no hay balanceo configurado ni prueba de varias replicas. Capacidad futura, no bloqueo del MVP inicial."
+      "Gateway con DNS dinamico y recuperacion; perfil multinstancia probado. Falta observar reparto de solicitudes del gateway entre replicas y continuidad ante fallo de una replica durante operaciones. Preparacion futura, no bloqueo del MVP funcional."
     ],
     "RF-50": [
       "Cumplido",
@@ -660,9 +668,10 @@
         "perfresult",
         "profilesummary",
         "httppooltest",
-        "ordertest@test_history_releases_read_connection_and_preserves_response_schema"
+        "ordertest@test_history_releases_read_connection_and_preserves_response_schema",
+        "multiload"
       ],
-      "Cumplido para el perfil local-mvp-20vu-v1 sin cambiar objetivos: a 20 usuarios historial p95 286.88 ms, checkout 770.97 ms, pago 525.38 ms y compra 2.738 s; todos los limites p95/p99, errores, muestras y throughput aprobados (122.96 req/s utiles). SQL/HTTP perfilados, transporte reutilizado con cookies/tokens aislados y conexion de historial liberada antes. No certifica produccion, otras cargas ni volumenes grandes."
+      "Cumplido para el perfil local-mvp-20vu-v1 sin cambiar objetivos: a 20 usuarios historial p95 286.88 ms, checkout 770.97 ms, pago 525.38 ms y compra 2.738 s; todos los limites p95/p99, errores, muestras y throughput aprobados (122.96 req/s utiles). SQL/HTTP perfilados, transporte reutilizado con cookies/tokens aislados y conexion de historial liberada antes. No certifica produccion, otras cargas ni volumenes grandes. El perfil multinstancia adicional tambien se evalua con los mismos objetivos originales; ver su JSON separado, sin inferir mejora de capacidad ni rendimiento web."
     ],
     "RNF-02": [
       "Cumplido",
@@ -703,27 +712,30 @@
       "Indices PK, email normalizado, categorias y usuarios. No se hicieron EXPLAIN ni benchmark de consultas."
     ],
     "RNF-05": [
-      "Parcial",
+      "Cumplido",
       [
-        "compose@container_name: user-service",
-        "compose@ports:"
+        "multicompose@services:"
       ],
       [
-        "paytest"
+        "multiall@verify",
+        "multiindependent",
+        "multiload"
       ],
-      "Separacion por servicio presente, pero container_name y puertos host fijos impiden --scale directo de servicios. Falta despliegue de replicas verificado."
+      "Perfil Compose multinstancia aislado: cada uno de los seis microservicios escala 2/3/1/2 conservando IDs de los otros cinco y salud de todos los procesos. Carga original a 20 usuarios aprobada sin cambiar objetivos. Arranque inicial de esquema con una instancia; no autoscaling ni alta disponibilidad productiva."
     ],
     "RNF-06": [
-      "Parcial",
+      "Cumplido",
       [
-        "compose@container_name: product-service",
-        "outbox@dispatch_pending"
+        "multicompose@services:",
+        "outbox@with_for_update"
       ],
       [
-        "paytest",
-        "stocktest"
+        "multitest@race",
+        "multiresult",
+        "multiindependent",
+        "multiload"
       ],
-      "Bloqueos/skip_locked ayudan a replicas; Compose impone nombre/puerto unicos y no se probo un despliegue multinstancia."
+      "Dos procesos por cada microservicio en proyecto aislado de 20 contenedores. Doce checkout y doce pagos concurrentes contra ambas replicas: un pedido, un pago, descuento unico, reserva consumida y tres eventos publicados; cancelacion concurrente verificada. Entrega normal de una notificacion observada; sin garantia exactly-once ante redelivery."
     ],
     "RNF-07": [
       "Parcial",
@@ -1528,23 +1540,27 @@
       "verification": [
         "uifreshresult"
       ],
-      "note": "El frontend no cierra este requisito parcial. Instalacion probada en el mismo host Windows/Docker Linux, sin replicas ni TLS productivo."
+      "note": "Este requisito sigue parcial. Instalacion y replicas locales verificadas en el mismo host Windows/Docker Linux; no se acreditan reparto del gateway, Kubernetes, TLS ni otro host por tener interfaz visual."
     },
     "RNF-05": {
       "status": "Infraestructura",
       "code": [],
       "verification": [
-        "uifreshresult"
+        "multiresult",
+        "multiindependent",
+        "multiload"
       ],
-      "note": "El frontend no cierra este requisito parcial. Instalacion probada en el mismo host Windows/Docker Linux, sin replicas ni TLS productivo."
+      "note": "Perfil multinstancia local verificado con frontend/proxy, seis servicios replicados y concurrencia entre procesos. No implica GUI administrativa, TLS, otro host ni alta disponibilidad productiva."
     },
     "RNF-06": {
       "status": "Infraestructura",
       "code": [],
       "verification": [
-        "uifreshresult"
+        "multiresult",
+        "multiindependent",
+        "multiload"
       ],
-      "note": "El frontend no cierra este requisito parcial. Instalacion probada en el mismo host Windows/Docker Linux, sin replicas ni TLS productivo."
+      "note": "Perfil multinstancia local verificado con frontend/proxy, seis servicios replicados y concurrencia entre procesos. No implica GUI administrativa, TLS, otro host ni alta disponibilidad productiva."
     },
     "RNF-07": {
       "status": "Infraestructura",
@@ -1552,7 +1568,7 @@
       "verification": [
         "uifreshresult"
       ],
-      "note": "El frontend no cierra este requisito parcial. Instalacion probada en el mismo host Windows/Docker Linux, sin replicas ni TLS productivo."
+      "note": "Este requisito sigue parcial. Instalacion y replicas locales verificadas en el mismo host Windows/Docker Linux; no se acreditan reparto del gateway, Kubernetes, TLS ni otro host por tener interfaz visual."
     },
     "RNF-15": {
       "status": "Infraestructura",
@@ -1560,7 +1576,7 @@
       "verification": [
         "uifreshresult"
       ],
-      "note": "El frontend no cierra este requisito parcial. Instalacion probada en el mismo host Windows/Docker Linux, sin replicas ni TLS productivo."
+      "note": "Este requisito sigue parcial. Instalacion y replicas locales verificadas en el mismo host Windows/Docker Linux; no se acreditan reparto del gateway, Kubernetes, TLS ni otro host por tener interfaz visual."
     },
     "RNF-27": {
       "status": "Infraestructura",
@@ -1568,7 +1584,7 @@
       "verification": [
         "uifreshresult"
       ],
-      "note": "El frontend no cierra este requisito parcial. Instalacion probada en el mismo host Windows/Docker Linux, sin replicas ni TLS productivo."
+      "note": "Este requisito sigue parcial. Instalacion y replicas locales verificadas en el mismo host Windows/Docker Linux; no se acreditan reparto del gateway, Kubernetes, TLS ni otro host por tener interfaz visual."
     },
     "RNF-01": {
       "status": "Sin carga UI",

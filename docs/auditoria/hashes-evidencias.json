@@ -57,7 +57,9 @@
   "compose.frontend.yml": "28192dae4badfce6b8aded5f34ef8eee5b443b75c566cfb383b0d30c1d545f96",
   "tests/frontend_fresh_install.py": "a561439c92d4b7d82e67054ad0bf0c6543e94feb8c7afa87214d84dbf26b891c",
   "gateway/proxy.inc": "d42fab381e02d1d2c40b692283b3c29a85f01e9b9133debfd74e8fe2d1bced31",
+  "compose.multinstance.yml": "8c14de744097707d0fa8693f4254ea079fece8d6a5756d453f4756c94fd3224b",
   "tests/gateway_resilience.py": "6a9c9516002bb79bbd4b7432704fef7795cc1a48a57a4b83caa4e209dc0b13b9",
+  "docs/escalabilidad/independencia.json": "9615eba5f9b890968e46c9064765a42f92bfe8837c027213d7a35da33710c79a",
   "docs/frontend/instalacion-desde-cero.json": "63386d8f41027a1d3c50dff927e58784e3a4c60b69047112a412768af998a11d",
   "tests/performance_goals.json": "1fc71a41394ff7974e29b2dff2c4010c27b47cbb863fb59c54f05c8b0d069585",
   "tests/performance_load.py": "16ffed2485d0cd610716d84f34d74c67d776bbfae1bf7fdb1b6f2dee9ef78775",
@@ -65,7 +67,11 @@
   "docs/rendimiento/resultado.json": "f3f65163181e715781ba8f0f3d82ba3fe007a537c5b194e4636ca70575d8afaf",
   "docs/perfilado/resumen.json": "c7f2f5860c50570662b41841649dae4ca92dc022ee7fca46e1b2dd97cdcf9958",
   "tests/http_pool_stability.py": "a18e2a540d135c85497a44eb9f0b79ea91e4d79cc4cd0731656935fa1bc19cef",
+  "docs/escalabilidad/carga/resultado.json": "78f228a15d96f1fc48456200779bedc3f618569b79147b8d5bf9de34b3b058e5",
   "services/cart-service/app/redis_client.py": "9724ed14bffe6ac8867fa779d27e0a41adf0c4bd628416c35224d57826a93f59",
+  "tests/multinstance_independence.py": "5bb1dd867e6341bd67586084fb64a7e580ff3a2696ea0bf6cb4b25a6c560b01f",
+  "docs/escalabilidad/resultado.json": "edcb0959e41732920568c311138d866d5f4d13936dabaa4a2387d81f59eca52e",
+  "tests/multinstance.py": "87c9339c91d758812940baba26f1a3d3527b008580d699dc87733bbf4e501b32",
   "gateway/Dockerfile": "496347041a707a4a5ff1da1a132027f995172d6b0b21680ba380ae42d35c580d",
   "services/product-service/app/services/payment_validation.py": "8e18257f1a93551e2208be2b3fe3fd6959b0427853418a25249c0ed71f1f0dad",
   "services/payment-service/app/core/config.py": "b08532f69dde680cfb485fd500e8784dd5fef1a38f27178905dad866bf45135f",
@@ -80,5 +86,5 @@
   "docs/frontend/pedidos.json": "c959d6b30d0ef812254e62fcfcbab9299ea9d542c3dc4a57470b694ae31e5ddc",
   "docs/frontend/perfil.json": "0de08246ee1f9faed592354fe05fcd25c5e5d5f067358882e345188465072222",
   "tests/run_stability.ps1": "118f71000e25f1b63fd8aca8d07c62a3143a98e34527d3c30978cccef0fa3433",
-  "docs/auditoria/estado-entorno.json": "8befd1b1942d5ec102c8630485cd573a129188155e4f839ed337e2255269d186"
+  "docs/auditoria/estado-entorno.json": "12694b978cae92b5b5698a87d71adb590bbfeefc08af0e970b47ee2f6364c6d0"
 }

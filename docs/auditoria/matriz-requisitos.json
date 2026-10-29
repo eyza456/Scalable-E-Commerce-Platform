@@ -2252,15 +2252,23 @@
       {
         "path": "gateway/proxy.inc",
         "line": 3
+      },
+      {
+        "path": "compose.multinstance.yml",
+        "line": 1
       }
     ],
     "verification": [
       {
         "path": "tests/gateway_resilience.py",
         "line": 1
+      },
+      {
+        "path": "docs/escalabilidad/independencia.json",
+        "line": 1
       }
     ],
-    "finding": "Base Nginx/DNS preparada y recuperacion por cambio de IP probada; no hay balanceo configurado ni prueba de varias replicas. Capacidad futura, no bloqueo del MVP inicial.",
+    "finding": "Gateway con DNS dinamico y recuperacion; perfil multinstancia probado. Falta observar reparto de solicitudes del gateway entre replicas y continuidad ante fallo de una replica durante operaciones. Preparacion futura, no bloqueo del MVP funcional.",
     "scope": "Evolucion futura",
     "frontend": {
       "status": "Infraestructura",
@@ -2271,7 +2279,7 @@
           "line": 1
         }
       ],
-      "note": "El frontend no cierra este requisito parcial. Instalacion probada en el mismo host Windows/Docker Linux, sin replicas ni TLS productivo."
+      "note": "Este requisito sigue parcial. Instalacion y replicas locales verificadas en el mismo host Windows/Docker Linux; no se acreditan reparto del gateway, Kubernetes, TLS ni otro host por tener interfaz visual."
     }
   },
   {
@@ -2367,9 +2375,13 @@
       {
         "path": "tests/order_stability.py",
         "line": 61
+      },
+      {
+        "path": "docs/escalabilidad/carga/resultado.json",
+        "line": 1
       }
     ],
-    "finding": "Cumplido para el perfil local-mvp-20vu-v1 sin cambiar objetivos: a 20 usuarios historial p95 286.88 ms, checkout 770.97 ms, pago 525.38 ms y compra 2.738 s; todos los limites p95/p99, errores, muestras y throughput aprobados (122.96 req/s utiles). SQL/HTTP perfilados, transporte reutilizado con cookies/tokens aislados y conexion de historial liberada antes. No certifica produccion, otras cargas ni volumenes grandes.",
+    "finding": "Cumplido para el perfil local-mvp-20vu-v1 sin cambiar objetivos: a 20 usuarios historial p95 286.88 ms, checkout 770.97 ms, pago 525.38 ms y compra 2.738 s; todos los limites p95/p99, errores, muestras y throughput aprobados (122.96 req/s utiles). SQL/HTTP perfilados, transporte reutilizado con cookies/tokens aislados y conexion de historial liberada antes. No certifica produccion, otras cargas ni volumenes grandes. El perfil multinstancia adicional tambien se evalua con los mismos objetivos originales; ver su JSON separado, sin inferir mejora de capacidad ni rendimiento web.",
     "scope": "MVP / calidad",
     "frontend": {
       "status": "Sin carga UI",
@@ -2504,35 +2516,47 @@
     "page": 18,
     "requirement": "Cada microservicio deberá poder escalar de manera independiente.",
     "type": "No funcional",
-    "status": "Parcial",
+    "status": "Cumplido",
     "code": [
       {
-        "path": "docker-compose.yml",
-        "line": 189
-      },
-      {
-        "path": "docker-compose.yml",
-        "line": 7
+        "path": "compose.multinstance.yml",
+        "line": 3
       }
     ],
     "verification": [
       {
-        "path": "tests/payment_stability.py",
+        "path": "tests/multinstance_independence.py",
+        "line": 36
+      },
+      {
+        "path": "docs/escalabilidad/independencia.json",
+        "line": 1
+      },
+      {
+        "path": "docs/escalabilidad/carga/resultado.json",
         "line": 1
       }
     ],
-    "finding": "Separacion por servicio presente, pero container_name y puertos host fijos impiden --scale directo de servicios. Falta despliegue de replicas verificado.",
+    "finding": "Perfil Compose multinstancia aislado: cada uno de los seis microservicios escala 2/3/1/2 conservando IDs de los otros cinco y salud de todos los procesos. Carga original a 20 usuarios aprobada sin cambiar objetivos. Arranque inicial de esquema con una instancia; no autoscaling ni alta disponibilidad productiva.",
     "scope": "MVP / calidad",
     "frontend": {
       "status": "Infraestructura",
       "code": [],
       "verification": [
         {
-          "path": "docs/frontend/instalacion-desde-cero.json",
+          "path": "docs/escalabilidad/resultado.json",
+          "line": 1
+        },
+        {
+          "path": "docs/escalabilidad/independencia.json",
+          "line": 1
+        },
+        {
+          "path": "docs/escalabilidad/carga/resultado.json",
           "line": 1
         }
       ],
-      "note": "El frontend no cierra este requisito parcial. Instalacion probada en el mismo host Windows/Docker Linux, sin replicas ni TLS productivo."
+      "note": "Perfil multinstancia local verificado con frontend/proxy, seis servicios replicados y concurrencia entre procesos. No implica GUI administrativa, TLS, otro host ni alta disponibilidad productiva."
     }
   },
   {
@@ -2540,39 +2564,55 @@
     "page": 19,
     "requirement": "La arquitectura deberá permitir ejecutar múltiples instancias de un mismo microservicio.",
     "type": "No funcional",
-    "status": "Parcial",
+    "status": "Cumplido",
     "code": [
       {
-        "path": "docker-compose.yml",
-        "line": 219
+        "path": "compose.multinstance.yml",
+        "line": 3
       },
       {
         "path": "services/payment-service/app/outbox.py",
-        "line": 25
+        "line": 32
       }
     ],
     "verification": [
       {
-        "path": "tests/payment_stability.py",
+        "path": "tests/multinstance.py",
+        "line": 88
+      },
+      {
+        "path": "docs/escalabilidad/resultado.json",
         "line": 1
       },
       {
-        "path": "tests/product_stability.py",
+        "path": "docs/escalabilidad/independencia.json",
+        "line": 1
+      },
+      {
+        "path": "docs/escalabilidad/carga/resultado.json",
         "line": 1
       }
     ],
-    "finding": "Bloqueos/skip_locked ayudan a replicas; Compose impone nombre/puerto unicos y no se probo un despliegue multinstancia.",
+    "finding": "Dos procesos por cada microservicio en proyecto aislado de 20 contenedores. Doce checkout y doce pagos concurrentes contra ambas replicas: un pedido, un pago, descuento unico, reserva consumida y tres eventos publicados; cancelacion concurrente verificada. Entrega normal de una notificacion observada; sin garantia exactly-once ante redelivery.",
     "scope": "MVP / calidad",
     "frontend": {
       "status": "Infraestructura",
       "code": [],
       "verification": [
         {
-          "path": "docs/frontend/instalacion-desde-cero.json",
+          "path": "docs/escalabilidad/resultado.json",
+          "line": 1
+        },
+        {
+          "path": "docs/escalabilidad/independencia.json",
+          "line": 1
+        },
+        {
+          "path": "docs/escalabilidad/carga/resultado.json",
           "line": 1
         }
       ],
-      "note": "El frontend no cierra este requisito parcial. Instalacion probada en el mismo host Windows/Docker Linux, sin replicas ni TLS productivo."
+      "note": "Perfil multinstancia local verificado con frontend/proxy, seis servicios replicados y concurrencia entre procesos. No implica GUI administrativa, TLS, otro host ni alta disponibilidad productiva."
     }
   },
   {
@@ -2603,7 +2643,7 @@
           "line": 1
         }
       ],
-      "note": "El frontend no cierra este requisito parcial. Instalacion probada en el mismo host Windows/Docker Linux, sin replicas ni TLS productivo."
+      "note": "Este requisito sigue parcial. Instalacion y replicas locales verificadas en el mismo host Windows/Docker Linux; no se acreditan reparto del gateway, Kubernetes, TLS ni otro host por tener interfaz visual."
     }
   },
   {
@@ -2900,7 +2940,7 @@
           "line": 1
         }
       ],
-      "note": "El frontend no cierra este requisito parcial. Instalacion probada en el mismo host Windows/Docker Linux, sin replicas ni TLS productivo."
+      "note": "Este requisito sigue parcial. Instalacion y replicas locales verificadas en el mismo host Windows/Docker Linux; no se acreditan reparto del gateway, Kubernetes, TLS ni otro host por tener interfaz visual."
     }
   },
   {
@@ -3507,7 +3547,7 @@
           "line": 1
         }
       ],
-      "note": "El frontend no cierra este requisito parcial. Instalacion probada en el mismo host Windows/Docker Linux, sin replicas ni TLS productivo."
+      "note": "Este requisito sigue parcial. Instalacion y replicas locales verificadas en el mismo host Windows/Docker Linux; no se acreditan reparto del gateway, Kubernetes, TLS ni otro host por tener interfaz visual."
     }
   },
   {

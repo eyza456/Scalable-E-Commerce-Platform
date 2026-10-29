@@ -123,6 +123,18 @@ def main():
                      f"Resultado global de objetivos: {performance['status']}. "
                      "[Informe de carga](../rendimiento/informe.md). No se probaron otros hosts.")
     date = datetime.now(timezone.utc).isoformat()
+    scaling_note = ""
+    if criteria["requirements"]["RNF-05"][0] == "Cumplido":
+        for name in ("resultado.json", "independencia.json", "carga/resultado.json"):
+            proof = json.loads((ROOT / "docs/escalabilidad" / name).read_text(encoding="utf-8"))
+            assert proof["status"] == "passed" and proof["cleanup"], name
+            for source, digest in proof["sha256"].items():
+                assert hashlib.sha256((ROOT/source).read_bytes().replace(b"\r\n",b"\n")).hexdigest() == digest, source
+        assert proof["evaluation"]["passed"] and proof["invariants"]["passed"]
+        assert proof["goals_file_sha256"] == hashlib.sha256((ROOT/"tests/performance_goals.json").read_bytes()).hexdigest()
+        scaling_note = (" Perfil multinstancia adicional: los seis servicios con dos replicas y escalado independiente 2/3/1/2, "
+                        "compra/cancelacion concurrentes y carga original sin relajar objetivos. "
+                        "[Evidencia y limites](../escalabilidad/README.md). No cierra RF-49 ni demuestra alta disponibilidad productiva.")
     suite = {"audit_date": date, "command": "powershell -NoProfile -ExecutionPolicy Bypass -File tests/run_stability.ps1",
              "observed_exit_code": args.suite_exit_code, "unittest_total": sum(r["tests"] for r in runs),
              "unittest_failures": 0, "unittest_runs": runs, "log": args.suite_log.name,
@@ -178,7 +190,7 @@ def main():
         selected = [r for r in rows if r["type"] == kind]; c = Counter(r["status"] for r in selected)
         md.append(f'| {kind} | {c["Cumplido"]} | {c["Parcial"]} | {c["Pendiente"]} | {len(selected)} |')
     md += [f'| **Total** | **{counts["Cumplido"]}** | **{counts["Parcial"]}** | **{counts["Pendiente"]}** | **78** |', "",
-           "Cumplido significa capacidad implementada y evidencia indicada; no certifica produccion, carga o portabilidad no probadas. Parcial indica comportamiento o evidencia incompletos. Pendiente indica ausencia de evidencia suficiente.", "",
+           "Cumplido significa capacidad implementada y evidencia indicada; no certifica produccion, carga o portabilidad no probadas. Parcial indica comportamiento o evidencia incompletos. Pendiente indica ausencia de evidencia suficiente." + scaling_note, "",
            "La auditoria original (63 cumplidos, 14 parciales, 1 pendiente) se conserva en [historico-47c5085](historico-47c5085/README.md). El codigo de aquel snapshot se recupera con Git. Los enlaces actuales se recalcularon y validaron contra funciones/lineas reales.", "",
            "## Verificacion vigente", "",
            "Suite completa: **codigo 0, 153 unittest aprobados y 0 fallos**, mas HTTP de perfil, catalogo, compra, inventario, historial/cancelacion, hallazgos, rechazos y demostracion. Tambien pasan migracion de categorias, TTL/DLQ reales, nginx y resiliencia del gateway.", "",

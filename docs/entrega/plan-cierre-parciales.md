@@ -1,8 +1,12 @@
 # Plan de cierre de los ocho requisitos parciales
 
 Revision: 29 de octubre de 2026. Base de la entrega revisada: `0703d96`.
-Esta clasificacion no modifica estados: siguen 70 cumplidos, 8 parciales y 0
-pendientes. Una prioridad futura no equivale a cumplimiento.
+La clasificacion inicial registro 70 cumplidos, 8 parciales y 0 pendientes.
+El avance posterior figura debajo. Una prioridad futura no equivale a cumplimiento.
+
+## Avance posterior de este plan
+
+RNF-05 y RNF-06 cerrados en alcance local con [pruebas multinstancia](../escalabilidad/README.md). Estado actual: 72 cumplidos, 6 parciales y 0 pendientes. Restan RNF-08/21/27 y RF-49/RNF-07/RNF-15. La clasificacion y el orden originales se conservan a continuacion como antecedente; el siguiente bloque es RNF-08/21.
 
 ## Criterio de alcance
 
@@ -74,6 +78,6 @@ trabajos se registran separados de los ocho parciales de arquitectura/calidad.
 - [Pendientes de entrega](pendientes.md): limitaciones operativas y visuales adicionales.
 - [Instalacion nueva integrada](../frontend/instalacion-desde-cero.md): evidencia del unico entorno verificado.
 
-Resultado de esta revision: prioridad definida; ningun requisito cerrado sin
-implementacion y prueba. No se han ejecutado nuevas pruebas funcionales para
-esta clasificacion documental.
+Resultado de la clasificacion inicial: prioridad definida, sin nuevas pruebas.
+El avance posterior se apoya en las ejecuciones multinstancia enlazadas al inicio;
+ningun requisito se cierra solo por su reclasificacion documental.

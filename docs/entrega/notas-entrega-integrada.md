@@ -23,7 +23,7 @@ rendimiento. La etiqueta historica `v0.1.0-rc.1` se conserva sin moverla.
 | Cinco regresiones frontend | 56 escenarios aprobados; se conservan las fechas registradas, no se afirman repetidos por editar documentos |
 | Recorrido cliente completo | Nueve etapas; 14 estados axe sin incidencias/incompletos; teclado y doce comprobaciones de ancho; [guion](../frontend/demostracion-visual.md) |
 | Instalacion completa | 14 contenedores nuevos; migraciones, compra, eventos, reinicio/persistencia y navegador; [informe](../frontend/instalacion-desde-cero.md) |
-| Rendimiento backend/gateway | Medicion historica aceptada del perfil local de 20 usuarios; no se repite carga ni se mide rendimiento web |
+| Rendimiento backend/gateway | Referencia historica de una instancia conservada; nueva carga multinstancia con los mismos objetivos en [escalabilidad](../escalabilidad/README.md); no se mide rendimiento web |
 
 Los JSON distinguen fecha de ejecucion y revision. Los 153 unittest no incluyen
 los 56 escenarios del navegador. Tests dirigidos de consulta de pagos, perfil y
@@ -36,13 +36,14 @@ instalacion para aparentar una version distinta.
 
 ## Limites explicitos
 
-**70 cumplidos, 8 parciales, 0 pendientes.** La cobertura GUI no convierte toda
+**72 cumplidos, 6 parciales, 0 pendientes.** La cobertura GUI no convierte toda
 capacidad de API en pantalla: productos/categorias, roles, estados administrativos
 y vaciado completo del carrito carecen de controles visuales dedicados.
 
 No hay pago bancario, envios, promociones, recuperacion de contraseña o verificacion
-del correo nuevo. Acceso local HTTP y sesion en memoria. No se acreditan replicas,
-alta disponibilidad, SLA productivo, otro host/OS, lector de pantalla ni toda WCAG.
+del correo nuevo. Acceso local HTTP y sesion en memoria. Se acreditan replicas
+locales; quedan sin verificar alta disponibilidad, SLA productivo, otro host/OS,
+lector de pantalla y toda WCAG.
 Las aprobaciones simuladas si modifican el inventario local.
 
 ## Integridad y publicacion
@@ -50,3 +51,11 @@ Las aprobaciones simuladas si modifican el inventario local.
 [Manifiesto](manifiesto-entrega.json): hashes de fuentes, configuracion, documentos
 y evidencias. Excluye `.env`, tokens, herramientas y dependencias instaladas.
 Se entrega como commit local, sin push, publicacion web ni nueva etiqueta.
+
+## Ampliacion posterior: multinstancia local
+
+RNF-05/06 cerrados con [configuracion y pruebas](../escalabilidad/README.md): dos replicas por servicio, escalado independiente de los seis y carga original aprobada. La RC historica se conserva; no se declara alta disponibilidad ni balanceo uniforme.
+
+Esta ampliacion conserva los 153 unittest y 56 escenarios GUI del cierre anterior
+con sus fechas; no se presentan como reejecutados para el overlay. Las nuevas
+ejecuciones son las pruebas multinstancia y su carga independiente.

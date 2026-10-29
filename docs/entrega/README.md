@@ -2,11 +2,11 @@
 
 Revision de cierre: 29 de octubre de 2026. Candidato local del MVP con seis
 microservicios, API Gateway y frontend Nexo basado en Stitch. El codigo funcional
-de referencia es `7338855`; este cierre actualiza documentacion y trazabilidad.
+de referencia es `7338855`; el perfil multinstancia adicional conserva ese codigo y aporta configuracion y pruebas nuevas.
 
 ## Resultado y alcance
 
-**78 requisitos originales: 70 cumplidos, 8 parciales y 0 pendientes.** La
+**78 requisitos originales: 72 cumplidos, 6 parciales y 0 pendientes.** La
 [matriz principal](../auditoria/matriz-requisitos.md) conserva el alcance del sistema.
 La [matriz de cobertura visual](../auditoria/matriz-frontend.md) distingue pantallas,
 lectura y operaciones disponibles solo por API. No agrega requisitos al PDF.
@@ -36,6 +36,7 @@ recuperacion de contraseña ni verificacion por correo.
 | [Rendimiento](../rendimiento/informe.md) | Medicion historica del perfil local, sin repetir carga |
 | [Pendientes](pendientes.md) y [notas de esta entrega](notas-entrega-integrada.md) | Limites reales y separacion de evoluciones |
 | [Plan de cierre de parciales](plan-cierre-parciales.md) | Clasificacion individual, orden y pruebas de aceptacion de los ocho parciales |
+| [Escalabilidad multinstancia](../escalabilidad/README.md) | Seis servicios replicados, escalado independiente y carga sin relajar objetivos |
 | [Manifiesto](manifiesto-entrega.json) | Hashes de fuentes/documentos/evidencias y referencia Git |
 
 ## Instalacion y acceso
