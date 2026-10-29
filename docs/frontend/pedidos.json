@@ -14,13 +14,13 @@
   ],
   "cleanup": true,
   "status": "passed",
-  "date": "2026-10-29T17:12:21.540Z",
+  "date": "2026-10-29T22:34:15.951Z",
   "sha256": {
-    "frontend/app/orders.js": "69ac76b0e1dfd109862db0facd3dfd1e3d24ee72deaf3b71aaaf6253292fd508",
-    "frontend/app/app.js": "365bd423dd6ded04d08cd680f6682cc60ae6304ce9fa76477ada3d78b3fd0aaf",
-    "frontend/app/index.html": "4b52ac97647c851165ba7da734ac46264ffe334ac2deb04be571a6ba80acd903",
+    "frontend/app/orders.js": "512d941f9fd54e3eef8498efe5e80e42dc84933838f25b8b8b94050fbe9d1ee4",
+    "frontend/app/app.js": "babd84b93887314216e8f49862d629305fd685ead31d824426810ec947a89e55",
+    "frontend/app/index.html": "0a5b0f3e043747d9ca7f24526822679133202db8db03282a2488c194ef425b44",
     "frontend/app/styles.css": "d9ec109a0e4ab1d1055cc78be3ef1a47de8f11be8e1c459d1b2a9a7a7f455da4",
-    "frontend/app/profile.js": "9dc978465e158e4da356c7a1cb452dabe0c1c974d324bcbb0fbd9523c23d8e89",
+    "frontend/app/profile.js": "9303eaa8def0ea928e536f0e864d91156b1d4476373a00db3fc2b2a5afdfa014",
     "tests/frontend_orders.cjs": "b908760d73b32ee1afe544a32e836ee9a1610d09af9e1e477e5a45287823144f"
   }
 }

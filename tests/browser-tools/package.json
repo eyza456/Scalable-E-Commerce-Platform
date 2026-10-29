@@ -1,0 +1,7 @@
+{
+  "name": "nexo-browser-audit-tools",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Development-only accessibility audit; not shipped in the frontend image",
+  "devDependencies": {"axe-core": "4.14.0"}
+}

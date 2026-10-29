@@ -17,6 +17,7 @@ window.NexoProfile = function ({api, state, $, feedback, syncAccount}) {
     $('login-form').reset(); $('login-email').value = email;
     feedback('account-status', 'No se confirmó el resultado del cambio y cerramos esta sesión local. Inicia sesión de nuevo; si el cambio de correo se aplicó, usa el nuevo correo. No se repetirá la actualización automáticamente.');
     location.hash = '#cuenta';
+    $('login-email').focus();
   }
   $('edit-profile').addEventListener('click', () => {
     if (owner === null || working) return;
@@ -52,7 +53,12 @@ window.NexoProfile = function ({api, state, $, feedback, syncAccount}) {
       if (!error.status || error.status >= 500) signOutUnknown(email);
       else feedback('profile-error', error.message);
     } finally {
-      if (version === epoch && owner === id) {working = false; render();}
+      if (version === epoch && owner === id) {
+        working = false; render();
+        if (location.hash === '#cuenta' && document.activeElement === document.body) {
+          (editing ? $('edit-email') : $('edit-profile')).focus({preventScroll: true});
+        }
+      }
     }
   });
   return {

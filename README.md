@@ -220,6 +220,8 @@ La galeria de Stitch en el puerto 5173 es una referencia con
 datos ficticios. Ver [alcance, arranque y pruebas del frontend](frontend/README.md).
 Este complemento es posterior a la evidencia de instalacion limpia del backend;
 su verificacion especifica esta en `docs/frontend/integracion.json`.
+El [guion de demostracion visual y accesibilidad](docs/frontend/demostracion-visual.md)
+reproduce el recorrido completo del cliente con fixtures propias y limpieza.
 
 Se corrigieron la concurrencia del carrito, los pedidos duplicados, la revalidacion del catalogo, los limites de registro y la fecha final de pagos. Consultar [contrato HTTP, migraciones y pruebas](docs/auditoria/cierre-hallazgos.md).
 

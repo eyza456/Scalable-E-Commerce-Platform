@@ -131,7 +131,12 @@ window.NexoPayments = function ({api, $, feedback, money, state, onOrder}) {
       }
     } catch (error) {
       if (current(version)) {phase = 'unknown'; feedback('payment-error', error.message);}
-    } finally {if (current(version)) {working = false; render();}}
+    } finally {if (current(version)) {
+      working = false; render();
+      if (view === 'checkout' && document.activeElement === document.body) {
+        (['ready', 'rejected'].includes(phase) && !uncertain ? $('pay-button') : $('refresh-payment')).focus({preventScroll: true});
+      }
+    }}
   }
   $('payment-form').addEventListener('submit', event => {event.preventDefault(); submit();});
   $('refresh-payment').addEventListener('click', refresh);

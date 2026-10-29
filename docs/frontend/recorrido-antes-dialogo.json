@@ -1,0 +1,83 @@
+{
+  "scope": "UI-only customer journey; automated axe, keyboard and reflow checks in local Edge",
+  "steps": [
+    "initial Tab exposes skip link and Enter reaches main",
+    "registration and login through visible forms",
+    "catalog, detail, quantity update and checkout use real controls",
+    "explicit simulated rejection then approval for one order",
+    "paid history blocks cancellation"
+  ],
+  "audits": [
+    {
+      "name": "catalog guest",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 41
+    },
+    {
+      "name": "registration",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 41
+    },
+    {
+      "name": "account signed in",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 39
+    },
+    {
+      "name": "cart",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 37
+    },
+    {
+      "name": "checkout payment ready",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 42
+    },
+    {
+      "name": "payment rejected",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 42
+    },
+    {
+      "name": "payment approved",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 39
+    },
+    {
+      "name": "paid history detail",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 39
+    }
+  ],
+  "keyboard": [
+    "first Tab -> skip link -> main",
+    "cart update restores recreated control",
+    "payment focus follows retry/status controls"
+  ],
+  "layouts": [],
+  "cleanup": true,
+  "browser": "155.0.4283.45",
+  "axeVersion": "4.14.0",
+  "status": "failed",
+  "date": "2026-10-29T22:30:35.866Z",
+  "sha256": {
+    "frontend/app/index.html": "0a5b0f3e043747d9ca7f24526822679133202db8db03282a2488c194ef425b44",
+    "frontend/app/app.js": "babd84b93887314216e8f49862d629305fd685ead31d824426810ec947a89e55",
+    "frontend/app/commerce.js": "bb7b0357b83602eb97671e63201059e42281bfb7cb7e99070b0dadab1ba571f3",
+    "frontend/app/payments.js": "24525fa846c53cf471896dec7415de3d197519dcdf4ae2f0c8474e3a5ea347f8",
+    "frontend/app/orders.js": "de13cc48c0badb44f1fc8f4f09d2fb521f1c2aa0da7678581c4641924ae19e16",
+    "frontend/app/profile.js": "9303eaa8def0ea928e536f0e864d91156b1d4476373a00db3fc2b2a5afdfa014",
+    "frontend/app/styles.css": "d9ec109a0e4ab1d1055cc78be3ef1a47de8f11be8e1c459d1b2a9a7a7f455da4",
+    "tests/frontend_journey.cjs": "7fbed536d4530d658c9a9d765f73440ccd34798573dd20a4223287299d8254b8",
+    "tests/browser-tools/package-lock.json": "43033a83268765d1db148914694aef47c77355c5af08f61e0b17e03108d09bfd"
+  },
+  "historical_note": "First journey run stopped when Tab left the cancellation dialog; corrected in the current orders.js. Source hashes describe that earlier run."
+}

@@ -145,6 +145,7 @@
   }
   function syncAccount() {
     const signed = Boolean(state.user && state.token);
+    $('account-lead').textContent = signed ? 'Gestiona tus datos y continúa explorando el catálogo.' : 'Inicia sesión o crea tu cuenta para acceder a tu perfil.';
     $('account-link').textContent = signed ? 'Mi cuenta' : 'Iniciar sesión'; $('logout').hidden = !signed;
     $('profile').hidden = !signed; document.querySelector('.tabs').hidden = signed;
     $('login-form').hidden = signed || $('register-tab').getAttribute('aria-pressed') === 'true';
@@ -211,7 +212,7 @@
   $('retry-catalog').addEventListener('click', loadCatalog);
   $('previous').addEventListener('click', () => {if (state.page > 0) {state.page--; loadCatalog();}});
   $('next').addEventListener('click', () => {state.page++; loadCatalog();});
-  function route() {
+  function route(event) {
     const hash = location.hash || '#catalogo';
     const match = /^#producto\/([1-9]\d*)$/.exec(hash);
     const orderMatch = /^#pedidos\/([1-9]\d*)$/.exec(hash);
@@ -223,7 +224,7 @@
     else {detailController?.abort(); state.detailRequest++;}
     commerce.route(view);
     orders.route(view, orderMatch ? Number(orderMatch[1]) : null);
-    $('main').focus({preventScroll: true}); window.scrollTo(0, 0);
+    if (event) {$('main').focus({preventScroll: true}); window.scrollTo(0, 0);}
   }
   window.addEventListener('hashchange', route);
   syncAccount(); route(); loadCategories(); loadCatalog();

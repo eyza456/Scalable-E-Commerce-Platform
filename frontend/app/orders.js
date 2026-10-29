@@ -92,6 +92,13 @@ window.NexoOrders = function ({api, state, $, feedback, element, money}) {
     $('cancel-dialog').showModal(); $('keep-order').focus();
   });
   $('keep-order').addEventListener('click', () => $('cancel-dialog').close());
+  $('cancel-dialog').addEventListener('keydown', event => {
+    if (event.key !== 'Tab') return;
+    const buttons = [...$('cancel-dialog').querySelectorAll('button:not(:disabled)')];
+    const first = buttons[0], last = buttons[buttons.length - 1];
+    if (event.shiftKey && document.activeElement === first) {event.preventDefault(); last.focus();}
+    else if (!event.shiftKey && document.activeElement === last) {event.preventDefault(); first.focus();}
+  });
   $('confirm-cancel').addEventListener('click', async () => {
     if (!order || order.status !== 'PENDING' || cancelling || loading) return;
     const version = epoch, id = order.id;
@@ -108,7 +115,14 @@ window.NexoOrders = function ({api, state, $, feedback, element, money}) {
       // Read the authoritative state after lost responses or a confirmed-payment conflict.
       await detail();
       if (current(version) && selected === id) feedback('history-error', message);
-    } finally {if (current(version)) {cancelling = false; render();}}
+    } finally {if (current(version)) {
+      cancelling = false; render();
+      if (view === 'orders' && selected === id && order && document.activeElement === document.body) {
+        const target = order.status === 'PENDING' ? $('cancel-order') : $('history-state');
+        target.tabIndex = order.status === 'PENDING' ? 0 : -1;
+        target.focus({preventScroll: true});
+      }
+    }}
   });
   $('orders-filters').addEventListener('submit', event => {event.preventDefault(); page = 0; list();});
   $('refresh-orders').addEventListener('click', () => selected ? detail() : list());

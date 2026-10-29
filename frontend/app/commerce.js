@@ -62,7 +62,9 @@ window.NexoCommerce = function ({api, state, $, feedback, element, money}) {
     input.id = `quantity-${item.product_id}`; input.type = 'number'; input.min = '1'; input.max = '100'; input.required = true; input.value = String(item.quantity);
     label.htmlFor = input.id;
     const update = element('button', 'Actualizar', 'secondary'); update.type = 'submit';
+    update.id = `update-cart-${item.product_id}`;
     const remove = element('button', 'Quitar', 'secondary'); remove.type = 'button';
+    remove.id = `remove-cart-${item.product_id}`;
     for (const node of [input, update, remove]) node.disabled = locked();
     form.append(label, input, update, remove);
     form.addEventListener('submit', event => {
@@ -101,7 +103,8 @@ window.NexoCommerce = function ({api, state, $, feedback, element, money}) {
   async function mutate(path, method, body, message) {
     if (!signed()) {feedback('add-error', 'Inicia sesión antes de agregar productos.'); return;}
     if (locked()) return;
-    const version = epoch; working = true; feedback('add-error'); feedback('cart-error'); render();
+    const version = epoch, focusId = document.activeElement.id;
+    working = true; feedback('add-error'); feedback('cart-error'); render();
     try {
       await api(path, {method, body, authenticated: true});
       if (!current(version)) return;
@@ -114,7 +117,13 @@ window.NexoCommerce = function ({api, state, $, feedback, element, money}) {
       const message = uncertainCart ? 'No se confirmó el cambio. Actualiza el carrito para comprobarlo; no se repetirá automáticamente.' : error.message;
       feedback('cart-error', message); feedback('add-error', message);
       if (uuid(error.detail?.checkout_id)) {checkoutId = error.detail.checkout_id; phase = 'pending';}
-    } finally {if (current(version)) {working = false; render();}}
+    } finally {if (current(version)) {
+      working = false; render();
+      if (document.activeElement === document.body && ['cart', 'detail'].includes(view)) {
+        const target = $(focusId) || (view === 'cart' ? $('refresh-cart') : $('add-button'));
+        if (target && !target.disabled && target.getClientRects().length) target.focus({preventScroll: true});
+      }
+    }}
   }
   function schedule(version) {
     stopPolling();
@@ -178,7 +187,14 @@ window.NexoCommerce = function ({api, state, $, feedback, element, money}) {
       // A lost response or 5xx may follow a committed order: read first, never POST automatically.
       if (!error.status || error.status >= 500 || error.status === 409) await loadCart();
       else {phase = 'unknown'; feedback('checkout-error', error.message); await lookup(version);}
-    } finally {if (current(version)) {working = false; render();}}
+    } finally {if (current(version)) {
+      working = false; render();
+      if (view === 'checkout' && document.activeElement === document.body) {
+        const target = order ? $('order-number') : canResume ? $('resume-order') : $('check-order');
+        if (order) target.tabIndex = -1;
+        if (target.getClientRects().length && !target.disabled) target.focus({preventScroll: true});
+      }
+    }}
   }
   $('add-form').addEventListener('submit', event => {
     event.preventDefault(); if (!selectedProduct) return;

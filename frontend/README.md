@@ -213,7 +213,9 @@ Get-Content tests/profile_stability.py -Raw | docker compose exec -T user-servic
 python -X utf8 tests/smoke_profile.py
 ```
 
-Ver [evidencias y limites del perfil](../docs/frontend/perfil.md). El siguiente
-trabajo es una demostracion visual completa del recorrido del cliente y revision
-de teclado/accesibilidad y estados de error. Las interfaces administrativas siguen
-fuera de esta etapa; no se afirma cumplimiento productivo de toda la plataforma.
+Ver [evidencias y limites del perfil](../docs/frontend/perfil.md). La demostracion
+completa y revision automatizada de teclado/accesibilidad estan disponibles en
+[el guion visual](../docs/frontend/demostracion-visual.md). Incluye instalacion de
+axe como herramienta de pruebas y el comando `node tests/frontend_journey.cjs`.
+Las interfaces administrativas siguen fuera de esta etapa; no se afirma
+cumplimiento productivo ni certificacion completa de accesibilidad.

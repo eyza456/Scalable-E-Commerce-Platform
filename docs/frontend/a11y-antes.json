@@ -1,0 +1,38 @@
+[
+  {
+    "hash": "#catalogo",
+    "violations": [
+      {
+        "id": "region",
+        "impact": "moderate",
+        "nodes": [
+          {
+            "target": [
+              ".notice"
+            ],
+            "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+          }
+        ]
+      }
+    ],
+    "incomplete": []
+  },
+  {
+    "hash": "#cuenta",
+    "violations": [
+      {
+        "id": "region",
+        "impact": "moderate",
+        "nodes": [
+          {
+            "target": [
+              ".notice"
+            ],
+            "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+          }
+        ]
+      }
+    ],
+    "incomplete": []
+  }
+]
