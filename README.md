@@ -12,7 +12,9 @@ Pedidos: [historial y cancelacion con liberacion de reservas](docs/pedidos.md).
 
 Entrada central: [API Gateway, rutas y pruebas](docs/api-gateway.md) en `http://localhost:8000`.
 
-Auditoria del 28/10/2026: [matriz completa de requisitos y resultados de la suite](docs/auditoria/matriz-requisitos.md).
+Entrega integrada del 29/10/2026: [documentacion final de backend y frontend](docs/entrega/README.md).
+
+Auditoria actualizada: [matriz completa con cobertura visual](docs/auditoria/matriz-requisitos.md).
 
 Plataforma escalable de comercio electrónico basada en una arquitectura de microservicios, desarrollada con Python (FastAPI/SQLAlchemy), PostgreSQL, Redis, RabbitMQ y Docker Compose.
 

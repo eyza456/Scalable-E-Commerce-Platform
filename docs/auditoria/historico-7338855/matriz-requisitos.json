@@ -1,0 +1,2057 @@
+[
+  {
+    "id": "RF-01",
+    "page": 15,
+    "requirement": "El sistema deberá permitir el registro de nuevos usuarios.",
+    "type": "Funcional",
+    "status": "Cumplido",
+    "code": [
+      {
+        "path": "services/user-service/app/routers/auth.py",
+        "line": 24
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/smoke_purchase.py",
+        "line": 1
+      },
+      {
+        "path": "tests/input_limits.py",
+        "line": 34
+      }
+    ],
+    "finding": "Registro por HTTP, incluido correo valido largo y errores controlados en limites de entrada.",
+    "scope": "MVP / calidad"
+  },
+  {
+    "id": "RF-02",
+    "page": 15,
+    "requirement": "El sistema deberá validar que el correo electrónico del usuario no se encuentre registrado previamente.",
+    "type": "Funcional",
+    "status": "Cumplido",
+    "code": [
+      {
+        "path": "services/user-service/app/routers/auth.py",
+        "line": 24
+      },
+      {
+        "path": "services/user-service/app/models/user.py",
+        "line": 27
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/profile_stability.py",
+        "line": 78
+      },
+      {
+        "path": "tests/smoke_profile.py",
+        "line": 1
+      }
+    ],
+    "finding": "Duplicados controlados; indice unico lower(email) tambien protege concurrencia.",
+    "scope": "MVP / calidad"
+  },
+  {
+    "id": "RF-03",
+    "page": 15,
+    "requirement": "El sistema deberá permitir a los usuarios iniciar sesión utilizando sus credenciales.",
+    "type": "Funcional",
+    "status": "Cumplido",
+    "code": [
+      {
+        "path": "services/user-service/app/routers/auth.py",
+        "line": 64
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/smoke_profile.py",
+        "line": 1
+      },
+      {
+        "path": "tests/smoke_purchase.py",
+        "line": 1
+      }
+    ],
+    "finding": "Login real con credenciales y con el nuevo correo tras actualizar perfil.",
+    "scope": "MVP / calidad"
+  },
+  {
+    "id": "RF-04",
+    "page": 15,
+    "requirement": "El sistema deberá generar un token JWT después de una autenticación exitosa.",
+    "type": "Funcional",
+    "status": "Cumplido",
+    "code": [
+      {
+        "path": "services/user-service/app/core/security.py",
+        "line": 38
+      },
+      {
+        "path": "services/user-service/app/routers/auth.py",
+        "line": 64
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/profile_stability.py",
+        "line": 52
+      }
+    ],
+    "finding": "JWT firmado y con expiracion.",
+    "scope": "MVP / calidad"
+  },
+  {
+    "id": "RF-05",
+    "page": 15,
+    "requirement": "El sistema deberá proteger las rutas que requieran autenticación.",
+    "type": "Funcional",
+    "status": "Cumplido",
+    "code": [
+      {
+        "path": "services/user-service/app/dependencies/auth.py",
+        "line": 15
+      },
+      {
+        "path": "services/product-service/app/core/security.py",
+        "line": 11
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/gateway_stability.py",
+        "line": 65
+      }
+    ],
+    "finding": "Rutas protegidas exigen JWT; no se afirma revocacion centralizada de tokens.",
+    "scope": "MVP / calidad"
+  },
+  {
+    "id": "RF-06",
+    "page": 15,
+    "requirement": "El sistema deberá permitir a los usuarios consultar la información de su perfil.",
+    "type": "Funcional",
+    "status": "Cumplido",
+    "code": [
+      {
+        "path": "services/user-service/app/routers/users.py",
+        "line": 36
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/user_stability.py",
+        "line": 11
+      },
+      {
+        "path": "tests/smoke_profile.py",
+        "line": 1
+      }
+    ],
+    "finding": "Consulta de la propia cuenta.",
+    "scope": "MVP / calidad"
+  },
+  {
+    "id": "RF-07",
+    "page": 15,
+    "requirement": "El sistema deberá permitir a los usuarios actualizar determinados datos de su perfil.",
+    "type": "Funcional",
+    "status": "Cumplido",
+    "code": [
+      {
+        "path": "services/user-service/app/routers/users.py",
+        "line": 44
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/profile_stability.py",
+        "line": 1
+      },
+      {
+        "path": "tests/smoke_profile.py",
+        "line": 1
+      }
+    ],
+    "finding": "Actualizacion parcial de nombre/correo; se rechazan campos privilegiados y se renueva JWT.",
+    "scope": "MVP / calidad"
+  },
+  {
+    "id": "RF-08",
+    "page": 15,
+    "requirement": "El sistema deberá manejar diferentes roles de usuario.",
+    "type": "Funcional",
+    "status": "Cumplido",
+    "code": [
+      {
+        "path": "services/user-service/app/models/user.py",
+        "line": 34
+      },
+      {
+        "path": "services/product-service/app/core/security.py",
+        "line": 47
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/smoke_catalog.py",
+        "line": 1
+      }
+    ],
+    "finding": "Roles Customer, admin y seller; falta un endpoint de asignacion de roles del diseno, ver D-01.",
+    "scope": "MVP / calidad"
+  },
+  {
+    "id": "RF-09",
+    "page": 15,
+    "requirement": "El sistema deberá permitir restringir determinadas operaciones según el rol del usuario.",
+    "type": "Funcional",
+    "status": "Cumplido",
+    "code": [
+      {
+        "path": "services/product-service/app/core/security.py",
+        "line": 47
+      },
+      {
+        "path": "services/order-service/app/core/security.py",
+        "line": 49
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/smoke_catalog.py",
+        "line": 1
+      },
+      {
+        "path": "tests/smoke_profile.py",
+        "line": 1
+      }
+    ],
+    "finding": "Permisos por rol en operaciones administrativas.",
+    "scope": "MVP / calidad"
+  },
+  {
+    "id": "RF-10",
+    "page": 15,
+    "requirement": "El sistema deberá almacenar las contraseñas utilizando mecanismos de hash seguro.",
+    "type": "Funcional",
+    "status": "Cumplido",
+    "code": [
+      {
+        "path": "services/user-service/app/core/security.py",
+        "line": 9
+      },
+      {
+        "path": "services/user-service/app/schemas/user.py",
+        "line": 5
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/input_limits.py",
+        "line": 1
+      }
+    ],
+    "finding": "bcrypt sin truncamiento: maximo 72 bytes UTF-8 validado antes del hash.",
+    "scope": "MVP / calidad"
+  },
+  {
+    "id": "RF-11",
+    "page": 15,
+    "requirement": "El sistema deberá permitir registrar nuevos productos.",
+    "type": "Funcional",
+    "status": "Cumplido",
+    "code": [
+      {
+        "path": "services/product-service/app/routers/products.py",
+        "line": 33
+      },
+      {
+        "path": "services/product-service/app/crud/product.py",
+        "line": 35
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/gateway_stability.py",
+        "line": 112
+      }
+    ],
+    "finding": "Alta con permisos y categoria existente.",
+    "scope": "MVP / calidad"
+  },
+  {
+    "id": "RF-12",
+    "page": 15,
+    "requirement": "El sistema deberá permitir consultar el catálogo de productos disponibles.",
+    "type": "Funcional",
+    "status": "Cumplido",
+    "code": [
+      {
+        "path": "services/product-service/app/routers/products.py",
+        "line": 50
+      },
+      {
+        "path": "services/product-service/app/crud/product.py",
+        "line": 49
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/catalog_stability.py",
+        "line": 100
+      }
+    ],
+    "finding": "El filtro available=true permite listar disponibles; el listado sin filtro tambien incluye inactivos.",
+    "scope": "MVP / calidad"
+  },
+  {
+    "id": "RF-13",
+    "page": 15,
+    "requirement": "El sistema deberá permitir consultar la información detallada de un producto.",
+    "type": "Funcional",
+    "status": "Cumplido",
+    "code": [
+      {
+        "path": "services/product-service/app/routers/products.py",
+        "line": 73
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/smoke_purchase.py",
+        "line": 1
+      }
+    ],
+    "finding": "Detalle publico por ID y 404 cuando no existe.",
+    "scope": "MVP / calidad"
+  },
+  {
+    "id": "RF-14",
+    "page": 15,
+    "requirement": "El sistema deberá permitir actualizar la información de un producto.",
+    "type": "Funcional",
+    "status": "Cumplido",
+    "code": [
+      {
+        "path": "services/product-service/app/routers/products.py",
+        "line": 96
+      },
+      {
+        "path": "services/product-service/app/crud/product.py",
+        "line": 87
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/smoke_catalog.py",
+        "line": 1
+      }
+    ],
+    "finding": "Actualizacion con permisos y validacion de categoria.",
+    "scope": "MVP / calidad"
+  },
+  {
+    "id": "RF-15",
+    "page": 15,
+    "requirement": "El sistema deberá permitir eliminar productos.",
+    "type": "Funcional",
+    "status": "Cumplido",
+    "code": [
+      {
+        "path": "services/product-service/app/crud/product.py",
+        "line": 106
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/smoke_catalog.py",
+        "line": 1
+      }
+    ],
+    "finding": "Eliminacion autorizada; se impide borrar productos con reservas pendientes.",
+    "scope": "MVP / calidad"
+  },
+  {
+    "id": "RF-16",
+    "page": 15,
+    "requirement": "El sistema deberá permitir clasificar productos por categorías.",
+    "type": "Funcional",
+    "status": "Cumplido",
+    "code": [
+      {
+        "path": "services/product-service/app/routers/categories.py",
+        "line": 1
+      },
+      {
+        "path": "services/product-service/app/models/product.py",
+        "line": 42
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/catalog_stability.py",
+        "line": 58
+      }
+    ],
+    "finding": "Categorias relacionadas por FK; compatibilidad con nombre antiguo y migracion de datos.",
+    "scope": "MVP / calidad"
+  },
+  {
+    "id": "RF-17",
+    "page": 15,
+    "requirement": "El sistema deberá permitir buscar productos.",
+    "type": "Funcional",
+    "status": "Cumplido",
+    "code": [
+      {
+        "path": "services/product-service/app/crud/product.py",
+        "line": 49
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/catalog_stability.py",
+        "line": 107
+      }
+    ],
+    "finding": "Busqueda parcial por nombre y filtros combinables; no es busqueda avanzada Elasticsearch.",
+    "scope": "MVP / calidad"
+  },
+  {
+    "id": "RF-18",
+    "page": 16,
+    "requirement": "El sistema deberá permitir controlar la cantidad disponible de un producto.",
+    "type": "Funcional",
+    "status": "Cumplido",
+    "code": [
+      {
+        "path": "services/product-service/app/reservations.py",
+        "line": 16
+      },
+      {
+        "path": "services/product-service/app/routers/products.py",
+        "line": 157
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/product_stability.py",
+        "line": 100
+      }
+    ],
+    "finding": "Stock disponible y reservas atomicas; descuento idempotente y liberacion coordinada.",
+    "scope": "MVP / calidad"
+  },
+  {
+    "id": "RF-19",
+    "page": 16,
+    "requirement": "El sistema deberá indicar si un producto se encuentra disponible o no.",
+    "type": "Funcional",
+    "status": "Cumplido",
+    "code": [
+      {
+        "path": "services/product-service/app/crud/product.py",
+        "line": 49
+      },
+      {
+        "path": "services/product-service/app/models/product.py",
+        "line": 54
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/catalog_stability.py",
+        "line": 100
+      }
+    ],
+    "finding": "Disponibilidad expresada por stock/is_active y filtro available; no existe campo de respuesta available como en el ejemplo del PDF.",
+    "scope": "MVP / calidad"
+  },
+  {
+    "id": "RF-20",
+    "page": 16,
+    "requirement": "Las operaciones administrativas sobre productos deberán estar restringidas a usuarios autorizados.",
+    "type": "Funcional",
+    "status": "Cumplido",
+    "code": [
+      {
+        "path": "services/product-service/app/routers/products.py",
+        "line": 33
+      },
+      {
+        "path": "services/product-service/app/core/security.py",
+        "line": 47
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/smoke_catalog.py",
+        "line": 1
+      }
+    ],
+    "finding": "CRUD y descuento manual de stock protegidos por admin/seller.",
+    "scope": "MVP / calidad"
+  },
+  {
+    "id": "RF-21",
+    "page": 16,
+    "requirement": "El sistema deberá permitir a un usuario disponer de un carrito de compras.",
+    "type": "Funcional",
+    "status": "Cumplido",
+    "code": [
+      {
+        "path": "services/cart-service/app/routers/cart.py",
+        "line": 48
+      },
+      {
+        "path": "services/cart-service/app/routers/cart.py",
+        "line": 65
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/smoke_purchase.py",
+        "line": 1
+      }
+    ],
+    "finding": "Carrito Redis separado por identificador del JWT.",
+    "scope": "MVP / calidad"
+  },
+  {
+    "id": "RF-22",
+    "page": 16,
+    "requirement": "El sistema deberá permitir agregar productos al carrito.",
+    "type": "Funcional",
+    "status": "Cumplido",
+    "code": [
+      {
+        "path": "services/cart-service/app/routers/cart.py",
+        "line": 48
+      },
+      {
+        "path": "services/cart-service/app/storage.py",
+        "line": 9
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/cart_stability.py",
+        "line": 29
+      },
+      {
+        "path": "tests/smoke_audit_fixes.py",
+        "line": 1
+      }
+    ],
+    "finding": "Altas atomicas Redis, 20 operaciones simultaneas conservan 20 unidades por HTTP.",
+    "scope": "MVP / calidad"
+  },
+  {
+    "id": "RF-23",
+    "page": 16,
+    "requirement": "El sistema deberá permitir modificar la cantidad de un producto agregado al carrito.",
+    "type": "Funcional",
+    "status": "Cumplido",
+    "code": [
+      {
+        "path": "services/cart-service/app/routers/cart.py",
+        "line": 70
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/gateway_stability.py",
+        "line": 112
+      }
+    ],
+    "finding": "Actualizacion de cantidad con comprobacion de stock en ese momento.",
+    "scope": "MVP / calidad"
+  },
+  {
+    "id": "RF-24",
+    "page": 16,
+    "requirement": "El sistema deberá permitir eliminar productos individuales del carrito.",
+    "type": "Funcional",
+    "status": "Cumplido",
+    "code": [
+      {
+        "path": "services/cart-service/app/routers/cart.py",
+        "line": 85
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/cart_stability.py",
+        "line": 90
+      },
+      {
+        "path": "tests/demo_release.py",
+        "line": 13
+      }
+    ],
+    "finding": "Eliminacion individual comprobada en Redis y por HTTP en la demostracion.",
+    "scope": "MVP / calidad"
+  },
+  {
+    "id": "RF-25",
+    "page": 16,
+    "requirement": "El sistema deberá permitir vaciar completamente el carrito.",
+    "type": "Funcional",
+    "status": "Cumplido",
+    "code": [
+      {
+        "path": "services/cart-service/app/routers/cart.py",
+        "line": 96
+      },
+      {
+        "path": "services/cart-service/app/storage.py",
+        "line": 56
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/cart_stability.py",
+        "line": 57
+      },
+      {
+        "path": "tests/demo_release.py",
+        "line": 13
+      }
+    ],
+    "finding": "Vaciado explicito y finalizacion idempotente; una confirmacion tardia no borra un carrito nuevo.",
+    "scope": "MVP / calidad"
+  },
+  {
+    "id": "RF-26",
+    "page": 16,
+    "requirement": "El sistema deberá mostrar los productos contenidos en el carrito.",
+    "type": "Funcional",
+    "status": "Cumplido",
+    "code": [
+      {
+        "path": "services/cart-service/app/routers/cart.py",
+        "line": 65
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/gateway_stability.py",
+        "line": 112
+      }
+    ],
+    "finding": "Contenido y totales del propio carrito.",
+    "scope": "MVP / calidad"
+  },
+  {
+    "id": "RF-27",
+    "page": 16,
+    "requirement": "El sistema deberá calcular el subtotal y total de los productos agregados.",
+    "type": "Funcional",
+    "status": "Cumplido",
+    "code": [
+      {
+        "path": "services/cart-service/app/routers/cart.py",
+        "line": 65
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/smoke_purchase.py",
+        "line": 1
+      }
+    ],
+    "finding": "Subtotal y total calculados con Decimal a partir del snapshot del carrito.",
+    "scope": "MVP / calidad"
+  },
+  {
+    "id": "RF-28",
+    "page": 16,
+    "requirement": "El sistema deberá validar la disponibilidad de los productos antes de confirmar un pedido.",
+    "type": "Funcional",
+    "status": "Cumplido",
+    "code": [
+      {
+        "path": "services/order-service/app/checkouts.py",
+        "line": 53
+      },
+      {
+        "path": "services/order-service/app/checkouts.py",
+        "line": 93
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/checkout_stability.py",
+        "line": 1
+      },
+      {
+        "path": "tests/smoke_audit_fixes.py",
+        "line": 1
+      }
+    ],
+    "finding": "Al crear pedido se revalidan existencia, actividad, stock y precio. Precio cambiado: 409 hasta refrescar el articulo; reserva efectiva al pagar.",
+    "scope": "MVP / calidad"
+  },
+  {
+    "id": "RF-29",
+    "page": 16,
+    "requirement": "El sistema deberá permitir crear un pedido a partir de los productos del carrito.",
+    "type": "Funcional",
+    "status": "Cumplido",
+    "code": [
+      {
+        "path": "services/order-service/app/routers/orders.py",
+        "line": 52
+      },
+      {
+        "path": "services/order-service/app/checkouts.py",
+        "line": 138
+      },
+      {
+        "path": "services/order-service/app/checkouts.py",
+        "line": 93
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/checkout_stability.py",
+        "line": 106
+      },
+      {
+        "path": "tests/demo_release.py",
+        "line": 13
+      }
+    ],
+    "finding": "Checkout durable por version del carrito, un unico pedido ante concurrencia y recuperacion tras interrupcion.",
+    "scope": "MVP / calidad"
+  },
+  {
+    "id": "RF-30",
+    "page": 16,
+    "requirement": "El sistema deberá generar un identificador único para cada pedido.",
+    "type": "Funcional",
+    "status": "Cumplido",
+    "code": [
+      {
+        "path": "services/order-service/app/models.py",
+        "line": 16
+      },
+      {
+        "path": "services/order-service/app/models.py",
+        "line": 103
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/checkout_stability.py",
+        "line": 113
+      }
+    ],
+    "finding": "PK del pedido y checkout_id unico: una repeticion recupera el pedido original.",
+    "scope": "MVP / calidad"
+  },
+  {
+    "id": "RF-31",
+    "page": 16,
+    "requirement": "El sistema deberá registrar la fecha y hora de creación del pedido.",
+    "type": "Funcional",
+    "status": "Cumplido",
+    "code": [
+      {
+        "path": "services/order-service/app/models.py",
+        "line": 44
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/order_stability.py",
+        "line": 1
+      }
+    ],
+    "finding": "Fecha/hora de creacion almacenada en orders.",
+    "scope": "MVP / calidad"
+  },
+  {
+    "id": "RF-32",
+    "page": 16,
+    "requirement": "El sistema deberá asociar cada pedido a un usuario registrado.",
+    "type": "Funcional",
+    "status": "Cumplido",
+    "code": [
+      {
+        "path": "services/order-service/app/routers/orders.py",
+        "line": 52
+      },
+      {
+        "path": "services/order-service/app/models.py",
+        "line": 27
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/smoke_orders.py",
+        "line": 1
+      }
+    ],
+    "finding": "Asocia user_id del JWT emitido por registro/login; no hay FK entre bases independientes ni introspeccion de usuario en cada servicio.",
+    "scope": "MVP / calidad"
+  },
+  {
+    "id": "RF-33",
+    "page": 17,
+    "requirement": "El sistema deberá almacenar los productos y cantidades correspondientes a cada pedido.",
+    "type": "Funcional",
+    "status": "Cumplido",
+    "code": [
+      {
+        "path": "services/order-service/app/models.py",
+        "line": 56
+      },
+      {
+        "path": "services/order-service/app/routers/orders.py",
+        "line": 52
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/order_stability.py",
+        "line": 47
+      }
+    ],
+    "finding": "Items, cantidades y snapshot del producto persistidos.",
+    "scope": "MVP / calidad"
+  },
+  {
+    "id": "RF-34",
+    "page": 17,
+    "requirement": "El sistema deberá calcular el monto total del pedido.",
+    "type": "Funcional",
+    "status": "Cumplido",
+    "code": [
+      {
+        "path": "services/order-service/app/checkouts.py",
+        "line": 53
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/checkout_stability.py",
+        "line": 86
+      },
+      {
+        "path": "tests/demo_release.py",
+        "line": 13
+      }
+    ],
+    "finding": "Order recalcula subtotal y total con Decimal a partir de cantidades y precios actuales revalidados; no confia en cart.total.",
+    "scope": "MVP / calidad"
+  },
+  {
+    "id": "RF-35",
+    "page": 17,
+    "requirement": "El sistema deberá permitir consultar el historial de pedidos de un usuario.",
+    "type": "Funcional",
+    "status": "Cumplido",
+    "code": [
+      {
+        "path": "services/order-service/app/routers/orders.py",
+        "line": 76
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/order_stability.py",
+        "line": 47
+      },
+      {
+        "path": "tests/smoke_orders.py",
+        "line": 1
+      }
+    ],
+    "finding": "Historial privado, filtrado por estado y paginado con orden estable.",
+    "scope": "MVP / calidad"
+  },
+  {
+    "id": "RF-36",
+    "page": 17,
+    "requirement": "El sistema deberá permitir consultar el detalle de un pedido específico.",
+    "type": "Funcional",
+    "status": "Cumplido",
+    "code": [
+      {
+        "path": "services/order-service/app/routers/orders.py",
+        "line": 122
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/smoke_orders.py",
+        "line": 1
+      }
+    ],
+    "finding": "Detalle restringido al propietario.",
+    "scope": "MVP / calidad"
+  },
+  {
+    "id": "RF-37",
+    "page": 17,
+    "requirement": "El sistema deberá manejar diferentes estados para los pedidos.",
+    "type": "Funcional",
+    "status": "Cumplido",
+    "code": [
+      {
+        "path": "services/order-service/app/routers/orders.py",
+        "line": 148
+      },
+      {
+        "path": "services/order-service/app/cancellations.py",
+        "line": 12
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/order_stability.py",
+        "line": 1
+      },
+      {
+        "path": "tests/smoke_orders.py",
+        "line": 1
+      }
+    ],
+    "finding": "PENDING, PAID, PROCESSING, SHIPPED, DELIVERED, CANCELLED y estado adicional recuperable CANCELLING.",
+    "scope": "MVP / calidad"
+  },
+  {
+    "id": "RF-38",
+    "page": 17,
+    "requirement": "Los administradores deberán poder actualizar el estado de los pedidos.",
+    "type": "Funcional",
+    "status": "Cumplido",
+    "code": [
+      {
+        "path": "services/order-service/app/routers/orders.py",
+        "line": 148
+      },
+      {
+        "path": "services/order-service/app/core/security.py",
+        "line": 49
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/demo_release.py",
+        "line": 13
+      }
+    ],
+    "finding": "Cadena HTTP PAID -> PROCESSING -> SHIPPED -> DELIVERED con token admin; el cliente recibe 403. La demo usa un token administrativo efimero de fixture.",
+    "scope": "MVP / calidad"
+  },
+  {
+    "id": "RF-39",
+    "page": 17,
+    "requirement": "El sistema deberá permitir iniciar un proceso de pago asociado a un pedido.",
+    "type": "Funcional",
+    "status": "Cumplido",
+    "code": [
+      {
+        "path": "services/payment-service/app/routers/payments.py",
+        "line": 42
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/payment_stability.py",
+        "line": 150
+      }
+    ],
+    "finding": "Intento durable asociado a pedido y propietario.",
+    "scope": "MVP / calidad"
+  },
+  {
+    "id": "RF-40",
+    "page": 17,
+    "requirement": "El servicio deberá registrar el resultado del proceso de pago.",
+    "type": "Funcional",
+    "status": "Cumplido",
+    "code": [
+      {
+        "path": "services/payment-service/app/inventory.py",
+        "line": 59
+      },
+      {
+        "path": "services/payment-service/app/models/payment.py",
+        "line": 47
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/payment_stability.py",
+        "line": 401
+      }
+    ],
+    "finding": "Registra PENDING, PAID, REJECTED o CANCELLED.",
+    "scope": "MVP / calidad"
+  },
+  {
+    "id": "RF-41",
+    "page": 17,
+    "requirement": "El sistema deberá permitir identificar pagos exitosos y pagos rechazados.",
+    "type": "Funcional",
+    "status": "Cumplido",
+    "code": [
+      {
+        "path": "services/payment-service/app/inventory.py",
+        "line": 17
+      },
+      {
+        "path": "services/payment-service/app/inventory.py",
+        "line": 59
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/payment_stability.py",
+        "line": 73
+      },
+      {
+        "path": "tests/smoke_payment_rejections.py",
+        "line": 1
+      }
+    ],
+    "finding": "Aprobacion y rechazos de fondos, vencimiento, emisor o stock; motivo y fecha persistidos.",
+    "scope": "MVP / calidad"
+  },
+  {
+    "id": "RF-42",
+    "page": 17,
+    "requirement": "Un pago exitoso deberá actualizar el estado correspondiente del pedido.",
+    "type": "Funcional",
+    "status": "Cumplido",
+    "code": [
+      {
+        "path": "services/payment-service/app/inventory.py",
+        "line": 59
+      },
+      {
+        "path": "services/payment-service/app/outbox.py",
+        "line": 25
+      },
+      {
+        "path": "services/order-service/app/rabbitmq.py",
+        "line": 40
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/smoke_purchase.py",
+        "line": 1
+      },
+      {
+        "path": "tests/gateway_stability.py",
+        "line": 1
+      }
+    ],
+    "finding": "Actualizacion eventual mediante Outbox/RabbitMQ; compra completa y recuperacion verificadas.",
+    "scope": "MVP / calidad"
+  },
+  {
+    "id": "RF-43",
+    "page": 17,
+    "requirement": "Un pago rechazado deberá mantener o actualizar el pedido según las reglas establecidas.",
+    "type": "Funcional",
+    "status": "Cumplido",
+    "code": [
+      {
+        "path": "services/payment-service/app/inventory.py",
+        "line": 59
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/smoke_payment_rejections.py",
+        "line": 1
+      },
+      {
+        "path": "tests/demo_release.py",
+        "line": 13
+      }
+    ],
+    "finding": "El rechazo conserva PENDING para otro intento; cancelacion es explicita. Regla documentada conforme a la alternativa permitida por RF-43; difiere del dibujo p.36.",
+    "scope": "MVP / calidad"
+  },
+  {
+    "id": "RF-44",
+    "page": 17,
+    "requirement": "El sistema deberá registrar la fecha y hora del procesamiento del pago.",
+    "type": "Funcional",
+    "status": "Cumplido",
+    "code": [
+      {
+        "path": "services/payment-service/app/models/payment.py",
+        "line": 15
+      },
+      {
+        "path": "services/payment-service/app/inventory.py",
+        "line": 59
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/payment_stability.py",
+        "line": 553
+      },
+      {
+        "path": "tests/smoke_payment_rejections.py",
+        "line": 1
+      }
+    ],
+    "finding": "processed_at UTC registra resolucion final PAID/REJECTED/CANCELLED, sin cambiar en reintentos. Historicos sin fecha real permanecen NULL.",
+    "scope": "MVP / calidad"
+  },
+  {
+    "id": "RF-45",
+    "page": 17,
+    "requirement": "La primera versión del sistema utilizará un mecanismo de simulación de pagos.",
+    "type": "Funcional",
+    "status": "Cumplido",
+    "code": [
+      {
+        "path": "services/payment-service/app/routers/payments.py",
+        "line": 42
+      },
+      {
+        "path": "services/payment-service/app/inventory.py",
+        "line": 17
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/smoke_payment_rejections.py",
+        "line": 1
+      },
+      {
+        "path": "tests/demo_release.py",
+        "line": 13
+      }
+    ],
+    "finding": "Simulacion determinista; resultado inmutable por intento PENDING. No hay cobros reales.",
+    "scope": "MVP / calidad"
+  },
+  {
+    "id": "RF-46",
+    "page": 18,
+    "requirement": "El sistema deberá contar con un punto central de acceso para los clientes.",
+    "type": "Funcional",
+    "status": "Cumplido",
+    "code": [
+      {
+        "path": "docker-compose.yml",
+        "line": 3
+      },
+      {
+        "path": "gateway/nginx.conf",
+        "line": 1
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/gateway_stability.py",
+        "line": 1
+      }
+    ],
+    "finding": "Entrada central http://localhost:8000. Acceso directo de depuracion sigue publicado; ver D-07.",
+    "scope": "MVP / calidad"
+  },
+  {
+    "id": "RF-47",
+    "page": 18,
+    "requirement": "El API Gateway deberá redirigir las solicitudes al microservicio correspondiente.",
+    "type": "Funcional",
+    "status": "Cumplido",
+    "code": [
+      {
+        "path": "gateway/nginx.conf",
+        "line": 1
+      },
+      {
+        "path": "gateway/proxy.inc",
+        "line": 1
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/gateway_stability.py",
+        "line": 112
+      }
+    ],
+    "finding": "Enrutamiento efectivo a los cinco servicios funcionales y categorias.",
+    "scope": "MVP / calidad"
+  },
+  {
+    "id": "RF-48",
+    "page": 18,
+    "requirement": "El API Gateway deberá permitir el acceso a los servicios mediante rutas definidas.",
+    "type": "Funcional",
+    "status": "Cumplido",
+    "code": [
+      {
+        "path": "gateway/nginx.conf",
+        "line": 1
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/gateway_stability.py",
+        "line": 92
+      }
+    ],
+    "finding": "Rutas /api/auth, users, products, categories, cart, orders y payments definidas.",
+    "scope": "MVP / calidad"
+  },
+  {
+    "id": "RF-49",
+    "page": 18,
+    "requirement": "El API Gateway deberá facilitar la incorporación futura de mecanismos de balanceo de carga.",
+    "type": "Funcional",
+    "status": "Parcial",
+    "code": [
+      {
+        "path": "gateway/nginx.conf",
+        "line": 20
+      },
+      {
+        "path": "gateway/proxy.inc",
+        "line": 3
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/gateway_resilience.py",
+        "line": 1
+      }
+    ],
+    "finding": "Base Nginx/DNS preparada y recuperacion por cambio de IP probada; no hay balanceo configurado ni prueba de varias replicas. Capacidad futura, no bloqueo del MVP inicial.",
+    "scope": "Evolucion futura"
+  },
+  {
+    "id": "RF-50",
+    "page": 18,
+    "requirement": "El API Gateway deberá permitir centralizar determinadas políticas de acceso y seguridad.",
+    "type": "Funcional",
+    "status": "Cumplido",
+    "code": [
+      {
+        "path": "gateway/nginx.conf",
+        "line": 1
+      },
+      {
+        "path": "gateway/proxy.inc",
+        "line": 1
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/gateway_stability.py",
+        "line": 73
+      },
+      {
+        "path": "tests/gateway_resilience.py",
+        "line": 1
+      }
+    ],
+    "finding": "Politicas centrales: bloqueo de rutas internas, retirada de clave interna, IP reenviada y trazabilidad. JWT sigue en servicios.",
+    "scope": "MVP / calidad"
+  },
+  {
+    "id": "RNF-01",
+    "page": 18,
+    "requirement": "La plataforma deberá proporcionar tiempos de respuesta adecuados para las operaciones comunes.",
+    "type": "No funcional",
+    "status": "Cumplido",
+    "code": [
+      {
+        "path": "tests/performance_goals.json",
+        "line": 1
+      },
+      {
+        "path": "tests/performance_load.py",
+        "line": 1
+      },
+      {
+        "path": "services/order-service/app/routers/orders.py",
+        "line": 76
+      },
+      {
+        "path": "services/order-service/app/http_client.py",
+        "line": 34
+      }
+    ],
+    "verification": [
+      {
+        "path": "docs/rendimiento/resultado.json",
+        "line": 1
+      },
+      {
+        "path": "docs/perfilado/resumen.json",
+        "line": 1
+      },
+      {
+        "path": "tests/http_pool_stability.py",
+        "line": 1
+      },
+      {
+        "path": "tests/order_stability.py",
+        "line": 61
+      }
+    ],
+    "finding": "Cumplido para el perfil local-mvp-20vu-v1 sin cambiar objetivos: a 20 usuarios historial p95 286.88 ms, checkout 770.97 ms, pago 525.38 ms y compra 2.738 s; todos los limites p95/p99, errores, muestras y throughput aprobados (122.96 req/s utiles). SQL/HTTP perfilados, transporte reutilizado con cookies/tokens aislados y conexion de historial liberada antes. No certifica produccion, otras cargas ni volumenes grandes.",
+    "scope": "MVP / calidad"
+  },
+  {
+    "id": "RNF-02",
+    "page": 18,
+    "requirement": "Los servicios deberán estar diseñados para soportar múltiples solicitudes concurrentes.",
+    "type": "No funcional",
+    "status": "Cumplido",
+    "code": [
+      {
+        "path": "services/cart-service/app/storage.py",
+        "line": 9
+      },
+      {
+        "path": "services/order-service/app/checkouts.py",
+        "line": 27
+      },
+      {
+        "path": "services/payment-service/app/inventory.py",
+        "line": 59
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/cart_stability.py",
+        "line": 1
+      },
+      {
+        "path": "tests/checkout_stability.py",
+        "line": 1
+      },
+      {
+        "path": "tests/payment_stability.py",
+        "line": 185
+      },
+      {
+        "path": "tests/smoke_audit_fixes.py",
+        "line": 1
+      }
+    ],
+    "finding": "Concurrencia funcional y carga local hasta 20 usuarios verificadas: 1.051 compras integras, sin duplicados ni doble descuento. Pool HTTP probado con 40 llamadas concurrentes e identidades aisladas; Outbox mantiene skip_locked y reenvio recuperable. No demuestra replicas reales ni capacidad productiva.",
+    "scope": "MVP / calidad"
+  },
+  {
+    "id": "RNF-03",
+    "page": 18,
+    "requirement": "El sistema deberá permitir la incorporación de mecanismos de caché para mejorar el rendimiento.",
+    "type": "No funcional",
+    "status": "Cumplido",
+    "code": [
+      {
+        "path": "services/cart-service/app/redis_client.py",
+        "line": 1
+      },
+      {
+        "path": "docker-compose.yml",
+        "line": 143
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/smoke_purchase.py",
+        "line": 1
+      }
+    ],
+    "finding": "Redis integrado permite ampliar cache. Hoy almacena carritos; no se afirma cache del catalogo ni mejoras de rendimiento medidas.",
+    "scope": "MVP / calidad"
+  },
+  {
+    "id": "RNF-04",
+    "page": 18,
+    "requirement": "Las consultas frecuentes deberán poder optimizarse mediante índices y estrategias adecuadas de almacenamiento.",
+    "type": "No funcional",
+    "status": "Cumplido",
+    "code": [
+      {
+        "path": "services/user-service/app/models/user.py",
+        "line": 27
+      },
+      {
+        "path": "services/product-service/app/models/product.py",
+        "line": 42
+      },
+      {
+        "path": "services/order-service/app/models.py",
+        "line": 27
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/catalog_stability.py",
+        "line": 1
+      }
+    ],
+    "finding": "Indices PK, email normalizado, categorias y usuarios. No se hicieron EXPLAIN ni benchmark de consultas.",
+    "scope": "MVP / calidad"
+  },
+  {
+    "id": "RNF-05",
+    "page": 18,
+    "requirement": "Cada microservicio deberá poder escalar de manera independiente.",
+    "type": "No funcional",
+    "status": "Parcial",
+    "code": [
+      {
+        "path": "docker-compose.yml",
+        "line": 189
+      },
+      {
+        "path": "docker-compose.yml",
+        "line": 7
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/payment_stability.py",
+        "line": 1
+      }
+    ],
+    "finding": "Separacion por servicio presente, pero container_name y puertos host fijos impiden --scale directo de servicios. Falta despliegue de replicas verificado.",
+    "scope": "MVP / calidad"
+  },
+  {
+    "id": "RNF-06",
+    "page": 19,
+    "requirement": "La arquitectura deberá permitir ejecutar múltiples instancias de un mismo microservicio.",
+    "type": "No funcional",
+    "status": "Parcial",
+    "code": [
+      {
+        "path": "docker-compose.yml",
+        "line": 219
+      },
+      {
+        "path": "services/payment-service/app/outbox.py",
+        "line": 25
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/payment_stability.py",
+        "line": 1
+      },
+      {
+        "path": "tests/product_stability.py",
+        "line": 1
+      }
+    ],
+    "finding": "Bloqueos/skip_locked ayudan a replicas; Compose impone nombre/puerto unicos y no se probo un despliegue multinstancia.",
+    "scope": "MVP / calidad"
+  },
+  {
+    "id": "RNF-07",
+    "page": 19,
+    "requirement": "El sistema deberá permitir una futura implementación en plataformas de orquestación como Kubernetes.",
+    "type": "No funcional",
+    "status": "Parcial",
+    "code": [
+      {
+        "path": "docker-compose.yml",
+        "line": 1
+      },
+      {
+        "path": "gateway/Dockerfile",
+        "line": 1
+      }
+    ],
+    "verification": [],
+    "finding": "Base en contenedores y variables de entorno; no hay manifiestos ni verificacion Kubernetes. Preparacion futura, fuera del MVP inicial segun pagina 8.",
+    "scope": "Evolucion futura"
+  },
+  {
+    "id": "RNF-08",
+    "page": 19,
+    "requirement": "La arquitectura deberá minimizar el acoplamiento entre los diferentes servicios.",
+    "type": "No funcional",
+    "status": "Parcial",
+    "code": [
+      {
+        "path": "services/product-service/app/services/payment_validation.py",
+        "line": 214
+      },
+      {
+        "path": "services/order-service/app/routers/orders.py",
+        "line": 52
+      },
+      {
+        "path": "services/payment-service/app/core/config.py",
+        "line": 1
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/gateway_resilience.py",
+        "line": 1
+      }
+    ],
+    "finding": "Bases independientes y contratos HTTP/eventos, pero consumidores validan contra otras APIs y checkout depende de Cart. Minimizar acoplamiento sigue parcial.",
+    "scope": "MVP / calidad"
+  },
+  {
+    "id": "RNF-09",
+    "page": 19,
+    "requirement": "Las contraseñas no deberán almacenarse en texto plano.",
+    "type": "No funcional",
+    "status": "Cumplido",
+    "code": [
+      {
+        "path": "services/user-service/app/routers/auth.py",
+        "line": 24
+      },
+      {
+        "path": "services/user-service/app/models/user.py",
+        "line": 29
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/profile_stability.py",
+        "line": 42
+      }
+    ],
+    "finding": "Se persiste hash; no un campo de contrasena en claro.",
+    "scope": "MVP / calidad"
+  },
+  {
+    "id": "RNF-10",
+    "page": 19,
+    "requirement": "El sistema deberá utilizar mecanismos de hash seguro para almacenar contraseñas.",
+    "type": "No funcional",
+    "status": "Cumplido",
+    "code": [
+      {
+        "path": "services/user-service/app/core/security.py",
+        "line": 9
+      },
+      {
+        "path": "services/user-service/app/core/security.py",
+        "line": 24
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/input_limits.py",
+        "line": 1
+      }
+    ],
+    "finding": "bcrypt con validacion de bytes; 72 ASCII o 36 caracteres e acentuada admitidos, superiores rechazados sin truncar.",
+    "scope": "MVP / calidad"
+  },
+  {
+    "id": "RNF-11",
+    "page": 19,
+    "requirement": "La autenticación deberá realizarse mediante tokens JWT.",
+    "type": "No funcional",
+    "status": "Cumplido",
+    "code": [
+      {
+        "path": "services/user-service/app/core/security.py",
+        "line": 38
+      },
+      {
+        "path": "services/user-service/app/dependencies/auth.py",
+        "line": 15
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/gateway_stability.py",
+        "line": 65
+      }
+    ],
+    "finding": "JWT firmado, expiracion y autenticacion ejercitadas por HTTP.",
+    "scope": "MVP / calidad"
+  },
+  {
+    "id": "RNF-12",
+    "page": 19,
+    "requirement": "Los datos recibidos por las APIs deberán ser validados antes de su procesamiento.",
+    "type": "No funcional",
+    "status": "Cumplido",
+    "code": [
+      {
+        "path": "services/user-service/app/schemas/user.py",
+        "line": 5
+      },
+      {
+        "path": "services/user-service/app/models/user.py",
+        "line": 21
+      },
+      {
+        "path": "services/order-service/app/checkouts.py",
+        "line": 53
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/input_limits.py",
+        "line": 1
+      },
+      {
+        "path": "tests/smoke_audit_fixes.py",
+        "line": 1
+      },
+      {
+        "path": "tests/smoke_payment_rejections.py",
+        "line": 1
+      }
+    ],
+    "finding": "Limites bcrypt/DB alineados; correo hasta 254; errores de longitud y simulacion desconocida devuelven 422; no se afirma fuzzing exhaustivo de todas las APIs.",
+    "scope": "MVP / calidad"
+  },
+  {
+    "id": "RNF-13",
+    "page": 19,
+    "requirement": "Las operaciones administrativas deberán requerir autorización.",
+    "type": "No funcional",
+    "status": "Cumplido",
+    "code": [
+      {
+        "path": "services/product-service/app/core/security.py",
+        "line": 47
+      },
+      {
+        "path": "services/order-service/app/core/security.py",
+        "line": 49
+      },
+      {
+        "path": "services/user-service/app/routers/users.py",
+        "line": 44
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/smoke_catalog.py",
+        "line": 1
+      },
+      {
+        "path": "tests/smoke_profile.py",
+        "line": 1
+      }
+    ],
+    "finding": "Roles protegen operaciones administrativas y perfil rechaza campos privilegiados.",
+    "scope": "MVP / calidad"
+  },
+  {
+    "id": "RNF-14",
+    "page": 19,
+    "requirement": "Las credenciales y secretos deberán gestionarse mediante variables de entorno.",
+    "type": "No funcional",
+    "status": "Cumplido",
+    "code": [
+      {
+        "path": "services/payment-service/app/core/config.py",
+        "line": 1
+      },
+      {
+        "path": "docker-compose.yml",
+        "line": 1
+      }
+    ],
+    "verification": [],
+    "finding": "Secretos se leen desde variables de entorno. No se copiaron valores sensibles a la auditoria; no constituye auditoria completa de gestion/rotacion de secretos.",
+    "scope": "MVP / calidad"
+  },
+  {
+    "id": "RNF-15",
+    "page": 19,
+    "requirement": "La arquitectura deberá permitir la futura implementación de HTTPS y certificados de seguridad.",
+    "type": "No funcional",
+    "status": "Parcial",
+    "code": [
+      {
+        "path": "gateway/nginx.conf",
+        "line": 24
+      },
+      {
+        "path": "docker-compose.yml",
+        "line": 8
+      }
+    ],
+    "verification": [],
+    "finding": "Gateway HTTP preparado para configurarse; no hay certificado, listener HTTPS ni validacion TLS. Capacidad futura, no bloqueo MVP.",
+    "scope": "Evolucion futura"
+  },
+  {
+    "id": "RNF-16",
+    "page": 19,
+    "requirement": "Los microservicios deberán poder ejecutarse de forma independiente.",
+    "type": "No funcional",
+    "status": "Cumplido",
+    "code": [
+      {
+        "path": "docker-compose.yml",
+        "line": 1
+      },
+      {
+        "path": "services/payment-service/app/main.py",
+        "line": 1
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/gateway_resilience.py",
+        "line": 1
+      },
+      {
+        "path": "tests/smoke_purchase.py",
+        "line": 1
+      }
+    ],
+    "finding": "Procesos/imagenes separados y bases por servicio; las dependencias funcionales siguen siendo necesarias.",
+    "scope": "MVP / calidad"
+  },
+  {
+    "id": "RNF-17",
+    "page": 19,
+    "requirement": "El fallo de un servicio no deberá implicar necesariamente la detención completa de la plataforma.",
+    "type": "No funcional",
+    "status": "Cumplido",
+    "code": [
+      {
+        "path": "gateway/nginx.conf",
+        "line": 1
+      },
+      {
+        "path": "gateway/proxy.inc",
+        "line": 1
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/gateway_resilience.py",
+        "line": 1
+      }
+    ],
+    "finding": "Backend ausente no detiene Nginx ni /health; recupera al backend. No demuestra continuidad de toda compra si falla una dependencia.",
+    "scope": "MVP / calidad"
+  },
+  {
+    "id": "RNF-18",
+    "page": 19,
+    "requirement": "Los servicios deberán contar con mecanismos básicos de manejo de errores.",
+    "type": "No funcional",
+    "status": "Cumplido",
+    "code": [
+      {
+        "path": "services/order-service/app/messaging.py",
+        "line": 27
+      },
+      {
+        "path": "services/order-service/app/checkouts.py",
+        "line": 196
+      },
+      {
+        "path": "services/order-service/app/cancellations.py",
+        "line": 57
+      },
+      {
+        "path": "services/payment-service/app/inventory.py",
+        "line": 141
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/checkout_stability.py",
+        "line": 1
+      },
+      {
+        "path": "tests/payment_stability.py",
+        "line": 1
+      },
+      {
+        "path": "tests/gateway_resilience.py",
+        "line": 1
+      },
+      {
+        "path": "tests/smoke_audit_fixes.py",
+        "line": 1
+      }
+    ],
+    "finding": "Manejo basico presente: validacion, timeouts, reintentos, DLQ, checkout y cancelacion recuperables. Durabilidad al recrear Redis/RabbitMQ y recuperacion operativa siguen como limites separados.",
+    "scope": "MVP / calidad"
+  },
+  {
+    "id": "RNF-19",
+    "page": 20,
+    "requirement": "La infraestructura deberá permitir incorporar mecanismos de reinicio automático de contenedores.",
+    "type": "No funcional",
+    "status": "Cumplido",
+    "code": [
+      {
+        "path": "docker-compose.yml",
+        "line": 6
+      }
+    ],
+    "verification": [],
+    "finding": "Politica de reinicio configurada para servicios e infraestructura.",
+    "scope": "MVP / calidad"
+  },
+  {
+    "id": "RNF-20",
+    "page": 20,
+    "requirement": "El sistema deberá poder incorporar health checks para verificar el estado de los servicios.",
+    "type": "No funcional",
+    "status": "Cumplido",
+    "code": [
+      {
+        "path": "gateway/Dockerfile",
+        "line": 6
+      },
+      {
+        "path": "docker-compose.yml",
+        "line": 37
+      },
+      {
+        "path": "services/payment-service/app/main.py",
+        "line": 57
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/fresh_install.py",
+        "line": 1
+      },
+      {
+        "path": "tests/gateway_resilience.py",
+        "line": 1
+      }
+    ],
+    "finding": "Healthchecks de cuatro PostgreSQL, Redis, RabbitMQ y gateway; seis endpoints HTTP verificados. Los endpoints de aplicaciones son principalmente liveness.",
+    "scope": "MVP / calidad"
+  },
+  {
+    "id": "RNF-21",
+    "page": 20,
+    "requirement": "El código deberá mantener una estructura modular y organizada.",
+    "type": "No funcional",
+    "status": "Parcial",
+    "code": [
+      {
+        "path": "services/order-service/app/routers/orders.py",
+        "line": 1
+      },
+      {
+        "path": "services/cart-service/app/routers/cart.py",
+        "line": 1
+      },
+      {
+        "path": "services/order-service/app/checkouts.py",
+        "line": 1
+      },
+      {
+        "path": "services/cart-service/app/storage.py",
+        "line": 1
+      }
+    ],
+    "verification": [],
+    "finding": "Separacion modular mejorada con checkout/storage; routers aun mezclan coordinacion y acceso SQL y varias tablas se crean al importar. Refactorizacion no funcional pendiente; respaldos .bak estan excluidos de Git.",
+    "scope": "MVP / calidad"
+  },
+  {
+    "id": "RNF-22",
+    "page": 20,
+    "requirement": "Cada microservicio deberá tener responsabilidades claramente definidas.",
+    "type": "No funcional",
+    "status": "Cumplido",
+    "code": [
+      {
+        "path": "docker-compose.yml",
+        "line": 1
+      },
+      {
+        "path": "services/order-service/app/routers/orders.py",
+        "line": 1
+      },
+      {
+        "path": "services/payment-service/app/routers/payments.py",
+        "line": 1
+      },
+      {
+        "path": "services/product-service/app/reservations.py",
+        "line": 1
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/smoke_purchase.py",
+        "line": 1
+      }
+    ],
+    "finding": "Usuarios, catalogo, carrito, pedidos, pagos y notificaciones separados; inventario pertenece a Product.",
+    "scope": "MVP / calidad"
+  },
+  {
+    "id": "RNF-23",
+    "page": 20,
+    "requirement": "Las APIs deberán contar con documentación.",
+    "type": "No funcional",
+    "status": "Cumplido",
+    "code": [
+      {
+        "path": "services/payment-service/app/main.py",
+        "line": 34
+      },
+      {
+        "path": "services/order-service/app/routers/orders.py",
+        "line": 1
+      },
+      {
+        "path": "gateway/nginx.conf",
+        "line": 1
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/gateway_stability.py",
+        "line": 1
+      }
+    ],
+    "finding": "OpenAPI accesible en los seis servicios y documentacion Markdown del gateway. No hay Swagger agregado en /api/docs, por diseno.",
+    "scope": "MVP / calidad"
+  },
+  {
+    "id": "RNF-24",
+    "page": 20,
+    "requirement": "El código deberá permitir la incorporación de pruebas automatizadas.",
+    "type": "No funcional",
+    "status": "Cumplido",
+    "code": [
+      {
+        "path": "tests/run_stability.ps1",
+        "line": 1
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/payment_stability.py",
+        "line": 1
+      },
+      {
+        "path": "tests/checkout_stability.py",
+        "line": 1
+      },
+      {
+        "path": "tests/cart_stability.py",
+        "line": 1
+      },
+      {
+        "path": "tests/demo_release.py",
+        "line": 1
+      }
+    ],
+    "finding": "153 unittest y escenarios HTTP/migraciones/TTL-DLQ/gateway, incluida demostracion. Dieciocho regresiones del pool HTTP (seis por servicio) y una de esquema/liberacion SQL del historial; seis pruebas de metricas y benchmark separados. Perfil SQL/HTTP diagnostico y aceptacion se distinguen.",
+    "scope": "MVP / calidad"
+  },
+  {
+    "id": "RNF-25",
+    "page": 20,
+    "requirement": "El proyecto deberá utilizar control de versiones mediante Git.",
+    "type": "No funcional",
+    "status": "Cumplido",
+    "code": [
+      {
+        "path": "docs/auditoria/estado-entorno.json",
+        "line": 1
+      }
+    ],
+    "verification": [],
+    "finding": "HEAD real, fuentes bajo seguimiento, commits de baseline y correcciones, secretos excluidos. Version de entrega etiquetada localmente; sin remoto configurado no se publica.",
+    "scope": "MVP / calidad"
+  },
+  {
+    "id": "RNF-26",
+    "page": 20,
+    "requirement": "Cada microservicio deberá ejecutarse dentro de un contenedor Docker.",
+    "type": "No funcional",
+    "status": "Cumplido",
+    "code": [
+      {
+        "path": "docker-compose.yml",
+        "line": 1
+      },
+      {
+        "path": "gateway/Dockerfile",
+        "line": 1
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/smoke_purchase.py",
+        "line": 1
+      },
+      {
+        "path": "tests/gateway_resilience.py",
+        "line": 1
+      }
+    ],
+    "finding": "Los seis microservicios y el gateway tienen imagen/contenedor; constatados en ejecucion.",
+    "scope": "MVP / calidad"
+  },
+  {
+    "id": "RNF-27",
+    "page": 20,
+    "requirement": "La plataforma deberá poder ejecutarse en diferentes sistemas operativos compatibles con Docker.",
+    "type": "No funcional",
+    "status": "Parcial",
+    "code": [
+      {
+        "path": "docker-compose.yml",
+        "line": 1
+      },
+      {
+        "path": "tests/fresh_install.py",
+        "line": 1
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/fresh_install.py",
+        "line": 1
+      }
+    ],
+    "finding": "Instalacion limpia y reinicio verificados en Windows con contenedores Linux. Falta ejecutar la misma verificacion en host Linux/macOS; no se infiere portabilidad completa.",
+    "scope": "MVP / calidad"
+  },
+  {
+    "id": "RNF-28",
+    "page": 20,
+    "requirement": "La configuración de los servicios deberá estar separada del código mediante variables de entorno.",
+    "type": "No funcional",
+    "status": "Cumplido",
+    "code": [
+      {
+        "path": "services/payment-service/app/core/config.py",
+        "line": 1
+      },
+      {
+        "path": "docker-compose.yml",
+        "line": 1
+      }
+    ],
+    "verification": [],
+    "finding": "URLs, DB y claves configuradas por entorno; defaults locales y limites del gateway permanecen en configuracion versionable.",
+    "scope": "MVP / calidad"
+  }
+]

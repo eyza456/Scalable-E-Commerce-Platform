@@ -1,0 +1,93 @@
+{
+  "audit_date": "2026-10-28T20:16:30.308513+00:00",
+  "command": "powershell -NoProfile -ExecutionPolicy Bypass -File tests/run_stability.ps1",
+  "observed_exit_code": 0,
+  "unittest_total": 153,
+  "unittest_failures": 0,
+  "unittest_runs": [
+    {
+      "tests": 39,
+      "seconds": 1.87
+    },
+    {
+      "tests": 6,
+      "seconds": 0.024
+    },
+    {
+      "tests": 6,
+      "seconds": 0.029
+    },
+    {
+      "tests": 6,
+      "seconds": 0.027
+    },
+    {
+      "tests": 12,
+      "seconds": 0.343
+    },
+    {
+      "tests": 13,
+      "seconds": 0.54
+    },
+    {
+      "tests": 9,
+      "seconds": 0.12
+    },
+    {
+      "tests": 17,
+      "seconds": 0.84
+    },
+    {
+      "tests": 12,
+      "seconds": 0.982
+    },
+    {
+      "tests": 2,
+      "seconds": 0.003
+    },
+    {
+      "tests": 6,
+      "seconds": 0.233
+    },
+    {
+      "tests": 4,
+      "seconds": 1.793
+    },
+    {
+      "tests": 5,
+      "seconds": 0.005
+    },
+    {
+      "tests": 5,
+      "seconds": 0.005
+    },
+    {
+      "tests": 10,
+      "seconds": 33.588
+    },
+    {
+      "tests": 1,
+      "seconds": 10.788
+    }
+  ],
+  "log": "suite-sql-http.log",
+  "log_sha256": "26afc349a172218d07b68478f84538bc9a047ce80a92fdee721b14d035637fcd",
+  "additional_success_messages": [
+    "OK: migracion y rollback conservan productos y categorias, agrupando duplicados.",
+    "OK: reintento TTL y DLQ reales para order",
+    "OK: reintento TTL y DLQ reales para product",
+    "OK: perfil HTTP, autenticacion, validacion, duplicados, cuenta ajena protegida y login con correo nuevo.",
+    "OK: catalogo HTTP, permisos admin/seller/cliente, categorias, filtros, paginacion y eliminacion protegida.",
+    "OK: 6 health checks; perfil de cliente; permisos; carrito -> pedido -> pago -> stock; Outbox publicado; doble pago rechazado.",
+    "OK: dos compras simultaneas, un PAID y un REJECTED; stock disponible=1.",
+    "OK: caida despues de reservar recuperada automaticamente, sin segundo descuento.",
+    "OK: historial privado, filtros, cancelacion idempotente, reserva real liberada una vez y pago confirmado protegido.",
+    "OK: hallazgos corregidos por HTTP: correo largo, limites bcrypt, 20 altas, checkout unico, revalidacion y fecha final.",
+    "OK: tres rechazos simulados, sin reservas/eventos, fecha y motivo persistidos; reintento aprobado con un descuento.",
+    "OK: demostracion completa; datos propios eliminados."
+  ],
+  "nginx_configuration_valid": true,
+  "clean_installation": "instalacion-desde-cero.json",
+  "demo": "../entrega/demo-resultados.json",
+  "scope": "Suite funcional y recuperacion de entrega; rendimiento medido por separado, sin hosts adicionales"
+}

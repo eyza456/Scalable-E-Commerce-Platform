@@ -1969,6 +1969,53 @@
           }
         }
       },
+      "/payments/orders/{order_id}/latest": {
+        "get": {
+          "tags": [
+            "Payments"
+          ],
+          "summary": "Get Latest Order Payment",
+          "operationId": "get_latest_order_payment_payments_orders__order_id__latest_get",
+          "security": [
+            {
+              "HTTPBearer": []
+            }
+          ],
+          "parameters": [
+            {
+              "name": "order_id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "integer",
+                "title": "Order Id"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/PaymentResponse"
+                  }
+                }
+              }
+            },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPValidationError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
       "/payments/transactions/{transaction_id}": {
         "get": {
           "tags": [

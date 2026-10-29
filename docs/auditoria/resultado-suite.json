@@ -1,5 +1,5 @@
 {
-  "audit_date": "2026-10-28T20:16:30.308513+00:00",
+  "audit_date": "2026-10-29T23:06:41.099705+00:00",
   "command": "powershell -NoProfile -ExecutionPolicy Bypass -File tests/run_stability.ps1",
   "observed_exit_code": 0,
   "unittest_total": 153,
@@ -7,15 +7,15 @@
   "unittest_runs": [
     {
       "tests": 39,
-      "seconds": 1.87
+      "seconds": 1.217
     },
     {
       "tests": 6,
-      "seconds": 0.024
+      "seconds": 0.025
     },
     {
       "tests": 6,
-      "seconds": 0.029
+      "seconds": 0.031
     },
     {
       "tests": 6,
@@ -23,55 +23,55 @@
     },
     {
       "tests": 12,
-      "seconds": 0.343
+      "seconds": 0.367
     },
     {
       "tests": 13,
-      "seconds": 0.54
+      "seconds": 0.388
     },
     {
       "tests": 9,
-      "seconds": 0.12
+      "seconds": 0.135
     },
     {
       "tests": 17,
-      "seconds": 0.84
+      "seconds": 0.416
     },
     {
       "tests": 12,
-      "seconds": 0.982
+      "seconds": 0.334
     },
     {
       "tests": 2,
-      "seconds": 0.003
+      "seconds": 0.001
     },
     {
       "tests": 6,
-      "seconds": 0.233
+      "seconds": 0.149
     },
     {
       "tests": 4,
-      "seconds": 1.793
+      "seconds": 1.677
     },
     {
       "tests": 5,
-      "seconds": 0.005
+      "seconds": 0.004
     },
     {
       "tests": 5,
-      "seconds": 0.005
+      "seconds": 0.003
     },
     {
       "tests": 10,
-      "seconds": 33.588
+      "seconds": 40.831
     },
     {
       "tests": 1,
-      "seconds": 10.788
+      "seconds": 14.404
     }
   ],
-  "log": "suite-sql-http.log",
-  "log_sha256": "26afc349a172218d07b68478f84538bc9a047ce80a92fdee721b14d035637fcd",
+  "log": "suite-entrega-frontend.log",
+  "log_sha256": "922eb643fea1c97cb5ed53943fabb16b4ca90f980ced64a07396c9090375389a",
   "additional_success_messages": [
     "OK: migracion y rollback conservan productos y categorias, agrupando duplicados.",
     "OK: reintento TTL y DLQ reales para order",
@@ -89,5 +89,5 @@
   "nginx_configuration_valid": true,
   "clean_installation": "instalacion-desde-cero.json",
   "demo": "../entrega/demo-resultados.json",
-  "scope": "Suite funcional y recuperacion de entrega; rendimiento medido por separado, sin hosts adicionales"
+  "scope": "Suite completa del backend; frontend y rendimiento en ejecuciones separadas, sin hosts adicionales"
 }

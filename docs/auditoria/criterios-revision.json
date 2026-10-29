@@ -68,7 +68,30 @@
     "httporder": "services/order-service/app/http_client.py",
     "httppooltest": "tests/http_pool_stability.py",
     "profilesummary": "docs/perfilado/resumen.json",
-    "profileapi": "tests/profile_api.py"
+    "profileapi": "tests/profile_api.py",
+    "uiapp": "frontend/app/app.js",
+    "uihtml": "frontend/app/index.html",
+    "uicart": "frontend/app/commerce.js",
+    "uipay": "frontend/app/payments.js",
+    "uiorders": "frontend/app/orders.js",
+    "uiprofile": "frontend/app/profile.js",
+    "uiproxy": "frontend/nginx.conf",
+    "uicompose": "compose.frontend.yml",
+    "uicatalogtest": "tests/frontend_browser.cjs",
+    "uicarttest": "tests/frontend_commerce.cjs",
+    "uipaytest": "tests/frontend_payments.cjs",
+    "uiordertest": "tests/frontend_orders.cjs",
+    "uiprofiletest": "tests/frontend_profile.cjs",
+    "uijourney": "tests/frontend_journey.cjs",
+    "uijourneyresult": "docs/frontend/recorrido-accesibilidad.json",
+    "uifresh": "tests/frontend_fresh_install.py",
+    "uifreshresult": "docs/frontend/instalacion-desde-cero.json",
+    "uiresult": "docs/frontend/integracion.json",
+    "uicartresult": "docs/frontend/carrito-checkout.json",
+    "uipayresult": "docs/frontend/pagos.json",
+    "uiorderresult": "docs/frontend/pedidos.json",
+    "uiprofileresult": "docs/frontend/perfil.json",
+    "latestpaymenttest": "tests/payment_latest.py"
   },
   "requirements": {
     "RF-01": [
@@ -908,7 +931,7 @@
         "carttest",
         "demo"
       ],
-      "153 unittest y escenarios HTTP/migraciones/TTL-DLQ/gateway, incluida demostracion. Dieciocho regresiones del pool HTTP (seis por servicio) y una de esquema/liberacion SQL del historial; seis pruebas de metricas y benchmark separados. Perfil SQL/HTTP diagnostico y aceptacion se distinguen."
+      "153 unittest y escenarios HTTP/migraciones/TTL-DLQ/gateway, incluida demostracion. Dieciocho regresiones del pool HTTP (seis por servicio) y una de esquema/liberacion SQL del historial; seis pruebas de metricas y benchmark separados. Perfil SQL/HTTP diagnostico y aceptacion se distinguen. Frontend: 56 escenarios, recorrido integral y 14 estados axe; instalacion nueva completa con navegador. Evidencias separadas por fecha y alcance."
     ],
     "RNF-25": [
       "Cumplido",
@@ -934,12 +957,15 @@
       "Parcial",
       [
         "compose",
-        "fresh"
+        "fresh",
+        "uicompose",
+        "uifresh"
       ],
       [
-        "fresh"
+        "fresh",
+        "uifreshresult"
       ],
-      "Instalacion limpia y reinicio verificados en Windows con contenedores Linux. Falta ejecutar la misma verificacion en host Linux/macOS; no se infiere portabilidad completa."
+      "Instalacion limpia y reinicio verificados en Windows con contenedores Linux. Falta ejecutar la misma verificacion en host Linux/macOS; no se infiere portabilidad completa. Frontend incluido en instalacion nueva de 14 contenedores; sigue siendo el mismo host."
     ],
     "RNF-28": [
       "Cumplido",
@@ -950,5 +976,772 @@
       [],
       "URLs, DB y claves configuradas por entorno; defaults locales y limites del gateway permanecen en configuracion versionable."
     ]
-  }
+  },
+  "frontend_coverage": {
+    "RF-01": {
+      "status": "Integrado",
+      "code": [
+        "uiapp@$('register-form').addEventListener"
+      ],
+      "verification": [
+        "uicatalogtest@real registration",
+        "uicatalogtest@duplicate registration"
+      ],
+      "note": "Registro real; unicidad decidida por API. No hay acceso social ni recuperacion de contraseña."
+    },
+    "RF-02": {
+      "status": "Integrado",
+      "code": [
+        "uiapp@$('register-form').addEventListener"
+      ],
+      "verification": [
+        "uicatalogtest@real registration",
+        "uicatalogtest@duplicate registration"
+      ],
+      "note": "Registro real; unicidad decidida por API. No hay acceso social ni recuperacion de contraseña."
+    },
+    "RF-03": {
+      "status": "Integrado",
+      "code": [
+        "uiapp@async function api",
+        "uiapp@$('login-form').addEventListener"
+      ],
+      "verification": [
+        "uicatalogtest@real login verifies",
+        "uicatalogtest@injected expired session"
+      ],
+      "note": "Login y consulta autenticada. Token solo en memoria; recargar termina sesion local, no revoca otros tokens."
+    },
+    "RF-04": {
+      "status": "Integrado",
+      "code": [
+        "uiapp@async function api",
+        "uiapp@$('login-form').addEventListener"
+      ],
+      "verification": [
+        "uicatalogtest@real login verifies",
+        "uicatalogtest@injected expired session"
+      ],
+      "note": "Login y consulta autenticada. Token solo en memoria; recargar termina sesion local, no revoca otros tokens."
+    },
+    "RF-05": {
+      "status": "Integrado",
+      "code": [
+        "uiapp@async function api",
+        "uiapp@$('login-form').addEventListener"
+      ],
+      "verification": [
+        "uicatalogtest@real login verifies",
+        "uicatalogtest@injected expired session"
+      ],
+      "note": "Login y consulta autenticada. Token solo en memoria; recargar termina sesion local, no revoca otros tokens."
+    },
+    "RF-06": {
+      "status": "Integrado",
+      "code": [
+        "uiprofile@NexoProfile",
+        "uiapp@function syncAccount"
+      ],
+      "verification": [
+        "uiprofiletest@successful name/email",
+        "uiprofiletest@late response"
+      ],
+      "note": "Consulta/edicion nombre y correo; sustituye token. Sin cambio de contraseña, permisos o roles."
+    },
+    "RF-07": {
+      "status": "Integrado",
+      "code": [
+        "uiprofile@NexoProfile",
+        "uiapp@function syncAccount"
+      ],
+      "verification": [
+        "uiprofiletest@successful name/email",
+        "uiprofiletest@late response"
+      ],
+      "note": "Consulta/edicion nombre y correo; sustituye token. Sin cambio de contraseña, permisos o roles."
+    },
+    "RF-08": {
+      "status": "API / sin pantalla",
+      "code": [],
+      "verification": [],
+      "note": "Capacidad del backend indicada en esta fila. No hay consola visual de administracion de productos, roles o estados de pedidos."
+    },
+    "RF-09": {
+      "status": "API / sin pantalla",
+      "code": [],
+      "verification": [],
+      "note": "Capacidad del backend indicada en esta fila. No hay consola visual de administracion de productos, roles o estados de pedidos."
+    },
+    "RF-10": {
+      "status": "Responsabilidad del servidor",
+      "code": [],
+      "verification": [],
+      "note": "El hash se aplica en la API; no requiere una pantalla ni se implementa en el navegador."
+    },
+    "RF-11": {
+      "status": "API / sin pantalla",
+      "code": [],
+      "verification": [],
+      "note": "Capacidad del backend indicada en esta fila. No hay consola visual de administracion de productos, roles o estados de pedidos."
+    },
+    "RF-14": {
+      "status": "API / sin pantalla",
+      "code": [],
+      "verification": [],
+      "note": "Capacidad del backend indicada en esta fila. No hay consola visual de administracion de productos, roles o estados de pedidos."
+    },
+    "RF-15": {
+      "status": "API / sin pantalla",
+      "code": [],
+      "verification": [],
+      "note": "Capacidad del backend indicada en esta fila. No hay consola visual de administracion de productos, roles o estados de pedidos."
+    },
+    "RF-20": {
+      "status": "API / sin pantalla",
+      "code": [],
+      "verification": [],
+      "note": "Capacidad del backend indicada en esta fila. No hay consola visual de administracion de productos, roles o estados de pedidos."
+    },
+    "RF-38": {
+      "status": "API / sin pantalla",
+      "code": [],
+      "verification": [],
+      "note": "Capacidad del backend indicada en esta fila. No hay consola visual de administracion de productos, roles o estados de pedidos."
+    },
+    "RF-12": {
+      "status": "Integrado",
+      "code": [
+        "uiapp@async function loadCatalog",
+        "uiapp@async function loadDetail"
+      ],
+      "verification": [
+        "uicatalogtest@real catalog search",
+        "uicatalogtest@real product detail"
+      ],
+      "note": "Catalogo, detalle, busqueda y disponibilidad del servidor; no hay datos de muestra en la aplicacion conectada."
+    },
+    "RF-13": {
+      "status": "Integrado",
+      "code": [
+        "uiapp@async function loadCatalog",
+        "uiapp@async function loadDetail"
+      ],
+      "verification": [
+        "uicatalogtest@real catalog search",
+        "uicatalogtest@real product detail"
+      ],
+      "note": "Catalogo, detalle, busqueda y disponibilidad del servidor; no hay datos de muestra en la aplicacion conectada."
+    },
+    "RF-17": {
+      "status": "Integrado",
+      "code": [
+        "uiapp@async function loadCatalog",
+        "uiapp@async function loadDetail"
+      ],
+      "verification": [
+        "uicatalogtest@real catalog search",
+        "uicatalogtest@real product detail"
+      ],
+      "note": "Catalogo, detalle, busqueda y disponibilidad del servidor; no hay datos de muestra en la aplicacion conectada."
+    },
+    "RF-19": {
+      "status": "Integrado",
+      "code": [
+        "uiapp@async function loadCatalog",
+        "uiapp@async function loadDetail"
+      ],
+      "verification": [
+        "uicatalogtest@real catalog search",
+        "uicatalogtest@real product detail"
+      ],
+      "note": "Catalogo, detalle, busqueda y disponibilidad del servidor; no hay datos de muestra en la aplicacion conectada."
+    },
+    "RF-16": {
+      "status": "Lectura visual",
+      "code": [
+        "uiapp@async function loadCategories",
+        "uiapp@async function loadDetail"
+      ],
+      "verification": [
+        "uicatalogtest@real catalog search"
+      ],
+      "note": "Consulta/filtra categorias y stock. Clasificar productos o editar existencias sigue por API administrativa."
+    },
+    "RF-18": {
+      "status": "Lectura visual",
+      "code": [
+        "uiapp@async function loadCategories",
+        "uiapp@async function loadDetail"
+      ],
+      "verification": [
+        "uicatalogtest@real catalog search"
+      ],
+      "note": "Consulta/filtra categorias y stock. Clasificar productos o editar existencias sigue por API administrativa."
+    },
+    "RF-21": {
+      "status": "Integrado",
+      "code": [
+        "uicart@NexoCommerce",
+        "uicart@async function mutate"
+      ],
+      "verification": [
+        "uicarttest@real add, quantity update",
+        "uicarttest@lost add acknowledgement"
+      ],
+      "note": "Carrito propio: agregar desde detalle, cantidades, quitar y totales de API. Sin POST automaticos de reintento."
+    },
+    "RF-22": {
+      "status": "Integrado",
+      "code": [
+        "uicart@NexoCommerce",
+        "uicart@async function mutate"
+      ],
+      "verification": [
+        "uicarttest@real add, quantity update",
+        "uicarttest@lost add acknowledgement"
+      ],
+      "note": "Carrito propio: agregar desde detalle, cantidades, quitar y totales de API. Sin POST automaticos de reintento."
+    },
+    "RF-23": {
+      "status": "Integrado",
+      "code": [
+        "uicart@NexoCommerce",
+        "uicart@async function mutate"
+      ],
+      "verification": [
+        "uicarttest@real add, quantity update",
+        "uicarttest@lost add acknowledgement"
+      ],
+      "note": "Carrito propio: agregar desde detalle, cantidades, quitar y totales de API. Sin POST automaticos de reintento."
+    },
+    "RF-24": {
+      "status": "Integrado",
+      "code": [
+        "uicart@NexoCommerce",
+        "uicart@async function mutate"
+      ],
+      "verification": [
+        "uicarttest@real add, quantity update",
+        "uicarttest@lost add acknowledgement"
+      ],
+      "note": "Carrito propio: agregar desde detalle, cantidades, quitar y totales de API. Sin POST automaticos de reintento."
+    },
+    "RF-26": {
+      "status": "Integrado",
+      "code": [
+        "uicart@NexoCommerce",
+        "uicart@async function mutate"
+      ],
+      "verification": [
+        "uicarttest@real add, quantity update",
+        "uicarttest@lost add acknowledgement"
+      ],
+      "note": "Carrito propio: agregar desde detalle, cantidades, quitar y totales de API. Sin POST automaticos de reintento."
+    },
+    "RF-27": {
+      "status": "Integrado",
+      "code": [
+        "uicart@NexoCommerce",
+        "uicart@async function mutate"
+      ],
+      "verification": [
+        "uicarttest@real add, quantity update",
+        "uicarttest@lost add acknowledgement"
+      ],
+      "note": "Carrito propio: agregar desde detalle, cantidades, quitar y totales de API. Sin POST automaticos de reintento."
+    },
+    "RF-25": {
+      "status": "API / sin accion dedicada",
+      "code": [],
+      "verification": [
+        "uicarttest@real add, quantity update"
+      ],
+      "note": "No hay boton Vaciar carrito. Quitar items y checkout estan integrados; DELETE /api/cart sigue disponible por API."
+    },
+    "RF-28": {
+      "status": "Integrado",
+      "code": [
+        "uicart@async function submitOrder",
+        "uicart@async function lookup"
+      ],
+      "verification": [
+        "uicarttest@checkout rejects changed price",
+        "uicarttest@checkout rejects depleted stock",
+        "uicarttest@two logged-in tabs"
+      ],
+      "note": "Confirmacion con version del carrito, revalidacion en servidor y recuperacion de resultado incierto."
+    },
+    "RF-29": {
+      "status": "Integrado",
+      "code": [
+        "uicart@async function submitOrder",
+        "uicart@async function lookup"
+      ],
+      "verification": [
+        "uicarttest@checkout rejects changed price",
+        "uicarttest@checkout rejects depleted stock",
+        "uicarttest@two logged-in tabs"
+      ],
+      "note": "Confirmacion con version del carrito, revalidacion en servidor y recuperacion de resultado incierto."
+    },
+    "RF-30": {
+      "status": "Integrado",
+      "code": [
+        "uiorders@NexoOrders",
+        "uicart@async function accept"
+      ],
+      "verification": [
+        "uiordertest@history paginates real",
+        "uiordertest@foreign order detail"
+      ],
+      "note": "Historial privado, estado, fecha, items y total reales. Estado se consulta; administrarlo no tiene pantalla."
+    },
+    "RF-31": {
+      "status": "Integrado",
+      "code": [
+        "uiorders@NexoOrders",
+        "uicart@async function accept"
+      ],
+      "verification": [
+        "uiordertest@history paginates real",
+        "uiordertest@foreign order detail"
+      ],
+      "note": "Historial privado, estado, fecha, items y total reales. Estado se consulta; administrarlo no tiene pantalla."
+    },
+    "RF-32": {
+      "status": "Integrado",
+      "code": [
+        "uiorders@NexoOrders",
+        "uicart@async function accept"
+      ],
+      "verification": [
+        "uiordertest@history paginates real",
+        "uiordertest@foreign order detail"
+      ],
+      "note": "Historial privado, estado, fecha, items y total reales. Estado se consulta; administrarlo no tiene pantalla."
+    },
+    "RF-33": {
+      "status": "Integrado",
+      "code": [
+        "uiorders@NexoOrders",
+        "uicart@async function accept"
+      ],
+      "verification": [
+        "uiordertest@history paginates real",
+        "uiordertest@foreign order detail"
+      ],
+      "note": "Historial privado, estado, fecha, items y total reales. Estado se consulta; administrarlo no tiene pantalla."
+    },
+    "RF-34": {
+      "status": "Integrado",
+      "code": [
+        "uiorders@NexoOrders",
+        "uicart@async function accept"
+      ],
+      "verification": [
+        "uiordertest@history paginates real",
+        "uiordertest@foreign order detail"
+      ],
+      "note": "Historial privado, estado, fecha, items y total reales. Estado se consulta; administrarlo no tiene pantalla."
+    },
+    "RF-35": {
+      "status": "Integrado",
+      "code": [
+        "uiorders@NexoOrders",
+        "uicart@async function accept"
+      ],
+      "verification": [
+        "uiordertest@history paginates real",
+        "uiordertest@foreign order detail"
+      ],
+      "note": "Historial privado, estado, fecha, items y total reales. Estado se consulta; administrarlo no tiene pantalla."
+    },
+    "RF-36": {
+      "status": "Integrado",
+      "code": [
+        "uiorders@NexoOrders",
+        "uicart@async function accept"
+      ],
+      "verification": [
+        "uiordertest@history paginates real",
+        "uiordertest@foreign order detail"
+      ],
+      "note": "Historial privado, estado, fecha, items y total reales. Estado se consulta; administrarlo no tiene pantalla."
+    },
+    "RF-37": {
+      "status": "Integrado",
+      "code": [
+        "uiorders@NexoOrders",
+        "uicart@async function accept"
+      ],
+      "verification": [
+        "uiordertest@history paginates real",
+        "uiordertest@foreign order detail",
+        "uiordertest@real pending cancellation",
+        "uiordertest@lost cancellation response"
+      ],
+      "note": "Historial privado, estado, fecha, items y total reales. Estado se consulta; administrarlo no tiene pantalla."
+    },
+    "RF-39": {
+      "status": "Integrado",
+      "code": [
+        "uipay@NexoPayments",
+        "payments@get_latest_order_payment"
+      ],
+      "verification": [
+        "uipaytest@three real simulated rejections",
+        "uipaytest@lost successful payment",
+        "latestpaymenttest"
+      ],
+      "note": "Pago simulado, referencia, motivo/fecha y seguimiento del pedido. Sin dinero real; la aprobacion modifica inventario local."
+    },
+    "RF-40": {
+      "status": "Integrado",
+      "code": [
+        "uipay@NexoPayments",
+        "payments@get_latest_order_payment"
+      ],
+      "verification": [
+        "uipaytest@three real simulated rejections",
+        "uipaytest@lost successful payment",
+        "latestpaymenttest"
+      ],
+      "note": "Pago simulado, referencia, motivo/fecha y seguimiento del pedido. Sin dinero real; la aprobacion modifica inventario local."
+    },
+    "RF-41": {
+      "status": "Integrado",
+      "code": [
+        "uipay@NexoPayments",
+        "payments@get_latest_order_payment"
+      ],
+      "verification": [
+        "uipaytest@three real simulated rejections",
+        "uipaytest@lost successful payment",
+        "latestpaymenttest"
+      ],
+      "note": "Pago simulado, referencia, motivo/fecha y seguimiento del pedido. Sin dinero real; la aprobacion modifica inventario local."
+    },
+    "RF-42": {
+      "status": "Integrado",
+      "code": [
+        "uipay@NexoPayments",
+        "payments@get_latest_order_payment"
+      ],
+      "verification": [
+        "uipaytest@three real simulated rejections",
+        "uipaytest@lost successful payment",
+        "latestpaymenttest"
+      ],
+      "note": "Pago simulado, referencia, motivo/fecha y seguimiento del pedido. Sin dinero real; la aprobacion modifica inventario local."
+    },
+    "RF-43": {
+      "status": "Integrado",
+      "code": [
+        "uipay@NexoPayments",
+        "payments@get_latest_order_payment"
+      ],
+      "verification": [
+        "uipaytest@three real simulated rejections",
+        "uipaytest@lost successful payment",
+        "latestpaymenttest",
+        "uiordertest@real pending cancellation"
+      ],
+      "note": "Pago simulado, referencia, motivo/fecha y seguimiento del pedido. Sin dinero real; la aprobacion modifica inventario local."
+    },
+    "RF-44": {
+      "status": "Integrado",
+      "code": [
+        "uipay@NexoPayments",
+        "payments@get_latest_order_payment"
+      ],
+      "verification": [
+        "uipaytest@three real simulated rejections",
+        "uipaytest@lost successful payment",
+        "latestpaymenttest"
+      ],
+      "note": "Pago simulado, referencia, motivo/fecha y seguimiento del pedido. Sin dinero real; la aprobacion modifica inventario local."
+    },
+    "RF-45": {
+      "status": "Integrado",
+      "code": [
+        "uipay@NexoPayments",
+        "payments@get_latest_order_payment"
+      ],
+      "verification": [
+        "uipaytest@three real simulated rejections",
+        "uipaytest@lost successful payment",
+        "latestpaymenttest"
+      ],
+      "note": "Pago simulado, referencia, motivo/fecha y seguimiento del pedido. Sin dinero real; la aprobacion modifica inventario local."
+    },
+    "RF-46": {
+      "status": "Integrado",
+      "code": [
+        "uiproxy@location ^~ /api/",
+        "uicompose"
+      ],
+      "verification": [
+        "uifresh@verify",
+        "uicatalogtest@frontend proxy preserves"
+      ],
+      "note": "Nginx del frontend reenvia /api al gateway; conserva autenticacion y bloqueo de rutas internas."
+    },
+    "RF-47": {
+      "status": "Integrado",
+      "code": [
+        "uiproxy@location ^~ /api/",
+        "uicompose"
+      ],
+      "verification": [
+        "uifresh@verify",
+        "uicatalogtest@frontend proxy preserves"
+      ],
+      "note": "Nginx del frontend reenvia /api al gateway; conserva autenticacion y bloqueo de rutas internas."
+    },
+    "RF-48": {
+      "status": "Integrado",
+      "code": [
+        "uiproxy@location ^~ /api/",
+        "uicompose"
+      ],
+      "verification": [
+        "uifresh@verify",
+        "uicatalogtest@frontend proxy preserves"
+      ],
+      "note": "Nginx del frontend reenvia /api al gateway; conserva autenticacion y bloqueo de rutas internas."
+    },
+    "RF-50": {
+      "status": "Integrado",
+      "code": [
+        "uiproxy@location ^~ /api/",
+        "uicompose"
+      ],
+      "verification": [
+        "uifresh@verify",
+        "uicatalogtest@frontend proxy preserves"
+      ],
+      "note": "Nginx del frontend reenvia /api al gateway; conserva autenticacion y bloqueo de rutas internas."
+    },
+    "RF-49": {
+      "status": "Infraestructura",
+      "code": [],
+      "verification": [
+        "uifreshresult"
+      ],
+      "note": "El frontend no cierra este requisito parcial. Instalacion probada en el mismo host Windows/Docker Linux, sin replicas ni TLS productivo."
+    },
+    "RNF-05": {
+      "status": "Infraestructura",
+      "code": [],
+      "verification": [
+        "uifreshresult"
+      ],
+      "note": "El frontend no cierra este requisito parcial. Instalacion probada en el mismo host Windows/Docker Linux, sin replicas ni TLS productivo."
+    },
+    "RNF-06": {
+      "status": "Infraestructura",
+      "code": [],
+      "verification": [
+        "uifreshresult"
+      ],
+      "note": "El frontend no cierra este requisito parcial. Instalacion probada en el mismo host Windows/Docker Linux, sin replicas ni TLS productivo."
+    },
+    "RNF-07": {
+      "status": "Infraestructura",
+      "code": [],
+      "verification": [
+        "uifreshresult"
+      ],
+      "note": "El frontend no cierra este requisito parcial. Instalacion probada en el mismo host Windows/Docker Linux, sin replicas ni TLS productivo."
+    },
+    "RNF-15": {
+      "status": "Infraestructura",
+      "code": [],
+      "verification": [
+        "uifreshresult"
+      ],
+      "note": "El frontend no cierra este requisito parcial. Instalacion probada en el mismo host Windows/Docker Linux, sin replicas ni TLS productivo."
+    },
+    "RNF-27": {
+      "status": "Infraestructura",
+      "code": [],
+      "verification": [
+        "uifreshresult"
+      ],
+      "note": "El frontend no cierra este requisito parcial. Instalacion probada en el mismo host Windows/Docker Linux, sin replicas ni TLS productivo."
+    },
+    "RNF-01": {
+      "status": "Sin carga UI",
+      "code": [],
+      "verification": [],
+      "note": "La carga aceptada mide backend/gateway en el perfil local registrado. Auditoria visual no mide rendimiento web ni SLA productivo."
+    },
+    "RNF-02": {
+      "status": "Comprobacion visual",
+      "code": [
+        "uicart",
+        "uipay"
+      ],
+      "verification": [
+        "uicarttest@two logged-in tabs",
+        "uipaytest@two tabs approving"
+      ],
+      "note": "Dos pestañas conservan un pedido/pago; no acredita replicas de servicios."
+    },
+    "RNF-11": {
+      "status": "Integrado",
+      "code": [
+        "uiapp@async function api",
+        "uiprofile"
+      ],
+      "verification": [
+        "uicatalogtest",
+        "uiprofiletest"
+      ],
+      "note": "Sesion en memoria, validacion de formularios y API como autoridad. No hay sesion persistente tras recarga."
+    },
+    "RNF-12": {
+      "status": "Integrado",
+      "code": [
+        "uiapp@async function api",
+        "uiprofile"
+      ],
+      "verification": [
+        "uicatalogtest",
+        "uiprofiletest"
+      ],
+      "note": "Sesion en memoria, validacion de formularios y API como autoridad. No hay sesion persistente tras recarga."
+    },
+    "RNF-14": {
+      "status": "Sin secretos cliente",
+      "code": [
+        "uiproxy",
+        "uiapp@const state"
+      ],
+      "verification": [
+        "uifresh@verify"
+      ],
+      "note": "El frontend no sirve .env ni guarda tokens en almacenamiento persistente; no equivale a gestion productiva de secretos."
+    },
+    "RNF-17": {
+      "status": "Errores visuales",
+      "code": [
+        "uiapp@async function api",
+        "uiorders"
+      ],
+      "verification": [
+        "uicatalogtest@injected 503",
+        "uiordertest@foreign order detail"
+      ],
+      "note": "Distingue error, carga y vacio. Los 503 visuales son inyectados; no acreditan alta disponibilidad real."
+    },
+    "RNF-18": {
+      "status": "Errores visuales",
+      "code": [
+        "uiapp@async function api",
+        "uiorders"
+      ],
+      "verification": [
+        "uicatalogtest@injected 503",
+        "uiordertest@foreign order detail"
+      ],
+      "note": "Distingue error, carga y vacio. Los 503 visuales son inyectados; no acreditan alta disponibilidad real."
+    },
+    "RNF-20": {
+      "status": "Infraestructura",
+      "code": [
+        "uiproxy",
+        "uicompose"
+      ],
+      "verification": [
+        "uifreshresult"
+      ],
+      "note": "Frontend en contenedor, loopback configurable y health liveness. No acredita readiness de dependencias."
+    },
+    "RNF-26": {
+      "status": "Infraestructura",
+      "code": [
+        "uiproxy",
+        "uicompose"
+      ],
+      "verification": [
+        "uifreshresult"
+      ],
+      "note": "Frontend en contenedor, loopback configurable y health liveness. No acredita readiness de dependencias."
+    },
+    "RNF-28": {
+      "status": "Infraestructura",
+      "code": [
+        "uiproxy",
+        "uicompose"
+      ],
+      "verification": [
+        "uifreshresult"
+      ],
+      "note": "Frontend en contenedor, loopback configurable y health liveness. No acredita readiness de dependencias."
+    },
+    "RNF-21": {
+      "status": "Modulos visuales",
+      "code": [
+        "uiapp",
+        "uicart",
+        "uipay",
+        "uiorders",
+        "uiprofile"
+      ],
+      "verification": [
+        "uijourneyresult"
+      ],
+      "note": "Modulos por responsabilidad del cliente. No cambia el estado parcial de capas/acoplamiento del backend."
+    },
+    "RNF-22": {
+      "status": "Modulos visuales",
+      "code": [
+        "uiapp",
+        "uicart",
+        "uipay",
+        "uiorders",
+        "uiprofile"
+      ],
+      "verification": [
+        "uijourneyresult"
+      ],
+      "note": "Modulos por responsabilidad del cliente. No cambia el estado parcial de capas/acoplamiento del backend."
+    },
+    "RNF-23": {
+      "status": "Verificado",
+      "code": [
+        "uijourney",
+        "uifresh"
+      ],
+      "verification": [
+        "uiresult",
+        "uicartresult",
+        "uipayresult",
+        "uiorderresult",
+        "uiprofileresult",
+        "uijourneyresult",
+        "uifreshresult"
+      ],
+      "note": "56 escenarios de navegador; recorrido integral, 14 estados auditados y nueva instalacion completa. No es certificacion de accesibilidad."
+    },
+    "RNF-24": {
+      "status": "Verificado",
+      "code": [
+        "uijourney",
+        "uifresh"
+      ],
+      "verification": [
+        "uiresult",
+        "uicartresult",
+        "uipayresult",
+        "uiorderresult",
+        "uiprofileresult",
+        "uijourneyresult",
+        "uifreshresult"
+      ],
+      "note": "56 escenarios de navegador; recorrido integral, 14 estados auditados y nueva instalacion completa. No es certificacion de accesibilidad."
+    }
+  },
+  "frontend_scope_note": "Cobertura complementaria del cliente; no agrega requisitos al PDF ni convierte API administrativa en GUI. Cancelacion y accesibilidad se documentan tambien por flujos, sin inventar IDs RF."
 }

@@ -1,0 +1,42 @@
+{
+  "reviewed_at": "2026-10-29T23:06:41.096693+00:00",
+  "scenarios": 56,
+  "runs": [
+    {
+      "path": "docs/frontend/integracion.json",
+      "executed_at": "2026-10-29T22:37:07.317Z",
+      "scenarios": 13
+    },
+    {
+      "path": "docs/frontend/carrito-checkout.json",
+      "executed_at": "2026-10-29T22:36:54.255Z",
+      "scenarios": 12
+    },
+    {
+      "path": "docs/frontend/pagos.json",
+      "executed_at": "2026-10-29T22:36:11.165Z",
+      "scenarios": 11
+    },
+    {
+      "path": "docs/frontend/pedidos.json",
+      "executed_at": "2026-10-29T22:34:15.951Z",
+      "scenarios": 10
+    },
+    {
+      "path": "docs/frontend/perfil.json",
+      "executed_at": "2026-10-29T22:32:59.105Z",
+      "scenarios": 10
+    }
+  ],
+  "journey": {
+    "path": "docs/frontend/recorrido-accesibilidad.json",
+    "executed_at": "2026-10-29T22:48:06.433Z",
+    "steps": 9,
+    "audits": 14
+  },
+  "installation": {
+    "path": "docs/frontend/instalacion-desde-cero.json",
+    "executed_at": "2026-10-29T22:44:21.336677+00:00"
+  },
+  "scope": "Evidence reviewed without re-running browser/load tests; dates identify actual recorded executions"
+}

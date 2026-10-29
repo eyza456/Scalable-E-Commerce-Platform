@@ -1,9 +1,10 @@
 {
-  "audit_date": "2026-10-28T20:16:30.308513+00:00",
-  "review_base_commit": "7fca5d25f74099710e1c24a98547c929029bce13",
-  "tracked_files_count": 287,
+  "audit_date": "2026-10-29T23:06:41.099705+00:00",
+  "review_base_commit": "73388556234b6a54e53a80abf0e72531ab3d2137",
+  "tracked_files_count": 377,
   "configured_remotes": [],
-  "delivery_version": "v0.1.0-rc.1",
+  "delivery_version": "Revision integrada backend + frontend",
+  "historical_tag": "v0.1.0-rc.1",
   "pdf_path": "C:/Users/Usuario/Downloads/Plataforma_escalable_comercio_electronico.pdf",
   "pdf_sha256": "c725a5540aef125e1658af6079f239f424a94acc32d5e83474c5cb1b5073a752",
   "services": {
@@ -36,6 +37,20 @@
           "mode": "ingress",
           "target": 8000,
           "published": "8003",
+          "protocol": "tcp"
+        }
+      ],
+      "restart": "unless-stopped"
+    },
+    "frontend": {
+      "environment_keys": [],
+      "has_healthcheck": false,
+      "ports": [
+        {
+          "mode": "ingress",
+          "host_ip": "127.0.0.1",
+          "target": 80,
+          "published": "8080",
           "protocol": "tcp"
         }
       ],

@@ -1,61 +1,109 @@
-# Entrega del backend MVP - v0.1.0-rc.1
+# Entrega integrada de backend y frontend
 
-Candidato local para revision funcional, fechado el 28 de octubre de 2026. Incluye seis servicios, API Gateway, bases PostgreSQL por dominio, carrito Redis, eventos RabbitMQ y pagos simulados. La version se identifica con la etiqueta Git anotada v0.1.0-rc.1.
+Revision de cierre: 29 de octubre de 2026. Candidato local del MVP con seis
+microservicios, API Gateway y frontend Nexo basado en Stitch. El codigo funcional
+de referencia es `7338855`; este cierre actualiza documentacion y trazabilidad.
+
+## Resultado y alcance
+
+**78 requisitos originales: 70 cumplidos, 8 parciales y 0 pendientes.** La
+[matriz principal](../auditoria/matriz-requisitos.md) conserva el alcance del sistema.
+La [matriz de cobertura visual](../auditoria/matriz-frontend.md) distingue pantallas,
+lectura y operaciones disponibles solo por API. No agrega requisitos al PDF.
+
+El cliente puede registrarse, iniciar sesion, consultar/editar nombre y correo,
+buscar productos, gestionar cantidades/items del carrito, crear un pedido,
+simular pagos aprobados/rechazados, consultar historial y cancelar cuando procede.
+Los precios, stock, importes, permisos y estados los decide el backend.
+
+No hay consola administrativa visual de productos, categorias, roles o estados,
+ni boton dedicado de vaciado completo del carrito. Esas operaciones API no se
+presentan como pantallas implementadas. No hay cobros bancarios, envios, cupones,
+recuperacion de contraseña ni verificacion por correo.
 
 ## Material de entrega
 
-- [Instalacion y configuracion](../../README.md).
-- [Matriz vigente de 78 requisitos](../auditoria/matriz-requisitos.md): 70 cumplidos, 8 parciales y 0 pendientes tras perfilar y optimizar SQL/HTTP; evidencia por archivo/linea. La RC original conserva 69/8/1 en su tag.
-- [Pendientes priorizados y limites](pendientes.md).
-- [Guion de demostracion](demostracion.md) y [resultado ejecutado](demo-resultados.json).
-- [Suite final](../auditoria/resultado-suite.json): 153 unittest y escenarios adicionales, incluida la demostracion.
-- [Instalacion desde cero](../auditoria/instalacion-desde-cero.md): infraestructura nueva, Alembic, esquemas, compra, eventos y persistencia tras reinicio.
-- [Contrato de checkout](../auditoria/cierre-hallazgos.md), [pagos simulados](../pagos-simulados.md), [API Gateway](../api-gateway.md) y [cancelaciones](../pedidos.md).
-- [Notas de version](notas-version.md).
+| Material | Contenido |
+| --- | --- |
+| [Instalacion principal](../../README.md) y [frontend](../../frontend/README.md) | Configuracion, comandos y alcance |
+| [Matriz principal](../auditoria/matriz-requisitos.md), [CSV](../auditoria/matriz-requisitos.csv), [JSON](../auditoria/matriz-requisitos.json) | 78 requisitos con codigo, pruebas y enlace a GUI |
+| [Cobertura visual](../auditoria/matriz-frontend.md) y [JSON](../auditoria/matriz-frontend.json) | Relacion RF/RNF con pantallas, API y limites |
+| [Guion visual completo](../frontend/demostracion-visual.md) | Recorrido cliente, teclado, movil y accesibilidad acotada |
+| [Guion API](demostracion.md) y [resultado](demo-resultados.json) | Incluye administracion y vaciado por API |
+| [Suite backend](../auditoria/resultado-suite.json) | 153 unittest y escenarios adicionales; cierre actual |
+| [Resumen frontend](../auditoria/resultado-frontend.json) | Fechas de 56 escenarios y recorrido; no cambia fechas al revisar |
+| [Instalacion completa](../frontend/instalacion-desde-cero.md) | 14 contenedores nuevos, migracion, reinicio y navegador |
+| [Rendimiento](../rendimiento/informe.md) | Medicion historica del perfil local, sin repetir carga |
+| [Pendientes](pendientes.md) y [notas de esta entrega](notas-entrega-integrada.md) | Limites reales y separacion de evoluciones |
+| [Manifiesto](manifiesto-entrega.json) | Hashes de fuentes/documentos/evidencias y referencia Git |
 
-## Complemento frontend posterior a la RC
+## Instalacion y acceso
 
-El arbol actual incorpora la interfaz de cliente basada en Stitch y su
-[demostracion visual](../frontend/demostracion-visual.md). La [instalacion limpia
-completa](../frontend/instalacion-desde-cero.md) se verifico el 29 de octubre:
-14 contenedores, migraciones, reinicio/persistencia y recorrido UI sobre el stack
-nuevo. Estas mejoras son posteriores a `v0.1.0-rc.1`; no se modifica esa etiqueta
-ni se afirma que la RC original contenga el frontend actual.
+Para usar la aplicacion se necesita Docker con contenedores Linux y un navegador.
+Node/Playwright/axe y Python del host se requieren para las pruebas adicionales,
+no para servir la interfaz.
 
-## Verificacion por el receptor
-
-Configurar .env desde .env.example y ejecutar los pasos ordenados del README. Con la plataforma activa:
-
-```powershell
-powershell -ExecutionPolicy Bypass -File tests/run_stability.ps1
-python -X utf8 tests/fresh_install.py
-```
-
-El primer comando verifica los servicios actuales con fixtures propios. El segundo crea y elimina un proyecto independiente con credenciales nuevas, volumenes nuevos y puerto aleatorio. La copia del README probada queda identificada por hash en el informe de instalacion.
-
-Para regenerar la matriz se necesita pypdf y acceso al PDF original, no versionado en el repositorio. Despues de ejecutar y guardar el log de una suite aprobada:
+En una instalacion nueva, crear `.env` desde `.env.example` y reemplazar sus
+marcadores siguiendo el README principal. Conservar la configuracion propia si
+ya existe. Desde la raiz:
 
 ```powershell
-python docs/auditoria/generar_auditoria.py --pdf "C:\Users\Usuario\Downloads\Plataforma_escalable_comercio_electronico.pdf" --suite-log docs/auditoria/suite-sql-http.log --suite-exit-code 0
+docker compose build
+docker compose up -d --wait --wait-timeout 180 user-db product-db order-db payment-db redis rabbitmq
+docker compose run --rm --no-deps product-service alembic upgrade head
+docker compose up -d
+docker compose -f docker-compose.yml -f compose.frontend.yml up -d --build frontend
 ```
 
-El generador no ejecuta pruebas. Se debe indicar el codigo observado del runner, no asumirlo. Valida textos, 78 IDs, 153 resultados y enlaces reales. Los criterios de evaluacion se revisan en criterios-revision.json; generar no decide por si solo si un requisito esta cumplido.
+- Aplicacion conectada: `http://127.0.0.1:8080/`.
+- Gateway/API: `http://127.0.0.1:8000/`.
+- Galeria de Stitch, si se levanta aparte en 5173: solo prototipos; no introducir credenciales reales.
+- Carrito no reserva stock. El pago simulado aprobado si modifica el inventario local.
+- La sesion vive en memoria; recargar/cerrar la pagina exige iniciar sesion nuevamente.
 
-## Versionado y publicacion
+No usar `down -v` para actualizar una instalacion con datos. Los comandos de
+instalacion limpia de pruebas crean y eliminan solo su proyecto independiente.
+
+## Reproduccion de verificaciones
+
+Con el backend y frontend activos:
 
 ```powershell
-git show v0.1.0-rc.1 --stat
-git log --oneline --decorate -5
+powershell -NoProfile -ExecutionPolicy Bypass -File tests/run_stability.ps1 *> docs/auditoria/suite-entrega-frontend.log
+$codigoSuite = $LASTEXITCODE
+if ($codigoSuite -ne 0) { throw 'La suite backend fallo; revisar el log' }
+npm ci --prefix tests/browser-tools --ignore-scripts --no-audit --no-fund
+node tests/frontend_journey.cjs
+python -X utf8 tests/frontend_fresh_install.py
 ```
 
-La etiqueta apunta al commit de entrega y el arbol queda limpio. No hay remoto configurado; no se ha publicado ni enviado codigo a ningun servicio externo. Los secretos permanecen fuera de Git.
+Los dos ultimos comandos requieren Playwright en `NODE_PATH` y Edge, segun el
+guion visual. Los cinco scripts de regresion `frontend_browser.cjs`,
+`frontend_commerce.cjs`, `frontend_payments.cjs`, `frontend_orders.cjs` y
+`frontend_profile.cjs` suman 56 escenarios; ver los README para sus ajustes.
+El runner de instalacion limpia requiere tambien Node/Python en PATH.
+No se suman las auditorias axe ni sus verificaciones como si fueran unittest.
 
-## Alcance de aceptacion
+Para regenerar las matrices despues de una ejecucion backend aprobada y guardada:
 
-Los 12 criterios basicos de pp.22-23 del PDF tienen evidencia funcional. Esta RC conserva limites explicitos: rendimiento aprobado solo para el perfil local medido, replicas sin verificar, portabilidad de host incompleta, refactorizacion/acoplamiento parciales y evoluciones de infraestructura. No representa cumplimiento del 100% del PDF, operacion productiva ni una pasarela bancaria real.
+```powershell
+python docs/auditoria/generar_auditoria.py --suite-log docs/auditoria/suite-entrega-frontend.log --suite-exit-code 0
+```
 
-## Medicion posterior a la RC
+Se necesita pypdf y el PDF original local (ruta configurable con `--pdf`). El
+generador revisa resultados y referencias; no ejecuta pruebas ni decide estados.
+El codigo de salida debe ser el observado. Archivo de criterios:
+`docs/auditoria/criterios-revision.json`.
 
-Tras perfilar SQL/HTTP, reutilizar transportes y acortar la lectura del historial, todos los objetivos locales de 1/5/10/20 usuarios del perfil v1 se aprueban. A 20: historial p95 286,88 ms, checkout 770,97 ms, pago 525,38 ms y compra 2,738 s; 122,96 req/s utiles y cero errores. Las 1.051 compras conservaron integridad. RNF-01 se considera cumplido en ese alcance, sin afirmar SLA productivo, otras cargas o grandes volumenes. Consultar [objetivos](../rendimiento/objetivos.md) y [resultados](../rendimiento/informe.md). La etiqueta v0.1.0-rc.1 no se modifica; estas evidencias se guardan en un commit posterior.
+## Estado de Git y aceptacion
 
-El [perfil SQL/HTTP](../perfilado/informe.md) documenta contadores, planes, limites del diagnostico e aislamiento de credenciales. La aceptacion usa el benchmark original sin instrumentacion.
+La etiqueta historica `v0.1.0-rc.1` sigue apuntando a la primera RC del backend.
+No contiene el frontend actual y no se mueve. Sus [notas originales](notas-version.md)
+se conservan. Esta revision integrada se identifica por el commit que contiene
+estos documentos; no se inventa una nueva etiqueta ni se publica un despliegue.
+No hay remoto configurado ni se ha enviado codigo a un servicio externo.
+
+El MVP es demostrable localmente; no representa cumplimiento integral del PDF ni
+operacion productiva. Siguen parciales replicas/balanceo, Kubernetes futuro,
+acoplamiento/capas, HTTPS y portabilidad a otro host. La revision automatica de
+accesibilidad no es una certificacion completa ni una prueba con lector de pantalla.

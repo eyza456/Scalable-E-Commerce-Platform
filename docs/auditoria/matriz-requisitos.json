@@ -22,7 +22,27 @@
       }
     ],
     "finding": "Registro por HTTP, incluido correo valido largo y errores controlados en limites de entrada.",
-    "scope": "MVP / calidad"
+    "scope": "MVP / calidad",
+    "frontend": {
+      "status": "Integrado",
+      "code": [
+        {
+          "path": "frontend/app/app.js",
+          "line": 188
+        }
+      ],
+      "verification": [
+        {
+          "path": "tests/frontend_browser.cjs",
+          "line": 83
+        },
+        {
+          "path": "tests/frontend_browser.cjs",
+          "line": 88
+        }
+      ],
+      "note": "Registro real; unicidad decidida por API. No hay acceso social ni recuperacion de contraseña."
+    }
   },
   {
     "id": "RF-02",
@@ -51,7 +71,27 @@
       }
     ],
     "finding": "Duplicados controlados; indice unico lower(email) tambien protege concurrencia.",
-    "scope": "MVP / calidad"
+    "scope": "MVP / calidad",
+    "frontend": {
+      "status": "Integrado",
+      "code": [
+        {
+          "path": "frontend/app/app.js",
+          "line": 188
+        }
+      ],
+      "verification": [
+        {
+          "path": "tests/frontend_browser.cjs",
+          "line": 83
+        },
+        {
+          "path": "tests/frontend_browser.cjs",
+          "line": 88
+        }
+      ],
+      "note": "Registro real; unicidad decidida por API. No hay acceso social ni recuperacion de contraseña."
+    }
   },
   {
     "id": "RF-03",
@@ -76,7 +116,31 @@
       }
     ],
     "finding": "Login real con credenciales y con el nuevo correo tras actualizar perfil.",
-    "scope": "MVP / calidad"
+    "scope": "MVP / calidad",
+    "frontend": {
+      "status": "Integrado",
+      "code": [
+        {
+          "path": "frontend/app/app.js",
+          "line": 11
+        },
+        {
+          "path": "frontend/app/app.js",
+          "line": 168
+        }
+      ],
+      "verification": [
+        {
+          "path": "tests/frontend_browser.cjs",
+          "line": 102
+        },
+        {
+          "path": "tests/frontend_browser.cjs",
+          "line": 112
+        }
+      ],
+      "note": "Login y consulta autenticada. Token solo en memoria; recargar termina sesion local, no revoca otros tokens."
+    }
   },
   {
     "id": "RF-04",
@@ -101,7 +165,31 @@
       }
     ],
     "finding": "JWT firmado y con expiracion.",
-    "scope": "MVP / calidad"
+    "scope": "MVP / calidad",
+    "frontend": {
+      "status": "Integrado",
+      "code": [
+        {
+          "path": "frontend/app/app.js",
+          "line": 11
+        },
+        {
+          "path": "frontend/app/app.js",
+          "line": 168
+        }
+      ],
+      "verification": [
+        {
+          "path": "tests/frontend_browser.cjs",
+          "line": 102
+        },
+        {
+          "path": "tests/frontend_browser.cjs",
+          "line": 112
+        }
+      ],
+      "note": "Login y consulta autenticada. Token solo en memoria; recargar termina sesion local, no revoca otros tokens."
+    }
   },
   {
     "id": "RF-05",
@@ -126,7 +214,31 @@
       }
     ],
     "finding": "Rutas protegidas exigen JWT; no se afirma revocacion centralizada de tokens.",
-    "scope": "MVP / calidad"
+    "scope": "MVP / calidad",
+    "frontend": {
+      "status": "Integrado",
+      "code": [
+        {
+          "path": "frontend/app/app.js",
+          "line": 11
+        },
+        {
+          "path": "frontend/app/app.js",
+          "line": 168
+        }
+      ],
+      "verification": [
+        {
+          "path": "tests/frontend_browser.cjs",
+          "line": 102
+        },
+        {
+          "path": "tests/frontend_browser.cjs",
+          "line": 112
+        }
+      ],
+      "note": "Login y consulta autenticada. Token solo en memoria; recargar termina sesion local, no revoca otros tokens."
+    }
   },
   {
     "id": "RF-06",
@@ -151,7 +263,31 @@
       }
     ],
     "finding": "Consulta de la propia cuenta.",
-    "scope": "MVP / calidad"
+    "scope": "MVP / calidad",
+    "frontend": {
+      "status": "Integrado",
+      "code": [
+        {
+          "path": "frontend/app/profile.js",
+          "line": 2
+        },
+        {
+          "path": "frontend/app/app.js",
+          "line": 146
+        }
+      ],
+      "verification": [
+        {
+          "path": "tests/frontend_profile.cjs",
+          "line": 52
+        },
+        {
+          "path": "tests/frontend_profile.cjs",
+          "line": 8
+        }
+      ],
+      "note": "Consulta/edicion nombre y correo; sustituye token. Sin cambio de contraseña, permisos o roles."
+    }
   },
   {
     "id": "RF-07",
@@ -176,7 +312,31 @@
       }
     ],
     "finding": "Actualizacion parcial de nombre/correo; se rechazan campos privilegiados y se renueva JWT.",
-    "scope": "MVP / calidad"
+    "scope": "MVP / calidad",
+    "frontend": {
+      "status": "Integrado",
+      "code": [
+        {
+          "path": "frontend/app/profile.js",
+          "line": 2
+        },
+        {
+          "path": "frontend/app/app.js",
+          "line": 146
+        }
+      ],
+      "verification": [
+        {
+          "path": "tests/frontend_profile.cjs",
+          "line": 52
+        },
+        {
+          "path": "tests/frontend_profile.cjs",
+          "line": 8
+        }
+      ],
+      "note": "Consulta/edicion nombre y correo; sustituye token. Sin cambio de contraseña, permisos o roles."
+    }
   },
   {
     "id": "RF-08",
@@ -201,7 +361,13 @@
       }
     ],
     "finding": "Roles Customer, admin y seller; falta un endpoint de asignacion de roles del diseno, ver D-01.",
-    "scope": "MVP / calidad"
+    "scope": "MVP / calidad",
+    "frontend": {
+      "status": "API / sin pantalla",
+      "code": [],
+      "verification": [],
+      "note": "Capacidad del backend indicada en esta fila. No hay consola visual de administracion de productos, roles o estados de pedidos."
+    }
   },
   {
     "id": "RF-09",
@@ -230,7 +396,13 @@
       }
     ],
     "finding": "Permisos por rol en operaciones administrativas.",
-    "scope": "MVP / calidad"
+    "scope": "MVP / calidad",
+    "frontend": {
+      "status": "API / sin pantalla",
+      "code": [],
+      "verification": [],
+      "note": "Capacidad del backend indicada en esta fila. No hay consola visual de administracion de productos, roles o estados de pedidos."
+    }
   },
   {
     "id": "RF-10",
@@ -255,7 +427,13 @@
       }
     ],
     "finding": "bcrypt sin truncamiento: maximo 72 bytes UTF-8 validado antes del hash.",
-    "scope": "MVP / calidad"
+    "scope": "MVP / calidad",
+    "frontend": {
+      "status": "Responsabilidad del servidor",
+      "code": [],
+      "verification": [],
+      "note": "El hash se aplica en la API; no requiere una pantalla ni se implementa en el navegador."
+    }
   },
   {
     "id": "RF-11",
@@ -280,7 +458,13 @@
       }
     ],
     "finding": "Alta con permisos y categoria existente.",
-    "scope": "MVP / calidad"
+    "scope": "MVP / calidad",
+    "frontend": {
+      "status": "API / sin pantalla",
+      "code": [],
+      "verification": [],
+      "note": "Capacidad del backend indicada en esta fila. No hay consola visual de administracion de productos, roles o estados de pedidos."
+    }
   },
   {
     "id": "RF-12",
@@ -305,7 +489,31 @@
       }
     ],
     "finding": "El filtro available=true permite listar disponibles; el listado sin filtro tambien incluye inactivos.",
-    "scope": "MVP / calidad"
+    "scope": "MVP / calidad",
+    "frontend": {
+      "status": "Integrado",
+      "code": [
+        {
+          "path": "frontend/app/app.js",
+          "line": 83
+        },
+        {
+          "path": "frontend/app/app.js",
+          "line": 127
+        }
+      ],
+      "verification": [
+        {
+          "path": "tests/frontend_browser.cjs",
+          "line": 43
+        },
+        {
+          "path": "tests/frontend_browser.cjs",
+          "line": 50
+        }
+      ],
+      "note": "Catalogo, detalle, busqueda y disponibilidad del servidor; no hay datos de muestra en la aplicacion conectada."
+    }
   },
   {
     "id": "RF-13",
@@ -326,7 +534,31 @@
       }
     ],
     "finding": "Detalle publico por ID y 404 cuando no existe.",
-    "scope": "MVP / calidad"
+    "scope": "MVP / calidad",
+    "frontend": {
+      "status": "Integrado",
+      "code": [
+        {
+          "path": "frontend/app/app.js",
+          "line": 83
+        },
+        {
+          "path": "frontend/app/app.js",
+          "line": 127
+        }
+      ],
+      "verification": [
+        {
+          "path": "tests/frontend_browser.cjs",
+          "line": 43
+        },
+        {
+          "path": "tests/frontend_browser.cjs",
+          "line": 50
+        }
+      ],
+      "note": "Catalogo, detalle, busqueda y disponibilidad del servidor; no hay datos de muestra en la aplicacion conectada."
+    }
   },
   {
     "id": "RF-14",
@@ -351,7 +583,13 @@
       }
     ],
     "finding": "Actualizacion con permisos y validacion de categoria.",
-    "scope": "MVP / calidad"
+    "scope": "MVP / calidad",
+    "frontend": {
+      "status": "API / sin pantalla",
+      "code": [],
+      "verification": [],
+      "note": "Capacidad del backend indicada en esta fila. No hay consola visual de administracion de productos, roles o estados de pedidos."
+    }
   },
   {
     "id": "RF-15",
@@ -372,7 +610,13 @@
       }
     ],
     "finding": "Eliminacion autorizada; se impide borrar productos con reservas pendientes.",
-    "scope": "MVP / calidad"
+    "scope": "MVP / calidad",
+    "frontend": {
+      "status": "API / sin pantalla",
+      "code": [],
+      "verification": [],
+      "note": "Capacidad del backend indicada en esta fila. No hay consola visual de administracion de productos, roles o estados de pedidos."
+    }
   },
   {
     "id": "RF-16",
@@ -397,7 +641,27 @@
       }
     ],
     "finding": "Categorias relacionadas por FK; compatibilidad con nombre antiguo y migracion de datos.",
-    "scope": "MVP / calidad"
+    "scope": "MVP / calidad",
+    "frontend": {
+      "status": "Lectura visual",
+      "code": [
+        {
+          "path": "frontend/app/app.js",
+          "line": 112
+        },
+        {
+          "path": "frontend/app/app.js",
+          "line": 127
+        }
+      ],
+      "verification": [
+        {
+          "path": "tests/frontend_browser.cjs",
+          "line": 43
+        }
+      ],
+      "note": "Consulta/filtra categorias y stock. Clasificar productos o editar existencias sigue por API administrativa."
+    }
   },
   {
     "id": "RF-17",
@@ -418,7 +682,31 @@
       }
     ],
     "finding": "Busqueda parcial por nombre y filtros combinables; no es busqueda avanzada Elasticsearch.",
-    "scope": "MVP / calidad"
+    "scope": "MVP / calidad",
+    "frontend": {
+      "status": "Integrado",
+      "code": [
+        {
+          "path": "frontend/app/app.js",
+          "line": 83
+        },
+        {
+          "path": "frontend/app/app.js",
+          "line": 127
+        }
+      ],
+      "verification": [
+        {
+          "path": "tests/frontend_browser.cjs",
+          "line": 43
+        },
+        {
+          "path": "tests/frontend_browser.cjs",
+          "line": 50
+        }
+      ],
+      "note": "Catalogo, detalle, busqueda y disponibilidad del servidor; no hay datos de muestra en la aplicacion conectada."
+    }
   },
   {
     "id": "RF-18",
@@ -443,7 +731,27 @@
       }
     ],
     "finding": "Stock disponible y reservas atomicas; descuento idempotente y liberacion coordinada.",
-    "scope": "MVP / calidad"
+    "scope": "MVP / calidad",
+    "frontend": {
+      "status": "Lectura visual",
+      "code": [
+        {
+          "path": "frontend/app/app.js",
+          "line": 112
+        },
+        {
+          "path": "frontend/app/app.js",
+          "line": 127
+        }
+      ],
+      "verification": [
+        {
+          "path": "tests/frontend_browser.cjs",
+          "line": 43
+        }
+      ],
+      "note": "Consulta/filtra categorias y stock. Clasificar productos o editar existencias sigue por API administrativa."
+    }
   },
   {
     "id": "RF-19",
@@ -468,7 +776,31 @@
       }
     ],
     "finding": "Disponibilidad expresada por stock/is_active y filtro available; no existe campo de respuesta available como en el ejemplo del PDF.",
-    "scope": "MVP / calidad"
+    "scope": "MVP / calidad",
+    "frontend": {
+      "status": "Integrado",
+      "code": [
+        {
+          "path": "frontend/app/app.js",
+          "line": 83
+        },
+        {
+          "path": "frontend/app/app.js",
+          "line": 127
+        }
+      ],
+      "verification": [
+        {
+          "path": "tests/frontend_browser.cjs",
+          "line": 43
+        },
+        {
+          "path": "tests/frontend_browser.cjs",
+          "line": 50
+        }
+      ],
+      "note": "Catalogo, detalle, busqueda y disponibilidad del servidor; no hay datos de muestra en la aplicacion conectada."
+    }
   },
   {
     "id": "RF-20",
@@ -493,7 +825,13 @@
       }
     ],
     "finding": "CRUD y descuento manual de stock protegidos por admin/seller.",
-    "scope": "MVP / calidad"
+    "scope": "MVP / calidad",
+    "frontend": {
+      "status": "API / sin pantalla",
+      "code": [],
+      "verification": [],
+      "note": "Capacidad del backend indicada en esta fila. No hay consola visual de administracion de productos, roles o estados de pedidos."
+    }
   },
   {
     "id": "RF-21",
@@ -518,7 +856,31 @@
       }
     ],
     "finding": "Carrito Redis separado por identificador del JWT.",
-    "scope": "MVP / calidad"
+    "scope": "MVP / calidad",
+    "frontend": {
+      "status": "Integrado",
+      "code": [
+        {
+          "path": "frontend/app/commerce.js",
+          "line": 3
+        },
+        {
+          "path": "frontend/app/commerce.js",
+          "line": 103
+        }
+      ],
+      "verification": [
+        {
+          "path": "tests/frontend_commerce.cjs",
+          "line": 81
+        },
+        {
+          "path": "tests/frontend_commerce.cjs",
+          "line": 88
+        }
+      ],
+      "note": "Carrito propio: agregar desde detalle, cantidades, quitar y totales de API. Sin POST automaticos de reintento."
+    }
   },
   {
     "id": "RF-22",
@@ -547,7 +909,31 @@
       }
     ],
     "finding": "Altas atomicas Redis, 20 operaciones simultaneas conservan 20 unidades por HTTP.",
-    "scope": "MVP / calidad"
+    "scope": "MVP / calidad",
+    "frontend": {
+      "status": "Integrado",
+      "code": [
+        {
+          "path": "frontend/app/commerce.js",
+          "line": 3
+        },
+        {
+          "path": "frontend/app/commerce.js",
+          "line": 103
+        }
+      ],
+      "verification": [
+        {
+          "path": "tests/frontend_commerce.cjs",
+          "line": 81
+        },
+        {
+          "path": "tests/frontend_commerce.cjs",
+          "line": 88
+        }
+      ],
+      "note": "Carrito propio: agregar desde detalle, cantidades, quitar y totales de API. Sin POST automaticos de reintento."
+    }
   },
   {
     "id": "RF-23",
@@ -568,7 +954,31 @@
       }
     ],
     "finding": "Actualizacion de cantidad con comprobacion de stock en ese momento.",
-    "scope": "MVP / calidad"
+    "scope": "MVP / calidad",
+    "frontend": {
+      "status": "Integrado",
+      "code": [
+        {
+          "path": "frontend/app/commerce.js",
+          "line": 3
+        },
+        {
+          "path": "frontend/app/commerce.js",
+          "line": 103
+        }
+      ],
+      "verification": [
+        {
+          "path": "tests/frontend_commerce.cjs",
+          "line": 81
+        },
+        {
+          "path": "tests/frontend_commerce.cjs",
+          "line": 88
+        }
+      ],
+      "note": "Carrito propio: agregar desde detalle, cantidades, quitar y totales de API. Sin POST automaticos de reintento."
+    }
   },
   {
     "id": "RF-24",
@@ -593,7 +1003,31 @@
       }
     ],
     "finding": "Eliminacion individual comprobada en Redis y por HTTP en la demostracion.",
-    "scope": "MVP / calidad"
+    "scope": "MVP / calidad",
+    "frontend": {
+      "status": "Integrado",
+      "code": [
+        {
+          "path": "frontend/app/commerce.js",
+          "line": 3
+        },
+        {
+          "path": "frontend/app/commerce.js",
+          "line": 103
+        }
+      ],
+      "verification": [
+        {
+          "path": "tests/frontend_commerce.cjs",
+          "line": 81
+        },
+        {
+          "path": "tests/frontend_commerce.cjs",
+          "line": 88
+        }
+      ],
+      "note": "Carrito propio: agregar desde detalle, cantidades, quitar y totales de API. Sin POST automaticos de reintento."
+    }
   },
   {
     "id": "RF-25",
@@ -622,7 +1056,18 @@
       }
     ],
     "finding": "Vaciado explicito y finalizacion idempotente; una confirmacion tardia no borra un carrito nuevo.",
-    "scope": "MVP / calidad"
+    "scope": "MVP / calidad",
+    "frontend": {
+      "status": "API / sin accion dedicada",
+      "code": [],
+      "verification": [
+        {
+          "path": "tests/frontend_commerce.cjs",
+          "line": 81
+        }
+      ],
+      "note": "No hay boton Vaciar carrito. Quitar items y checkout estan integrados; DELETE /api/cart sigue disponible por API."
+    }
   },
   {
     "id": "RF-26",
@@ -643,7 +1088,31 @@
       }
     ],
     "finding": "Contenido y totales del propio carrito.",
-    "scope": "MVP / calidad"
+    "scope": "MVP / calidad",
+    "frontend": {
+      "status": "Integrado",
+      "code": [
+        {
+          "path": "frontend/app/commerce.js",
+          "line": 3
+        },
+        {
+          "path": "frontend/app/commerce.js",
+          "line": 103
+        }
+      ],
+      "verification": [
+        {
+          "path": "tests/frontend_commerce.cjs",
+          "line": 81
+        },
+        {
+          "path": "tests/frontend_commerce.cjs",
+          "line": 88
+        }
+      ],
+      "note": "Carrito propio: agregar desde detalle, cantidades, quitar y totales de API. Sin POST automaticos de reintento."
+    }
   },
   {
     "id": "RF-27",
@@ -664,7 +1133,31 @@
       }
     ],
     "finding": "Subtotal y total calculados con Decimal a partir del snapshot del carrito.",
-    "scope": "MVP / calidad"
+    "scope": "MVP / calidad",
+    "frontend": {
+      "status": "Integrado",
+      "code": [
+        {
+          "path": "frontend/app/commerce.js",
+          "line": 3
+        },
+        {
+          "path": "frontend/app/commerce.js",
+          "line": 103
+        }
+      ],
+      "verification": [
+        {
+          "path": "tests/frontend_commerce.cjs",
+          "line": 81
+        },
+        {
+          "path": "tests/frontend_commerce.cjs",
+          "line": 88
+        }
+      ],
+      "note": "Carrito propio: agregar desde detalle, cantidades, quitar y totales de API. Sin POST automaticos de reintento."
+    }
   },
   {
     "id": "RF-28",
@@ -693,7 +1186,35 @@
       }
     ],
     "finding": "Al crear pedido se revalidan existencia, actividad, stock y precio. Precio cambiado: 409 hasta refrescar el articulo; reserva efectiva al pagar.",
-    "scope": "MVP / calidad"
+    "scope": "MVP / calidad",
+    "frontend": {
+      "status": "Integrado",
+      "code": [
+        {
+          "path": "frontend/app/commerce.js",
+          "line": 173
+        },
+        {
+          "path": "frontend/app/commerce.js",
+          "line": 151
+        }
+      ],
+      "verification": [
+        {
+          "path": "tests/frontend_commerce.cjs",
+          "line": 97
+        },
+        {
+          "path": "tests/frontend_commerce.cjs",
+          "line": 105
+        },
+        {
+          "path": "tests/frontend_commerce.cjs",
+          "line": 160
+        }
+      ],
+      "note": "Confirmacion con version del carrito, revalidacion en servidor y recuperacion de resultado incierto."
+    }
   },
   {
     "id": "RF-29",
@@ -726,7 +1247,35 @@
       }
     ],
     "finding": "Checkout durable por version del carrito, un unico pedido ante concurrencia y recuperacion tras interrupcion.",
-    "scope": "MVP / calidad"
+    "scope": "MVP / calidad",
+    "frontend": {
+      "status": "Integrado",
+      "code": [
+        {
+          "path": "frontend/app/commerce.js",
+          "line": 173
+        },
+        {
+          "path": "frontend/app/commerce.js",
+          "line": 151
+        }
+      ],
+      "verification": [
+        {
+          "path": "tests/frontend_commerce.cjs",
+          "line": 97
+        },
+        {
+          "path": "tests/frontend_commerce.cjs",
+          "line": 105
+        },
+        {
+          "path": "tests/frontend_commerce.cjs",
+          "line": 160
+        }
+      ],
+      "note": "Confirmacion con version del carrito, revalidacion en servidor y recuperacion de resultado incierto."
+    }
   },
   {
     "id": "RF-30",
@@ -751,7 +1300,31 @@
       }
     ],
     "finding": "PK del pedido y checkout_id unico: una repeticion recupera el pedido original.",
-    "scope": "MVP / calidad"
+    "scope": "MVP / calidad",
+    "frontend": {
+      "status": "Integrado",
+      "code": [
+        {
+          "path": "frontend/app/orders.js",
+          "line": 2
+        },
+        {
+          "path": "frontend/app/commerce.js",
+          "line": 140
+        }
+      ],
+      "verification": [
+        {
+          "path": "tests/frontend_orders.cjs",
+          "line": 52
+        },
+        {
+          "path": "tests/frontend_orders.cjs",
+          "line": 96
+        }
+      ],
+      "note": "Historial privado, estado, fecha, items y total reales. Estado se consulta; administrarlo no tiene pantalla."
+    }
   },
   {
     "id": "RF-31",
@@ -772,7 +1345,31 @@
       }
     ],
     "finding": "Fecha/hora de creacion almacenada en orders.",
-    "scope": "MVP / calidad"
+    "scope": "MVP / calidad",
+    "frontend": {
+      "status": "Integrado",
+      "code": [
+        {
+          "path": "frontend/app/orders.js",
+          "line": 2
+        },
+        {
+          "path": "frontend/app/commerce.js",
+          "line": 140
+        }
+      ],
+      "verification": [
+        {
+          "path": "tests/frontend_orders.cjs",
+          "line": 52
+        },
+        {
+          "path": "tests/frontend_orders.cjs",
+          "line": 96
+        }
+      ],
+      "note": "Historial privado, estado, fecha, items y total reales. Estado se consulta; administrarlo no tiene pantalla."
+    }
   },
   {
     "id": "RF-32",
@@ -797,7 +1394,31 @@
       }
     ],
     "finding": "Asocia user_id del JWT emitido por registro/login; no hay FK entre bases independientes ni introspeccion de usuario en cada servicio.",
-    "scope": "MVP / calidad"
+    "scope": "MVP / calidad",
+    "frontend": {
+      "status": "Integrado",
+      "code": [
+        {
+          "path": "frontend/app/orders.js",
+          "line": 2
+        },
+        {
+          "path": "frontend/app/commerce.js",
+          "line": 140
+        }
+      ],
+      "verification": [
+        {
+          "path": "tests/frontend_orders.cjs",
+          "line": 52
+        },
+        {
+          "path": "tests/frontend_orders.cjs",
+          "line": 96
+        }
+      ],
+      "note": "Historial privado, estado, fecha, items y total reales. Estado se consulta; administrarlo no tiene pantalla."
+    }
   },
   {
     "id": "RF-33",
@@ -822,7 +1443,31 @@
       }
     ],
     "finding": "Items, cantidades y snapshot del producto persistidos.",
-    "scope": "MVP / calidad"
+    "scope": "MVP / calidad",
+    "frontend": {
+      "status": "Integrado",
+      "code": [
+        {
+          "path": "frontend/app/orders.js",
+          "line": 2
+        },
+        {
+          "path": "frontend/app/commerce.js",
+          "line": 140
+        }
+      ],
+      "verification": [
+        {
+          "path": "tests/frontend_orders.cjs",
+          "line": 52
+        },
+        {
+          "path": "tests/frontend_orders.cjs",
+          "line": 96
+        }
+      ],
+      "note": "Historial privado, estado, fecha, items y total reales. Estado se consulta; administrarlo no tiene pantalla."
+    }
   },
   {
     "id": "RF-34",
@@ -847,7 +1492,31 @@
       }
     ],
     "finding": "Order recalcula subtotal y total con Decimal a partir de cantidades y precios actuales revalidados; no confia en cart.total.",
-    "scope": "MVP / calidad"
+    "scope": "MVP / calidad",
+    "frontend": {
+      "status": "Integrado",
+      "code": [
+        {
+          "path": "frontend/app/orders.js",
+          "line": 2
+        },
+        {
+          "path": "frontend/app/commerce.js",
+          "line": 140
+        }
+      ],
+      "verification": [
+        {
+          "path": "tests/frontend_orders.cjs",
+          "line": 52
+        },
+        {
+          "path": "tests/frontend_orders.cjs",
+          "line": 96
+        }
+      ],
+      "note": "Historial privado, estado, fecha, items y total reales. Estado se consulta; administrarlo no tiene pantalla."
+    }
   },
   {
     "id": "RF-35",
@@ -872,7 +1541,31 @@
       }
     ],
     "finding": "Historial privado, filtrado por estado y paginado con orden estable.",
-    "scope": "MVP / calidad"
+    "scope": "MVP / calidad",
+    "frontend": {
+      "status": "Integrado",
+      "code": [
+        {
+          "path": "frontend/app/orders.js",
+          "line": 2
+        },
+        {
+          "path": "frontend/app/commerce.js",
+          "line": 140
+        }
+      ],
+      "verification": [
+        {
+          "path": "tests/frontend_orders.cjs",
+          "line": 52
+        },
+        {
+          "path": "tests/frontend_orders.cjs",
+          "line": 96
+        }
+      ],
+      "note": "Historial privado, estado, fecha, items y total reales. Estado se consulta; administrarlo no tiene pantalla."
+    }
   },
   {
     "id": "RF-36",
@@ -893,7 +1586,31 @@
       }
     ],
     "finding": "Detalle restringido al propietario.",
-    "scope": "MVP / calidad"
+    "scope": "MVP / calidad",
+    "frontend": {
+      "status": "Integrado",
+      "code": [
+        {
+          "path": "frontend/app/orders.js",
+          "line": 2
+        },
+        {
+          "path": "frontend/app/commerce.js",
+          "line": 140
+        }
+      ],
+      "verification": [
+        {
+          "path": "tests/frontend_orders.cjs",
+          "line": 52
+        },
+        {
+          "path": "tests/frontend_orders.cjs",
+          "line": 96
+        }
+      ],
+      "note": "Historial privado, estado, fecha, items y total reales. Estado se consulta; administrarlo no tiene pantalla."
+    }
   },
   {
     "id": "RF-37",
@@ -922,7 +1639,39 @@
       }
     ],
     "finding": "PENDING, PAID, PROCESSING, SHIPPED, DELIVERED, CANCELLED y estado adicional recuperable CANCELLING.",
-    "scope": "MVP / calidad"
+    "scope": "MVP / calidad",
+    "frontend": {
+      "status": "Integrado",
+      "code": [
+        {
+          "path": "frontend/app/orders.js",
+          "line": 2
+        },
+        {
+          "path": "frontend/app/commerce.js",
+          "line": 140
+        }
+      ],
+      "verification": [
+        {
+          "path": "tests/frontend_orders.cjs",
+          "line": 52
+        },
+        {
+          "path": "tests/frontend_orders.cjs",
+          "line": 96
+        },
+        {
+          "path": "tests/frontend_orders.cjs",
+          "line": 65
+        },
+        {
+          "path": "tests/frontend_orders.cjs",
+          "line": 71
+        }
+      ],
+      "note": "Historial privado, estado, fecha, items y total reales. Estado se consulta; administrarlo no tiene pantalla."
+    }
   },
   {
     "id": "RF-38",
@@ -947,7 +1696,13 @@
       }
     ],
     "finding": "Cadena HTTP PAID -> PROCESSING -> SHIPPED -> DELIVERED con token admin; el cliente recibe 403. La demo usa un token administrativo efimero de fixture.",
-    "scope": "MVP / calidad"
+    "scope": "MVP / calidad",
+    "frontend": {
+      "status": "API / sin pantalla",
+      "code": [],
+      "verification": [],
+      "note": "Capacidad del backend indicada en esta fila. No hay consola visual de administracion de productos, roles o estados de pedidos."
+    }
   },
   {
     "id": "RF-39",
@@ -968,7 +1723,35 @@
       }
     ],
     "finding": "Intento durable asociado a pedido y propietario.",
-    "scope": "MVP / calidad"
+    "scope": "MVP / calidad",
+    "frontend": {
+      "status": "Integrado",
+      "code": [
+        {
+          "path": "frontend/app/payments.js",
+          "line": 2
+        },
+        {
+          "path": "services/payment-service/app/routers/payments.py",
+          "line": 222
+        }
+      ],
+      "verification": [
+        {
+          "path": "tests/frontend_payments.cjs",
+          "line": 67
+        },
+        {
+          "path": "tests/frontend_payments.cjs",
+          "line": 101
+        },
+        {
+          "path": "tests/payment_latest.py",
+          "line": 1
+        }
+      ],
+      "note": "Pago simulado, referencia, motivo/fecha y seguimiento del pedido. Sin dinero real; la aprobacion modifica inventario local."
+    }
   },
   {
     "id": "RF-40",
@@ -993,7 +1776,35 @@
       }
     ],
     "finding": "Registra PENDING, PAID, REJECTED o CANCELLED.",
-    "scope": "MVP / calidad"
+    "scope": "MVP / calidad",
+    "frontend": {
+      "status": "Integrado",
+      "code": [
+        {
+          "path": "frontend/app/payments.js",
+          "line": 2
+        },
+        {
+          "path": "services/payment-service/app/routers/payments.py",
+          "line": 222
+        }
+      ],
+      "verification": [
+        {
+          "path": "tests/frontend_payments.cjs",
+          "line": 67
+        },
+        {
+          "path": "tests/frontend_payments.cjs",
+          "line": 101
+        },
+        {
+          "path": "tests/payment_latest.py",
+          "line": 1
+        }
+      ],
+      "note": "Pago simulado, referencia, motivo/fecha y seguimiento del pedido. Sin dinero real; la aprobacion modifica inventario local."
+    }
   },
   {
     "id": "RF-41",
@@ -1022,7 +1833,35 @@
       }
     ],
     "finding": "Aprobacion y rechazos de fondos, vencimiento, emisor o stock; motivo y fecha persistidos.",
-    "scope": "MVP / calidad"
+    "scope": "MVP / calidad",
+    "frontend": {
+      "status": "Integrado",
+      "code": [
+        {
+          "path": "frontend/app/payments.js",
+          "line": 2
+        },
+        {
+          "path": "services/payment-service/app/routers/payments.py",
+          "line": 222
+        }
+      ],
+      "verification": [
+        {
+          "path": "tests/frontend_payments.cjs",
+          "line": 67
+        },
+        {
+          "path": "tests/frontend_payments.cjs",
+          "line": 101
+        },
+        {
+          "path": "tests/payment_latest.py",
+          "line": 1
+        }
+      ],
+      "note": "Pago simulado, referencia, motivo/fecha y seguimiento del pedido. Sin dinero real; la aprobacion modifica inventario local."
+    }
   },
   {
     "id": "RF-42",
@@ -1055,7 +1894,35 @@
       }
     ],
     "finding": "Actualizacion eventual mediante Outbox/RabbitMQ; compra completa y recuperacion verificadas.",
-    "scope": "MVP / calidad"
+    "scope": "MVP / calidad",
+    "frontend": {
+      "status": "Integrado",
+      "code": [
+        {
+          "path": "frontend/app/payments.js",
+          "line": 2
+        },
+        {
+          "path": "services/payment-service/app/routers/payments.py",
+          "line": 222
+        }
+      ],
+      "verification": [
+        {
+          "path": "tests/frontend_payments.cjs",
+          "line": 67
+        },
+        {
+          "path": "tests/frontend_payments.cjs",
+          "line": 101
+        },
+        {
+          "path": "tests/payment_latest.py",
+          "line": 1
+        }
+      ],
+      "note": "Pago simulado, referencia, motivo/fecha y seguimiento del pedido. Sin dinero real; la aprobacion modifica inventario local."
+    }
   },
   {
     "id": "RF-43",
@@ -1080,7 +1947,39 @@
       }
     ],
     "finding": "El rechazo conserva PENDING para otro intento; cancelacion es explicita. Regla documentada conforme a la alternativa permitida por RF-43; difiere del dibujo p.36.",
-    "scope": "MVP / calidad"
+    "scope": "MVP / calidad",
+    "frontend": {
+      "status": "Integrado",
+      "code": [
+        {
+          "path": "frontend/app/payments.js",
+          "line": 2
+        },
+        {
+          "path": "services/payment-service/app/routers/payments.py",
+          "line": 222
+        }
+      ],
+      "verification": [
+        {
+          "path": "tests/frontend_payments.cjs",
+          "line": 67
+        },
+        {
+          "path": "tests/frontend_payments.cjs",
+          "line": 101
+        },
+        {
+          "path": "tests/payment_latest.py",
+          "line": 1
+        },
+        {
+          "path": "tests/frontend_orders.cjs",
+          "line": 65
+        }
+      ],
+      "note": "Pago simulado, referencia, motivo/fecha y seguimiento del pedido. Sin dinero real; la aprobacion modifica inventario local."
+    }
   },
   {
     "id": "RF-44",
@@ -1109,7 +2008,35 @@
       }
     ],
     "finding": "processed_at UTC registra resolucion final PAID/REJECTED/CANCELLED, sin cambiar en reintentos. Historicos sin fecha real permanecen NULL.",
-    "scope": "MVP / calidad"
+    "scope": "MVP / calidad",
+    "frontend": {
+      "status": "Integrado",
+      "code": [
+        {
+          "path": "frontend/app/payments.js",
+          "line": 2
+        },
+        {
+          "path": "services/payment-service/app/routers/payments.py",
+          "line": 222
+        }
+      ],
+      "verification": [
+        {
+          "path": "tests/frontend_payments.cjs",
+          "line": 67
+        },
+        {
+          "path": "tests/frontend_payments.cjs",
+          "line": 101
+        },
+        {
+          "path": "tests/payment_latest.py",
+          "line": 1
+        }
+      ],
+      "note": "Pago simulado, referencia, motivo/fecha y seguimiento del pedido. Sin dinero real; la aprobacion modifica inventario local."
+    }
   },
   {
     "id": "RF-45",
@@ -1138,7 +2065,35 @@
       }
     ],
     "finding": "Simulacion determinista; resultado inmutable por intento PENDING. No hay cobros reales.",
-    "scope": "MVP / calidad"
+    "scope": "MVP / calidad",
+    "frontend": {
+      "status": "Integrado",
+      "code": [
+        {
+          "path": "frontend/app/payments.js",
+          "line": 2
+        },
+        {
+          "path": "services/payment-service/app/routers/payments.py",
+          "line": 222
+        }
+      ],
+      "verification": [
+        {
+          "path": "tests/frontend_payments.cjs",
+          "line": 67
+        },
+        {
+          "path": "tests/frontend_payments.cjs",
+          "line": 101
+        },
+        {
+          "path": "tests/payment_latest.py",
+          "line": 1
+        }
+      ],
+      "note": "Pago simulado, referencia, motivo/fecha y seguimiento del pedido. Sin dinero real; la aprobacion modifica inventario local."
+    }
   },
   {
     "id": "RF-46",
@@ -1163,7 +2118,31 @@
       }
     ],
     "finding": "Entrada central http://localhost:8000. Acceso directo de depuracion sigue publicado; ver D-07.",
-    "scope": "MVP / calidad"
+    "scope": "MVP / calidad",
+    "frontend": {
+      "status": "Integrado",
+      "code": [
+        {
+          "path": "frontend/nginx.conf",
+          "line": 18
+        },
+        {
+          "path": "compose.frontend.yml",
+          "line": 1
+        }
+      ],
+      "verification": [
+        {
+          "path": "tests/frontend_fresh_install.py",
+          "line": 112
+        },
+        {
+          "path": "tests/frontend_browser.cjs",
+          "line": 118
+        }
+      ],
+      "note": "Nginx del frontend reenvia /api al gateway; conserva autenticacion y bloqueo de rutas internas."
+    }
   },
   {
     "id": "RF-47",
@@ -1188,7 +2167,31 @@
       }
     ],
     "finding": "Enrutamiento efectivo a los cinco servicios funcionales y categorias.",
-    "scope": "MVP / calidad"
+    "scope": "MVP / calidad",
+    "frontend": {
+      "status": "Integrado",
+      "code": [
+        {
+          "path": "frontend/nginx.conf",
+          "line": 18
+        },
+        {
+          "path": "compose.frontend.yml",
+          "line": 1
+        }
+      ],
+      "verification": [
+        {
+          "path": "tests/frontend_fresh_install.py",
+          "line": 112
+        },
+        {
+          "path": "tests/frontend_browser.cjs",
+          "line": 118
+        }
+      ],
+      "note": "Nginx del frontend reenvia /api al gateway; conserva autenticacion y bloqueo de rutas internas."
+    }
   },
   {
     "id": "RF-48",
@@ -1209,7 +2212,31 @@
       }
     ],
     "finding": "Rutas /api/auth, users, products, categories, cart, orders y payments definidas.",
-    "scope": "MVP / calidad"
+    "scope": "MVP / calidad",
+    "frontend": {
+      "status": "Integrado",
+      "code": [
+        {
+          "path": "frontend/nginx.conf",
+          "line": 18
+        },
+        {
+          "path": "compose.frontend.yml",
+          "line": 1
+        }
+      ],
+      "verification": [
+        {
+          "path": "tests/frontend_fresh_install.py",
+          "line": 112
+        },
+        {
+          "path": "tests/frontend_browser.cjs",
+          "line": 118
+        }
+      ],
+      "note": "Nginx del frontend reenvia /api al gateway; conserva autenticacion y bloqueo de rutas internas."
+    }
   },
   {
     "id": "RF-49",
@@ -1234,7 +2261,18 @@
       }
     ],
     "finding": "Base Nginx/DNS preparada y recuperacion por cambio de IP probada; no hay balanceo configurado ni prueba de varias replicas. Capacidad futura, no bloqueo del MVP inicial.",
-    "scope": "Evolucion futura"
+    "scope": "Evolucion futura",
+    "frontend": {
+      "status": "Infraestructura",
+      "code": [],
+      "verification": [
+        {
+          "path": "docs/frontend/instalacion-desde-cero.json",
+          "line": 1
+        }
+      ],
+      "note": "El frontend no cierra este requisito parcial. Instalacion probada en el mismo host Windows/Docker Linux, sin replicas ni TLS productivo."
+    }
   },
   {
     "id": "RF-50",
@@ -1263,7 +2301,31 @@
       }
     ],
     "finding": "Politicas centrales: bloqueo de rutas internas, retirada de clave interna, IP reenviada y trazabilidad. JWT sigue en servicios.",
-    "scope": "MVP / calidad"
+    "scope": "MVP / calidad",
+    "frontend": {
+      "status": "Integrado",
+      "code": [
+        {
+          "path": "frontend/nginx.conf",
+          "line": 18
+        },
+        {
+          "path": "compose.frontend.yml",
+          "line": 1
+        }
+      ],
+      "verification": [
+        {
+          "path": "tests/frontend_fresh_install.py",
+          "line": 112
+        },
+        {
+          "path": "tests/frontend_browser.cjs",
+          "line": 118
+        }
+      ],
+      "note": "Nginx del frontend reenvia /api al gateway; conserva autenticacion y bloqueo de rutas internas."
+    }
   },
   {
     "id": "RNF-01",
@@ -1308,7 +2370,13 @@
       }
     ],
     "finding": "Cumplido para el perfil local-mvp-20vu-v1 sin cambiar objetivos: a 20 usuarios historial p95 286.88 ms, checkout 770.97 ms, pago 525.38 ms y compra 2.738 s; todos los limites p95/p99, errores, muestras y throughput aprobados (122.96 req/s utiles). SQL/HTTP perfilados, transporte reutilizado con cookies/tokens aislados y conexion de historial liberada antes. No certifica produccion, otras cargas ni volumenes grandes.",
-    "scope": "MVP / calidad"
+    "scope": "MVP / calidad",
+    "frontend": {
+      "status": "Sin carga UI",
+      "code": [],
+      "verification": [],
+      "note": "La carga aceptada mide backend/gateway en el perfil local registrado. Auditoria visual no mide rendimiento web ni SLA productivo."
+    }
   },
   {
     "id": "RNF-02",
@@ -1349,7 +2417,31 @@
       }
     ],
     "finding": "Concurrencia funcional y carga local hasta 20 usuarios verificadas: 1.051 compras integras, sin duplicados ni doble descuento. Pool HTTP probado con 40 llamadas concurrentes e identidades aisladas; Outbox mantiene skip_locked y reenvio recuperable. No demuestra replicas reales ni capacidad productiva.",
-    "scope": "MVP / calidad"
+    "scope": "MVP / calidad",
+    "frontend": {
+      "status": "Comprobacion visual",
+      "code": [
+        {
+          "path": "frontend/app/commerce.js",
+          "line": 1
+        },
+        {
+          "path": "frontend/app/payments.js",
+          "line": 1
+        }
+      ],
+      "verification": [
+        {
+          "path": "tests/frontend_commerce.cjs",
+          "line": 160
+        },
+        {
+          "path": "tests/frontend_payments.cjs",
+          "line": 125
+        }
+      ],
+      "note": "Dos pestañas conservan un pedido/pago; no acredita replicas de servicios."
+    }
   },
   {
     "id": "RNF-03",
@@ -1374,7 +2466,8 @@
       }
     ],
     "finding": "Redis integrado permite ampliar cache. Hoy almacena carritos; no se afirma cache del catalogo ni mejoras de rendimiento medidas.",
-    "scope": "MVP / calidad"
+    "scope": "MVP / calidad",
+    "frontend": null
   },
   {
     "id": "RNF-04",
@@ -1403,7 +2496,8 @@
       }
     ],
     "finding": "Indices PK, email normalizado, categorias y usuarios. No se hicieron EXPLAIN ni benchmark de consultas.",
-    "scope": "MVP / calidad"
+    "scope": "MVP / calidad",
+    "frontend": null
   },
   {
     "id": "RNF-05",
@@ -1428,7 +2522,18 @@
       }
     ],
     "finding": "Separacion por servicio presente, pero container_name y puertos host fijos impiden --scale directo de servicios. Falta despliegue de replicas verificado.",
-    "scope": "MVP / calidad"
+    "scope": "MVP / calidad",
+    "frontend": {
+      "status": "Infraestructura",
+      "code": [],
+      "verification": [
+        {
+          "path": "docs/frontend/instalacion-desde-cero.json",
+          "line": 1
+        }
+      ],
+      "note": "El frontend no cierra este requisito parcial. Instalacion probada en el mismo host Windows/Docker Linux, sin replicas ni TLS productivo."
+    }
   },
   {
     "id": "RNF-06",
@@ -1457,7 +2562,18 @@
       }
     ],
     "finding": "Bloqueos/skip_locked ayudan a replicas; Compose impone nombre/puerto unicos y no se probo un despliegue multinstancia.",
-    "scope": "MVP / calidad"
+    "scope": "MVP / calidad",
+    "frontend": {
+      "status": "Infraestructura",
+      "code": [],
+      "verification": [
+        {
+          "path": "docs/frontend/instalacion-desde-cero.json",
+          "line": 1
+        }
+      ],
+      "note": "El frontend no cierra este requisito parcial. Instalacion probada en el mismo host Windows/Docker Linux, sin replicas ni TLS productivo."
+    }
   },
   {
     "id": "RNF-07",
@@ -1477,7 +2593,18 @@
     ],
     "verification": [],
     "finding": "Base en contenedores y variables de entorno; no hay manifiestos ni verificacion Kubernetes. Preparacion futura, fuera del MVP inicial segun pagina 8.",
-    "scope": "Evolucion futura"
+    "scope": "Evolucion futura",
+    "frontend": {
+      "status": "Infraestructura",
+      "code": [],
+      "verification": [
+        {
+          "path": "docs/frontend/instalacion-desde-cero.json",
+          "line": 1
+        }
+      ],
+      "note": "El frontend no cierra este requisito parcial. Instalacion probada en el mismo host Windows/Docker Linux, sin replicas ni TLS productivo."
+    }
   },
   {
     "id": "RNF-08",
@@ -1506,7 +2633,8 @@
       }
     ],
     "finding": "Bases independientes y contratos HTTP/eventos, pero consumidores validan contra otras APIs y checkout depende de Cart. Minimizar acoplamiento sigue parcial.",
-    "scope": "MVP / calidad"
+    "scope": "MVP / calidad",
+    "frontend": null
   },
   {
     "id": "RNF-09",
@@ -1531,7 +2659,8 @@
       }
     ],
     "finding": "Se persiste hash; no un campo de contrasena en claro.",
-    "scope": "MVP / calidad"
+    "scope": "MVP / calidad",
+    "frontend": null
   },
   {
     "id": "RNF-10",
@@ -1556,7 +2685,8 @@
       }
     ],
     "finding": "bcrypt con validacion de bytes; 72 ASCII o 36 caracteres e acentuada admitidos, superiores rechazados sin truncar.",
-    "scope": "MVP / calidad"
+    "scope": "MVP / calidad",
+    "frontend": null
   },
   {
     "id": "RNF-11",
@@ -1581,7 +2711,31 @@
       }
     ],
     "finding": "JWT firmado, expiracion y autenticacion ejercitadas por HTTP.",
-    "scope": "MVP / calidad"
+    "scope": "MVP / calidad",
+    "frontend": {
+      "status": "Integrado",
+      "code": [
+        {
+          "path": "frontend/app/app.js",
+          "line": 11
+        },
+        {
+          "path": "frontend/app/profile.js",
+          "line": 1
+        }
+      ],
+      "verification": [
+        {
+          "path": "tests/frontend_browser.cjs",
+          "line": 1
+        },
+        {
+          "path": "tests/frontend_profile.cjs",
+          "line": 1
+        }
+      ],
+      "note": "Sesion en memoria, validacion de formularios y API como autoridad. No hay sesion persistente tras recarga."
+    }
   },
   {
     "id": "RNF-12",
@@ -1618,7 +2772,31 @@
       }
     ],
     "finding": "Limites bcrypt/DB alineados; correo hasta 254; errores de longitud y simulacion desconocida devuelven 422; no se afirma fuzzing exhaustivo de todas las APIs.",
-    "scope": "MVP / calidad"
+    "scope": "MVP / calidad",
+    "frontend": {
+      "status": "Integrado",
+      "code": [
+        {
+          "path": "frontend/app/app.js",
+          "line": 11
+        },
+        {
+          "path": "frontend/app/profile.js",
+          "line": 1
+        }
+      ],
+      "verification": [
+        {
+          "path": "tests/frontend_browser.cjs",
+          "line": 1
+        },
+        {
+          "path": "tests/frontend_profile.cjs",
+          "line": 1
+        }
+      ],
+      "note": "Sesion en memoria, validacion de formularios y API como autoridad. No hay sesion persistente tras recarga."
+    }
   },
   {
     "id": "RNF-13",
@@ -1651,7 +2829,8 @@
       }
     ],
     "finding": "Roles protegen operaciones administrativas y perfil rechaza campos privilegiados.",
-    "scope": "MVP / calidad"
+    "scope": "MVP / calidad",
+    "frontend": null
   },
   {
     "id": "RNF-14",
@@ -1671,7 +2850,27 @@
     ],
     "verification": [],
     "finding": "Secretos se leen desde variables de entorno. No se copiaron valores sensibles a la auditoria; no constituye auditoria completa de gestion/rotacion de secretos.",
-    "scope": "MVP / calidad"
+    "scope": "MVP / calidad",
+    "frontend": {
+      "status": "Sin secretos cliente",
+      "code": [
+        {
+          "path": "frontend/nginx.conf",
+          "line": 1
+        },
+        {
+          "path": "frontend/app/app.js",
+          "line": 4
+        }
+      ],
+      "verification": [
+        {
+          "path": "tests/frontend_fresh_install.py",
+          "line": 112
+        }
+      ],
+      "note": "El frontend no sirve .env ni guarda tokens en almacenamiento persistente; no equivale a gestion productiva de secretos."
+    }
   },
   {
     "id": "RNF-15",
@@ -1691,7 +2890,18 @@
     ],
     "verification": [],
     "finding": "Gateway HTTP preparado para configurarse; no hay certificado, listener HTTPS ni validacion TLS. Capacidad futura, no bloqueo MVP.",
-    "scope": "Evolucion futura"
+    "scope": "Evolucion futura",
+    "frontend": {
+      "status": "Infraestructura",
+      "code": [],
+      "verification": [
+        {
+          "path": "docs/frontend/instalacion-desde-cero.json",
+          "line": 1
+        }
+      ],
+      "note": "El frontend no cierra este requisito parcial. Instalacion probada en el mismo host Windows/Docker Linux, sin replicas ni TLS productivo."
+    }
   },
   {
     "id": "RNF-16",
@@ -1720,7 +2930,8 @@
       }
     ],
     "finding": "Procesos/imagenes separados y bases por servicio; las dependencias funcionales siguen siendo necesarias.",
-    "scope": "MVP / calidad"
+    "scope": "MVP / calidad",
+    "frontend": null
   },
   {
     "id": "RNF-17",
@@ -1745,7 +2956,31 @@
       }
     ],
     "finding": "Backend ausente no detiene Nginx ni /health; recupera al backend. No demuestra continuidad de toda compra si falla una dependencia.",
-    "scope": "MVP / calidad"
+    "scope": "MVP / calidad",
+    "frontend": {
+      "status": "Errores visuales",
+      "code": [
+        {
+          "path": "frontend/app/app.js",
+          "line": 11
+        },
+        {
+          "path": "frontend/app/orders.js",
+          "line": 1
+        }
+      ],
+      "verification": [
+        {
+          "path": "tests/frontend_browser.cjs",
+          "line": 63
+        },
+        {
+          "path": "tests/frontend_orders.cjs",
+          "line": 96
+        }
+      ],
+      "note": "Distingue error, carga y vacio. Los 503 visuales son inyectados; no acreditan alta disponibilidad real."
+    }
   },
   {
     "id": "RNF-18",
@@ -1790,7 +3025,31 @@
       }
     ],
     "finding": "Manejo basico presente: validacion, timeouts, reintentos, DLQ, checkout y cancelacion recuperables. Durabilidad al recrear Redis/RabbitMQ y recuperacion operativa siguen como limites separados.",
-    "scope": "MVP / calidad"
+    "scope": "MVP / calidad",
+    "frontend": {
+      "status": "Errores visuales",
+      "code": [
+        {
+          "path": "frontend/app/app.js",
+          "line": 11
+        },
+        {
+          "path": "frontend/app/orders.js",
+          "line": 1
+        }
+      ],
+      "verification": [
+        {
+          "path": "tests/frontend_browser.cjs",
+          "line": 63
+        },
+        {
+          "path": "tests/frontend_orders.cjs",
+          "line": 96
+        }
+      ],
+      "note": "Distingue error, carga y vacio. Los 503 visuales son inyectados; no acreditan alta disponibilidad real."
+    }
   },
   {
     "id": "RNF-19",
@@ -1806,7 +3065,8 @@
     ],
     "verification": [],
     "finding": "Politica de reinicio configurada para servicios e infraestructura.",
-    "scope": "MVP / calidad"
+    "scope": "MVP / calidad",
+    "frontend": null
   },
   {
     "id": "RNF-20",
@@ -1839,7 +3099,27 @@
       }
     ],
     "finding": "Healthchecks de cuatro PostgreSQL, Redis, RabbitMQ y gateway; seis endpoints HTTP verificados. Los endpoints de aplicaciones son principalmente liveness.",
-    "scope": "MVP / calidad"
+    "scope": "MVP / calidad",
+    "frontend": {
+      "status": "Infraestructura",
+      "code": [
+        {
+          "path": "frontend/nginx.conf",
+          "line": 1
+        },
+        {
+          "path": "compose.frontend.yml",
+          "line": 1
+        }
+      ],
+      "verification": [
+        {
+          "path": "docs/frontend/instalacion-desde-cero.json",
+          "line": 1
+        }
+      ],
+      "note": "Frontend en contenedor, loopback configurable y health liveness. No acredita readiness de dependencias."
+    }
   },
   {
     "id": "RNF-21",
@@ -1867,7 +3147,39 @@
     ],
     "verification": [],
     "finding": "Separacion modular mejorada con checkout/storage; routers aun mezclan coordinacion y acceso SQL y varias tablas se crean al importar. Refactorizacion no funcional pendiente; respaldos .bak estan excluidos de Git.",
-    "scope": "MVP / calidad"
+    "scope": "MVP / calidad",
+    "frontend": {
+      "status": "Modulos visuales",
+      "code": [
+        {
+          "path": "frontend/app/app.js",
+          "line": 1
+        },
+        {
+          "path": "frontend/app/commerce.js",
+          "line": 1
+        },
+        {
+          "path": "frontend/app/payments.js",
+          "line": 1
+        },
+        {
+          "path": "frontend/app/orders.js",
+          "line": 1
+        },
+        {
+          "path": "frontend/app/profile.js",
+          "line": 1
+        }
+      ],
+      "verification": [
+        {
+          "path": "docs/frontend/recorrido-accesibilidad.json",
+          "line": 1
+        }
+      ],
+      "note": "Modulos por responsabilidad del cliente. No cambia el estado parcial de capas/acoplamiento del backend."
+    }
   },
   {
     "id": "RNF-22",
@@ -1900,7 +3212,39 @@
       }
     ],
     "finding": "Usuarios, catalogo, carrito, pedidos, pagos y notificaciones separados; inventario pertenece a Product.",
-    "scope": "MVP / calidad"
+    "scope": "MVP / calidad",
+    "frontend": {
+      "status": "Modulos visuales",
+      "code": [
+        {
+          "path": "frontend/app/app.js",
+          "line": 1
+        },
+        {
+          "path": "frontend/app/commerce.js",
+          "line": 1
+        },
+        {
+          "path": "frontend/app/payments.js",
+          "line": 1
+        },
+        {
+          "path": "frontend/app/orders.js",
+          "line": 1
+        },
+        {
+          "path": "frontend/app/profile.js",
+          "line": 1
+        }
+      ],
+      "verification": [
+        {
+          "path": "docs/frontend/recorrido-accesibilidad.json",
+          "line": 1
+        }
+      ],
+      "note": "Modulos por responsabilidad del cliente. No cambia el estado parcial de capas/acoplamiento del backend."
+    }
   },
   {
     "id": "RNF-23",
@@ -1929,7 +3273,51 @@
       }
     ],
     "finding": "OpenAPI accesible en los seis servicios y documentacion Markdown del gateway. No hay Swagger agregado en /api/docs, por diseno.",
-    "scope": "MVP / calidad"
+    "scope": "MVP / calidad",
+    "frontend": {
+      "status": "Verificado",
+      "code": [
+        {
+          "path": "tests/frontend_journey.cjs",
+          "line": 1
+        },
+        {
+          "path": "tests/frontend_fresh_install.py",
+          "line": 1
+        }
+      ],
+      "verification": [
+        {
+          "path": "docs/frontend/integracion.json",
+          "line": 1
+        },
+        {
+          "path": "docs/frontend/carrito-checkout.json",
+          "line": 1
+        },
+        {
+          "path": "docs/frontend/pagos.json",
+          "line": 1
+        },
+        {
+          "path": "docs/frontend/pedidos.json",
+          "line": 1
+        },
+        {
+          "path": "docs/frontend/perfil.json",
+          "line": 1
+        },
+        {
+          "path": "docs/frontend/recorrido-accesibilidad.json",
+          "line": 1
+        },
+        {
+          "path": "docs/frontend/instalacion-desde-cero.json",
+          "line": 1
+        }
+      ],
+      "note": "56 escenarios de navegador; recorrido integral, 14 estados auditados y nueva instalacion completa. No es certificacion de accesibilidad."
+    }
   },
   {
     "id": "RNF-24",
@@ -1961,8 +3349,52 @@
         "line": 1
       }
     ],
-    "finding": "153 unittest y escenarios HTTP/migraciones/TTL-DLQ/gateway, incluida demostracion. Dieciocho regresiones del pool HTTP (seis por servicio) y una de esquema/liberacion SQL del historial; seis pruebas de metricas y benchmark separados. Perfil SQL/HTTP diagnostico y aceptacion se distinguen.",
-    "scope": "MVP / calidad"
+    "finding": "153 unittest y escenarios HTTP/migraciones/TTL-DLQ/gateway, incluida demostracion. Dieciocho regresiones del pool HTTP (seis por servicio) y una de esquema/liberacion SQL del historial; seis pruebas de metricas y benchmark separados. Perfil SQL/HTTP diagnostico y aceptacion se distinguen. Frontend: 56 escenarios, recorrido integral y 14 estados axe; instalacion nueva completa con navegador. Evidencias separadas por fecha y alcance.",
+    "scope": "MVP / calidad",
+    "frontend": {
+      "status": "Verificado",
+      "code": [
+        {
+          "path": "tests/frontend_journey.cjs",
+          "line": 1
+        },
+        {
+          "path": "tests/frontend_fresh_install.py",
+          "line": 1
+        }
+      ],
+      "verification": [
+        {
+          "path": "docs/frontend/integracion.json",
+          "line": 1
+        },
+        {
+          "path": "docs/frontend/carrito-checkout.json",
+          "line": 1
+        },
+        {
+          "path": "docs/frontend/pagos.json",
+          "line": 1
+        },
+        {
+          "path": "docs/frontend/pedidos.json",
+          "line": 1
+        },
+        {
+          "path": "docs/frontend/perfil.json",
+          "line": 1
+        },
+        {
+          "path": "docs/frontend/recorrido-accesibilidad.json",
+          "line": 1
+        },
+        {
+          "path": "docs/frontend/instalacion-desde-cero.json",
+          "line": 1
+        }
+      ],
+      "note": "56 escenarios de navegador; recorrido integral, 14 estados auditados y nueva instalacion completa. No es certificacion de accesibilidad."
+    }
   },
   {
     "id": "RNF-25",
@@ -1978,7 +3410,8 @@
     ],
     "verification": [],
     "finding": "HEAD real, fuentes bajo seguimiento, commits de baseline y correcciones, secretos excluidos. Version de entrega etiquetada localmente; sin remoto configurado no se publica.",
-    "scope": "MVP / calidad"
+    "scope": "MVP / calidad",
+    "frontend": null
   },
   {
     "id": "RNF-26",
@@ -2007,7 +3440,27 @@
       }
     ],
     "finding": "Los seis microservicios y el gateway tienen imagen/contenedor; constatados en ejecucion.",
-    "scope": "MVP / calidad"
+    "scope": "MVP / calidad",
+    "frontend": {
+      "status": "Infraestructura",
+      "code": [
+        {
+          "path": "frontend/nginx.conf",
+          "line": 1
+        },
+        {
+          "path": "compose.frontend.yml",
+          "line": 1
+        }
+      ],
+      "verification": [
+        {
+          "path": "docs/frontend/instalacion-desde-cero.json",
+          "line": 1
+        }
+      ],
+      "note": "Frontend en contenedor, loopback configurable y health liveness. No acredita readiness de dependencias."
+    }
   },
   {
     "id": "RNF-27",
@@ -2023,16 +3476,39 @@
       {
         "path": "tests/fresh_install.py",
         "line": 1
+      },
+      {
+        "path": "compose.frontend.yml",
+        "line": 1
+      },
+      {
+        "path": "tests/frontend_fresh_install.py",
+        "line": 1
       }
     ],
     "verification": [
       {
         "path": "tests/fresh_install.py",
         "line": 1
+      },
+      {
+        "path": "docs/frontend/instalacion-desde-cero.json",
+        "line": 1
       }
     ],
-    "finding": "Instalacion limpia y reinicio verificados en Windows con contenedores Linux. Falta ejecutar la misma verificacion en host Linux/macOS; no se infiere portabilidad completa.",
-    "scope": "MVP / calidad"
+    "finding": "Instalacion limpia y reinicio verificados en Windows con contenedores Linux. Falta ejecutar la misma verificacion en host Linux/macOS; no se infiere portabilidad completa. Frontend incluido en instalacion nueva de 14 contenedores; sigue siendo el mismo host.",
+    "scope": "MVP / calidad",
+    "frontend": {
+      "status": "Infraestructura",
+      "code": [],
+      "verification": [
+        {
+          "path": "docs/frontend/instalacion-desde-cero.json",
+          "line": 1
+        }
+      ],
+      "note": "El frontend no cierra este requisito parcial. Instalacion probada en el mismo host Windows/Docker Linux, sin replicas ni TLS productivo."
+    }
   },
   {
     "id": "RNF-28",
@@ -2052,6 +3528,26 @@
     ],
     "verification": [],
     "finding": "URLs, DB y claves configuradas por entorno; defaults locales y limites del gateway permanecen en configuracion versionable.",
-    "scope": "MVP / calidad"
+    "scope": "MVP / calidad",
+    "frontend": {
+      "status": "Infraestructura",
+      "code": [
+        {
+          "path": "frontend/nginx.conf",
+          "line": 1
+        },
+        {
+          "path": "compose.frontend.yml",
+          "line": 1
+        }
+      ],
+      "verification": [
+        {
+          "path": "docs/frontend/instalacion-desde-cero.json",
+          "line": 1
+        }
+      ],
+      "note": "Frontend en contenedor, loopback configurable y health liveness. No acredita readiness de dependencias."
+    }
   }
 ]

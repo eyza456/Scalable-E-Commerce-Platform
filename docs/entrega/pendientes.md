@@ -1,17 +1,32 @@
 # Pendientes reales y prioridades
 
-Revision: 28 de octubre de 2026. Matriz vigente: 70 cumplidos, 8 parciales y 0 pendientes de 78. No se incluyen como pendientes los seis defectos iniciales ya corregidos. RNF-01 ya cumple los objetivos del perfil local v1 tras el perfilado SQL/HTTP; no representa un SLA productivo. La RC etiquetada originalmente tenia 69/8/1; esta es la revision posterior. Los 12 criterios basicos de aceptacion de pp.22-23 tienen evidencia; eso no equivale a cumplir todos los RNF.
+Revision: 29 de octubre de 2026. Matriz vigente: 70 cumplidos, 8 parciales y 0 pendientes de 78. No se incluyen como pendientes los seis defectos iniciales ya corregidos. RNF-01 ya cumple los objetivos del perfil local v1 tras el perfilado SQL/HTTP; no representa un SLA productivo. La RC etiquetada originalmente tenia 69/8/1; esta es la revision posterior. Los 12 criterios basicos de aceptacion de pp.22-23 tienen evidencia; eso no equivale a cumplir todos los RNF.
 
-## Obligatorio para esta entrega candidata
+## Cierre del candidato integrado
 
 | Elemento | Criterio de cierre | Estado |
 | --- | --- | --- |
 | Trazabilidad | Matriz de 78 requisitos con evidencia actual y auditoria anterior preservada | Cerrado |
-| Funciones principales | Suite completa, demostracion de nueve pasos y datos de prueba eliminados | Cerrado con evidencia JSON |
-| Instalacion | Plantilla de entorno, migracion antes del arranque, esquema limpio y compra comprobados | Cerrado en Windows con Docker Linux |
-| Version | Documentacion de limites y etiqueta anotada v0.1.0-rc.1 sobre el commit de entrega | Cierre local; sin remoto configurado |
+| Funciones principales | Suite backend de 153 pruebas, 56 escenarios frontend registrados, recorrido visual y datos de prueba eliminados | Cerrado con evidencias y fechas separadas |
+| Instalacion | Plantilla, migracion, esquema limpio y stack completo con frontend y navegador | Cerrado en Windows/Docker Linux; 14 contenedores nuevos |
+| Version | RC historica v0.1.0-rc.1 preservada; revision integrada identificada por su commit y manifiesto | Cierre local, sin remoto ni nueva etiqueta |
 
-No hay defectos funcionales conocidos abiertos de la auditoria anterior. La entrega es un candidato del backend MVP, no una declaracion de cumplimiento integral ni un despliegue productivo.
+No hay defectos funcionales conocidos abiertos de la auditoria anterior. Se entrega
+un candidato de backend y frontend de cliente, no una declaracion de cumplimiento
+integral ni un despliegue productivo.
+
+## Cobertura visual que aun falta
+
+Estas diferencias no cambian los 78 estados formales: las capacidades existen por API.
+
+| Prioridad de ampliacion | Falta visual | Situacion de entrega |
+| --- | --- | --- |
+| Media | Boton dedicado de vaciado completo del carrito (RF-25) | Quitar items y checkout integrados; DELETE /api/cart disponible por API |
+| Segun alcance administrativo | Alta/edicion/borrado de productos, categorias, stock, roles y transiciones de pedidos | APIs con permisos; sin consola administrativa GUI |
+| Media | Revision con lector de pantalla, otro navegador y zoom real 200% | Axe en 14 estados y comprobaciones de teclado/reflow; no certificacion integral |
+
+No hay recuperacion de contraseña, verificacion de correo o sesion persistente
+en navegador; no se presentan como funcionalidades implementadas.
 
 ## Obligatorio antes de declarar cumplimiento integral o escalabilidad verificada
 

@@ -1,0 +1,1615 @@
+[
+  {
+    "id": "RF-01",
+    "page": 15,
+    "status": "Integrado",
+    "code": [
+      {
+        "path": "frontend/app/app.js",
+        "line": 188
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/frontend_browser.cjs",
+        "line": 83
+      },
+      {
+        "path": "tests/frontend_browser.cjs",
+        "line": 88
+      }
+    ],
+    "note": "Registro real; unicidad decidida por API. No hay acceso social ni recuperacion de contraseña."
+  },
+  {
+    "id": "RF-02",
+    "page": 15,
+    "status": "Integrado",
+    "code": [
+      {
+        "path": "frontend/app/app.js",
+        "line": 188
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/frontend_browser.cjs",
+        "line": 83
+      },
+      {
+        "path": "tests/frontend_browser.cjs",
+        "line": 88
+      }
+    ],
+    "note": "Registro real; unicidad decidida por API. No hay acceso social ni recuperacion de contraseña."
+  },
+  {
+    "id": "RF-03",
+    "page": 15,
+    "status": "Integrado",
+    "code": [
+      {
+        "path": "frontend/app/app.js",
+        "line": 11
+      },
+      {
+        "path": "frontend/app/app.js",
+        "line": 168
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/frontend_browser.cjs",
+        "line": 102
+      },
+      {
+        "path": "tests/frontend_browser.cjs",
+        "line": 112
+      }
+    ],
+    "note": "Login y consulta autenticada. Token solo en memoria; recargar termina sesion local, no revoca otros tokens."
+  },
+  {
+    "id": "RF-04",
+    "page": 15,
+    "status": "Integrado",
+    "code": [
+      {
+        "path": "frontend/app/app.js",
+        "line": 11
+      },
+      {
+        "path": "frontend/app/app.js",
+        "line": 168
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/frontend_browser.cjs",
+        "line": 102
+      },
+      {
+        "path": "tests/frontend_browser.cjs",
+        "line": 112
+      }
+    ],
+    "note": "Login y consulta autenticada. Token solo en memoria; recargar termina sesion local, no revoca otros tokens."
+  },
+  {
+    "id": "RF-05",
+    "page": 15,
+    "status": "Integrado",
+    "code": [
+      {
+        "path": "frontend/app/app.js",
+        "line": 11
+      },
+      {
+        "path": "frontend/app/app.js",
+        "line": 168
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/frontend_browser.cjs",
+        "line": 102
+      },
+      {
+        "path": "tests/frontend_browser.cjs",
+        "line": 112
+      }
+    ],
+    "note": "Login y consulta autenticada. Token solo en memoria; recargar termina sesion local, no revoca otros tokens."
+  },
+  {
+    "id": "RF-06",
+    "page": 15,
+    "status": "Integrado",
+    "code": [
+      {
+        "path": "frontend/app/profile.js",
+        "line": 2
+      },
+      {
+        "path": "frontend/app/app.js",
+        "line": 146
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/frontend_profile.cjs",
+        "line": 52
+      },
+      {
+        "path": "tests/frontend_profile.cjs",
+        "line": 8
+      }
+    ],
+    "note": "Consulta/edicion nombre y correo; sustituye token. Sin cambio de contraseña, permisos o roles."
+  },
+  {
+    "id": "RF-07",
+    "page": 15,
+    "status": "Integrado",
+    "code": [
+      {
+        "path": "frontend/app/profile.js",
+        "line": 2
+      },
+      {
+        "path": "frontend/app/app.js",
+        "line": 146
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/frontend_profile.cjs",
+        "line": 52
+      },
+      {
+        "path": "tests/frontend_profile.cjs",
+        "line": 8
+      }
+    ],
+    "note": "Consulta/edicion nombre y correo; sustituye token. Sin cambio de contraseña, permisos o roles."
+  },
+  {
+    "id": "RF-08",
+    "page": 15,
+    "status": "API / sin pantalla",
+    "code": [],
+    "verification": [],
+    "note": "Capacidad del backend indicada en esta fila. No hay consola visual de administracion de productos, roles o estados de pedidos."
+  },
+  {
+    "id": "RF-09",
+    "page": 15,
+    "status": "API / sin pantalla",
+    "code": [],
+    "verification": [],
+    "note": "Capacidad del backend indicada en esta fila. No hay consola visual de administracion de productos, roles o estados de pedidos."
+  },
+  {
+    "id": "RF-10",
+    "page": 15,
+    "status": "Responsabilidad del servidor",
+    "code": [],
+    "verification": [],
+    "note": "El hash se aplica en la API; no requiere una pantalla ni se implementa en el navegador."
+  },
+  {
+    "id": "RF-11",
+    "page": 15,
+    "status": "API / sin pantalla",
+    "code": [],
+    "verification": [],
+    "note": "Capacidad del backend indicada en esta fila. No hay consola visual de administracion de productos, roles o estados de pedidos."
+  },
+  {
+    "id": "RF-12",
+    "page": 15,
+    "status": "Integrado",
+    "code": [
+      {
+        "path": "frontend/app/app.js",
+        "line": 83
+      },
+      {
+        "path": "frontend/app/app.js",
+        "line": 127
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/frontend_browser.cjs",
+        "line": 43
+      },
+      {
+        "path": "tests/frontend_browser.cjs",
+        "line": 50
+      }
+    ],
+    "note": "Catalogo, detalle, busqueda y disponibilidad del servidor; no hay datos de muestra en la aplicacion conectada."
+  },
+  {
+    "id": "RF-13",
+    "page": 15,
+    "status": "Integrado",
+    "code": [
+      {
+        "path": "frontend/app/app.js",
+        "line": 83
+      },
+      {
+        "path": "frontend/app/app.js",
+        "line": 127
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/frontend_browser.cjs",
+        "line": 43
+      },
+      {
+        "path": "tests/frontend_browser.cjs",
+        "line": 50
+      }
+    ],
+    "note": "Catalogo, detalle, busqueda y disponibilidad del servidor; no hay datos de muestra en la aplicacion conectada."
+  },
+  {
+    "id": "RF-14",
+    "page": 15,
+    "status": "API / sin pantalla",
+    "code": [],
+    "verification": [],
+    "note": "Capacidad del backend indicada en esta fila. No hay consola visual de administracion de productos, roles o estados de pedidos."
+  },
+  {
+    "id": "RF-15",
+    "page": 15,
+    "status": "API / sin pantalla",
+    "code": [],
+    "verification": [],
+    "note": "Capacidad del backend indicada en esta fila. No hay consola visual de administracion de productos, roles o estados de pedidos."
+  },
+  {
+    "id": "RF-16",
+    "page": 15,
+    "status": "Lectura visual",
+    "code": [
+      {
+        "path": "frontend/app/app.js",
+        "line": 112
+      },
+      {
+        "path": "frontend/app/app.js",
+        "line": 127
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/frontend_browser.cjs",
+        "line": 43
+      }
+    ],
+    "note": "Consulta/filtra categorias y stock. Clasificar productos o editar existencias sigue por API administrativa."
+  },
+  {
+    "id": "RF-17",
+    "page": 15,
+    "status": "Integrado",
+    "code": [
+      {
+        "path": "frontend/app/app.js",
+        "line": 83
+      },
+      {
+        "path": "frontend/app/app.js",
+        "line": 127
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/frontend_browser.cjs",
+        "line": 43
+      },
+      {
+        "path": "tests/frontend_browser.cjs",
+        "line": 50
+      }
+    ],
+    "note": "Catalogo, detalle, busqueda y disponibilidad del servidor; no hay datos de muestra en la aplicacion conectada."
+  },
+  {
+    "id": "RF-18",
+    "page": 16,
+    "status": "Lectura visual",
+    "code": [
+      {
+        "path": "frontend/app/app.js",
+        "line": 112
+      },
+      {
+        "path": "frontend/app/app.js",
+        "line": 127
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/frontend_browser.cjs",
+        "line": 43
+      }
+    ],
+    "note": "Consulta/filtra categorias y stock. Clasificar productos o editar existencias sigue por API administrativa."
+  },
+  {
+    "id": "RF-19",
+    "page": 16,
+    "status": "Integrado",
+    "code": [
+      {
+        "path": "frontend/app/app.js",
+        "line": 83
+      },
+      {
+        "path": "frontend/app/app.js",
+        "line": 127
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/frontend_browser.cjs",
+        "line": 43
+      },
+      {
+        "path": "tests/frontend_browser.cjs",
+        "line": 50
+      }
+    ],
+    "note": "Catalogo, detalle, busqueda y disponibilidad del servidor; no hay datos de muestra en la aplicacion conectada."
+  },
+  {
+    "id": "RF-20",
+    "page": 16,
+    "status": "API / sin pantalla",
+    "code": [],
+    "verification": [],
+    "note": "Capacidad del backend indicada en esta fila. No hay consola visual de administracion de productos, roles o estados de pedidos."
+  },
+  {
+    "id": "RF-21",
+    "page": 16,
+    "status": "Integrado",
+    "code": [
+      {
+        "path": "frontend/app/commerce.js",
+        "line": 3
+      },
+      {
+        "path": "frontend/app/commerce.js",
+        "line": 103
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/frontend_commerce.cjs",
+        "line": 81
+      },
+      {
+        "path": "tests/frontend_commerce.cjs",
+        "line": 88
+      }
+    ],
+    "note": "Carrito propio: agregar desde detalle, cantidades, quitar y totales de API. Sin POST automaticos de reintento."
+  },
+  {
+    "id": "RF-22",
+    "page": 16,
+    "status": "Integrado",
+    "code": [
+      {
+        "path": "frontend/app/commerce.js",
+        "line": 3
+      },
+      {
+        "path": "frontend/app/commerce.js",
+        "line": 103
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/frontend_commerce.cjs",
+        "line": 81
+      },
+      {
+        "path": "tests/frontend_commerce.cjs",
+        "line": 88
+      }
+    ],
+    "note": "Carrito propio: agregar desde detalle, cantidades, quitar y totales de API. Sin POST automaticos de reintento."
+  },
+  {
+    "id": "RF-23",
+    "page": 16,
+    "status": "Integrado",
+    "code": [
+      {
+        "path": "frontend/app/commerce.js",
+        "line": 3
+      },
+      {
+        "path": "frontend/app/commerce.js",
+        "line": 103
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/frontend_commerce.cjs",
+        "line": 81
+      },
+      {
+        "path": "tests/frontend_commerce.cjs",
+        "line": 88
+      }
+    ],
+    "note": "Carrito propio: agregar desde detalle, cantidades, quitar y totales de API. Sin POST automaticos de reintento."
+  },
+  {
+    "id": "RF-24",
+    "page": 16,
+    "status": "Integrado",
+    "code": [
+      {
+        "path": "frontend/app/commerce.js",
+        "line": 3
+      },
+      {
+        "path": "frontend/app/commerce.js",
+        "line": 103
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/frontend_commerce.cjs",
+        "line": 81
+      },
+      {
+        "path": "tests/frontend_commerce.cjs",
+        "line": 88
+      }
+    ],
+    "note": "Carrito propio: agregar desde detalle, cantidades, quitar y totales de API. Sin POST automaticos de reintento."
+  },
+  {
+    "id": "RF-25",
+    "page": 16,
+    "status": "API / sin accion dedicada",
+    "code": [],
+    "verification": [
+      {
+        "path": "tests/frontend_commerce.cjs",
+        "line": 81
+      }
+    ],
+    "note": "No hay boton Vaciar carrito. Quitar items y checkout estan integrados; DELETE /api/cart sigue disponible por API."
+  },
+  {
+    "id": "RF-26",
+    "page": 16,
+    "status": "Integrado",
+    "code": [
+      {
+        "path": "frontend/app/commerce.js",
+        "line": 3
+      },
+      {
+        "path": "frontend/app/commerce.js",
+        "line": 103
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/frontend_commerce.cjs",
+        "line": 81
+      },
+      {
+        "path": "tests/frontend_commerce.cjs",
+        "line": 88
+      }
+    ],
+    "note": "Carrito propio: agregar desde detalle, cantidades, quitar y totales de API. Sin POST automaticos de reintento."
+  },
+  {
+    "id": "RF-27",
+    "page": 16,
+    "status": "Integrado",
+    "code": [
+      {
+        "path": "frontend/app/commerce.js",
+        "line": 3
+      },
+      {
+        "path": "frontend/app/commerce.js",
+        "line": 103
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/frontend_commerce.cjs",
+        "line": 81
+      },
+      {
+        "path": "tests/frontend_commerce.cjs",
+        "line": 88
+      }
+    ],
+    "note": "Carrito propio: agregar desde detalle, cantidades, quitar y totales de API. Sin POST automaticos de reintento."
+  },
+  {
+    "id": "RF-28",
+    "page": 16,
+    "status": "Integrado",
+    "code": [
+      {
+        "path": "frontend/app/commerce.js",
+        "line": 173
+      },
+      {
+        "path": "frontend/app/commerce.js",
+        "line": 151
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/frontend_commerce.cjs",
+        "line": 97
+      },
+      {
+        "path": "tests/frontend_commerce.cjs",
+        "line": 105
+      },
+      {
+        "path": "tests/frontend_commerce.cjs",
+        "line": 160
+      }
+    ],
+    "note": "Confirmacion con version del carrito, revalidacion en servidor y recuperacion de resultado incierto."
+  },
+  {
+    "id": "RF-29",
+    "page": 16,
+    "status": "Integrado",
+    "code": [
+      {
+        "path": "frontend/app/commerce.js",
+        "line": 173
+      },
+      {
+        "path": "frontend/app/commerce.js",
+        "line": 151
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/frontend_commerce.cjs",
+        "line": 97
+      },
+      {
+        "path": "tests/frontend_commerce.cjs",
+        "line": 105
+      },
+      {
+        "path": "tests/frontend_commerce.cjs",
+        "line": 160
+      }
+    ],
+    "note": "Confirmacion con version del carrito, revalidacion en servidor y recuperacion de resultado incierto."
+  },
+  {
+    "id": "RF-30",
+    "page": 16,
+    "status": "Integrado",
+    "code": [
+      {
+        "path": "frontend/app/orders.js",
+        "line": 2
+      },
+      {
+        "path": "frontend/app/commerce.js",
+        "line": 140
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/frontend_orders.cjs",
+        "line": 52
+      },
+      {
+        "path": "tests/frontend_orders.cjs",
+        "line": 96
+      }
+    ],
+    "note": "Historial privado, estado, fecha, items y total reales. Estado se consulta; administrarlo no tiene pantalla."
+  },
+  {
+    "id": "RF-31",
+    "page": 16,
+    "status": "Integrado",
+    "code": [
+      {
+        "path": "frontend/app/orders.js",
+        "line": 2
+      },
+      {
+        "path": "frontend/app/commerce.js",
+        "line": 140
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/frontend_orders.cjs",
+        "line": 52
+      },
+      {
+        "path": "tests/frontend_orders.cjs",
+        "line": 96
+      }
+    ],
+    "note": "Historial privado, estado, fecha, items y total reales. Estado se consulta; administrarlo no tiene pantalla."
+  },
+  {
+    "id": "RF-32",
+    "page": 16,
+    "status": "Integrado",
+    "code": [
+      {
+        "path": "frontend/app/orders.js",
+        "line": 2
+      },
+      {
+        "path": "frontend/app/commerce.js",
+        "line": 140
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/frontend_orders.cjs",
+        "line": 52
+      },
+      {
+        "path": "tests/frontend_orders.cjs",
+        "line": 96
+      }
+    ],
+    "note": "Historial privado, estado, fecha, items y total reales. Estado se consulta; administrarlo no tiene pantalla."
+  },
+  {
+    "id": "RF-33",
+    "page": 17,
+    "status": "Integrado",
+    "code": [
+      {
+        "path": "frontend/app/orders.js",
+        "line": 2
+      },
+      {
+        "path": "frontend/app/commerce.js",
+        "line": 140
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/frontend_orders.cjs",
+        "line": 52
+      },
+      {
+        "path": "tests/frontend_orders.cjs",
+        "line": 96
+      }
+    ],
+    "note": "Historial privado, estado, fecha, items y total reales. Estado se consulta; administrarlo no tiene pantalla."
+  },
+  {
+    "id": "RF-34",
+    "page": 17,
+    "status": "Integrado",
+    "code": [
+      {
+        "path": "frontend/app/orders.js",
+        "line": 2
+      },
+      {
+        "path": "frontend/app/commerce.js",
+        "line": 140
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/frontend_orders.cjs",
+        "line": 52
+      },
+      {
+        "path": "tests/frontend_orders.cjs",
+        "line": 96
+      }
+    ],
+    "note": "Historial privado, estado, fecha, items y total reales. Estado se consulta; administrarlo no tiene pantalla."
+  },
+  {
+    "id": "RF-35",
+    "page": 17,
+    "status": "Integrado",
+    "code": [
+      {
+        "path": "frontend/app/orders.js",
+        "line": 2
+      },
+      {
+        "path": "frontend/app/commerce.js",
+        "line": 140
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/frontend_orders.cjs",
+        "line": 52
+      },
+      {
+        "path": "tests/frontend_orders.cjs",
+        "line": 96
+      }
+    ],
+    "note": "Historial privado, estado, fecha, items y total reales. Estado se consulta; administrarlo no tiene pantalla."
+  },
+  {
+    "id": "RF-36",
+    "page": 17,
+    "status": "Integrado",
+    "code": [
+      {
+        "path": "frontend/app/orders.js",
+        "line": 2
+      },
+      {
+        "path": "frontend/app/commerce.js",
+        "line": 140
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/frontend_orders.cjs",
+        "line": 52
+      },
+      {
+        "path": "tests/frontend_orders.cjs",
+        "line": 96
+      }
+    ],
+    "note": "Historial privado, estado, fecha, items y total reales. Estado se consulta; administrarlo no tiene pantalla."
+  },
+  {
+    "id": "RF-37",
+    "page": 17,
+    "status": "Integrado",
+    "code": [
+      {
+        "path": "frontend/app/orders.js",
+        "line": 2
+      },
+      {
+        "path": "frontend/app/commerce.js",
+        "line": 140
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/frontend_orders.cjs",
+        "line": 52
+      },
+      {
+        "path": "tests/frontend_orders.cjs",
+        "line": 96
+      },
+      {
+        "path": "tests/frontend_orders.cjs",
+        "line": 65
+      },
+      {
+        "path": "tests/frontend_orders.cjs",
+        "line": 71
+      }
+    ],
+    "note": "Historial privado, estado, fecha, items y total reales. Estado se consulta; administrarlo no tiene pantalla."
+  },
+  {
+    "id": "RF-38",
+    "page": 17,
+    "status": "API / sin pantalla",
+    "code": [],
+    "verification": [],
+    "note": "Capacidad del backend indicada en esta fila. No hay consola visual de administracion de productos, roles o estados de pedidos."
+  },
+  {
+    "id": "RF-39",
+    "page": 17,
+    "status": "Integrado",
+    "code": [
+      {
+        "path": "frontend/app/payments.js",
+        "line": 2
+      },
+      {
+        "path": "services/payment-service/app/routers/payments.py",
+        "line": 222
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/frontend_payments.cjs",
+        "line": 67
+      },
+      {
+        "path": "tests/frontend_payments.cjs",
+        "line": 101
+      },
+      {
+        "path": "tests/payment_latest.py",
+        "line": 1
+      }
+    ],
+    "note": "Pago simulado, referencia, motivo/fecha y seguimiento del pedido. Sin dinero real; la aprobacion modifica inventario local."
+  },
+  {
+    "id": "RF-40",
+    "page": 17,
+    "status": "Integrado",
+    "code": [
+      {
+        "path": "frontend/app/payments.js",
+        "line": 2
+      },
+      {
+        "path": "services/payment-service/app/routers/payments.py",
+        "line": 222
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/frontend_payments.cjs",
+        "line": 67
+      },
+      {
+        "path": "tests/frontend_payments.cjs",
+        "line": 101
+      },
+      {
+        "path": "tests/payment_latest.py",
+        "line": 1
+      }
+    ],
+    "note": "Pago simulado, referencia, motivo/fecha y seguimiento del pedido. Sin dinero real; la aprobacion modifica inventario local."
+  },
+  {
+    "id": "RF-41",
+    "page": 17,
+    "status": "Integrado",
+    "code": [
+      {
+        "path": "frontend/app/payments.js",
+        "line": 2
+      },
+      {
+        "path": "services/payment-service/app/routers/payments.py",
+        "line": 222
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/frontend_payments.cjs",
+        "line": 67
+      },
+      {
+        "path": "tests/frontend_payments.cjs",
+        "line": 101
+      },
+      {
+        "path": "tests/payment_latest.py",
+        "line": 1
+      }
+    ],
+    "note": "Pago simulado, referencia, motivo/fecha y seguimiento del pedido. Sin dinero real; la aprobacion modifica inventario local."
+  },
+  {
+    "id": "RF-42",
+    "page": 17,
+    "status": "Integrado",
+    "code": [
+      {
+        "path": "frontend/app/payments.js",
+        "line": 2
+      },
+      {
+        "path": "services/payment-service/app/routers/payments.py",
+        "line": 222
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/frontend_payments.cjs",
+        "line": 67
+      },
+      {
+        "path": "tests/frontend_payments.cjs",
+        "line": 101
+      },
+      {
+        "path": "tests/payment_latest.py",
+        "line": 1
+      }
+    ],
+    "note": "Pago simulado, referencia, motivo/fecha y seguimiento del pedido. Sin dinero real; la aprobacion modifica inventario local."
+  },
+  {
+    "id": "RF-43",
+    "page": 17,
+    "status": "Integrado",
+    "code": [
+      {
+        "path": "frontend/app/payments.js",
+        "line": 2
+      },
+      {
+        "path": "services/payment-service/app/routers/payments.py",
+        "line": 222
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/frontend_payments.cjs",
+        "line": 67
+      },
+      {
+        "path": "tests/frontend_payments.cjs",
+        "line": 101
+      },
+      {
+        "path": "tests/payment_latest.py",
+        "line": 1
+      },
+      {
+        "path": "tests/frontend_orders.cjs",
+        "line": 65
+      }
+    ],
+    "note": "Pago simulado, referencia, motivo/fecha y seguimiento del pedido. Sin dinero real; la aprobacion modifica inventario local."
+  },
+  {
+    "id": "RF-44",
+    "page": 17,
+    "status": "Integrado",
+    "code": [
+      {
+        "path": "frontend/app/payments.js",
+        "line": 2
+      },
+      {
+        "path": "services/payment-service/app/routers/payments.py",
+        "line": 222
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/frontend_payments.cjs",
+        "line": 67
+      },
+      {
+        "path": "tests/frontend_payments.cjs",
+        "line": 101
+      },
+      {
+        "path": "tests/payment_latest.py",
+        "line": 1
+      }
+    ],
+    "note": "Pago simulado, referencia, motivo/fecha y seguimiento del pedido. Sin dinero real; la aprobacion modifica inventario local."
+  },
+  {
+    "id": "RF-45",
+    "page": 17,
+    "status": "Integrado",
+    "code": [
+      {
+        "path": "frontend/app/payments.js",
+        "line": 2
+      },
+      {
+        "path": "services/payment-service/app/routers/payments.py",
+        "line": 222
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/frontend_payments.cjs",
+        "line": 67
+      },
+      {
+        "path": "tests/frontend_payments.cjs",
+        "line": 101
+      },
+      {
+        "path": "tests/payment_latest.py",
+        "line": 1
+      }
+    ],
+    "note": "Pago simulado, referencia, motivo/fecha y seguimiento del pedido. Sin dinero real; la aprobacion modifica inventario local."
+  },
+  {
+    "id": "RF-46",
+    "page": 18,
+    "status": "Integrado",
+    "code": [
+      {
+        "path": "frontend/nginx.conf",
+        "line": 18
+      },
+      {
+        "path": "compose.frontend.yml",
+        "line": 1
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/frontend_fresh_install.py",
+        "line": 112
+      },
+      {
+        "path": "tests/frontend_browser.cjs",
+        "line": 118
+      }
+    ],
+    "note": "Nginx del frontend reenvia /api al gateway; conserva autenticacion y bloqueo de rutas internas."
+  },
+  {
+    "id": "RF-47",
+    "page": 18,
+    "status": "Integrado",
+    "code": [
+      {
+        "path": "frontend/nginx.conf",
+        "line": 18
+      },
+      {
+        "path": "compose.frontend.yml",
+        "line": 1
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/frontend_fresh_install.py",
+        "line": 112
+      },
+      {
+        "path": "tests/frontend_browser.cjs",
+        "line": 118
+      }
+    ],
+    "note": "Nginx del frontend reenvia /api al gateway; conserva autenticacion y bloqueo de rutas internas."
+  },
+  {
+    "id": "RF-48",
+    "page": 18,
+    "status": "Integrado",
+    "code": [
+      {
+        "path": "frontend/nginx.conf",
+        "line": 18
+      },
+      {
+        "path": "compose.frontend.yml",
+        "line": 1
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/frontend_fresh_install.py",
+        "line": 112
+      },
+      {
+        "path": "tests/frontend_browser.cjs",
+        "line": 118
+      }
+    ],
+    "note": "Nginx del frontend reenvia /api al gateway; conserva autenticacion y bloqueo de rutas internas."
+  },
+  {
+    "id": "RF-49",
+    "page": 18,
+    "status": "Infraestructura",
+    "code": [],
+    "verification": [
+      {
+        "path": "docs/frontend/instalacion-desde-cero.json",
+        "line": 1
+      }
+    ],
+    "note": "El frontend no cierra este requisito parcial. Instalacion probada en el mismo host Windows/Docker Linux, sin replicas ni TLS productivo."
+  },
+  {
+    "id": "RF-50",
+    "page": 18,
+    "status": "Integrado",
+    "code": [
+      {
+        "path": "frontend/nginx.conf",
+        "line": 18
+      },
+      {
+        "path": "compose.frontend.yml",
+        "line": 1
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/frontend_fresh_install.py",
+        "line": 112
+      },
+      {
+        "path": "tests/frontend_browser.cjs",
+        "line": 118
+      }
+    ],
+    "note": "Nginx del frontend reenvia /api al gateway; conserva autenticacion y bloqueo de rutas internas."
+  },
+  {
+    "id": "RNF-01",
+    "page": 18,
+    "status": "Sin carga UI",
+    "code": [],
+    "verification": [],
+    "note": "La carga aceptada mide backend/gateway en el perfil local registrado. Auditoria visual no mide rendimiento web ni SLA productivo."
+  },
+  {
+    "id": "RNF-02",
+    "page": 18,
+    "status": "Comprobacion visual",
+    "code": [
+      {
+        "path": "frontend/app/commerce.js",
+        "line": 1
+      },
+      {
+        "path": "frontend/app/payments.js",
+        "line": 1
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/frontend_commerce.cjs",
+        "line": 160
+      },
+      {
+        "path": "tests/frontend_payments.cjs",
+        "line": 125
+      }
+    ],
+    "note": "Dos pestañas conservan un pedido/pago; no acredita replicas de servicios."
+  },
+  {
+    "id": "RNF-05",
+    "page": 18,
+    "status": "Infraestructura",
+    "code": [],
+    "verification": [
+      {
+        "path": "docs/frontend/instalacion-desde-cero.json",
+        "line": 1
+      }
+    ],
+    "note": "El frontend no cierra este requisito parcial. Instalacion probada en el mismo host Windows/Docker Linux, sin replicas ni TLS productivo."
+  },
+  {
+    "id": "RNF-06",
+    "page": 19,
+    "status": "Infraestructura",
+    "code": [],
+    "verification": [
+      {
+        "path": "docs/frontend/instalacion-desde-cero.json",
+        "line": 1
+      }
+    ],
+    "note": "El frontend no cierra este requisito parcial. Instalacion probada en el mismo host Windows/Docker Linux, sin replicas ni TLS productivo."
+  },
+  {
+    "id": "RNF-07",
+    "page": 19,
+    "status": "Infraestructura",
+    "code": [],
+    "verification": [
+      {
+        "path": "docs/frontend/instalacion-desde-cero.json",
+        "line": 1
+      }
+    ],
+    "note": "El frontend no cierra este requisito parcial. Instalacion probada en el mismo host Windows/Docker Linux, sin replicas ni TLS productivo."
+  },
+  {
+    "id": "RNF-11",
+    "page": 19,
+    "status": "Integrado",
+    "code": [
+      {
+        "path": "frontend/app/app.js",
+        "line": 11
+      },
+      {
+        "path": "frontend/app/profile.js",
+        "line": 1
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/frontend_browser.cjs",
+        "line": 1
+      },
+      {
+        "path": "tests/frontend_profile.cjs",
+        "line": 1
+      }
+    ],
+    "note": "Sesion en memoria, validacion de formularios y API como autoridad. No hay sesion persistente tras recarga."
+  },
+  {
+    "id": "RNF-12",
+    "page": 19,
+    "status": "Integrado",
+    "code": [
+      {
+        "path": "frontend/app/app.js",
+        "line": 11
+      },
+      {
+        "path": "frontend/app/profile.js",
+        "line": 1
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/frontend_browser.cjs",
+        "line": 1
+      },
+      {
+        "path": "tests/frontend_profile.cjs",
+        "line": 1
+      }
+    ],
+    "note": "Sesion en memoria, validacion de formularios y API como autoridad. No hay sesion persistente tras recarga."
+  },
+  {
+    "id": "RNF-14",
+    "page": 19,
+    "status": "Sin secretos cliente",
+    "code": [
+      {
+        "path": "frontend/nginx.conf",
+        "line": 1
+      },
+      {
+        "path": "frontend/app/app.js",
+        "line": 4
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/frontend_fresh_install.py",
+        "line": 112
+      }
+    ],
+    "note": "El frontend no sirve .env ni guarda tokens en almacenamiento persistente; no equivale a gestion productiva de secretos."
+  },
+  {
+    "id": "RNF-15",
+    "page": 19,
+    "status": "Infraestructura",
+    "code": [],
+    "verification": [
+      {
+        "path": "docs/frontend/instalacion-desde-cero.json",
+        "line": 1
+      }
+    ],
+    "note": "El frontend no cierra este requisito parcial. Instalacion probada en el mismo host Windows/Docker Linux, sin replicas ni TLS productivo."
+  },
+  {
+    "id": "RNF-17",
+    "page": 19,
+    "status": "Errores visuales",
+    "code": [
+      {
+        "path": "frontend/app/app.js",
+        "line": 11
+      },
+      {
+        "path": "frontend/app/orders.js",
+        "line": 1
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/frontend_browser.cjs",
+        "line": 63
+      },
+      {
+        "path": "tests/frontend_orders.cjs",
+        "line": 96
+      }
+    ],
+    "note": "Distingue error, carga y vacio. Los 503 visuales son inyectados; no acreditan alta disponibilidad real."
+  },
+  {
+    "id": "RNF-18",
+    "page": 19,
+    "status": "Errores visuales",
+    "code": [
+      {
+        "path": "frontend/app/app.js",
+        "line": 11
+      },
+      {
+        "path": "frontend/app/orders.js",
+        "line": 1
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/frontend_browser.cjs",
+        "line": 63
+      },
+      {
+        "path": "tests/frontend_orders.cjs",
+        "line": 96
+      }
+    ],
+    "note": "Distingue error, carga y vacio. Los 503 visuales son inyectados; no acreditan alta disponibilidad real."
+  },
+  {
+    "id": "RNF-20",
+    "page": 20,
+    "status": "Infraestructura",
+    "code": [
+      {
+        "path": "frontend/nginx.conf",
+        "line": 1
+      },
+      {
+        "path": "compose.frontend.yml",
+        "line": 1
+      }
+    ],
+    "verification": [
+      {
+        "path": "docs/frontend/instalacion-desde-cero.json",
+        "line": 1
+      }
+    ],
+    "note": "Frontend en contenedor, loopback configurable y health liveness. No acredita readiness de dependencias."
+  },
+  {
+    "id": "RNF-21",
+    "page": 20,
+    "status": "Modulos visuales",
+    "code": [
+      {
+        "path": "frontend/app/app.js",
+        "line": 1
+      },
+      {
+        "path": "frontend/app/commerce.js",
+        "line": 1
+      },
+      {
+        "path": "frontend/app/payments.js",
+        "line": 1
+      },
+      {
+        "path": "frontend/app/orders.js",
+        "line": 1
+      },
+      {
+        "path": "frontend/app/profile.js",
+        "line": 1
+      }
+    ],
+    "verification": [
+      {
+        "path": "docs/frontend/recorrido-accesibilidad.json",
+        "line": 1
+      }
+    ],
+    "note": "Modulos por responsabilidad del cliente. No cambia el estado parcial de capas/acoplamiento del backend."
+  },
+  {
+    "id": "RNF-22",
+    "page": 20,
+    "status": "Modulos visuales",
+    "code": [
+      {
+        "path": "frontend/app/app.js",
+        "line": 1
+      },
+      {
+        "path": "frontend/app/commerce.js",
+        "line": 1
+      },
+      {
+        "path": "frontend/app/payments.js",
+        "line": 1
+      },
+      {
+        "path": "frontend/app/orders.js",
+        "line": 1
+      },
+      {
+        "path": "frontend/app/profile.js",
+        "line": 1
+      }
+    ],
+    "verification": [
+      {
+        "path": "docs/frontend/recorrido-accesibilidad.json",
+        "line": 1
+      }
+    ],
+    "note": "Modulos por responsabilidad del cliente. No cambia el estado parcial de capas/acoplamiento del backend."
+  },
+  {
+    "id": "RNF-23",
+    "page": 20,
+    "status": "Verificado",
+    "code": [
+      {
+        "path": "tests/frontend_journey.cjs",
+        "line": 1
+      },
+      {
+        "path": "tests/frontend_fresh_install.py",
+        "line": 1
+      }
+    ],
+    "verification": [
+      {
+        "path": "docs/frontend/integracion.json",
+        "line": 1
+      },
+      {
+        "path": "docs/frontend/carrito-checkout.json",
+        "line": 1
+      },
+      {
+        "path": "docs/frontend/pagos.json",
+        "line": 1
+      },
+      {
+        "path": "docs/frontend/pedidos.json",
+        "line": 1
+      },
+      {
+        "path": "docs/frontend/perfil.json",
+        "line": 1
+      },
+      {
+        "path": "docs/frontend/recorrido-accesibilidad.json",
+        "line": 1
+      },
+      {
+        "path": "docs/frontend/instalacion-desde-cero.json",
+        "line": 1
+      }
+    ],
+    "note": "56 escenarios de navegador; recorrido integral, 14 estados auditados y nueva instalacion completa. No es certificacion de accesibilidad."
+  },
+  {
+    "id": "RNF-24",
+    "page": 20,
+    "status": "Verificado",
+    "code": [
+      {
+        "path": "tests/frontend_journey.cjs",
+        "line": 1
+      },
+      {
+        "path": "tests/frontend_fresh_install.py",
+        "line": 1
+      }
+    ],
+    "verification": [
+      {
+        "path": "docs/frontend/integracion.json",
+        "line": 1
+      },
+      {
+        "path": "docs/frontend/carrito-checkout.json",
+        "line": 1
+      },
+      {
+        "path": "docs/frontend/pagos.json",
+        "line": 1
+      },
+      {
+        "path": "docs/frontend/pedidos.json",
+        "line": 1
+      },
+      {
+        "path": "docs/frontend/perfil.json",
+        "line": 1
+      },
+      {
+        "path": "docs/frontend/recorrido-accesibilidad.json",
+        "line": 1
+      },
+      {
+        "path": "docs/frontend/instalacion-desde-cero.json",
+        "line": 1
+      }
+    ],
+    "note": "56 escenarios de navegador; recorrido integral, 14 estados auditados y nueva instalacion completa. No es certificacion de accesibilidad."
+  },
+  {
+    "id": "RNF-26",
+    "page": 20,
+    "status": "Infraestructura",
+    "code": [
+      {
+        "path": "frontend/nginx.conf",
+        "line": 1
+      },
+      {
+        "path": "compose.frontend.yml",
+        "line": 1
+      }
+    ],
+    "verification": [
+      {
+        "path": "docs/frontend/instalacion-desde-cero.json",
+        "line": 1
+      }
+    ],
+    "note": "Frontend en contenedor, loopback configurable y health liveness. No acredita readiness de dependencias."
+  },
+  {
+    "id": "RNF-27",
+    "page": 20,
+    "status": "Infraestructura",
+    "code": [],
+    "verification": [
+      {
+        "path": "docs/frontend/instalacion-desde-cero.json",
+        "line": 1
+      }
+    ],
+    "note": "El frontend no cierra este requisito parcial. Instalacion probada en el mismo host Windows/Docker Linux, sin replicas ni TLS productivo."
+  },
+  {
+    "id": "RNF-28",
+    "page": 20,
+    "status": "Infraestructura",
+    "code": [
+      {
+        "path": "frontend/nginx.conf",
+        "line": 1
+      },
+      {
+        "path": "compose.frontend.yml",
+        "line": 1
+      }
+    ],
+    "verification": [
+      {
+        "path": "docs/frontend/instalacion-desde-cero.json",
+        "line": 1
+      }
+    ],
+    "note": "Frontend en contenedor, loopback configurable y health liveness. No acredita readiness de dependencias."
+  }
+]

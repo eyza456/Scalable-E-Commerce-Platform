@@ -1,0 +1,242 @@
+{
+  "audit_date": "2026-10-28T20:16:30.308513+00:00",
+  "review_base_commit": "7fca5d25f74099710e1c24a98547c929029bce13",
+  "tracked_files_count": 287,
+  "configured_remotes": [],
+  "delivery_version": "v0.1.0-rc.1",
+  "pdf_path": "C:/Users/Usuario/Downloads/Plataforma_escalable_comercio_electronico.pdf",
+  "pdf_sha256": "c725a5540aef125e1658af6079f239f424a94acc32d5e83474c5cb1b5073a752",
+  "services": {
+    "api-gateway": {
+      "environment_keys": [],
+      "has_healthcheck": false,
+      "ports": [
+        {
+          "mode": "ingress",
+          "host_ip": "127.0.0.1",
+          "target": 80,
+          "published": "8000",
+          "protocol": "tcp"
+        }
+      ],
+      "restart": "unless-stopped"
+    },
+    "cart-service": {
+      "environment_keys": [
+        "INTERNAL_SERVICE_KEY",
+        "JWT_ALGORITHM",
+        "PRODUCT_SERVICE_URL",
+        "REDIS_HOST",
+        "REDIS_PORT",
+        "SECRET_KEY"
+      ],
+      "has_healthcheck": false,
+      "ports": [
+        {
+          "mode": "ingress",
+          "target": 8000,
+          "published": "8003",
+          "protocol": "tcp"
+        }
+      ],
+      "restart": "unless-stopped"
+    },
+    "notification-service": {
+      "environment_keys": [
+        "RABBITMQ_HOST",
+        "RABBITMQ_PORT"
+      ],
+      "has_healthcheck": false,
+      "ports": [
+        {
+          "mode": "ingress",
+          "target": 8000,
+          "published": "8006",
+          "protocol": "tcp"
+        }
+      ],
+      "restart": "unless-stopped"
+    },
+    "order-db": {
+      "environment_keys": [
+        "POSTGRES_DB",
+        "POSTGRES_PASSWORD",
+        "POSTGRES_USER"
+      ],
+      "has_healthcheck": true,
+      "ports": [
+        {
+          "mode": "ingress",
+          "target": 5432,
+          "published": "5434",
+          "protocol": "tcp"
+        }
+      ],
+      "restart": "unless-stopped"
+    },
+    "order-service": {
+      "environment_keys": [
+        "CART_SERVICE_URL",
+        "DATABASE_URL",
+        "INTERNAL_SERVICE_KEY",
+        "JWT_ALGORITHM",
+        "PRODUCT_SERVICE_URL",
+        "SECRET_KEY"
+      ],
+      "has_healthcheck": false,
+      "ports": [
+        {
+          "mode": "ingress",
+          "target": 8000,
+          "published": "8004",
+          "protocol": "tcp"
+        }
+      ],
+      "restart": "unless-stopped"
+    },
+    "payment-db": {
+      "environment_keys": [
+        "POSTGRES_DB",
+        "POSTGRES_PASSWORD",
+        "POSTGRES_USER"
+      ],
+      "has_healthcheck": true,
+      "ports": [
+        {
+          "mode": "ingress",
+          "target": 5432,
+          "published": "5435",
+          "protocol": "tcp"
+        }
+      ],
+      "restart": "unless-stopped"
+    },
+    "payment-service": {
+      "environment_keys": [
+        "DATABASE_URL",
+        "INTERNAL_SERVICE_KEY",
+        "JWT_ALGORITHM",
+        "ORDER_SERVICE_URL",
+        "PRODUCT_SERVICE_URL",
+        "RABBITMQ_HOST",
+        "RABBITMQ_PORT",
+        "SECRET_KEY"
+      ],
+      "has_healthcheck": false,
+      "ports": [
+        {
+          "mode": "ingress",
+          "target": 8000,
+          "published": "8005",
+          "protocol": "tcp"
+        }
+      ],
+      "restart": "unless-stopped"
+    },
+    "product-db": {
+      "environment_keys": [
+        "POSTGRES_DB",
+        "POSTGRES_PASSWORD",
+        "POSTGRES_USER"
+      ],
+      "has_healthcheck": true,
+      "ports": [
+        {
+          "mode": "ingress",
+          "target": 5432,
+          "published": "5433",
+          "protocol": "tcp"
+        }
+      ],
+      "restart": "unless-stopped"
+    },
+    "product-service": {
+      "environment_keys": [
+        "DATABASE_URL",
+        "INTERNAL_SERVICE_KEY",
+        "JWT_ALGORITHM",
+        "RABBITMQ_HOST",
+        "RABBITMQ_PORT",
+        "SECRET_KEY"
+      ],
+      "has_healthcheck": false,
+      "ports": [
+        {
+          "mode": "ingress",
+          "target": 8000,
+          "published": "8002",
+          "protocol": "tcp"
+        }
+      ],
+      "restart": "unless-stopped"
+    },
+    "rabbitmq": {
+      "environment_keys": [],
+      "has_healthcheck": true,
+      "ports": [
+        {
+          "mode": "ingress",
+          "target": 5672,
+          "published": "5672",
+          "protocol": "tcp"
+        },
+        {
+          "mode": "ingress",
+          "target": 15672,
+          "published": "15672",
+          "protocol": "tcp"
+        }
+      ],
+      "restart": "unless-stopped"
+    },
+    "redis": {
+      "environment_keys": [],
+      "has_healthcheck": true,
+      "ports": [
+        {
+          "mode": "ingress",
+          "target": 6379,
+          "published": "6379",
+          "protocol": "tcp"
+        }
+      ],
+      "restart": "unless-stopped"
+    },
+    "user-db": {
+      "environment_keys": [
+        "POSTGRES_DB",
+        "POSTGRES_PASSWORD",
+        "POSTGRES_USER"
+      ],
+      "has_healthcheck": true,
+      "ports": [
+        {
+          "mode": "ingress",
+          "target": 5432,
+          "published": "5432",
+          "protocol": "tcp"
+        }
+      ],
+      "restart": "unless-stopped"
+    },
+    "user-service": {
+      "environment_keys": [
+        "ACCESS_TOKEN_EXPIRE_MINUTES",
+        "DATABASE_URL",
+        "JWT_ALGORITHM",
+        "SECRET_KEY"
+      ],
+      "has_healthcheck": false,
+      "ports": [
+        {
+          "mode": "ingress",
+          "target": 8000,
+          "published": "8001",
+          "protocol": "tcp"
+        }
+      ],
+      "restart": "unless-stopped"
+    }
+  },
+  "application_code_changed_by_audit": false
+}
