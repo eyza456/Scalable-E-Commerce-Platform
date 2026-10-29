@@ -1,0 +1,22 @@
+{
+  "recorded_at": "2026-10-29T17:12:50.215774+00:00",
+  "scope": "targeted profile unit and HTTP checks, not full backend suite",
+  "observed_exit_code": 0,
+  "runs": [
+    {
+      "command": "Get-Content tests/profile_stability.py -Raw | docker compose exec -T user-service python -",
+      "tests": 6,
+      "result": "OK"
+    },
+    {
+      "command": "python -X utf8 tests/smoke_profile.py",
+      "result": "OK: profile HTTP/authentication/validation/duplicates/foreign-account protection/new-email login"
+    }
+  ],
+  "sha256": {
+    "tests/profile_stability.py": "a72041b646c898b9b73b123c99cdd8b9c576ba2343ae77256b5d0730a9181d40",
+    "tests/smoke_profile.py": "713efface34a02365ce8aa30dbfe7424d73208b264c9156751fb03429a15b707",
+    "services/user-service/app/routers/users.py": "9dd0129fae17bcfba84a0ca9ded5ddc9fe48b30b40010506d39f7f114f91d1f6",
+    "services/user-service/app/schemas/user.py": "2462ac1f079ada57b0d095c5cea8304698c329e73217d27dad487b9ab45a47cf"
+  }
+}

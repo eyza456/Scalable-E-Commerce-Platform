@@ -17,17 +17,18 @@
   ],
   "cleanup": true,
   "status": "passed",
-  "date": "2026-10-29T17:05:42.178Z",
+  "date": "2026-10-29T17:14:21.357Z",
   "sha256": {
-    "frontend/app/index.html": "1552a1076dbbe862cd7dd19dd2b07fd91070694b7d5413a7e4a792b188009e67",
-    "frontend/app/app.js": "811448e375fab04ac9b2aaffc0b40501281cf668eae109a857ab8ba5433647c9",
+    "frontend/app/index.html": "4b52ac97647c851165ba7da734ac46264ffe334ac2deb04be571a6ba80acd903",
+    "frontend/app/app.js": "365bd423dd6ded04d08cd680f6682cc60ae6304ce9fa76477ada3d78b3fd0aaf",
     "frontend/app/commerce.js": "dd369155aa46e1b43dfd27519a9e8c0c46c055fe0db9fe17913db4b6153fe71d",
     "frontend/app/payments.js": "aff0973773911c558613e2675cbdf41813fbccc33fef45de017f769d25ecd598",
-    "frontend/app/styles.css": "17bbef2c1142ac917a7d93c54da5362c8668485c83def35bd28f0fdfb8b4fc8a",
+    "frontend/app/styles.css": "d9ec109a0e4ab1d1055cc78be3ef1a47de8f11be8e1c459d1b2a9a7a7f455da4",
+    "frontend/app/profile.js": "9dc978465e158e4da356c7a1cb452dabe0c1c974d324bcbb0fbd9523c23d8e89",
     "frontend/app/orders.js": "69ac76b0e1dfd109862db0facd3dfd1e3d24ee72deaf3b71aaaf6253292fd508",
     "frontend/nginx.conf": "b8b0cb91a4d13ebe2907bb52a25e8cc49215e7dc2e6dbf8ca7ff8ba09ff68e3e",
     "frontend/Dockerfile": "15308c7c91faac8bdbf37762ff95ca19fbb120549b7aa25a678fc80b1d773411",
     "compose.frontend.yml": "28192dae4badfce6b8aded5f34ef8eee5b443b75c566cfb383b0d30c1d545f96",
-    "tests/frontend_browser.cjs": "61f6fbf01726a27fff907c293283087f1b7af9dcf2ba55384445937ec99b9d3a"
+    "tests/frontend_browser.cjs": "907c37ddda82c165d575752004d9fe057b1d77031afbc30b884e80bba453a08e"
   }
 }

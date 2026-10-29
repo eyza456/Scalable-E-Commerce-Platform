@@ -13,6 +13,7 @@
   <script src="payments.js" defer></script>
   <script src="commerce.js" defer></script>
   <script src="orders.js" defer></script>
+  <script src="profile.js" defer></script>
   <script src="app.js" defer></script>
 </head>
 <body>
@@ -70,7 +71,12 @@
             <button type="submit">Crear cuenta</button>
           </form>
           <p id="account-status" class="feedback" role="status" aria-live="polite"></p>
-          <div id="profile" hidden><h2>Mi cuenta</h2><dl><dt>Nombre</dt><dd id="profile-name"></dd><dt>Correo electrónico</dt><dd id="profile-email"></dd></dl><a href="#catalogo" class="button">Explorar el catálogo</a></div>
+          <div id="profile" hidden><h2>Mi cuenta</h2><dl><dt>Nombre</dt><dd id="profile-name"></dd><dt>Correo electrónico</dt><dd id="profile-email"></dd></dl>
+            <button id="edit-profile" class="secondary">Editar perfil</button>
+            <form id="profile-form" hidden><h3>Editar tus datos</h3><label for="edit-name">Nombre</label><input id="edit-name" autocomplete="name" minlength="3" maxlength="100" required><label for="edit-email">Correo electrónico</label><input id="edit-email" type="email" autocomplete="email" maxlength="254" required aria-describedby="edit-email-hint"><small id="edit-email-hint">Después de cambiar el correo, úsalo para iniciar sesión en el futuro.</small><div class="profile-actions"><button type="submit" id="save-profile">Guardar cambios</button><button type="button" id="discard-profile" class="secondary">Descartar cambios</button></div></form>
+            <p id="profile-status" class="feedback" role="status" aria-live="polite"></p><p id="profile-error" class="feedback error" role="alert" hidden></p>
+            <a href="#catalogo" class="button">Explorar el catálogo</a>
+          </div>
         </div>
       </div>
     </section>
@@ -140,6 +146,6 @@
     </section>
     <dialog id="cancel-dialog" aria-labelledby="cancel-title"><h2 id="cancel-title">¿Cancelar este pedido?</h2><p id="cancel-description"></p><p>Si hay una reserva que pueda liberarse, el servidor coordinará su devolución al inventario. Un pago confirmado no se reembolsa desde aquí.</p><div class="dialog-actions"><button id="keep-order" class="secondary">Conservar pedido</button><button id="confirm-cancel">Confirmar cancelación</button></div></dialog>
   </main>
-  <footer><span class="brand">Nexo</span><p>Objetos para tu día a día.</p><small>Catálogo, cuentas, carrito, pago simulado, historial y cancelación conectados. Edición del perfil pendiente.</small></footer>
+  <footer><span class="brand">Nexo</span><p>Objetos para tu día a día.</p><small>Catálogo, cuenta, perfil, carrito, pago simulado e historial conectados. Entorno local de demostración.</small></footer>
 </body>
 </html>

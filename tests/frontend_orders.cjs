@@ -154,6 +154,6 @@ with engine.connect() as db:
     report.cleanup = true;
   } catch {report.cleanup = false; console.error('Owned fixture cleanup failed'); process.exitCode = 1;}
   report.date = new Date().toISOString(); report.sha256 = {};
-  for (const file of ['frontend/app/orders.js', 'frontend/app/app.js', 'frontend/app/index.html', 'frontend/app/styles.css', 'tests/frontend_orders.cjs']) report.sha256[file] = createHash('sha256').update(fs.readFileSync(file, 'utf8').replaceAll('\r\n', '\n')).digest('hex');
+  for (const file of ['frontend/app/orders.js', 'frontend/app/app.js', 'frontend/app/index.html', 'frontend/app/styles.css', 'frontend/app/profile.js', 'tests/frontend_orders.cjs']) report.sha256[file] = createHash('sha256').update(fs.readFileSync(file, 'utf8').replaceAll('\r\n', '\n')).digest('hex');
   fs.mkdirSync('docs/frontend', {recursive: true}); fs.writeFileSync('docs/frontend/pedidos.json', JSON.stringify(report, null, 2) + '\n');
 });

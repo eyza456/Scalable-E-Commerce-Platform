@@ -48,6 +48,7 @@ eliminados. Las pruebas no dejan cuentas, pedidos, pagos ni reservas de fixture.
 
 ## Siguiente etapa
 
-Editar nombre/correo en Mi cuenta y sustituir el token devuelto por el servidor,
-conservar la sesion correcta al cambiar el correo y verificar duplicados/validacion.
+La [edicion de nombre/correo](perfil.md) ya sustituye el token devuelto por el servidor
+y verifica duplicados/validacion. Sigue la demostracion visual completa y revision
+de accesibilidad/teclado.
 No hay gestion administrativa visual de usuarios/productos ni pasarela bancaria real.

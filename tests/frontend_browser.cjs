@@ -154,7 +154,7 @@ with SeccionLocal() as db:
   } catch { console.error('Fixture cleanup failed'); report.cleanup = false; process.exitCode = 1; }
   report.date = new Date().toISOString();
   report.sha256 = {};
-  for (const file of ['frontend/app/index.html', 'frontend/app/app.js', 'frontend/app/commerce.js', 'frontend/app/payments.js', 'frontend/app/styles.css', 'frontend/app/orders.js', 'frontend/nginx.conf', 'frontend/Dockerfile', 'compose.frontend.yml', 'tests/frontend_browser.cjs']) {
+  for (const file of ['frontend/app/index.html', 'frontend/app/app.js', 'frontend/app/commerce.js', 'frontend/app/payments.js', 'frontend/app/styles.css', 'frontend/app/profile.js', 'frontend/app/orders.js', 'frontend/nginx.conf', 'frontend/Dockerfile', 'compose.frontend.yml', 'tests/frontend_browser.cjs']) {
     report.sha256[file] = require('node:crypto').createHash('sha256').update(fs.readFileSync(file, 'utf8').replaceAll('\r\n', '\n')).digest('hex');
   }
   fs.mkdirSync('docs/frontend', {recursive: true});

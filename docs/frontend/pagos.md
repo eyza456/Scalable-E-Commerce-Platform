@@ -64,4 +64,4 @@ No es una pasarela bancaria y no se cobra dinero. La aprobacion SI modifica el
 inventario local y genera eventos reales de prueba. No introducir datos bancarios.
 La sesion sigue solo en memoria. El carrito conserva unicamente su ultimo checkout;
 para consultar pedidos anteriores ahora se utiliza el [historial integrado](pedidos.md).
-Continua pendiente la edicion visual del perfil.
+La [edicion visual del perfil](perfil.md) tambien esta integrada.

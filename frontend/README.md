@@ -7,7 +7,7 @@ Nombre Nexo provisional; no representa una marca definitiva.
 ## Aplicacion conectada
 
 `app/` contiene registro, inicio de sesion, consulta de la cuenta autenticada,
-cierre local de sesion, catalogo con filtros por nombre/categoria/disponibilidad,
+cierre local de sesion, edicion de nombre/correo, catalogo con filtros por nombre/categoria/disponibilidad,
 paginacion, detalle, carrito, creacion de pedidos, pago simulado, historial y cancelacion. Los productos,
 precios y stock vienen del backend real.
 No se crean datos de demostracion al arrancar.
@@ -63,7 +63,7 @@ La vista previa de Stitch usa recursos externos de Google Fonts, imagenes y Tail
 necesita Internet. La implementacion final debera compilar sus estilos y gestionar
 sus dependencias, accesibilidad y recursos de forma explicita.
 
-## Recorrido a implementar
+## Recorrido del cliente
 
 1. Registro e inicio de sesion: integrados en `app/`.
 2. Catalogo, categorias y detalle: integrados en `app/`.
@@ -73,7 +73,7 @@ sus dependencias, accesibilidad y recursos de forma explicita.
 5. Pago simulado integrado: `/api/payments`; aprobado o rechazado, con consulta
    del ultimo intento antes de permitir otro envio.
 6. Historial y cancelacion integrados segun estado: `/api/orders`.
-7. Consulta de cuenta integrada; edicion de perfil y renovacion del token pendientes.
+7. Consulta y edicion del perfil integradas, con sustitucion del token al guardar.
 
 Todas las llamadas del frontend final se dirigiran al API Gateway. Al integrar,
 consultar los contratos actuales y OpenAPI: los identificadores, precios, stock,
@@ -188,4 +188,32 @@ Prueba: `node tests/frontend_orders.cjs`, con Playwright/Edge y los mismos ajust
 de las pruebas anteriores. `python -X utf8 tests/smoke_orders.py` verifica tambien
 la liberacion real de una reserva y proteccion de un pago confirmado en backend.
 Consultar [evidencias del historial](../docs/frontend/pedidos.md).
-La siguiente etapa de interfaz pendiente es editar el perfil y renovar su token.
+La edicion del perfil y renovacion del token tambien estan integradas.
+
+## Edicion del perfil
+
+En Mi cuenta, Editar perfil permite modificar nombre/correo y descartar borradores.
+Solo se envian los campos cambiados a `PUT /api/users/me`. Se comprueban limites
+y espacios, y los duplicados/errores del servidor conservan el formulario editable.
+No hay campos para modificar roles, permisos, contraseñas o identificadores.
+
+Una respuesta correcta sustituye juntos perfil y token en memoria; los proximos
+requests autenticados usan el token devuelto. El correo nuevo se usa en futuros
+inicios de sesion. No se guardan tokens en almacenamiento del navegador.
+
+Si se pierde la respuesta o hay un 5xx, el cambio puede haberse aplicado. Se cierra
+la sesion local y se pide autenticar de nuevo, sin repetir la actualizacion. El
+formulario de acceso sugiere el correo ingresado; si no se aplico, usar el anterior.
+Una respuesta tardia no puede restaurar la sesion cerrada ni reemplazar otra cuenta.
+
+Verificacion: `node tests/frontend_profile.cjs`. Pruebas adicionales del backend:
+
+```powershell
+Get-Content tests/profile_stability.py -Raw | docker compose exec -T user-service python -
+python -X utf8 tests/smoke_profile.py
+```
+
+Ver [evidencias y limites del perfil](../docs/frontend/perfil.md). El siguiente
+trabajo es una demostracion visual completa del recorrido del cliente y revision
+de teclado/accesibilidad y estados de error. Las interfaces administrativas siguen
+fuera de esta etapa; no se afirma cumplimiento productivo de toda la plataforma.

@@ -67,5 +67,5 @@ Capturas con fixtures temporales ya eliminadas:
 ## Siguiente etapa
 
 Pago simulado aprobado/rechazado ya integrado: [detalle](pagos.md). Tambien estan
-integrados [historial y cancelacion](pedidos.md). Sigue pendiente editar el perfil. Sus prototipos siguen en
+integrados [historial y cancelacion](pedidos.md) y [edicion del perfil](perfil.md). Sus prototipos siguen en
 `frontend/stitch/`; no representan funciones ya conectadas.

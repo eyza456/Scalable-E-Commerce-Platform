@@ -27,6 +27,7 @@
       if (!response.ok) {
         if (response.status === 401 && authenticated && requestToken === state.token) {
           state.token = null; state.user = null; syncAccount();
+          feedback('account-status', 'Tu sesión terminó. Inicia sesión de nuevo.');
         }
         let message = 'No se pudo completar la solicitud. Inténtalo más tarde.';
         if (typeof data?.detail === 'string') message = data.detail;
@@ -56,6 +57,7 @@
   }
   const commerce = window.NexoCommerce({api, state, $, feedback, element, money});
   const orders = window.NexoOrders({api, state, $, feedback, element, money});
+  const profile = window.NexoProfile({api, state, $, feedback, syncAccount});
   function imageFor(product) {
     const box = element('div', undefined, 'product-image');
     const fallback = () => box.replaceChildren(element('span', 'Nexo', 'image-placeholder'));
@@ -151,6 +153,7 @@
     $('profile-email').textContent = signed ? state.user.email : '';
     commerce.session(signed ? state.user.id : null);
     orders.session(signed ? state.user.id : null);
+    profile.session(signed ? state.user.id : null);
   }
   function setMode(mode) {
     for (const tab of ['login', 'register']) $(tab + '-tab').setAttribute('aria-pressed', String(tab === mode));

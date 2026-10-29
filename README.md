@@ -215,7 +215,7 @@ docker compose -f docker-compose.yml -f compose.frontend.yml up -d --build front
 
 Abrir `http://127.0.0.1:8080/`. Carrito y creacion/recuperacion del pedido ya estan
 integrados, incluido el pago simulado aprobado/rechazado, historial con filtros y
-cancelacion de pedidos pendientes. La edicion visual del perfil sigue pendiente.
+cancelacion de pedidos pendientes y edicion del perfil con renovacion de la sesion.
 La galeria de Stitch en el puerto 5173 es una referencia con
 datos ficticios. Ver [alcance, arranque y pruebas del frontend](frontend/README.md).
 Este complemento es posterior a la evidencia de instalacion limpia del backend;
