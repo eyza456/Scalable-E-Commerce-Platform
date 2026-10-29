@@ -35,6 +35,7 @@ recuperacion de contraseña ni verificacion por correo.
 | [Instalacion completa](../frontend/instalacion-desde-cero.md) | 14 contenedores nuevos, migracion, reinicio y navegador |
 | [Rendimiento](../rendimiento/informe.md) | Medicion historica del perfil local, sin repetir carga |
 | [Pendientes](pendientes.md) y [notas de esta entrega](notas-entrega-integrada.md) | Limites reales y separacion de evoluciones |
+| [Plan de cierre de parciales](plan-cierre-parciales.md) | Clasificacion individual, orden y pruebas de aceptacion de los ocho parciales |
 | [Manifiesto](manifiesto-entrega.json) | Hashes de fuentes/documentos/evidencias y referencia Git |
 
 ## Instalacion y acceso

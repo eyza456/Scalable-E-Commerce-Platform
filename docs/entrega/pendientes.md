@@ -30,6 +30,12 @@ en navegador; no se presentan como funcionalidades implementadas.
 
 ## Obligatorio antes de declarar cumplimiento integral o escalabilidad verificada
 
+La [clasificacion de los ocho parciales](plan-cierre-parciales.md) detalla el
+alcance y las pruebas de cierre. El primer bloque es RNF-05/06: configuracion
+multinstancia aislada y concurrencia entre replicas. Cinco parciales son calidad
+obligatoria para cumplimiento integral y tres son preparacion futura; todos
+conservan su estado hasta tener evidencia.
+
 | Orden | Requisito | Falta y accion concreta | Evidencia para cerrar |
 | --- | --- | --- | --- |
 | Cerrado en alcance local | RNF-01, Cumplido | Todos los objetivos v1 a 20 usuarios aprobados sin cambiar umbrales: historial 286,88 ms, checkout 770,97 ms, pago 525,38 ms y compra 2,738 s en p95 | [Comparacion](../rendimiento/informe.md) y [perfil SQL/HTTP](../perfilado/informe.md). Ampliar volumen y duracion antes de inferir capacidad productiva |

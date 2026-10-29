@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-10-29T23:09:57.578614+00:00",
+  "generated_at": "2026-10-29T23:13:11.684872+00:00",
   "runtime_reference_commit": "73388556234b6a54e53a80abf0e72531ab3d2137",
   "runtime_matches_reference": true,
-  "documentation_review_base": "73388556234b6a54e53a80abf0e72531ab3d2137",
+  "documentation_review_base": "0703d9658fd25802f212383ee6b2023460449830",
   "historical_tag": {
     "name": "v0.1.0-rc.1",
     "commit": "d92380e505fd050be4483f3896aa1643c39f4e6c",
@@ -122,8 +122,8 @@
       "canonical_bytes": 1115
     },
     "docs/entrega/README.md": {
-      "sha256": "6c34e54f30e3b0b44dd8eb1769abec81d42437cf826f2509e94a3f2f41698fb4",
-      "canonical_bytes": 6100
+      "sha256": "0b19e33774654f09ed6b812b62dc4cc5d994eedc9a6cb063920281a05d35c895",
+      "canonical_bytes": 6240
     },
     "docs/entrega/demo-resultados.json": {
       "sha256": "eded6b92693728ef0aeacf25a4007d0b4dbe60c72a7587389651b26b4aa062f1",
@@ -146,8 +146,12 @@
       "canonical_bytes": 1854
     },
     "docs/entrega/pendientes.md": {
-      "sha256": "8830b264b1501ad8e820233a2c62f33f8998244e4ba26ad37b82063fa0ff8a35",
-      "canonical_bytes": 5754
+      "sha256": "caa4c64c57f15dc9c8f5c6860bce5f9ce7e9a74a4ff89031e2ddfbd8ff6a829e",
+      "canonical_bytes": 6111
+    },
+    "docs/entrega/plan-cierre-parciales.md": {
+      "sha256": "e989d7c82532e5a606581d81d9ec8ccfb8a6bc412748a1c3a90b1bfc1138e072",
+      "canonical_bytes": 7581
     },
     "docs/frontend/a11y-antes.json": {
       "sha256": "89e87565e59b3ad099b47bd0b7c12259648726a0e16d84ecc39f851a3b2ae365",
