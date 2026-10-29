@@ -213,6 +213,6 @@ with SessionLocal() as db: db.query(Product).filter(Product.id==int(sys.argv[1])
     report.cleanup = true;
   } catch (error) {report.cleanup = false; console.error('Owned fixture cleanup failed:', error.message.slice(0, 350)); process.exitCode = 1;}
   report.date = new Date().toISOString(); report.sha256 = {};
-  for (const file of ['frontend/app/payments.js', 'frontend/app/commerce.js', 'frontend/app/index.html', 'frontend/app/styles.css', 'services/payment-service/app/routers/payments.py', 'tests/frontend_payments.cjs', 'tests/payment_latest.py']) report.sha256[file] = createHash('sha256').update(fs.readFileSync(file, 'utf8').replaceAll('\r\n', '\n')).digest('hex');
+  for (const file of ['frontend/app/payments.js', 'frontend/app/commerce.js', 'frontend/app/index.html', 'frontend/app/styles.css', 'frontend/app/orders.js', 'services/payment-service/app/routers/payments.py', 'tests/frontend_payments.cjs', 'tests/payment_latest.py']) report.sha256[file] = createHash('sha256').update(fs.readFileSync(file, 'utf8').replaceAll('\r\n', '\n')).digest('hex');
   fs.mkdirSync('docs/frontend', {recursive: true}); fs.writeFileSync('docs/frontend/pagos.json', JSON.stringify(report, null, 2) + '\n');
 });

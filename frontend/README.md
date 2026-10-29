@@ -8,7 +8,7 @@ Nombre Nexo provisional; no representa una marca definitiva.
 
 `app/` contiene registro, inicio de sesion, consulta de la cuenta autenticada,
 cierre local de sesion, catalogo con filtros por nombre/categoria/disponibilidad,
-paginacion, detalle, carrito, creacion de pedidos y pago simulado. Los productos,
+paginacion, detalle, carrito, creacion de pedidos, pago simulado, historial y cancelacion. Los productos,
 precios y stock vienen del backend real.
 No se crean datos de demostracion al arrancar.
 
@@ -72,7 +72,7 @@ sus dependencias, accesibilidad y recursos de forma explicita.
    mediante `/api/orders/checkouts/{id}` y visualizacion del pedido creado.
 5. Pago simulado integrado: `/api/payments`; aprobado o rechazado, con consulta
    del ultimo intento antes de permitir otro envio.
-6. Historial y cancelacion segun estado: `/api/orders`.
+6. Historial y cancelacion integrados segun estado: `/api/orders`.
 7. Consulta de cuenta integrada; edicion de perfil y renovacion del token pendientes.
 
 Todas las llamadas del frontend final se dirigiran al API Gateway. Al integrar,
@@ -170,3 +170,22 @@ Get-Content tests/payment_latest.py -Raw | docker compose exec -T payment-servic
 ```
 
 Consultar [evidencia y limites](../docs/frontend/pagos.md).
+
+## Historial y cancelacion
+
+`app/orders.js` implementa Mis pedidos (`#pedidos`) y detalle (`#pedidos/{id}`).
+Consulta solo pedidos del usuario autenticado, con filtro por estado y paginacion.
+Permite consultar/pagar un pedido anterior mediante una instancia independiente
+del mismo componente de pago; no sustituye el checkout actual del carrito.
+
+La cancelacion solo se ofrece para PENDING y exige confirmacion en un dialogo.
+El servidor decide si procede, coordina la liberacion de reservas y rechaza pagos
+confirmados. Un resultado CANCELLING se consulta con GET hasta diez veces; siempre
+queda disponible la consulta manual. No hay reenvio automatico del POST de cancelacion.
+Si se pierde la respuesta o se produce conflicto, se lee el estado real del pedido.
+
+Prueba: `node tests/frontend_orders.cjs`, con Playwright/Edge y los mismos ajustes
+de las pruebas anteriores. `python -X utf8 tests/smoke_orders.py` verifica tambien
+la liberacion real de una reserva y proteccion de un pago confirmado en backend.
+Consultar [evidencias del historial](../docs/frontend/pedidos.md).
+La siguiente etapa de interfaz pendiente es editar el perfil y renovar su token.

@@ -63,5 +63,5 @@ como si se hubiera repetido esa suite.
 No es una pasarela bancaria y no se cobra dinero. La aprobacion SI modifica el
 inventario local y genera eventos reales de prueba. No introducir datos bancarios.
 La sesion sigue solo en memoria. El carrito conserva unicamente su ultimo checkout;
-para consultar pedidos anteriores falta integrar el historial.
-Continuan pendientes historial, cancelacion y edicion de perfil.
+para consultar pedidos anteriores ahora se utiliza el [historial integrado](pedidos.md).
+Continua pendiente la edicion visual del perfil.

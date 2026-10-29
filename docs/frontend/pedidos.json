@@ -1,0 +1,25 @@
+{
+  "scope": "real private order history/cancellation/payment; transport loss and 202 explicitly injected",
+  "checks": [
+    "guest cannot view private order history",
+    "real empty history differs from service error",
+    "history paginates real orders and detail shows authoritative items/total",
+    "confirmation dialog can be dismissed without cancellation",
+    "real pending cancellation and state filter return cancelled order",
+    "lost cancellation response recovers real cancelled state without second POST",
+    "injected cancelling response polls GET and reaches real cancelled state",
+    "historical order payment approves from its own panel and removes cancellation",
+    "foreign order detail stays private and history failure is recoverable",
+    "mobile history/detail fit; logout clears private items and payment reference"
+  ],
+  "cleanup": true,
+  "status": "passed",
+  "date": "2026-10-29T17:02:56.491Z",
+  "sha256": {
+    "frontend/app/orders.js": "69ac76b0e1dfd109862db0facd3dfd1e3d24ee72deaf3b71aaaf6253292fd508",
+    "frontend/app/app.js": "811448e375fab04ac9b2aaffc0b40501281cf668eae109a857ab8ba5433647c9",
+    "frontend/app/index.html": "1552a1076dbbe862cd7dd19dd2b07fd91070694b7d5413a7e4a792b188009e67",
+    "frontend/app/styles.css": "17bbef2c1142ac917a7d93c54da5362c8668485c83def35bd28f0fdfb8b4fc8a",
+    "tests/frontend_orders.cjs": "7b81cece86d5a6572ead5d5b812430ad5832b437dc2a03113e99151331c4a560"
+  }
+}

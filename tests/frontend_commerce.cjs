@@ -212,6 +212,6 @@ with SessionLocal() as db:
     report.cleanup = true;
   } catch {report.cleanup = false; console.error('Cleanup failed for owned fixtures'); process.exitCode = 1;}
   report.date = new Date().toISOString(); report.sha256 = {};
-  for (const file of ['frontend/app/app.js', 'frontend/app/commerce.js', 'frontend/app/payments.js', 'frontend/app/index.html', 'frontend/app/styles.css', 'tests/frontend_commerce.cjs']) report.sha256[file] = createHash('sha256').update(fs.readFileSync(file, 'utf8').replaceAll('\r\n', '\n')).digest('hex');
+  for (const file of ['frontend/app/app.js', 'frontend/app/commerce.js', 'frontend/app/payments.js', 'frontend/app/index.html', 'frontend/app/styles.css', 'frontend/app/orders.js', 'tests/frontend_commerce.cjs']) report.sha256[file] = createHash('sha256').update(fs.readFileSync(file, 'utf8').replaceAll('\r\n', '\n')).digest('hex');
   fs.mkdirSync('docs/frontend', {recursive: true}); fs.writeFileSync('docs/frontend/carrito-checkout.json', JSON.stringify(report, null, 2) + '\n');
 });

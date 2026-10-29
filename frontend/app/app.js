@@ -55,6 +55,7 @@
     return node;
   }
   const commerce = window.NexoCommerce({api, state, $, feedback, element, money});
+  const orders = window.NexoOrders({api, state, $, feedback, element, money});
   function imageFor(product) {
     const box = element('div', undefined, 'product-image');
     const fallback = () => box.replaceChildren(element('span', 'Nexo', 'image-placeholder'));
@@ -149,6 +150,7 @@
     $('profile-name').textContent = signed ? state.user.name : '';
     $('profile-email').textContent = signed ? state.user.email : '';
     commerce.session(signed ? state.user.id : null);
+    orders.session(signed ? state.user.id : null);
   }
   function setMode(mode) {
     for (const tab of ['login', 'register']) $(tab + '-tab').setAttribute('aria-pressed', String(tab === mode));
@@ -209,13 +211,15 @@
   function route() {
     const hash = location.hash || '#catalogo';
     const match = /^#producto\/([1-9]\d*)$/.exec(hash);
-    const view = match ? 'detail' : hash === '#cuenta' ? 'account' : hash === '#carrito' ? 'cart' : hash === '#checkout' ? 'checkout' : 'catalog';
-    for (const name of ['catalog', 'account', 'detail', 'cart', 'checkout']) $(name + '-view').hidden = name !== view;
-    const titles = {catalog: 'Catálogo', account: 'Mi cuenta', detail: 'Producto', cart: 'Carrito', checkout: 'Confirmar pedido'};
+    const orderMatch = /^#pedidos\/([1-9]\d*)$/.exec(hash);
+    const view = match ? 'detail' : hash === '#pedidos' || orderMatch ? 'orders' : hash === '#cuenta' ? 'account' : hash === '#carrito' ? 'cart' : hash === '#checkout' ? 'checkout' : 'catalog';
+    for (const name of ['catalog', 'account', 'detail', 'cart', 'checkout', 'orders']) $(name + '-view').hidden = name !== view;
+    const titles = {catalog: 'Catálogo', account: 'Mi cuenta', detail: 'Producto', cart: 'Carrito', checkout: 'Confirmar pedido', orders: 'Mis pedidos'};
     document.title = `Nexo · ${titles[view]}`;
     if (match) loadDetail(match[1]);
     else {detailController?.abort(); state.detailRequest++;}
     commerce.route(view);
+    orders.route(view, orderMatch ? Number(orderMatch[1]) : null);
     $('main').focus({preventScroll: true}); window.scrollTo(0, 0);
   }
   window.addEventListener('hashchange', route);

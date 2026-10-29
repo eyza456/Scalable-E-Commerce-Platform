@@ -1,0 +1,13 @@
+{
+  "recorded_at": "2026-10-29T17:05:05.820976+00:00",
+  "command": "python -X utf8 tests/smoke_orders.py",
+  "observed_exit_code": 0,
+  "result": "private history, filters, idempotent cancellation, real reservation released once, paid order protected",
+  "log": "pedidos-api.log",
+  "log_sha256": "569774e608d4d384088fc0a7115bfe2bebb677af63e2c31b8cb7cda13c995899",
+  "sha256": {
+    "tests/smoke_orders.py": "482e0f81edd20aab453bbc0ecef6b7d497c754888e674bb0bb24ef62c4c5e60e",
+    "services/order-service/app/routers/orders.py": "b0335eb2a051ea04d0de65f49e209dd88d3c8f517cb5a5a653f4b7f982b57d34",
+    "services/order-service/app/cancellations.py": "5c7c34d8514d4851a4ec9434bdd6c6e458d90560f180936606ce36d06f1a5a7e"
+  }
+}

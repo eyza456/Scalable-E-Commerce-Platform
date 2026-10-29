@@ -479,6 +479,20 @@ footer p {
 #payment-result dd {margin:0 0 14px;overflow-wrap:anywhere}
 #payment-result dt {font-size:12px;color:var(--muted)}
 #resume-payment {margin-top:12px}
+#history-payment-panel {border-top:1px solid var(--line);margin-top:24px;padding-top:20px}
+#history-payment-form {max-width:520px;margin:24px 0}
+#history-payment-form button {margin-top:16px}
+#history-payment-result dd {margin:0 0 14px;overflow-wrap:anywhere}
+#history-payment-result dt {font-size:12px;color:var(--muted)}
+.history-card {border-bottom:1px solid var(--line);padding:24px 0;overflow-wrap:anywhere}
+.history-card h2 {font-size:26px}
+.history-card .button {display:block;width:max-content;margin-top:16px;max-width:100%}
+#history-detail {padding-top:24px}
+#history-detail dd {margin:0 0 12px}
+#history-detail>button {margin:8px 12px 12px 0}
+dialog {max-width:540px;width:calc(100% - 40px);border:1px solid var(--line);background:var(--paper);color:var(--ink);padding:28px}
+dialog::backdrop {background:rgba(15,30,20,.45)}
+.dialog-actions {display:flex;flex-wrap:wrap;gap:12px;margin-top:24px}
 .empty-cart {margin:30px 0}
 @media(max-width:500px) {
   .cart-summary {padding:20px}

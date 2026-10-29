@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="styles.css">
   <script src="payments.js" defer></script>
   <script src="commerce.js" defer></script>
+  <script src="orders.js" defer></script>
   <script src="app.js" defer></script>
 </head>
 <body>
@@ -22,6 +23,7 @@
     <nav aria-label="Navegación principal">
       <a href="#catalogo">Catálogo</a>
       <a href="#carrito" id="cart-link">Carrito</a>
+      <a href="#pedidos">Mis pedidos</a>
       <a href="#cuenta" id="account-link">Iniciar sesión</a>
       <button id="logout" class="link-button" hidden>Cerrar sesión</button>
     </nav>
@@ -116,7 +118,28 @@
         <a href="#carrito" class="back">← Volver al carrito</a>
       </div>
     </section>
+    <section id="orders-view" aria-labelledby="orders-title" hidden>
+      <div class="intro"><p class="eyebrow">TUS COMPRAS</p><h1 id="orders-title">Mis pedidos</h1><p class="lead">Consulta tus compras, su estado y sus pagos simulados.</p></div>
+      <div id="orders-login" hidden><p>Inicia sesión para consultar tus pedidos.</p><a href="#cuenta" class="button">Ir a mi cuenta</a></div>
+      <div id="orders-private" hidden>
+        <form id="orders-filters" class="filters"><div><label for="order-filter">Estado del pedido</label><select id="order-filter"><option value="">Todos los estados</option><option value="PENDING">Pendiente de pago</option><option value="PAID">Pagado</option><option value="CANCELLING">Cancelación en curso</option><option value="CANCELLED">Cancelado</option><option value="PROCESSING">En preparación</option><option value="SHIPPED">Enviado</option><option value="DELIVERED">Entregado</option></select></div><button type="submit">Aplicar filtro</button></form>
+        <p id="orders-status" role="status" aria-live="polite"></p><p id="orders-error" class="feedback error" role="alert" hidden></p>
+        <button id="refresh-orders" class="secondary">Actualizar historial</button>
+        <div id="orders-list" aria-busy="false"></div>
+        <div id="orders-pagination" class="pagination"><button id="orders-previous" class="secondary" disabled>Anterior</button><span id="orders-page">Página 1</span><button id="orders-next" class="secondary" disabled>Siguiente</button></div>
+        <section id="history-detail" aria-labelledby="history-title" hidden>
+          <a href="#pedidos" class="back">← Volver al historial</a><h2 id="history-title"></h2>
+          <p id="history-status" class="feedback" role="status" aria-live="polite"></p><p id="history-error" class="feedback error" role="alert" hidden></p>
+          <dl><dt>Fecha</dt><dd id="history-date"></dd><dt>Estado</dt><dd id="history-state"></dd></dl>
+          <div id="history-items"></div><p id="history-total" class="price"></p>
+          <button id="refresh-order" class="secondary">Consultar pedido</button>
+          <button id="cancel-order" class="secondary" hidden>Cancelar pedido</button>
+          <div id="history-payment-slot"></div>
+        </section>
+      </div>
+    </section>
+    <dialog id="cancel-dialog" aria-labelledby="cancel-title"><h2 id="cancel-title">¿Cancelar este pedido?</h2><p id="cancel-description"></p><p>Si hay una reserva que pueda liberarse, el servidor coordinará su devolución al inventario. Un pago confirmado no se reembolsa desde aquí.</p><div class="dialog-actions"><button id="keep-order" class="secondary">Conservar pedido</button><button id="confirm-cancel">Confirmar cancelación</button></div></dialog>
   </main>
-  <footer><span class="brand">Nexo</span><p>Objetos para tu día a día.</p><small>Catálogo, cuentas, carrito, pedidos y pago simulado conectados. Historial y cancelación pendientes de integración visual.</small></footer>
+  <footer><span class="brand">Nexo</span><p>Objetos para tu día a día.</p><small>Catálogo, cuentas, carrito, pago simulado, historial y cancelación conectados. Edición del perfil pendiente.</small></footer>
 </body>
 </html>
