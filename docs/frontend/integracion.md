@@ -37,9 +37,10 @@ no representan el contenido actual del catalogo. La configuracion Nginx paso `ng
 
 ## Limites y siguiente etapa
 
-No se conectaron carrito, checkout, pago simulado, pedidos, cancelaciones ni edicion
-de perfil. No hay administracion visual de productos. Esos prototipos no son
-funcionalidades integradas. Recargar termina la sesion local; cerrar sesion no
+El carrito y la creacion/recuperacion de pedidos se integraron posteriormente;
+ver [carrito y checkout](carrito-checkout.md). Siguen pendientes pago simulado,
+historial, cancelaciones y edicion de perfil. No hay administracion visual de
+productos. Recargar termina la sesion local; cerrar sesion no
 revoca tokens en otros clientes. No hay pagos bancarios reales ni HTTPS productivo.
 
 No se repitio la suite completa de 153 pruebas ni la prueba de carga: este cambio

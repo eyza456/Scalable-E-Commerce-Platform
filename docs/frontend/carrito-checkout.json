@@ -1,0 +1,27 @@
+{
+  "scope": "real cart and checkout through frontend/gateway; injected faults named explicitly",
+  "checks": [
+    "guest cart requires login and exposes no private content",
+    "real add, quantity update and removal preserve server totals",
+    "lost add acknowledgement does not automatically repeat mutation",
+    "checkout rejects changed price and quantity update refreshes price",
+    "checkout rejects depleted stock without order or extra mutation",
+    "cart changed in another client requires review instead of silently confirming new contents",
+    "lost checkout response recovers the existing order without a second POST",
+    "reload and new login recover last checkout through the private cart",
+    "request lost before reaching server offers explicit retry with the same cart version",
+    "injected pending response polls only GET and resolves real order",
+    "two logged-in tabs confirming the same cart receive one order",
+    "cart and checkout fit mobile and logout removes private order content"
+  ],
+  "cleanup": true,
+  "status": "passed",
+  "date": "2026-10-29T16:31:34.452Z",
+  "sha256": {
+    "frontend/app/app.js": "6ab387516e1591ace6c18d6b0f1424d099eba90b64a7e9f5f0b8a0d0f7b601f7",
+    "frontend/app/commerce.js": "81c16a0ac9664d24bac41eed6c9bba9f8d8e5d8b9838947b9436077c840aa303",
+    "frontend/app/index.html": "47cfb97f2838cfa465565f71fdb0eebf5ab44f7b73066440faa92f1817cc51e2",
+    "frontend/app/styles.css": "c6cde28c9d14f82e2fc5b9c8f535435178b971e85c1f33f56933f56d90427c17",
+    "tests/frontend_commerce.cjs": "4a0647ddc64a1afeaeb1c060632dff9db40496eb5efa8d39156cc0c35e20dcda"
+  }
+}

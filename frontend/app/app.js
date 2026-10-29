@@ -6,32 +6,34 @@
   const money = value => new Intl.NumberFormat('es-BO', {minimumFractionDigits: 2, maximumFractionDigits: 2}).format(Number(value));
 
   class ApiError extends Error {
-    constructor(message, status = 0) { super(message); this.status = status; }
+    constructor(message, status = 0, detail = null) { super(message); this.status = status; this.detail = detail; }
   }
-  async function api(path, {method = 'GET', body, authenticated = false, signal} = {}) {
+  async function api(path, {method = 'GET', body, authenticated = false, signal, headers: extraHeaders = {}} = {}) {
+    const requestToken = state.token;
     const controller = new AbortController();
     const cancel = () => controller.abort();
     if (signal?.aborted) controller.abort();
     else signal?.addEventListener('abort', cancel, {once: true});
     const timeout = setTimeout(cancel, 15000);
     try {
-      const headers = {Accept: 'application/json'};
+      const headers = {Accept: 'application/json', ...extraHeaders};
       if (body !== undefined) headers['Content-Type'] = 'application/json';
-      if (authenticated && state.token) headers.Authorization = `Bearer ${state.token}`;
+      if (authenticated && requestToken) headers.Authorization = `Bearer ${requestToken}`;
       const response = await fetch(`/api${path}`, {
         method, headers, signal: controller.signal, cache: 'no-store', credentials: 'omit',
         body: body === undefined ? undefined : JSON.stringify(body)
       });
       const data = await response.json().catch(() => null);
       if (!response.ok) {
-        if (response.status === 401 && authenticated) {
+        if (response.status === 401 && authenticated && requestToken === state.token) {
           state.token = null; state.user = null; syncAccount();
         }
         let message = 'No se pudo completar la solicitud. Inténtalo más tarde.';
         if (typeof data?.detail === 'string') message = data.detail;
+        if (typeof data?.detail?.message === 'string') message = data.detail.message;
         if (response.status === 422) message = 'Revisa los datos ingresados y sus límites.';
         if (response.status >= 500) message = 'El servicio no está disponible. Inténtalo más tarde.';
-        throw new ApiError(message, response.status);
+        throw new ApiError(message, response.status, data?.detail);
       }
       if (data === null) throw new ApiError('La respuesta del servicio no es válida.');
       return data;
@@ -52,6 +54,7 @@
     if (className) node.className = className;
     return node;
   }
+  const commerce = window.NexoCommerce({api, state, $, feedback, element, money});
   function imageFor(product) {
     const box = element('div', undefined, 'product-image');
     const fallback = () => box.replaceChildren(element('span', 'Nexo', 'image-placeholder'));
@@ -131,6 +134,7 @@
       $('detail-description').textContent = product.description || 'Este producto no tiene descripción.';
       $('detail-stock').textContent = product.is_active && product.stock > 0 ? `${product.stock} unidades disponibles` : 'Producto no disponible';
       $('detail-image').replaceChildren(imageFor(product)); $('detail').hidden = false; $('detail-status').textContent = '';
+      commerce.product(product);
     } catch (error) {
       if (version !== state.detailRequest) return;
       $('detail-status').textContent = ''; feedback('detail-error', error.status === 404 ? 'No encontramos este producto.' : error.message);
@@ -144,6 +148,7 @@
     $('register-form').hidden = signed || $('login-tab').getAttribute('aria-pressed') === 'true';
     $('profile-name').textContent = signed ? state.user.name : '';
     $('profile-email').textContent = signed ? state.user.email : '';
+    commerce.session(signed ? state.user.id : null);
   }
   function setMode(mode) {
     for (const tab of ['login', 'register']) $(tab + '-tab').setAttribute('aria-pressed', String(tab === mode));
@@ -204,11 +209,13 @@
   function route() {
     const hash = location.hash || '#catalogo';
     const match = /^#producto\/([1-9]\d*)$/.exec(hash);
-    const view = match ? 'detail' : hash === '#cuenta' ? 'account' : 'catalog';
-    for (const name of ['catalog', 'account', 'detail']) $(name + '-view').hidden = name !== view;
-    document.title = `Nexo · ${view === 'catalog' ? 'Catálogo' : view === 'account' ? 'Mi cuenta' : 'Producto'}`;
+    const view = match ? 'detail' : hash === '#cuenta' ? 'account' : hash === '#carrito' ? 'cart' : hash === '#checkout' ? 'checkout' : 'catalog';
+    for (const name of ['catalog', 'account', 'detail', 'cart', 'checkout']) $(name + '-view').hidden = name !== view;
+    const titles = {catalog: 'Catálogo', account: 'Mi cuenta', detail: 'Producto', cart: 'Carrito', checkout: 'Confirmar pedido'};
+    document.title = `Nexo · ${titles[view]}`;
     if (match) loadDetail(match[1]);
     else {detailController?.abort(); state.detailRequest++;}
+    commerce.route(view);
     $('main').focus({preventScroll: true}); window.scrollTo(0, 0);
   }
   window.addEventListener('hashchange', route);

@@ -213,8 +213,9 @@ mediante el API Gateway. Con el backend configurado y sus migraciones aplicadas:
 docker compose -f docker-compose.yml -f compose.frontend.yml up -d --build frontend
 ```
 
-Abrir `http://127.0.0.1:8080/`. Carrito, pedidos y pagos siguen pendientes de
-integracion visual. La galeria de Stitch en el puerto 5173 es una referencia con
+Abrir `http://127.0.0.1:8080/`. Carrito y creacion/recuperacion del pedido ya estan
+integrados. Pago, historial y cancelacion siguen pendientes de integracion visual.
+La galeria de Stitch en el puerto 5173 es una referencia con
 datos ficticios. Ver [alcance, arranque y pruebas del frontend](frontend/README.md).
 Este complemento es posterior a la evidencia de instalacion limpia del backend;
 su verificacion especifica esta en `docs/frontend/integracion.json`.

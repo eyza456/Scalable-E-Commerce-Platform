@@ -10,6 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+  <script src="commerce.js" defer></script>
   <script src="app.js" defer></script>
 </head>
 <body>
@@ -19,6 +20,7 @@
     <a href="#catalogo" class="brand" aria-label="Nexo, catálogo">NEXO</a>
     <nav aria-label="Navegación principal">
       <a href="#catalogo">Catálogo</a>
+      <a href="#carrito" id="cart-link">Carrito</a>
       <a href="#cuenta" id="account-link">Iniciar sesión</a>
       <button id="logout" class="link-button" hidden>Cerrar sesión</button>
     </nav>
@@ -73,9 +75,36 @@
     <section id="detail-view" aria-labelledby="detail-title" hidden>
       <a href="#catalogo" class="back">← Volver al catálogo</a>
       <p id="detail-status" role="status"></p><div id="detail-error" class="feedback error" role="alert" hidden></div>
-      <div id="detail" class="detail" hidden><div id="detail-image"></div><div><p id="detail-category" class="eyebrow"></p><h1 id="detail-title"></h1><p id="detail-price" class="price"></p><p id="detail-stock"></p><p id="detail-description" class="description"></p><p class="muted">La compra desde esta interfaz estará disponible en la siguiente etapa.</p></div></div>
+      <div id="detail" class="detail" hidden><div id="detail-image"></div><div><p id="detail-category" class="eyebrow"></p><h1 id="detail-title"></h1><p id="detail-price" class="price"></p><p id="detail-stock"></p><p id="detail-description" class="description"></p>
+        <form id="add-form"><label for="add-quantity">Cantidad</label><input id="add-quantity" type="number" min="1" max="100" value="1" required><button type="submit" id="add-button">Agregar al carrito</button></form>
+        <p id="add-status" class="feedback" role="status" aria-live="polite"></p><p id="add-error" class="feedback error" role="alert" hidden></p><a href="#carrito">Ver mi carrito</a>
+      </div></div>
+    </section>
+    <section id="cart-view" aria-labelledby="cart-title" hidden>
+      <div class="intro"><p class="eyebrow">TU SELECCIÓN</p><h1 id="cart-title">Carrito de compras</h1><p class="lead">Revisa las cantidades antes de confirmar tu pedido.</p></div>
+      <div class="session-needed" hidden><p>Inicia sesión para consultar tu carrito.</p><a href="#cuenta" class="button">Ir a mi cuenta</a></div>
+      <div id="cart-private" hidden>
+        <p id="cart-status" role="status" aria-live="polite"></p><p id="cart-error" class="feedback error" role="alert" hidden></p>
+        <button id="refresh-cart" class="secondary">Actualizar carrito</button>
+        <div id="cart-items" aria-busy="false"></div>
+        <div id="cart-summary" class="cart-summary" hidden><p>Total del carrito <strong id="cart-total"></strong></p><small>El servidor volverá a comprobar precios y disponibilidad al confirmar. Los productos aún no están reservados.</small><a href="#checkout" class="button">Revisar pedido</a></div>
+        <a id="recover-checkout" href="#checkout" class="button" hidden>Consultar mi pedido</a>
+      </div>
+    </section>
+    <section id="checkout-view" aria-labelledby="checkout-title" hidden>
+      <div class="intro"><p class="eyebrow">REVISIÓN FINAL</p><h1 id="checkout-title">Confirmar pedido</h1><p class="lead">Comprueba tu selección. El pago se realizará en un paso posterior.</p></div>
+      <div class="session-needed" hidden><p>Inicia sesión para continuar con tu pedido.</p><a href="#cuenta" class="button">Ir a mi cuenta</a></div>
+      <div id="checkout-private" hidden>
+        <p id="checkout-status" class="feedback" role="status" aria-live="polite"></p><p id="checkout-error" class="feedback error" role="alert" hidden></p>
+        <div id="checkout-items"></div><p id="checkout-total" class="price"></p>
+        <button id="confirm-order" hidden>Confirmar pedido</button>
+        <button id="check-order" class="secondary" hidden>Consultar resultado</button>
+        <button id="resume-order" hidden>Reintentar el mismo pedido</button>
+        <div id="order-result" class="order-result" hidden><h2>Pedido creado</h2><dl><dt>Número de pedido</dt><dd id="order-number"></dd><dt>Estado</dt><dd id="order-status"></dd></dl><p>No se ha realizado ningún cobro. La interfaz de pago se integrará en el siguiente paso.</p></div>
+        <a href="#carrito" class="back">← Volver al carrito</a>
+      </div>
     </section>
   </main>
-  <footer><span class="brand">Nexo</span><p>Objetos para tu día a día.</p><small>Catálogo y cuentas conectados. Carrito, pedidos y pagos pendientes de integración visual.</small></footer>
+  <footer><span class="brand">Nexo</span><p>Objetos para tu día a día.</p><small>Catálogo, cuentas, carrito y creación de pedidos conectados. Pago e historial pendientes de integración visual.</small></footer>
 </body>
 </html>

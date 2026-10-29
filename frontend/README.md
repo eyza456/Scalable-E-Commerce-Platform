@@ -8,7 +8,7 @@ Nombre Nexo provisional; no representa una marca definitiva.
 
 `app/` contiene registro, inicio de sesion, consulta de la cuenta autenticada,
 cierre local de sesion, catalogo con filtros por nombre/categoria/disponibilidad,
-paginacion y detalle. Los productos, precios y stock vienen del backend real.
+paginacion, detalle, carrito y creacion de pedidos. Los productos, precios y stock vienen del backend real.
 No se crean datos de demostracion al arrancar.
 
 Con el backend configurado y sus migraciones aplicadas, desde la raiz:
@@ -66,8 +66,9 @@ sus dependencias, accesibilidad y recursos de forma explicita.
 
 1. Registro e inicio de sesion: integrados en `app/`.
 2. Catalogo, categorias y detalle: integrados en `app/`.
-3. Carrito: `/api/cart`.
-4. Checkout y consulta del pedido: `/api/orders`.
+3. Carrito integrado: altas desde detalle, actualizar cantidad/precio y quitar.
+4. Checkout integrado: revision y confirmacion por `/api/orders`, recuperacion
+   mediante `/api/orders/checkouts/{id}` y visualizacion del pedido creado.
 5. Pago simulado: `/api/payments`; aprobado o rechazado, con reintento permitido.
 6. Historial y cancelacion segun estado: `/api/orders`.
 7. Consulta de cuenta integrada; edicion de perfil y renovacion del token pendientes.
@@ -102,3 +103,31 @@ elimina exclusivamente esos registros al finalizar. Usa APIs reales e identifica
 expresamente los errores 503/401 inyectados. Genera `docs/frontend/integracion.json`
 y capturas. Es adicional a la suite del backend; no cambia el recuento historico
 de 153 pruebas. No necesita administradores reales ni registra credenciales.
+
+## Carrito y checkout
+
+`app/commerce.js` controla el carrito y la creacion del pedido. Requiere iniciar
+sesion. El alta del producto se hace desde su detalle; las cantidades admiten
+1 a 100 unidades, limitadas tambien por el stock que valida el servidor.
+
+La confirmacion envia la version real del carrito como `Idempotency-Key`. Los
+botones se bloquean mientras hay una mutacion en curso. Ante una respuesta perdida,
+se consulta el carrito y el checkout antes de ofrecer un reintento explicito con
+la misma clave. Nunca se repite automaticamente un POST. Los checkouts pendientes
+se consultan con GET hasta diez veces mientras se muestra el checkout, luego se
+permite consulta manual. Navegar fuera o cerrar sesion detiene el sondeo.
+
+Si otra pestaña modifica el carrito, se exige revisarlo. Si cambia precio, stock
+o actividad, el servidor puede rechazar el checkout. Actualizar una cantidad
+refresca su precio en el carrito; despues se puede confirmar de nuevo.
+
+Recargar sigue cerrando la sesion en memoria. Al volver a entrar al carrito, se
+consulta `checkout_id` o, si esta vacio, `last_checkout_id` para recuperar el pedido
+existente. No se guardan tokens ni referencias en almacenamiento del navegador.
+Un pedido creado queda pendiente de pago; esta etapa no procesa cobros ni reservas
+de inventario. El carrito no equivale a una reserva de stock.
+
+Prueba adicional: `node tests/frontend_commerce.cjs`. Utiliza Playwright/Edge con
+las mismas variables del test anterior y fixtures propias eliminadas al terminar.
+Resultado y capturas en `docs/frontend/carrito-checkout.json` y
+[detalle de verificacion](../docs/frontend/carrito-checkout.md).

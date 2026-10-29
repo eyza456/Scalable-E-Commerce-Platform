@@ -455,3 +455,28 @@ footer p {
     scroll-behavior:auto!important;
   }
 }
+
+/* Cart and checkout share the editorial borders and surfaces from Stitch. */
+#add-form {display:flex;flex-wrap:wrap;align-items:end;gap:12px;margin:28px 0 16px}
+#add-form label {width:100%;margin:0}
+#add-quantity {width:100px}
+.cart-row {border-bottom:1px solid var(--line);padding:24px 0;overflow-wrap:anywhere}
+.cart-row h2 {font:600 18px/1.5 'Plus Jakarta Sans',system-ui,sans-serif;margin:0 0 8px}
+.cart-controls {display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:16px 0}
+.cart-controls label {margin:0}
+.cart-controls input {width:90px}
+.cart-summary,.order-result {padding:28px;border:1px solid var(--line);background:var(--surface);margin:28px 0}
+.cart-summary strong {font:30px Georgia,serif;margin-left:16px}
+.cart-summary .button {margin-top:20px}
+.review-row {display:flex;justify-content:space-between;gap:24px;padding:20px 0;border-bottom:1px solid var(--line);overflow-wrap:anywhere}
+.review-row span {min-width:0}
+.review-row strong {flex-shrink:0}
+#checkout-private>button {margin:8px 12px 12px 0}
+#checkout-private>.back {display:block}
+.empty-cart {margin:30px 0}
+@media(max-width:500px) {
+  .cart-summary {padding:20px}
+  .cart-summary strong {display:block;margin-left:0}
+  .cart-controls {gap:8px}
+  .cart-controls button {padding:10px 14px}
+}
