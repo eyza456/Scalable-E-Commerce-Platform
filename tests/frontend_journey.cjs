@@ -1,7 +1,7 @@
 /* UI-only customer journey; direct SQL is limited to owned fixture setup,
  * read-only business verification and cleanup. No bank data or real charges. */
 const {chromium} = require('playwright');
-const axe = require('./browser-tools/node_modules/axe-core');
+const axe = require(process.env.AXE_CORE_MODULE || './browser-tools/node_modules/axe-core');
 const {execFileSync} = require('node:child_process');
 const {randomUUID, createHash} = require('node:crypto');
 const fs = require('node:fs'), assert = require('node:assert/strict');
@@ -9,7 +9,9 @@ const marker = 'journey-' + randomUUID().replaceAll('-', '');
 const name = 'Lámpara de mesa · Demo ' + marker.slice(-6), password = 'Ui-' + randomUUID();
 let email = marker + '@example.com', browser, user, product;
 const orders = [], report = {scope:'UI-only customer journey; automated axe, keyboard and reflow checks in local Edge',steps:[],audits:[],keyboard:[],layouts:[],cleanup:false};
-const service = (name, code, ...args) => execFileSync('docker',['compose','exec','-T',name,'python','-c',code,...args.map(String)],{encoding:'utf8'}).trim();
+const compose = process.env.TEST_COMPOSE_ARGS ? JSON.parse(process.env.TEST_COMPOSE_ARGS) : ['docker','compose'];
+if (process.env.TEST_COMPOSE_ARGS) assert.ok(compose[0]==='docker' && compose[1]==='compose' && compose[2]==='--project-name' && compose[3].startsWith('fresh-'));
+const service = (name, code, ...args) => execFileSync(compose[0],[...compose.slice(1),'exec','-T',name,'python','-c',code,...args.map(String)],{encoding:'utf8'}).trim();
 const step = async (name, fn) => {await fn();report.steps.push(name);console.log('OK:',name);};
 (async()=>{
   product = Number(service('product-service', `

@@ -1,5 +1,6 @@
 """Prueba HTTP local con datos propios. Limpia solo los registros que crea."""
 import json
+import os
 import http.client
 import subprocess
 import time
@@ -9,8 +10,12 @@ import uuid
 
 
 def service_code(service, code, *args):
+    prefix = json.loads(os.environ.get("TEST_COMPOSE_ARGS", '["docker", "compose"]'))
+    if "TEST_COMPOSE_ARGS" in os.environ:
+        assert prefix[:3] == ["docker", "compose", "--project-name"]
+        assert prefix[3].startswith("fresh-"), "Solo proyectos de instalacion aislados"
     return subprocess.run(
-        ["docker", "compose", "exec", "-T", service, "python", "-c", code, *map(str, args)],
+        [*prefix, "exec", "-T", service, "python", "-c", code, *map(str, args)],
         check=True, capture_output=True, text=True,
     ).stdout.strip()
 

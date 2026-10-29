@@ -1,0 +1,120 @@
+{
+  "project": "fresh-372569c162f4",
+  "executed_at": "2026-10-29T22:44:21.336677+00:00",
+  "checks": {
+    "configuration": "Plantilla independiente; sin .env ni datos locales",
+    "frontend_configuration": "Actual frontend overlay; isolated project, network and loopback random port",
+    "alembic": "b1c5a09e3d72 (head); upgrade repeated",
+    "initial_start": "14 running containers; zero unexpected restarts",
+    "frontend": "HTML/assets/proxy/auth/internal-route protection checked; empty catalog",
+    "schemas": {
+      "user-service": {
+        "users": [
+          "email"
+        ]
+      },
+      "order-service": {
+        "orders": [
+          "checkout_id"
+        ],
+        "order_items": [
+          "product_id"
+        ],
+        "checkouts": [
+          "state"
+        ]
+      },
+      "payment-service": {
+        "payments": [
+          "event_payload",
+          "processed_at",
+          "simulation_result",
+          "rejection_code"
+        ],
+        "outbox_events": [
+          "destination"
+        ],
+        "order_cancellations": [
+          "status"
+        ]
+      },
+      "product-service": {
+        "products": [
+          "category_id"
+        ],
+        "categories": [
+          "name"
+        ],
+        "inventory_reservations": [
+          "status"
+        ],
+        "inventory_cancellations": [
+          "order_id"
+        ],
+        "processed_payment_events": [
+          "transaction_id"
+        ]
+      }
+    },
+    "purchase": {
+      "order_status": "PAID",
+      "stock": 3,
+      "outbox_published": 3,
+      "reservation": "CONSUMED",
+      "notification": "received",
+      "rejected_attempt": "INSUFFICIENT_FUNDS"
+    },
+    "restart_persistence": "users, categories/products, orders, payments and Redis cart",
+    "browser": {
+      "status": "passed",
+      "steps": 9,
+      "audits": 14,
+      "violations": 0,
+      "incomplete": 0,
+      "reflow_checks": 12,
+      "fixtures_cleaned": true,
+      "report": "instalacion-cero/recorrido-accesibilidad.json"
+    },
+    "original_installation": "Original IDs, start times and restart counts unchanged"
+  },
+  "volumes": [
+    "fresh-372569c162f4_order_postgres_data",
+    "fresh-372569c162f4_payment_postgres_data",
+    "fresh-372569c162f4_product_postgres_data",
+    "fresh-372569c162f4_user_postgres_data"
+  ],
+  "readme_sha256": "198bd8f2717187275f899ef09cccab2c35350ed1e8812c6ce3d6004ee112629f",
+  "source_commit": "53ee913b3aecad27467a0d6ffd8aeff1ddf76f7d",
+  "source_note": "Tracked working-tree bytes copied at preparation; hashes identify exact sources, including staged edits",
+  "sha256": {
+    "README.md": "bab79da93153c300696a8f6f5f66aa567781101014c5c730db725bf651001206",
+    "frontend/README.md": "3e946db64f41223c3afe93e8211f8b3e3d93b044042c8da3207e95da80312cde",
+    ".env.example": "1d0ff79b53e3a78d9cb5a3f6a63e8404c2849d834c5ddaaf10673973837f093b",
+    "docker-compose.yml": "c0fefe69d42dc13e8a6b66a8c4a1b023a8393b78b9403abf241844812cd21115",
+    "compose.frontend.yml": "28192dae4badfce6b8aded5f34ef8eee5b443b75c566cfb383b0d30c1d545f96",
+    "frontend/Dockerfile": "15308c7c91faac8bdbf37762ff95ca19fbb120549b7aa25a678fc80b1d773411",
+    "frontend/nginx.conf": "b8b0cb91a4d13ebe2907bb52a25e8cc49215e7dc2e6dbf8ca7ff8ba09ff68e3e",
+    "tests/fresh_install.py": "513b0b86956c6840a5e68ebff63954713e93ca266cbda69ab691c30483908741",
+    "tests/smoke_purchase.py": "7e6a4f6bb7ef03f342766cbd601c70d9522877e8e40a38f8092b0de1fcfdd88c",
+    "tests/frontend_journey.cjs": "3aa2bd6ea7e3a33175fda13b9401e2defd234d8ff80e76ba773afdadc62a2e89",
+    "tests/browser-tools/package-lock.json": "43033a83268765d1db148914694aef47c77355c5af08f61e0b17e03108d09bfd",
+    "frontend/app/app.js": "babd84b93887314216e8f49862d629305fd685ead31d824426810ec947a89e55",
+    "frontend/app/commerce.js": "bb7b0357b83602eb97671e63201059e42281bfb7cb7e99070b0dadab1ba571f3",
+    "frontend/app/favicon.svg": "e4a3c6ef07c5b1a3c631b865b3693197a048c8e4a2b4346f70c2186368a446ee",
+    "frontend/app/index.html": "0a5b0f3e043747d9ca7f24526822679133202db8db03282a2488c194ef425b44",
+    "frontend/app/orders.js": "512d941f9fd54e3eef8498efe5e80e42dc84933838f25b8b8b94050fbe9d1ee4",
+    "frontend/app/payments.js": "24525fa846c53cf471896dec7415de3d197519dcdf4ae2f0c8474e3a5ea347f8",
+    "frontend/app/profile.js": "9303eaa8def0ea928e536f0e864d91156b1d4476373a00db3fc2b2a5afdfa014",
+    "frontend/app/styles.css": "d9ec109a0e4ab1d1055cc78be3ef1a47de8f11be8e1c459d1b2a9a7a7f455da4"
+  },
+  "runner_sha256": "a561439c92d4b7d82e67054ad0bf0c6543e94feb8c7afa87214d84dbf26b891c",
+  "host": {
+    "system": "Windows",
+    "python": "3.12.0",
+    "node": "v26.4.0",
+    "compose": "5.4.0",
+    "docker": "29.7.2"
+  },
+  "status": "passed",
+  "cleanup": "Proyecto aislado eliminado; sin volumenes residuales"
+}

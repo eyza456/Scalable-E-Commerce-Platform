@@ -13,6 +13,15 @@ Candidato local para revision funcional, fechado el 28 de octubre de 2026. Inclu
 - [Contrato de checkout](../auditoria/cierre-hallazgos.md), [pagos simulados](../pagos-simulados.md), [API Gateway](../api-gateway.md) y [cancelaciones](../pedidos.md).
 - [Notas de version](notas-version.md).
 
+## Complemento frontend posterior a la RC
+
+El arbol actual incorpora la interfaz de cliente basada en Stitch y su
+[demostracion visual](../frontend/demostracion-visual.md). La [instalacion limpia
+completa](../frontend/instalacion-desde-cero.md) se verifico el 29 de octubre:
+14 contenedores, migraciones, reinicio/persistencia y recorrido UI sobre el stack
+nuevo. Estas mejoras son posteriores a `v0.1.0-rc.1`; no se modifica esa etiqueta
+ni se afirma que la RC original contenga el frontend actual.
+
 ## Verificacion por el receptor
 
 Configurar .env desde .env.example y ejecutar los pasos ordenados del README. Con la plataforma activa:

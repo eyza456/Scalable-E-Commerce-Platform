@@ -99,6 +99,7 @@ navegador al 200%, todos los navegadores ni condiciones productivas.
 ## Siguiente cierre
 
 La demostracion valida el recorrido principal del cliente. Para ampliar la entrega:
-revision con lector de pantalla y otro navegador, instalacion limpia incluyendo
-el complemento frontend, y documentacion final. Las pantallas administrativas y
+revision con lector de pantalla y otro navegador, y documentacion final. La
+[instalacion limpia con frontend](instalacion-desde-cero.md) ya esta verificada.
+Las pantallas administrativas y
 los pendientes de replicas, portabilidad y operacion del backend siguen separados.
