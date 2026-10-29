@@ -1,0 +1,22 @@
+{
+  "recorded_at": "2026-10-29T16:53:34.546947+00:00",
+  "scope": "Targeted payment tests; not the full historical backend suite",
+  "observed_exit_code": 0,
+  "runs": [
+    {
+      "command": "Get-Content tests/payment_stability.py -Raw | docker compose exec -T payment-service python -",
+      "tests": 39,
+      "result": "OK"
+    },
+    {
+      "command": "Get-Content tests/payment_latest.py -Raw | docker compose exec -T payment-service python -",
+      "tests": 3,
+      "result": "OK"
+    }
+  ],
+  "sha256": {
+    "tests/payment_stability.py": "8ce8ff8b37c497eb62afc2f2faab7547430db3d5bd2df859a6f93c6d4f16590e",
+    "tests/payment_latest.py": "0fc2b47d7fae58a4434045392a7f3eb2afad3f3611f92fcadc96a07a4eb4a07a",
+    "services/payment-service/app/routers/payments.py": "2c5b0c65cc4d6faebf43b73d62e7298e579226e5547a8e31886fcf1e4622390b"
+  }
+}

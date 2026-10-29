@@ -38,8 +38,8 @@ no representan el contenido actual del catalogo. La configuracion Nginx paso `ng
 ## Limites y siguiente etapa
 
 El carrito y la creacion/recuperacion de pedidos se integraron posteriormente;
-ver [carrito y checkout](carrito-checkout.md). Siguen pendientes pago simulado,
-historial, cancelaciones y edicion de perfil. No hay administracion visual de
+ver [carrito y checkout](carrito-checkout.md). El [pago simulado](pagos.md) tambien
+esta integrado. Siguen pendientes historial, cancelaciones y edicion de perfil. No hay administracion visual de
 productos. Recargar termina la sesion local; cerrar sesion no
 revoca tokens en otros clientes. No hay pagos bancarios reales ni HTTPS productivo.
 

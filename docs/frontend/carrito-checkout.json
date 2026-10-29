@@ -16,12 +16,13 @@
   ],
   "cleanup": true,
   "status": "passed",
-  "date": "2026-10-29T16:31:34.452Z",
+  "date": "2026-10-29T16:53:18.532Z",
   "sha256": {
     "frontend/app/app.js": "6ab387516e1591ace6c18d6b0f1424d099eba90b64a7e9f5f0b8a0d0f7b601f7",
-    "frontend/app/commerce.js": "81c16a0ac9664d24bac41eed6c9bba9f8d8e5d8b9838947b9436077c840aa303",
-    "frontend/app/index.html": "47cfb97f2838cfa465565f71fdb0eebf5ab44f7b73066440faa92f1817cc51e2",
-    "frontend/app/styles.css": "c6cde28c9d14f82e2fc5b9c8f535435178b971e85c1f33f56933f56d90427c17",
-    "tests/frontend_commerce.cjs": "4a0647ddc64a1afeaeb1c060632dff9db40496eb5efa8d39156cc0c35e20dcda"
+    "frontend/app/commerce.js": "dd369155aa46e1b43dfd27519a9e8c0c46c055fe0db9fe17913db4b6153fe71d",
+    "frontend/app/payments.js": "aff0973773911c558613e2675cbdf41813fbccc33fef45de017f769d25ecd598",
+    "frontend/app/index.html": "686ccbca94981cb73af670b1ca5cd545e93b08eb7304294e0ab454de25b001e8",
+    "frontend/app/styles.css": "d4c7b0f2918c165ca03755d33722a9cf82cbd01af38f1a17164c59009bf9a760",
+    "tests/frontend_commerce.cjs": "c340f1ac494a73ae051f60d227b00d4deade3944f12272b7982cdbf84dc2d6bf"
   }
 }

@@ -473,6 +473,12 @@ footer p {
 .review-row strong {flex-shrink:0}
 #checkout-private>button {margin:8px 12px 12px 0}
 #checkout-private>.back {display:block}
+#payment-panel {border-top:1px solid var(--line);margin-top:24px;padding-top:20px}
+#payment-form {max-width:520px;margin:24px 0}
+#payment-form button {margin-top:16px}
+#payment-result dd {margin:0 0 14px;overflow-wrap:anywhere}
+#payment-result dt {font-size:12px;color:var(--muted)}
+#resume-payment {margin-top:12px}
 .empty-cart {margin:30px 0}
 @media(max-width:500px) {
   .cart-summary {padding:20px}

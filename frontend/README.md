@@ -8,7 +8,8 @@ Nombre Nexo provisional; no representa una marca definitiva.
 
 `app/` contiene registro, inicio de sesion, consulta de la cuenta autenticada,
 cierre local de sesion, catalogo con filtros por nombre/categoria/disponibilidad,
-paginacion, detalle, carrito y creacion de pedidos. Los productos, precios y stock vienen del backend real.
+paginacion, detalle, carrito, creacion de pedidos y pago simulado. Los productos,
+precios y stock vienen del backend real.
 No se crean datos de demostracion al arrancar.
 
 Con el backend configurado y sus migraciones aplicadas, desde la raiz:
@@ -69,7 +70,8 @@ sus dependencias, accesibilidad y recursos de forma explicita.
 3. Carrito integrado: altas desde detalle, actualizar cantidad/precio y quitar.
 4. Checkout integrado: revision y confirmacion por `/api/orders`, recuperacion
    mediante `/api/orders/checkouts/{id}` y visualizacion del pedido creado.
-5. Pago simulado: `/api/payments`; aprobado o rechazado, con reintento permitido.
+5. Pago simulado integrado: `/api/payments`; aprobado o rechazado, con consulta
+   del ultimo intento antes de permitir otro envio.
 6. Historial y cancelacion segun estado: `/api/orders`.
 7. Consulta de cuenta integrada; edicion de perfil y renovacion del token pendientes.
 
@@ -124,10 +126,47 @@ refresca su precio en el carrito; despues se puede confirmar de nuevo.
 Recargar sigue cerrando la sesion en memoria. Al volver a entrar al carrito, se
 consulta `checkout_id` o, si esta vacio, `last_checkout_id` para recuperar el pedido
 existente. No se guardan tokens ni referencias en almacenamiento del navegador.
-Un pedido creado queda pendiente de pago; esta etapa no procesa cobros ni reservas
-de inventario. El carrito no equivale a una reserva de stock.
+Un pedido creado queda pendiente de pago. El carrito no equivale a una reserva
+de stock; el pago simulado aprobado reserva/consume inventario real del entorno.
 
 Prueba adicional: `node tests/frontend_commerce.cjs`. Utiliza Playwright/Edge con
 las mismas variables del test anterior y fixtures propias eliminadas al terminar.
 Resultado y capturas en `docs/frontend/carrito-checkout.json` y
 [detalle de verificacion](../docs/frontend/carrito-checkout.md).
+
+## Pago simulado
+
+La pantalla del pedido incorpora aprobacion y rechazos por fondos insuficientes,
+tarjeta vencida o emisor. No pide datos bancarios reales. Los rechazos de autorizacion
+no reservan stock; la aprobacion usa las reservas/eventos reales de este backend.
+El rechazo por falta de stock tambien se muestra con su motivo.
+
+`app/payments.js` consulta el ultimo intento y el estado del pedido antes de cada
+envio explicito. No envia POST automaticos. Ante perdida de respuesta, consulta
+`GET /api/payments/orders/{order_id}/latest`; este endpoint nuevo filtra por usuario
+autenticado y responde 404 para pedidos sin intentos propios. La referencia conocida
+se consulta tambien por `/api/payments/transactions/{transaction_id}`.
+
+Los intentos pendientes se consultan con GET, hasta diez sondeos automaticos, con
+consulta manual posterior. Cambiar de pantalla o cerrar sesion detiene el sondeo.
+La seleccion del resultado queda bloqueada mientras se procesa un intento. Si no
+se confirma su registro, puede ofrecerse reintento explicito de la misma simulacion.
+El servidor serializa por pedido y evita dos pagos PAID/reservas duplicadas; un
+nuevo rechazo explicitamente solicitado puede registrar otro intento rechazado.
+
+Tras actualizar una instalacion existente, recargar tambien payment-service:
+
+```powershell
+docker compose up -d --build payment-service
+docker compose -f docker-compose.yml -f compose.frontend.yml up -d --build --no-deps frontend
+```
+
+No hay migracion nueva. Para verificar: `node tests/frontend_payments.cjs`, mas
+las dos pruebas de navegador anteriores. Las pruebas Python adicionales se ejecutan
+dentro de payment-service:
+
+```powershell
+Get-Content tests/payment_latest.py -Raw | docker compose exec -T payment-service python -
+```
+
+Consultar [evidencia y limites](../docs/frontend/pagos.md).

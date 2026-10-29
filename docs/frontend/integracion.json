@@ -17,15 +17,16 @@
   ],
   "cleanup": true,
   "status": "passed",
-  "date": "2026-10-29T16:32:04.538Z",
+  "date": "2026-10-29T16:53:33.292Z",
   "sha256": {
-    "frontend/app/index.html": "47cfb97f2838cfa465565f71fdb0eebf5ab44f7b73066440faa92f1817cc51e2",
+    "frontend/app/index.html": "686ccbca94981cb73af670b1ca5cd545e93b08eb7304294e0ab454de25b001e8",
     "frontend/app/app.js": "6ab387516e1591ace6c18d6b0f1424d099eba90b64a7e9f5f0b8a0d0f7b601f7",
-    "frontend/app/commerce.js": "81c16a0ac9664d24bac41eed6c9bba9f8d8e5d8b9838947b9436077c840aa303",
-    "frontend/app/styles.css": "c6cde28c9d14f82e2fc5b9c8f535435178b971e85c1f33f56933f56d90427c17",
+    "frontend/app/commerce.js": "dd369155aa46e1b43dfd27519a9e8c0c46c055fe0db9fe17913db4b6153fe71d",
+    "frontend/app/payments.js": "aff0973773911c558613e2675cbdf41813fbccc33fef45de017f769d25ecd598",
+    "frontend/app/styles.css": "d4c7b0f2918c165ca03755d33722a9cf82cbd01af38f1a17164c59009bf9a760",
     "frontend/nginx.conf": "b8b0cb91a4d13ebe2907bb52a25e8cc49215e7dc2e6dbf8ca7ff8ba09ff68e3e",
     "frontend/Dockerfile": "15308c7c91faac8bdbf37762ff95ca19fbb120549b7aa25a678fc80b1d773411",
     "compose.frontend.yml": "28192dae4badfce6b8aded5f34ef8eee5b443b75c566cfb383b0d30c1d545f96",
-    "tests/frontend_browser.cjs": "7f2f97e54d98114061365b9ffe97ca7b26a6c5a3d67f94f9bc21a1c455f1ebd1"
+    "tests/frontend_browser.cjs": "53607b6f407502a283763678fac6459980875c61d752826bf33001a06e0eec3a"
   }
 }

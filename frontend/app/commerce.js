@@ -10,8 +10,12 @@ window.NexoCommerce = function ({api, state, $, feedback, element, money}) {
   const locked = () => working || loading || uncertainCart || Boolean(cart?.checkout_id) || ['pending', 'unknown', 'submitting'].includes(phase);
   const current = version => version === epoch && signed();
   const stopPolling = () => {clearTimeout(timer); timer = undefined;};
+  const payments = window.NexoPayments({api, $, feedback, money, state, onOrder(result) {
+    if (order && result.id === order.id) {order = result; render();}
+  }});
 
   function render() {
+    payments.order(signed() ? order : null);
     for (const panel of ['cart-private', 'checkout-private']) $(panel).hidden = !signed();
     document.querySelectorAll('.session-needed').forEach(node => {node.hidden = signed();});
     $('cart-link').textContent = cart && signed() ? `Carrito (${cart.items.reduce((sum, item) => sum + item.quantity, 0)})` : 'Carrito';
@@ -196,6 +200,7 @@ window.NexoCommerce = function ({api, state, $, feedback, element, money}) {
       feedback('add-status'); feedback('add-error'); render();
     },
     session(id) {
+      payments.session(id);
       if (id !== userId) {
         epoch++; userId = id; readVersion++; loading = false; working = false; uncertainCart = false;
         cart = null; resetCheckout();
@@ -204,6 +209,7 @@ window.NexoCommerce = function ({api, state, $, feedback, element, money}) {
       render();
     },
     route(name) {
+      payments.route(name);
       view = name; stopPolling();
       if (name === 'cart' || name === 'checkout') {polls = 0; if (!working) loadCart();}
       render();

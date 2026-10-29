@@ -9,7 +9,8 @@ sin modificar los microservicios ni las rutas del API Gateway. Disponible en
 Iniciar sesion -> abrir detalle de producto -> elegir cantidad -> agregar ->
 abrir carrito -> actualizar/quitar productos -> revisar pedido -> confirmar.
 La pantalla final presenta el numero, estado, items y total reales del pedido.
-No se procesa pago en esta etapa; el pedido queda pendiente de pago.
+Al crear el pedido queda pendiente de pago. El paso de pago simulado se integro
+despues; ver [pago simulado](pagos.md).
 
 El carrito se consulta mediante `/api/cart`. Sus mutaciones se envian a
 `/api/cart/items` y `/api/cart/items/{product_id}`. El servidor decide el precio,
@@ -65,6 +66,6 @@ Capturas con fixtures temporales ya eliminadas:
 
 ## Siguiente etapa
 
-Integrar pago simulado aprobado/rechazado y su recuperacion, despues historial,
-cancelacion y edicion de perfil. Los prototipos de esas pantallas siguen en
+Pago simulado aprobado/rechazado ya integrado: [detalle](pagos.md). Continuan
+pendientes historial, cancelacion y edicion de perfil. Sus prototipos siguen en
 `frontend/stitch/`; no representan funciones ya conectadas.

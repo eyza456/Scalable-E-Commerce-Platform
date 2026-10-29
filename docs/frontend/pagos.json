@@ -1,0 +1,28 @@
+{
+  "scope": "real payment/inventory/events; injected transport losses and 202 explicitly named",
+  "checks": [
+    "creating order does not submit a payment automatically",
+    "three real simulated rejections preserve stock and produce no paid events",
+    "explicit approved retry creates one paid attempt, one stock discount and three destination events",
+    "payment recovery endpoint requires auth and hides another owners attempt",
+    "lost successful payment response recovers latest attempt without a second POST",
+    "injected pending response polls GET and resolves the same real paid attempt",
+    "request lost before server needs explicit same-simulation retry",
+    "two tabs approving the same order produce a single paid attempt and reservation",
+    "stock exhausted after checkout rejects approved simulation without paid events",
+    "failed preflight lookup blocks payment POST until a successful state refresh",
+    "reload/login restores successful payment; mobile fits and logout clears transaction details"
+  ],
+  "cleanup": true,
+  "status": "passed",
+  "date": "2026-10-29T16:52:33.278Z",
+  "sha256": {
+    "frontend/app/payments.js": "aff0973773911c558613e2675cbdf41813fbccc33fef45de017f769d25ecd598",
+    "frontend/app/commerce.js": "dd369155aa46e1b43dfd27519a9e8c0c46c055fe0db9fe17913db4b6153fe71d",
+    "frontend/app/index.html": "686ccbca94981cb73af670b1ca5cd545e93b08eb7304294e0ab454de25b001e8",
+    "frontend/app/styles.css": "d4c7b0f2918c165ca03755d33722a9cf82cbd01af38f1a17164c59009bf9a760",
+    "services/payment-service/app/routers/payments.py": "2c5b0c65cc4d6faebf43b73d62e7298e579226e5547a8e31886fcf1e4622390b",
+    "tests/frontend_payments.cjs": "f8a9768e50f0a0b60ff79234984cd409007b55f22534543933645288328157fb",
+    "tests/payment_latest.py": "0fc2b47d7fae58a4434045392a7f3eb2afad3f3611f92fcadc96a07a4eb4a07a"
+  }
+}

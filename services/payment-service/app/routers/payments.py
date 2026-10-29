@@ -218,6 +218,21 @@ def cancel_order_payments(order_id: int, response: Response, db: Session = Depen
     return {"order_id": order_id, "user_id": cancellation.user_id, "status": cancellation.status}
 
 
+@router.get("/orders/{order_id}/latest", response_model=PaymentResponse)
+def get_latest_order_payment(
+    order_id: int,
+    current_user: dict = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    # Filtrar por propietario en SQL: no revelar intentos de pedidos ajenos.
+    payment = (db.query(Payment)
+               .filter(Payment.order_id == order_id, Payment.user_id == current_user["id"])
+               .order_by(Payment.id.desc()).first())
+    if payment is None:
+        raise HTTPException(404, "No hay intentos de pago para este pedido")
+    return payment
+
+
 @router.get("/transactions/{transaction_id}")
 def get_payment_by_transaction(
     transaction_id: str,

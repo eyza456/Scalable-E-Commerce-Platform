@@ -10,6 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+  <script src="payments.js" defer></script>
   <script src="commerce.js" defer></script>
   <script src="app.js" defer></script>
 </head>
@@ -100,11 +101,22 @@
         <button id="confirm-order" hidden>Confirmar pedido</button>
         <button id="check-order" class="secondary" hidden>Consultar resultado</button>
         <button id="resume-order" hidden>Reintentar el mismo pedido</button>
-        <div id="order-result" class="order-result" hidden><h2>Pedido creado</h2><dl><dt>Número de pedido</dt><dd id="order-number"></dd><dt>Estado</dt><dd id="order-status"></dd></dl><p>No se ha realizado ningún cobro. La interfaz de pago se integrará en el siguiente paso.</p></div>
+        <div id="order-result" class="order-result" hidden><h2>Pedido creado</h2><dl><dt>Número de pedido</dt><dd id="order-number"></dd><dt>Estado</dt><dd id="order-status"></dd></dl>
+          <section id="payment-panel" aria-labelledby="payment-title" hidden>
+            <h2 id="payment-title">Pago simulado</h2>
+            <p>Esta es una demostración. No se solicita información bancaria ni se cobra dinero real.</p>
+            <p id="payment-status" class="feedback" role="status" aria-live="polite"></p>
+            <p id="payment-error" class="feedback error" role="alert" hidden></p>
+            <dl id="payment-result" hidden><dt>Referencia</dt><dd id="payment-reference"></dd><dt>Importe</dt><dd id="payment-amount"></dd><dt>Finalizado</dt><dd id="payment-date"></dd></dl>
+            <form id="payment-form" hidden><label for="simulation-result">Resultado que quieres simular</label><select id="simulation-result"><option value="approved">Pago aprobado</option><option value="insufficient_funds">Rechazo: fondos insuficientes</option><option value="expired_card">Rechazo: tarjeta vencida</option><option value="card_declined">Rechazo del emisor</option></select><button type="submit" id="pay-button">Simular pago</button></form>
+            <button type="button" id="refresh-payment" class="secondary">Consultar estado del pago</button>
+            <button type="button" id="resume-payment" hidden>Reintentar la misma simulación</button>
+          </section>
+        </div>
         <a href="#carrito" class="back">← Volver al carrito</a>
       </div>
     </section>
   </main>
-  <footer><span class="brand">Nexo</span><p>Objetos para tu día a día.</p><small>Catálogo, cuentas, carrito y creación de pedidos conectados. Pago e historial pendientes de integración visual.</small></footer>
+  <footer><span class="brand">Nexo</span><p>Objetos para tu día a día.</p><small>Catálogo, cuentas, carrito, pedidos y pago simulado conectados. Historial y cancelación pendientes de integración visual.</small></footer>
 </body>
 </html>
