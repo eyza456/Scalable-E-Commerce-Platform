@@ -1,6 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException, status, Query
 from sqlalchemy.orm import Session
-from sqlalchemy import update
 from app.models import Product
 from app.core.security import require_roles
 from app.schemas import StockDecrease
@@ -18,6 +17,7 @@ from app.schemas import (
     ProductResponse,
     ProductUpdate
 )
+from app.product_actions import decrease_stock
 
 
 router = APIRouter(
@@ -161,33 +161,4 @@ def decrease_product_stock(
     current_user: dict = Depends(require_roles("admin", "seller"))
 ):
 
-    product = get_product_by_id(
-        db=db,
-        product_id=product_id
-    )
-
-    if not product:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="Producto no encontrado"
-        )
-
-    result = db.execute(
-        update(Product)
-        .where(Product.id == product_id, Product.stock >= stock_data.quantity)
-        .values(stock=Product.stock - stock_data.quantity)
-        .execution_options(synchronize_session=False)
-    )
-
-    if result.rowcount != 1:
-
-        db.rollback()
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Stock insuficiente"
-        )
-
-    db.commit()
-    db.refresh(product)
-
-    return product
+    return decrease_stock(db, product_id, stock_data)
