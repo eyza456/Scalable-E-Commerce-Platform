@@ -75,22 +75,24 @@ Los cambios nuevos deben estar al menos agregados a Git para entrar en la copia.
 - [Independencia completa](independencia.json): repite la prueba funcional y
   escala cada uno de los seis microservicios 2/3/1/2, espera la salud de todos
   sus procesos y verifica que los otros cinco conservan sus IDs.
+  El driver escribe tambien `resultado.json` como alias de esa misma ejecucion;
+  no se cuentan esos dos archivos como pruebas ejecutadas por separado.
 
 ## Limites de la evidencia
 
-La carga multinstancia aprobo el perfil original: 17.335 solicitudes medidas,
-0 errores y 991 compras contando el calentamiento. A 20 usuarios:
+La carga multinstancia aprobo el perfil original: 18.235 solicitudes medidas.
+0 errores y 1.052 compras contando el calentamiento. A 20 usuarios:
 
 | Operacion | p95 observado | Limite p95 sin cambios |
 | --- | ---: | ---: |
-| Historial | 448,06 ms | 500 ms |
-| Checkout | 1.157,40 ms | 1.500 ms |
-| Pago | 823,81 ms | 2.000 ms |
-| Compra completa | 3.374,31 ms | 10.000 ms |
+| Historial | 404,69 ms | 500 ms |
+| Checkout | 1.121,53 ms | 1.500 ms |
+| Pago | 911,85 ms | 2.000 ms |
+| Compra completa | 3.161,80 ms | 10.000 ms |
 
 Tambien aprobaron p99, muestras minimas, errores, throughput e invariantes.
-El throughput util a 20 usuarios fue 99,62 solicitudes/s. Historial queda a
-aproximadamente un 10% de su limite p95. No se infiere mejora frente a la
+El throughput util a 20 usuarios fue 98,89 solicitudes/s. Historial queda a
+aproximadamente un 19% de su limite p95. No se infiere mejora frente a la
 medicion historica de una instancia: es otro perfil con mas procesos en el
 mismo host y se acredita capacidad multinstancia local, no ganancia lineal.
 

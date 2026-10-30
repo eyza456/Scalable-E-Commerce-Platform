@@ -97,7 +97,15 @@
     "multiall": "tests/multinstance_independence.py",
     "multiresult": "docs/escalabilidad/resultado.json",
     "multiindependent": "docs/escalabilidad/independencia.json",
-    "multiload": "docs/escalabilidad/carga/resultado.json"
+    "multiload": "docs/escalabilidad/carga/resultado.json",
+    "oactions": "services/order-service/app/order_actions.py",
+    "orepository": "services/order-service/app/order_repository.py",
+    "coperations": "services/cart-service/app/cart_operations.py",
+    "oclients": "services/order-service/app/checkout_clients.py",
+    "importtest": "tests/import_lifecycle.py",
+    "modularitydoc": "docs/modularidad.md",
+    "oschema": "services/order-service/app/schema.py",
+    "omain": "services/order-service/app/main.py"
   },
   "requirements": {
     "RF-01": [
@@ -671,7 +679,7 @@
         "ordertest@test_history_releases_read_connection_and_preserves_response_schema",
         "multiload"
       ],
-      "Cumplido para el perfil local-mvp-20vu-v1 sin cambiar objetivos: a 20 usuarios historial p95 286.88 ms, checkout 770.97 ms, pago 525.38 ms y compra 2.738 s; todos los limites p95/p99, errores, muestras y throughput aprobados (122.96 req/s utiles). SQL/HTTP perfilados, transporte reutilizado con cookies/tokens aislados y conexion de historial liberada antes. No certifica produccion, otras cargas ni volumenes grandes. El perfil multinstancia adicional tambien se evalua con los mismos objetivos originales; ver su JSON separado, sin inferir mejora de capacidad ni rendimiento web."
+      "Revalidado tras refactor f94fed0 en perfil local-mvp-20vu-v1 con dos replicas por servicio y objetivos sin cambios: historial p95 404.69 ms, checkout 1121.53 ms, pago 911.85 ms, compra 3.162 s; los 30 criterios aprobados. La referencia previa de una instancia se conserva como historica. No certifica produccion, grandes volumenes, otros hosts ni rendimiento web."
     ],
     "RNF-02": [
       "Cumplido",
@@ -749,14 +757,16 @@
     "RNF-08": [
       "Parcial",
       [
-        "validation@verify_payment_and_order",
-        "orders@create_order",
-        "config"
+        "oclients@get_product",
+        "oclients@get_cart",
+        "validation",
+        "ocancel"
       ],
       [
-        "resilience"
+        "checkouttest@test_incompatible_catalog_contract_never_creates_an_order",
+        "checkouttest@test_incompatible_cart_contract_is_unavailable_without_intent"
       ],
-      "Bases independientes y contratos HTTP/eventos, pero consumidores validan contra otras APIs y checkout depende de Cart. Minimizar acoplamiento sigue parcial."
+      "Adaptadores HTTP del checkout con contrato de producto local al consumidor y validacion de carrito; fallos incompatibles quedan controlados y recuperables. Persisten dependencias sincronas necesarias y falta extender adaptadores/contratos a cancelacion, pagos y eventos. Sigue parcial."
     ],
     "RNF-09": [
       "Cumplido",
@@ -899,13 +909,19 @@
     "RNF-21": [
       "Parcial",
       [
-        "orders",
-        "cart",
-        "checkout",
-        "storage"
+        "oactions@list_orders",
+        "orepository@list_owned",
+        "coperations@add_item_to_cart",
+        "oschema@initialize_schema",
+        "omain@lifespan",
+        "pmain@lifespan"
       ],
-      [],
-      "Separacion modular mejorada con checkout/storage; routers aun mezclan coordinacion y acceso SQL y varias tablas se crean al importar. Refactorizacion no funcional pendiente; respaldos .bak estan excluidos de Git."
+      [
+        "importtest",
+        "checkouttest",
+        "modularitydoc"
+      ],
+      "Primera etapa: routers pedidos/carrito delegan operaciones; pedidos separa repositorio y adaptadores. Importar las seis ASGI no abre SQL/sockets ni inicia hilos; bootstrap y consumidores pasan al lifespan. Quedan negocio/SQL en pagos y otros routers, objetos HTTP en aplicacion y bootstrap sin migraciones en tres servicios. Sigue parcial."
     ],
     "RNF-22": [
       "Cumplido",
@@ -943,7 +959,7 @@
         "carttest",
         "demo"
       ],
-      "153 unittest y escenarios HTTP/migraciones/TTL-DLQ/gateway, incluida demostracion. Dieciocho regresiones del pool HTTP (seis por servicio) y una de esquema/liberacion SQL del historial; seis pruebas de metricas y benchmark separados. Perfil SQL/HTTP diagnostico y aceptacion se distinguen. Frontend: 56 escenarios, recorrido integral y 14 estados axe; instalacion nueva completa con navegador. Evidencias separadas por fecha y alcance."
+      "155 unittest y escenarios HTTP/migraciones/TTL-DLQ/gateway, incluida demostracion. Dieciocho regresiones del pool HTTP (seis por servicio) y una de esquema/liberacion SQL del historial; seis pruebas de metricas y benchmark separados. Perfil SQL/HTTP diagnostico y aceptacion se distinguen. Frontend: 56 escenarios, recorrido integral y 14 estados axe; instalacion nueva completa con navegador. Evidencias separadas por fecha y alcance. Seis verificaciones de importacion sin efectos y contratos incompatibles con ausencia de pedidos y recuperacion."
     ],
     "RNF-25": [
       "Cumplido",

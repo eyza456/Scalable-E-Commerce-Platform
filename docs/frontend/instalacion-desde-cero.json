@@ -1,6 +1,6 @@
 {
-  "project": "fresh-372569c162f4",
-  "executed_at": "2026-10-29T22:44:21.336677+00:00",
+  "project": "fresh-521ea098b078",
+  "executed_at": "2026-10-30T00:09:56.482085+00:00",
   "checks": {
     "configuration": "Plantilla independiente; sin .env ni datos locales",
     "frontend_configuration": "Actual frontend overlay; isolated project, network and loopback random port",
@@ -78,16 +78,16 @@
     "original_installation": "Original IDs, start times and restart counts unchanged"
   },
   "volumes": [
-    "fresh-372569c162f4_order_postgres_data",
-    "fresh-372569c162f4_payment_postgres_data",
-    "fresh-372569c162f4_product_postgres_data",
-    "fresh-372569c162f4_user_postgres_data"
+    "fresh-521ea098b078_order_postgres_data",
+    "fresh-521ea098b078_payment_postgres_data",
+    "fresh-521ea098b078_product_postgres_data",
+    "fresh-521ea098b078_user_postgres_data"
   ],
-  "readme_sha256": "198bd8f2717187275f899ef09cccab2c35350ed1e8812c6ce3d6004ee112629f",
-  "source_commit": "53ee913b3aecad27467a0d6ffd8aeff1ddf76f7d",
+  "readme_sha256": "9e4ae4a97248b7b8a18547e1b8b59f9c4c37e613e0a56983076c0f208538fab3",
+  "source_commit": "f94fed06cc97b332deb45767d442b5a10b732713",
   "source_note": "Tracked working-tree bytes copied at preparation; hashes identify exact sources, including staged edits",
   "sha256": {
-    "README.md": "bab79da93153c300696a8f6f5f66aa567781101014c5c730db725bf651001206",
+    "README.md": "f97f57606e167b036f7bb888d2008228cc8d4cf7adc24bd08a29f4dbc42d56f1",
     "frontend/README.md": "3e946db64f41223c3afe93e8211f8b3e3d93b044042c8da3207e95da80312cde",
     ".env.example": "1d0ff79b53e3a78d9cb5a3f6a63e8404c2849d834c5ddaaf10673973837f093b",
     "docker-compose.yml": "c0fefe69d42dc13e8a6b66a8c4a1b023a8393b78b9403abf241844812cd21115",
@@ -110,7 +110,7 @@
   "runner_sha256": "a561439c92d4b7d82e67054ad0bf0c6543e94feb8c7afa87214d84dbf26b891c",
   "host": {
     "system": "Windows",
-    "python": "3.12.0",
+    "python": "3.12.14",
     "node": "v26.4.0",
     "compose": "5.4.0",
     "docker": "29.7.2"

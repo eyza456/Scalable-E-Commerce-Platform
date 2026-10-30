@@ -5,8 +5,9 @@ Primera carga aprobada: 16.358 solicitudes medidas, 934 compras con calentamient
 
 El driver de carga posteriormente heredo la espera HTTP del driver de independencia
 y la comprobacion de escalado 2/3/1/2 de los seis servicios. Se repitio la misma
-carga y sus objetivos; el resultado vigente se guarda un nivel arriba. Los
-microservicios y el overlay no cambiaron entre ambas mediciones.
+carga y sus objetivos. Esas dos mediciones previas al refactor se conservan en
+Git `4d4158f`; los microservicios no cambiaron entre ellas. El resultado vigente,
+un nivel arriba, se revalida tras el refactor `f94fed0` y tiene sus propios hashes.
 
 Los hashes de este informe identifican el instrumento inicial y las fuentes
 copiadas, incluidos archivos entonces agregados a Git. No se presentan como

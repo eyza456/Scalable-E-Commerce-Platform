@@ -8,6 +8,10 @@ El avance posterior figura debajo. Una prioridad futura no equivale a cumplimien
 
 RNF-05 y RNF-06 cerrados en alcance local con [pruebas multinstancia](../escalabilidad/README.md). Estado actual: 72 cumplidos, 6 parciales y 0 pendientes. Restan RNF-08/21/27 y RF-49/RNF-07/RNF-15. La clasificacion y el orden originales se conservan a continuacion como antecedente; el siguiente bloque es RNF-08/21.
 
+Primera etapa de RNF-08/21 implementada: [separacion de pedidos/carrito, contratos
+e importacion sin efectos](../modularidad.md). Siguen parciales por el resto de
+routers, recuperadores, contratos remotos y migraciones pendientes.
+
 ## Criterio de alcance
 
 El PDF distingue los criterios de aceptacion de la primera version (pp.22-23)

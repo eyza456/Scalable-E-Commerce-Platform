@@ -2,7 +2,7 @@
 
 Revision de cierre: 29 de octubre de 2026. Candidato local del MVP con seis
 microservicios, API Gateway y frontend Nexo basado en Stitch. El codigo funcional
-de referencia es `7338855`; el perfil multinstancia adicional conserva ese codigo y aporta configuracion y pruebas nuevas.
+de referencia es `f94fed0`; el perfil multinstancia adicional conserva ese codigo y aporta configuracion y pruebas nuevas.
 
 ## Resultado y alcance
 
@@ -30,13 +30,14 @@ recuperacion de contraseña ni verificacion por correo.
 | [Cobertura visual](../auditoria/matriz-frontend.md) y [JSON](../auditoria/matriz-frontend.json) | Relacion RF/RNF con pantallas, API y limites |
 | [Guion visual completo](../frontend/demostracion-visual.md) | Recorrido cliente, teclado, movil y accesibilidad acotada |
 | [Guion API](demostracion.md) y [resultado](demo-resultados.json) | Incluye administracion y vaciado por API |
-| [Suite backend](../auditoria/resultado-suite.json) | 153 unittest y escenarios adicionales; cierre actual |
+| [Suite backend](../auditoria/resultado-suite.json) | 155 unittest y escenarios adicionales; cierre actual |
 | [Resumen frontend](../auditoria/resultado-frontend.json) | Fechas de 56 escenarios y recorrido; no cambia fechas al revisar |
 | [Instalacion completa](../frontend/instalacion-desde-cero.md) | 14 contenedores nuevos, migracion, reinicio y navegador |
 | [Rendimiento](../rendimiento/informe.md) | Medicion historica del perfil local, sin repetir carga |
 | [Pendientes](pendientes.md) y [notas de esta entrega](notas-entrega-integrada.md) | Limites reales y separacion de evoluciones |
 | [Plan de cierre de parciales](plan-cierre-parciales.md) | Clasificacion individual, orden y pruebas de aceptacion de los ocho parciales |
 | [Escalabilidad multinstancia](../escalabilidad/README.md) | Seis servicios replicados, escalado independiente y carga sin relajar objetivos |
+| [Modularidad y contratos](../modularidad.md) | Primera etapa de RNF-08/21; mantienen estado parcial |
 | [Manifiesto](manifiesto-entrega.json) | Hashes de fuentes/documentos/evidencias y referencia Git |
 
 ## Instalacion y acceso
@@ -71,7 +72,7 @@ instalacion limpia de pruebas crean y eliminan solo su proyecto independiente.
 Con el backend y frontend activos:
 
 ```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File tests/run_stability.ps1 *> docs/auditoria/suite-entrega-frontend.log
+powershell -NoProfile -ExecutionPolicy Bypass -File tests/run_stability.ps1 *> docs/auditoria/suite-modularidad.log
 $codigoSuite = $LASTEXITCODE
 if ($codigoSuite -ne 0) { throw 'La suite backend fallo; revisar el log' }
 npm ci --prefix tests/browser-tools --ignore-scripts --no-audit --no-fund
@@ -89,7 +90,7 @@ No se suman las auditorias axe ni sus verificaciones como si fueran unittest.
 Para regenerar las matrices despues de una ejecucion backend aprobada y guardada:
 
 ```powershell
-python docs/auditoria/generar_auditoria.py --suite-log docs/auditoria/suite-entrega-frontend.log --suite-exit-code 0
+python docs/auditoria/generar_auditoria.py --suite-log docs/auditoria/suite-modularidad.log --suite-exit-code 0
 ```
 
 Se necesita pypdf y el PDF original local (ruta configurable con `--pdf`). El

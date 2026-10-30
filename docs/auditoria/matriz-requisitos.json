@@ -842,11 +842,11 @@
     "code": [
       {
         "path": "services/cart-service/app/routers/cart.py",
-        "line": 48
+        "line": 18
       },
       {
         "path": "services/cart-service/app/routers/cart.py",
-        "line": 65
+        "line": 25
       }
     ],
     "verification": [
@@ -891,7 +891,7 @@
     "code": [
       {
         "path": "services/cart-service/app/routers/cart.py",
-        "line": 48
+        "line": 18
       },
       {
         "path": "services/cart-service/app/storage.py",
@@ -944,7 +944,7 @@
     "code": [
       {
         "path": "services/cart-service/app/routers/cart.py",
-        "line": 70
+        "line": 30
       }
     ],
     "verification": [
@@ -989,7 +989,7 @@
     "code": [
       {
         "path": "services/cart-service/app/routers/cart.py",
-        "line": 85
+        "line": 39
       }
     ],
     "verification": [
@@ -1038,7 +1038,7 @@
     "code": [
       {
         "path": "services/cart-service/app/routers/cart.py",
-        "line": 96
+        "line": 44
       },
       {
         "path": "services/cart-service/app/storage.py",
@@ -1078,7 +1078,7 @@
     "code": [
       {
         "path": "services/cart-service/app/routers/cart.py",
-        "line": 65
+        "line": 25
       }
     ],
     "verification": [
@@ -1123,7 +1123,7 @@
     "code": [
       {
         "path": "services/cart-service/app/routers/cart.py",
-        "line": 65
+        "line": 25
       }
     ],
     "verification": [
@@ -1168,11 +1168,11 @@
     "code": [
       {
         "path": "services/order-service/app/checkouts.py",
-        "line": 53
+        "line": 32
       },
       {
         "path": "services/order-service/app/checkouts.py",
-        "line": 93
+        "line": 82
       }
     ],
     "verification": [
@@ -1225,15 +1225,15 @@
     "code": [
       {
         "path": "services/order-service/app/routers/orders.py",
-        "line": 52
+        "line": 26
       },
       {
         "path": "services/order-service/app/checkouts.py",
-        "line": 138
+        "line": 141
       },
       {
         "path": "services/order-service/app/checkouts.py",
-        "line": 93
+        "line": 82
       }
     ],
     "verification": [
@@ -1380,7 +1380,7 @@
     "code": [
       {
         "path": "services/order-service/app/routers/orders.py",
-        "line": 52
+        "line": 26
       },
       {
         "path": "services/order-service/app/models.py",
@@ -1433,7 +1433,7 @@
       },
       {
         "path": "services/order-service/app/routers/orders.py",
-        "line": 52
+        "line": 26
       }
     ],
     "verification": [
@@ -1478,7 +1478,7 @@
     "code": [
       {
         "path": "services/order-service/app/checkouts.py",
-        "line": 53
+        "line": 32
       }
     ],
     "verification": [
@@ -1527,7 +1527,7 @@
     "code": [
       {
         "path": "services/order-service/app/routers/orders.py",
-        "line": 76
+        "line": 48
       }
     ],
     "verification": [
@@ -1576,7 +1576,7 @@
     "code": [
       {
         "path": "services/order-service/app/routers/orders.py",
-        "line": 122
+        "line": 92
       }
     ],
     "verification": [
@@ -1621,7 +1621,7 @@
     "code": [
       {
         "path": "services/order-service/app/routers/orders.py",
-        "line": 148
+        "line": 101
       },
       {
         "path": "services/order-service/app/cancellations.py",
@@ -1682,7 +1682,7 @@
     "code": [
       {
         "path": "services/order-service/app/routers/orders.py",
-        "line": 148
+        "line": 101
       },
       {
         "path": "services/order-service/app/core/security.py",
@@ -2352,7 +2352,7 @@
       },
       {
         "path": "services/order-service/app/routers/orders.py",
-        "line": 76
+        "line": 48
       },
       {
         "path": "services/order-service/app/http_client.py",
@@ -2381,7 +2381,7 @@
         "line": 1
       }
     ],
-    "finding": "Cumplido para el perfil local-mvp-20vu-v1 sin cambiar objetivos: a 20 usuarios historial p95 286.88 ms, checkout 770.97 ms, pago 525.38 ms y compra 2.738 s; todos los limites p95/p99, errores, muestras y throughput aprobados (122.96 req/s utiles). SQL/HTTP perfilados, transporte reutilizado con cookies/tokens aislados y conexion de historial liberada antes. No certifica produccion, otras cargas ni volumenes grandes. El perfil multinstancia adicional tambien se evalua con los mismos objetivos originales; ver su JSON separado, sin inferir mejora de capacidad ni rendimiento web.",
+    "finding": "Revalidado tras refactor f94fed0 en perfil local-mvp-20vu-v1 con dos replicas por servicio y objetivos sin cambios: historial p95 404.69 ms, checkout 1121.53 ms, pago 911.85 ms, compra 3.162 s; los 30 criterios aprobados. La referencia previa de una instancia se conserva como historica. No certifica produccion, grandes volumenes, otros hosts ni rendimiento web.",
     "scope": "MVP / calidad",
     "frontend": {
       "status": "Sin carga UI",
@@ -2403,7 +2403,7 @@
       },
       {
         "path": "services/order-service/app/checkouts.py",
-        "line": 27
+        "line": 24
       },
       {
         "path": "services/payment-service/app/inventory.py",
@@ -2654,25 +2654,33 @@
     "status": "Parcial",
     "code": [
       {
+        "path": "services/order-service/app/checkout_clients.py",
+        "line": 41
+      },
+      {
+        "path": "services/order-service/app/checkout_clients.py",
+        "line": 24
+      },
+      {
         "path": "services/product-service/app/services/payment_validation.py",
-        "line": 214
+        "line": 1
       },
       {
-        "path": "services/order-service/app/routers/orders.py",
-        "line": 52
-      },
-      {
-        "path": "services/payment-service/app/core/config.py",
+        "path": "services/order-service/app/cancellations.py",
         "line": 1
       }
     ],
     "verification": [
       {
-        "path": "tests/gateway_resilience.py",
-        "line": 1
+        "path": "tests/checkout_stability.py",
+        "line": 160
+      },
+      {
+        "path": "tests/checkout_stability.py",
+        "line": 176
       }
     ],
-    "finding": "Bases independientes y contratos HTTP/eventos, pero consumidores validan contra otras APIs y checkout depende de Cart. Minimizar acoplamiento sigue parcial.",
+    "finding": "Adaptadores HTTP del checkout con contrato de producto local al consumidor y validacion de carrito; fallos incompatibles quedan controlados y recuperables. Persisten dependencias sincronas necesarias y falta extender adaptadores/contratos a cancelacion, pagos y eventos. Sigue parcial.",
     "scope": "MVP / calidad",
     "frontend": null
   },
@@ -2794,7 +2802,7 @@
       },
       {
         "path": "services/order-service/app/checkouts.py",
-        "line": 53
+        "line": 32
       }
     ],
     "verification": [
@@ -3035,7 +3043,7 @@
       },
       {
         "path": "services/order-service/app/checkouts.py",
-        "line": 196
+        "line": 215
       },
       {
         "path": "services/order-service/app/cancellations.py",
@@ -3125,7 +3133,7 @@
       },
       {
         "path": "services/payment-service/app/main.py",
-        "line": 57
+        "line": 48
       }
     ],
     "verification": [
@@ -3169,24 +3177,45 @@
     "status": "Parcial",
     "code": [
       {
-        "path": "services/order-service/app/routers/orders.py",
+        "path": "services/order-service/app/order_actions.py",
+        "line": 59
+      },
+      {
+        "path": "services/order-service/app/order_repository.py",
+        "line": 22
+      },
+      {
+        "path": "services/cart-service/app/cart_operations.py",
+        "line": 48
+      },
+      {
+        "path": "services/order-service/app/schema.py",
+        "line": 4
+      },
+      {
+        "path": "services/order-service/app/main.py",
+        "line": 17
+      },
+      {
+        "path": "services/payment-service/app/main.py",
+        "line": 14
+      }
+    ],
+    "verification": [
+      {
+        "path": "tests/import_lifecycle.py",
         "line": 1
       },
       {
-        "path": "services/cart-service/app/routers/cart.py",
+        "path": "tests/checkout_stability.py",
         "line": 1
       },
       {
-        "path": "services/order-service/app/checkouts.py",
-        "line": 1
-      },
-      {
-        "path": "services/cart-service/app/storage.py",
+        "path": "docs/modularidad.md",
         "line": 1
       }
     ],
-    "verification": [],
-    "finding": "Separacion modular mejorada con checkout/storage; routers aun mezclan coordinacion y acceso SQL y varias tablas se crean al importar. Refactorizacion no funcional pendiente; respaldos .bak estan excluidos de Git.",
+    "finding": "Primera etapa: routers pedidos/carrito delegan operaciones; pedidos separa repositorio y adaptadores. Importar las seis ASGI no abre SQL/sockets ni inicia hilos; bootstrap y consumidores pasan al lifespan. Quedan negocio/SQL en pagos y otros routers, objetos HTTP en aplicacion y bootstrap sin migraciones en tres servicios. Sigue parcial.",
     "scope": "MVP / calidad",
     "frontend": {
       "status": "Modulos visuales",
@@ -3295,7 +3324,7 @@
     "code": [
       {
         "path": "services/payment-service/app/main.py",
-        "line": 34
+        "line": 30
       },
       {
         "path": "services/order-service/app/routers/orders.py",
@@ -3389,7 +3418,7 @@
         "line": 1
       }
     ],
-    "finding": "153 unittest y escenarios HTTP/migraciones/TTL-DLQ/gateway, incluida demostracion. Dieciocho regresiones del pool HTTP (seis por servicio) y una de esquema/liberacion SQL del historial; seis pruebas de metricas y benchmark separados. Perfil SQL/HTTP diagnostico y aceptacion se distinguen. Frontend: 56 escenarios, recorrido integral y 14 estados axe; instalacion nueva completa con navegador. Evidencias separadas por fecha y alcance.",
+    "finding": "155 unittest y escenarios HTTP/migraciones/TTL-DLQ/gateway, incluida demostracion. Dieciocho regresiones del pool HTTP (seis por servicio) y una de esquema/liberacion SQL del historial; seis pruebas de metricas y benchmark separados. Perfil SQL/HTTP diagnostico y aceptacion se distinguen. Frontend: 56 escenarios, recorrido integral y 14 estados axe; instalacion nueva completa con navegador. Evidencias separadas por fecha y alcance. Seis verificaciones de importacion sin efectos y contratos incompatibles con ausencia de pedidos y recuperacion.",
     "scope": "MVP / calidad",
     "frontend": {
       "status": "Verificado",

@@ -7,7 +7,7 @@ Revision: 29 de octubre de 2026. Matriz vigente: 72 cumplidos, 6 parciales y 0 p
 | Elemento | Criterio de cierre | Estado |
 | --- | --- | --- |
 | Trazabilidad | Matriz de 78 requisitos con evidencia actual y auditoria anterior preservada | Cerrado |
-| Funciones principales | Suite backend de 153 pruebas, 56 escenarios frontend registrados, recorrido visual y datos de prueba eliminados | Cerrado con evidencias y fechas separadas |
+| Funciones principales | Suite backend de 155 pruebas, 56 escenarios frontend registrados, recorrido visual y datos de prueba eliminados | Cerrado con evidencias y fechas separadas |
 | Instalacion | Plantilla, migracion, esquema limpio y stack completo con frontend y navegador | Cerrado en Windows/Docker Linux; 14 contenedores nuevos |
 | Version | RC historica v0.1.0-rc.1 preservada; revision integrada identificada por su commit y manifiesto | Cierre local, sin remoto ni nueva etiqueta |
 
@@ -38,7 +38,7 @@ alcance y las pruebas de cierre. RNF-05/06 quedan cerrados en alcance local con 
 | Cerrado en alcance local | RNF-01, Cumplido | Referencia de una instancia: historial 286,88 ms, checkout 770,97 ms, pago 525,38 ms y compra 2,738 s en p95. El perfil multinstancia tambien aprueba los mismos 30 criterios | [Referencia](../rendimiento/informe.md), [perfil SQL/HTTP](../perfilado/informe.md) y [nueva carga](../escalabilidad/README.md). Ampliar volumen y duracion antes de inferir capacidad productiva |
 | Cerrado en alcance local | RNF-05/06, Cumplido | Overlay aislado; dos instancias de los seis servicios, escalado independiente 2/3/1/2 y compra/cancelacion concurrentes | [Evidencias](../escalabilidad/README.md), incluido benchmark original aprobado; sin garantia productiva |
 | 3 / media | RNF-27, Parcial | Ejecutar instalacion limpia en otro host compatible con Docker, Linux y/o macOS | Reporte del mismo fresh_install.py con host/version y resultado; contenedores Linux en Windows no son otro host |
-| 4 / media | RNF-08/21, Parcial | Extraer negocio/SQL de routers, mover inicializacion fuera de importaciones y acotar contratos HTTP entre servicios | Pruebas de contrato y regresion conservadas; modulos con responsabilidades claras |
+| 4 / media | RNF-08/21, Parcial | Continuar extraccion en pagos/otros routers y contratos de cancelacion/eventos; versionar migraciones de usuarios/pedidos/pagos. Importacion sin efectos y separacion pedidos/carrito ya verificadas | [Primera etapa](../modularidad.md), regresion y contratos; falta completar el resto del backend |
 
 Estos pendientes limitan la afirmacion de cumplimiento del PDF; no se han ocultado como capacidades productivas. Se entrega RC para revision y demostracion mientras siguen abiertos.
 

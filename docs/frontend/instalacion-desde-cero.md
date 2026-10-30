@@ -56,8 +56,9 @@ soporte de replicas del Compose original.
 
 Los helpers del navegador y de limpieza reciben `TEST_COMPOSE_ARGS` con el proyecto
 `fresh-...` propio. Validan ese prefijo antes de ejecutar Docker. En uso normal,
-sin esa variable, conservan el Compose habitual. Tambien se repitio el guion visual
-en la instalacion habitual para comprobar ese modo por defecto.
+sin esa variable, conservan el Compose habitual. Se conserva el recorrido anterior
+de la instalacion habitual con su fecha propia. Esta etapa revalida el recorrido
+en el stack nuevo sobre el refactor `f94fed0`, incluyendo el bootstrap en lifespan.
 
 ## Evidencias
 

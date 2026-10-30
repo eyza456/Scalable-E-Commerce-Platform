@@ -1666,7 +1666,6 @@
             "Orders"
           ],
           "summary": "Update Order Status",
-          "description": "Actualiza el estado administrativo de una orden.\n\nRestricciones:\n- Solo administradores.\n- PAID no puede establecerse manualmente.\n- Se respetan las transiciones autorizadas.",
           "operationId": "update_order_status_orders__order_id__status_patch",
           "security": [
             {
