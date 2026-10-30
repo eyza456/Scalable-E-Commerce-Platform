@@ -80,19 +80,19 @@ Los cambios nuevos deben estar al menos agregados a Git para entrar en la copia.
 
 ## Limites de la evidencia
 
-La carga multinstancia aprobo el perfil original: 18.235 solicitudes medidas.
-0 errores y 1.052 compras contando el calentamiento. A 20 usuarios:
+La carga multinstancia aprobo el perfil original: 19.126 solicitudes medidas.
+0 errores y 1.102 compras contando el calentamiento. A 20 usuarios:
 
 | Operacion | p95 observado | Limite p95 sin cambios |
 | --- | ---: | ---: |
-| Historial | 404,69 ms | 500 ms |
-| Checkout | 1.121,53 ms | 1.500 ms |
-| Pago | 911,85 ms | 2.000 ms |
-| Compra completa | 3.161,80 ms | 10.000 ms |
+| Historial | 446,37 ms | 500 ms |
+| Checkout | 1.108,81 ms | 1.500 ms |
+| Pago | 863,09 ms | 2.000 ms |
+| Compra completa | 2.962,94 ms | 10.000 ms |
 
 Tambien aprobaron p99, muestras minimas, errores, throughput e invariantes.
-El throughput util a 20 usuarios fue 98,89 solicitudes/s. Historial queda a
-aproximadamente un 19% de su limite p95. No se infiere mejora frente a la
+El throughput util a 20 usuarios fue 101,25 solicitudes/s. Historial queda a
+aproximadamente un 11% de su limite p95. No se infiere mejora frente a la
 medicion historica de una instancia: es otro perfil con mas procesos en el
 mismo host y se acredita capacidad multinstancia local, no ganancia lineal.
 

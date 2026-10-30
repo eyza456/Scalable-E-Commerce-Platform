@@ -26,7 +26,7 @@ def main():
     counts = Counter(r["status"] for r in rows)
     assert counts == {"Cumplido": 72, "Parcial": 6}
     suite = json.loads((ROOT / "docs/auditoria/resultado-suite.json").read_text(encoding="utf-8"))
-    assert suite["unittest_total"] == 155 and suite["observed_exit_code"] == 0
+    assert suite["unittest_total"] == 161 and suite["observed_exit_code"] == 0
     assert suite["asgi_import_checks"] == 6
     log = ROOT / "docs/auditoria" / suite["log"]
     assert hashlib.sha256(log.read_bytes()).hexdigest() == suite["log_sha256"]
@@ -80,7 +80,7 @@ def main():
         "historical_tag": {"name": "v0.1.0-rc.1", "commit": historical_tag, "moved": False},
         "configured_remotes": git("remote").decode().splitlines(),
         "requirements": {"total": 78, "fulfilled": counts["Cumplido"], "partial": counts["Parcial"], "pending": 0},
-        "validation": {"backend_unittest": 155, "asgi_import_safe_services": 6, "browser_scenarios": 56, "journey_steps": 9, "automated_audit_states": 14, "fresh_installation_containers": 14,
+        "validation": {"backend_unittest": 161, "asgi_import_safe_services": 6, "browser_scenarios": 56, "journey_steps": 9, "automated_audit_states": 14, "fresh_installation_containers": 14,
             "replicated_microservices": 6, "replicas_per_service": 2, "replica_profile_containers": 20,
             "replica_load_goals_passed": len(scaling["evaluation"]["checks"]),
             "replica_load_http_requests": sum(stage["requests"] for stage in scaling["stages"])},

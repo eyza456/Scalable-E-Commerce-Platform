@@ -16,7 +16,7 @@ Entrega integrada del 29/10/2026: [documentacion final de backend y frontend](do
 
 Escalabilidad local: [perfil multinstancia y pruebas entre replicas](docs/escalabilidad/README.md).
 
-Modularidad: [primera etapa, contratos e inicializacion](docs/modularidad.md).
+Modularidad: [capas, contratos e inicializacion](docs/modularidad.md) y [segunda etapa de pagos](docs/modularidad-pagos.md).
 
 Auditoria actualizada: [matriz completa con cobertura visual](docs/auditoria/matriz-requisitos.md).
 

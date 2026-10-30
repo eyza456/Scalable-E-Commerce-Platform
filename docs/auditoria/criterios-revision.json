@@ -104,6 +104,11 @@
     "oclients": "services/order-service/app/checkout_clients.py",
     "importtest": "tests/import_lifecycle.py",
     "modularitydoc": "docs/modularidad.md",
+    "paymentmoddoc": "docs/modularidad-pagos.md",
+    "pactions": "services/payment-service/app/payment_actions.py",
+    "prepository": "services/payment-service/app/payment_repository.py",
+    "orderclient": "services/payment-service/app/order_client.py",
+    "inventoryclient": "services/payment-service/app/inventory_client.py",
     "oschema": "services/order-service/app/schema.py",
     "omain": "services/order-service/app/main.py"
   },
@@ -679,7 +684,7 @@
         "ordertest@test_history_releases_read_connection_and_preserves_response_schema",
         "multiload"
       ],
-      "Revalidado tras refactor f94fed0 en perfil local-mvp-20vu-v1 con dos replicas por servicio y objetivos sin cambios: historial p95 404.69 ms, checkout 1121.53 ms, pago 911.85 ms, compra 3.162 s; los 30 criterios aprobados. La referencia previa de una instancia se conserva como historica. No certifica produccion, grandes volumenes, otros hosts ni rendimiento web."
+      "Revalidado tras 1cfacff en perfil local-mvp-20vu-v1 con dos replicas por servicio y objetivos sin cambios: historial p95 446.37 ms, checkout 1108.81 ms, pago 863.09 ms, compra 2.963 s; los 30 criterios aprobados. La referencia previa de una instancia se conserva como histórica. No certifica producción, grandes volúmenes, otros hosts ni rendimiento web."
     ],
     "RNF-02": [
       "Cumplido",
@@ -735,7 +740,7 @@
       "Cumplido",
       [
         "multicompose@services:",
-        "outbox@with_for_update"
+        "outbox@pending_events"
       ],
       [
         "multitest@race",
@@ -759,14 +764,20 @@
       [
         "oclients@get_product",
         "oclients@get_cart",
+        "pactions",
+        "prepository",
+        "orderclient",
+        "inventoryclient",
         "validation",
         "ocancel"
       ],
       [
         "checkouttest@test_incompatible_catalog_contract_never_creates_an_order",
-        "checkouttest@test_incompatible_cart_contract_is_unavailable_without_intent"
+        "checkouttest@test_incompatible_cart_contract_is_unavailable_without_intent",
+        "paytest",
+        "paymentmoddoc"
       ],
-      "Adaptadores HTTP del checkout con contrato de producto local al consumidor y validacion de carrito; fallos incompatibles quedan controlados y recuperables. Persisten dependencias sincronas necesarias y falta extender adaptadores/contratos a cancelacion, pagos y eventos. Sigue parcial."
+      "Checkout conserva contratos locales; pagos ya separa router, operaciones, repositorio y clientes tipados de pedidos/inventario. Persisten dependencias sincronas necesarias y falta extender adaptadores/contratos a cancelacion y eventos. Sigue parcial."
     ],
     "RNF-09": [
       "Cumplido",
@@ -914,14 +925,20 @@
         "coperations@add_item_to_cart",
         "oschema@initialize_schema",
         "omain@lifespan",
-        "pmain@lifespan"
+        "pmain@lifespan",
+        "pactions",
+        "prepository",
+        "orderclient",
+        "inventoryclient"
       ],
       [
         "importtest",
         "checkouttest",
-        "modularitydoc"
+        "modularitydoc",
+        "paymentmoddoc",
+        "paytest"
       ],
-      "Primera etapa: routers pedidos/carrito delegan operaciones; pedidos separa repositorio y adaptadores. Importar las seis ASGI no abre SQL/sockets ni inicia hilos; bootstrap y consumidores pasan al lifespan. Quedan negocio/SQL en pagos y otros routers, objetos HTTP en aplicacion y bootstrap sin migraciones en tres servicios. Sigue parcial."
+      "Segunda etapa: pagos separa coordinación/persistencia y adaptadores HTTP con contratos locales; la regresión cubre respuestas incompatibles sin efectos y liberación ambigua recuperable. Quedan usuarios/productos, checkout/eventos y migraciones versionadas. Sigue parcial."
     ],
     "RNF-22": [
       "Cumplido",
@@ -959,7 +976,7 @@
         "carttest",
         "demo"
       ],
-      "155 unittest y escenarios HTTP/migraciones/TTL-DLQ/gateway, incluida demostracion. Dieciocho regresiones del pool HTTP (seis por servicio) y una de esquema/liberacion SQL del historial; seis pruebas de metricas y benchmark separados. Perfil SQL/HTTP diagnostico y aceptacion se distinguen. Frontend: 56 escenarios, recorrido integral y 14 estados axe; instalacion nueva completa con navegador. Evidencias separadas por fecha y alcance. Seis verificaciones de importacion sin efectos y contratos incompatibles con ausencia de pedidos y recuperacion."
+      "161 unittest y escenarios HTTP/migraciones/TTL-DLQ/gateway, incluida demostracion. Regresiones del pool HTTP, contratos incompatibles y liberación SQL; pruebas de métricas y benchmark separados. Perfil SQL/HTTP diagnóstico y aceptación se distinguen. Frontend: 56 escenarios, recorrido integral y 14 estados axe; instalación nueva completa con navegador. Evidencias separadas por fecha y alcance. Seis verificaciones de importación sin efectos y contratos incompatibles con ausencia de pedidos y recuperación."
     ],
     "RNF-25": [
       "Cumplido",

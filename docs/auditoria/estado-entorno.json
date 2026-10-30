@@ -1,7 +1,7 @@
 {
-  "audit_date": "2026-10-30T00:31:15.157508+00:00",
-  "review_base_commit": "f94fed06cc97b332deb45767d442b5a10b732713",
-  "tracked_files_count": 402,
+  "audit_date": "2026-10-30T22:08:24.365514+00:00",
+  "review_base_commit": "1cfacffa9fd784edf6df3bd5602c8eb2600b4fe8",
+  "tracked_files_count": 407,
   "configured_remotes": [],
   "delivery_version": "Revision integrada backend + frontend",
   "historical_tag": "v0.1.0-rc.1",

@@ -58,7 +58,7 @@ Los helpers del navegador y de limpieza reciben `TEST_COMPOSE_ARGS` con el proye
 `fresh-...` propio. Validan ese prefijo antes de ejecutar Docker. En uso normal,
 sin esa variable, conservan el Compose habitual. Se conserva el recorrido anterior
 de la instalacion habitual con su fecha propia. Esta etapa revalida el recorrido
-en el stack nuevo sobre el refactor `f94fed0`, incluyendo el bootstrap en lifespan.
+en el stack nuevo sobre el refactor `1cfacff`, incluyendo el bootstrap en lifespan.
 
 ## Evidencias
 
@@ -83,4 +83,4 @@ host Linux/macOS (RNF-27 sigue parcial). Reiniciar no prueba durabilidad de Redi
 o RabbitMQ al recrear sus contenedores; siguen pendientes los volumenes persistentes
 y recuperacion operativa documentados en la entrega. No se verifica produccion,
 TLS, replicas, lectores de pantalla o nuevos objetivos de rendimiento.
-No se repitio la suite completa historica de 153 pruebas ni la carga RNF-01.
+La instalacion limpia se ejecuto sobre el commit `1cfacff`; la suite integrada y la carga RNF-01 se repitieron por separado y sus resultados estan enlazados en la auditoria y en escalabilidad.

@@ -1,6 +1,6 @@
 {
-  "project": "fresh-af98a572e1d3",
-  "executed_at": "2026-10-30T00:13:32.357765+00:00",
+  "project": "fresh-a41ff157cbc7",
+  "executed_at": "2026-10-30T21:50:57.187593+00:00",
   "checks": {
     "configuration": "Plantilla independiente; sin .env ni datos locales",
     "replicas": {
@@ -117,13 +117,13 @@
     "original_installation": "Container IDs, start times and restart counts unchanged"
   },
   "volumes": [
-    "fresh-af98a572e1d3_order_postgres_data",
-    "fresh-af98a572e1d3_payment_postgres_data",
-    "fresh-af98a572e1d3_product_postgres_data",
-    "fresh-af98a572e1d3_user_postgres_data"
+    "fresh-a41ff157cbc7_order_postgres_data",
+    "fresh-a41ff157cbc7_payment_postgres_data",
+    "fresh-a41ff157cbc7_product_postgres_data",
+    "fresh-a41ff157cbc7_user_postgres_data"
   ],
-  "readme_sha256": "9e4ae4a97248b7b8a18547e1b8b59f9c4c37e613e0a56983076c0f208538fab3",
-  "source_commit": "f94fed06cc97b332deb45767d442b5a10b732713",
+  "readme_sha256": "7ae035577b40fe5b763c5dcb731ab4a235adf75370a588a18ead62afdf58b2c2",
+  "source_commit": "1cfacffa9fd784edf6df3bd5602c8eb2600b4fe8",
   "sha256": {
     "docker-compose.yml": "c0fefe69d42dc13e8a6b66a8c4a1b023a8393b78b9403abf241844812cd21115",
     "compose.frontend.yml": "28192dae4badfce6b8aded5f34ef8eee5b443b75c566cfb383b0d30c1d545f96",
@@ -172,12 +172,16 @@
     "services/order-service/app/schemas/__init__.py": "0a3fa389192d6ca69b8eee6c4693c17564e1996e23d08daeb5d2899b7d12f9c7",
     "services/order-service/app/services/payment_validation.py": "073ea332a5f839c5810bed95968b7c240398765f0ecd3712dd5ff3186b039da7",
     "services/order-service/app/services/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-    "services/payment-service/app/cancellations.py": "2e676ca5a5e0935a7396ad349da62655c960d4925d2d5b0f5d9329b5d783b420",
+    "services/payment-service/app/cancellations.py": "54ef5901cf3e1afdb27c4860cfb5417b3aadd624c775dbaa7c35dfedbb3d4207",
     "services/payment-service/app/database.py": "3a4d532f79b833db4b40f817fab053bf569772284056ca41d2e88e872d62b2e5",
     "services/payment-service/app/http_client.py": "f816e8234dcacc46ad00c87fcadc3f40b0229977a24cbb9600dc0eaae2236a17",
-    "services/payment-service/app/inventory.py": "103d1e0a29d32410cb84fe36087016ee3360d17c327d77cc71d5a6e893ffeca4",
+    "services/payment-service/app/inventory.py": "418f8fa9166fd25895d43b0843743de1182ca8fc91888098755a644710f4fe5b",
+    "services/payment-service/app/inventory_client.py": "d768d9736b562e1cd2565da3dd0766f06a13670e7a1d7320dff1ab675c63edb7",
     "services/payment-service/app/main.py": "c194aec337a6f5fefad5f57d07a7d6baf0a2d030a02e95bab099610ef1525f2b",
-    "services/payment-service/app/outbox.py": "c026058b93b64f7d4d35eae462fdc31e80e203907cddcaf4a136e1586273ade1",
+    "services/payment-service/app/order_client.py": "3818673e2c27aac3ce8e126e14e674235e14fcf09eb3ae5f2a812ebea10f8098",
+    "services/payment-service/app/outbox.py": "7a4649e9d28acf0ea107727a99731f56eb9d20e411b9ec489b8b38cae5411dd9",
+    "services/payment-service/app/payment_actions.py": "4703fcc8d18de4d14c697895f3c23c9e69fe96c36ba9df57c3d493a2e3d3e13c",
+    "services/payment-service/app/payment_repository.py": "b3838e65e1a807fbaef0c43534c64d78ace228395ae1ea9a8b940619d27e6b8f",
     "services/payment-service/app/schema.py": "318e2a015b58772af3a5e28b8d269c743373acd5bdbf8b623c4c7e980900ed74",
     "services/payment-service/app/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
     "services/payment-service/app/core/config.py": "7ec549164367188a3866340a0df4c6b1253a0a2c190c49527f126bce99a2e0db",
@@ -189,7 +193,7 @@
     "services/payment-service/app/models/outbox_event.py": "8ca8198507fb7fb14a1f4cf75669cf81cf51aafebc4004877a733067131b442c",
     "services/payment-service/app/models/payment.py": "d368912e00be57237adf27f0e9d1d7b7624a2c00dd818d1f02ab7ebd3cce9aff",
     "services/payment-service/app/models/__init__.py": "f6e1c94a3ec695ac8dbffd7135dde651832eab90a50118ff9027716ff147a270",
-    "services/payment-service/app/routers/payments.py": "2c5b0c65cc4d6faebf43b73d62e7298e579226e5547a8e31886fcf1e4622390b",
+    "services/payment-service/app/routers/payments.py": "e44f286ec67e845cb26731778f2de9d6c35e6685ec5167b6c9305165e362f6be",
     "services/payment-service/app/routers/__init__.py": "a4036fe236c8e790cd974b5050c1626b0c24d863a4247cff71ae9280508e687f",
     "services/payment-service/app/schemas/payment.py": "93ecd0a5534bd2a2b7e1c63a22b02031df11bdd7c6f901d6bbd0194e394947ec",
     "services/payment-service/app/schemas/__init__.py": "66149f950021edc69d9d4a3ad1ee267206fbcff43537a373ca21bcfec854fe5b",

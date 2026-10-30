@@ -1,62 +1,66 @@
 {
-  "audit_date": "2026-10-30T00:31:15.157508+00:00",
+  "audit_date": "2026-10-30T22:08:24.365514+00:00",
   "command": "powershell -NoProfile -ExecutionPolicy Bypass -File tests/run_stability.ps1",
   "observed_exit_code": 0,
-  "unittest_total": 155,
+  "unittest_total": 161,
   "asgi_import_checks": 6,
   "unittest_failures": 0,
   "unittest_runs": [
     {
-      "tests": 39,
-      "seconds": 1.862
+      "tests": 42,
+      "seconds": 2.194
+    },
+    {
+      "tests": 3,
+      "seconds": 0.336
     },
     {
       "tests": 6,
-      "seconds": 0.034
+      "seconds": 0.062
     },
     {
       "tests": 6,
-      "seconds": 0.035
+      "seconds": 0.063
     },
     {
       "tests": 6,
-      "seconds": 0.039
+      "seconds": 0.053
     },
     {
       "tests": 12,
-      "seconds": 0.347
+      "seconds": 0.508
     },
     {
       "tests": 15,
-      "seconds": 0.791
+      "seconds": 1.035
     },
     {
       "tests": 9,
-      "seconds": 0.138
+      "seconds": 0.213
     },
     {
       "tests": 17,
-      "seconds": 0.577
+      "seconds": 0.784
     },
     {
       "tests": 12,
-      "seconds": 0.426
+      "seconds": 0.613
     },
     {
       "tests": 2,
-      "seconds": 0.002
+      "seconds": 0.001
     },
     {
       "tests": 6,
-      "seconds": 0.196
+      "seconds": 0.236
     },
     {
       "tests": 4,
-      "seconds": 1.838
+      "seconds": 1.843
     },
     {
       "tests": 5,
-      "seconds": 0.004
+      "seconds": 0.006
     },
     {
       "tests": 5,
@@ -64,15 +68,15 @@
     },
     {
       "tests": 10,
-      "seconds": 32.429
+      "seconds": 31.608
     },
     {
       "tests": 1,
-      "seconds": 12.251
+      "seconds": 11.679
     }
   ],
-  "log": "suite-modularidad.log",
-  "log_sha256": "b7ed3a806650dd85e354a9b176d366c3886ac574fd05429ae2e7e5cb60799bef",
+  "log": "suite-pagos-modular.log",
+  "log_sha256": "c57082805cd6ec268df4cfece844c997b5d16e0dbf2aef69ce811c27a349352e",
   "additional_success_messages": [
     "OK: ASGI import without SQL, sockets or background threads",
     "OK: ASGI import without SQL, sockets or background threads",
