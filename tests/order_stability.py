@@ -126,7 +126,7 @@ class OrderStability(unittest.TestCase):
             order.status="PROCESSING"
             db.commit()
             return order
-        with self.sessions() as db,patch("app.routers.orders.finish_cancellation",side_effect=concurrent_advance):
+        with self.sessions() as db,patch("app.order_actions.finish_cancellation",side_effect=concurrent_advance):
             with self.assertRaises(HTTPException) as error:
                 cancel_order(91,Response(),self.user,db)
             self.assertEqual(error.exception.status_code,409)

@@ -6,7 +6,7 @@ import uuid
 from unittest.mock import patch
 
 from fastapi import HTTPException
-from app.routers import cart
+from app import cart_operations as cart
 from app.schemas import CartItemCreate, CartItemUpdate
 from app.storage import atomic, prepare, finish
 

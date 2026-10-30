@@ -71,7 +71,12 @@ def main():
         except Exception as exc:
             test.result.update(status="failed",cleanup_error=str(exc))
             raise
-        finally:REPORT.write_text(json.dumps(test.result,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+        finally:
+            REPORT.write_text(json.dumps(test.result,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+            # One execution supplies functional and independent-scaling proof.
+            # Do not count these two reports as separate test executions.
+            functional = {**test.result, "same_execution_as": "independencia.json"}
+            (REPORT.parent/"resultado.json").write_text(json.dumps(functional,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     print("OK: every application scaled independently; isolated project removed.")
 
 

@@ -13,7 +13,7 @@ from sqlalchemy.orm import sessionmaker
 from app.database import Base,engine as production_engine
 from app.models import Order,OrderItem,Checkout
 from app.routers.orders import create_order,get_checkout
-from app import checkouts
+from app import checkouts, checkout_clients
 
 
 class CheckoutStability(unittest.TestCase):
@@ -41,8 +41,8 @@ class CheckoutStability(unittest.TestCase):
         self.product_status=200
         self.prepare_down=self.commit_down=self.abort_down=False
         self.lock=threading.Lock()
-        self.patches=[patch.object(checkouts.http_client,"get",side_effect=self.get),
-                      patch.object(checkouts.http_client,"post",side_effect=self.post)]
+        self.patches=[patch.object(checkout_clients.http_client,"get",side_effect=self.get),
+                      patch.object(checkout_clients.http_client,"post",side_effect=self.post)]
         for p in self.patches:p.start();self.addCleanup(p.stop)
 
     def reply(self,status,data):
@@ -156,6 +156,31 @@ class CheckoutStability(unittest.TestCase):
     def test_wrong_cart_version_cannot_create_order(self):
         with self.assertRaises(HTTPException) as error:self.create(uuid.uuid4())
         self.assertEqual(error.exception.status_code,409)
+
+    def test_incompatible_catalog_contract_never_creates_an_order(self):
+        valid = copy.deepcopy(self.product)
+        for change in ({"id": 999}, {"stock": "five"}, {"stock": -1},
+                       {"price": "NaN"}, {"is_active": "yes"}, {"name": ""}):
+            with self.subTest(change=change):
+                self.product = {**valid, **change}
+                result, status = self.create()
+                self.assertEqual(status, 202)
+                with self.sessions() as db:
+                    self.assertEqual(db.query(Order).count(), 0)
+                    self.assertEqual(db.get(Checkout, self.version).state, "PENDING")
+        self.product = valid
+        self.recover()
+        with self.sessions() as db:
+            self.assertEqual(db.query(Order).count(), 1)
+
+    def test_incompatible_cart_contract_is_unavailable_without_intent(self):
+        with patch.object(checkout_clients.http_client, "get", return_value=self.reply(200, [])):
+            with self.assertRaises(HTTPException) as error:
+                self.create()
+        self.assertEqual(error.exception.status_code, 503)
+        with self.sessions() as db:
+            self.assertEqual(db.query(Checkout).count(), 0)
+            self.assertEqual(db.query(Order).count(), 0)
 
 
 if __name__=="__main__":unittest.main(verbosity=2)

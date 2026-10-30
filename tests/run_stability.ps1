@@ -1,6 +1,11 @@
 $ErrorActionPreference = 'Stop'
 Push-Location (Split-Path $PSScriptRoot -Parent)
 try {
+    foreach ($service in @('user-service', 'product-service', 'cart-service', 'order-service', 'payment-service', 'notification-service')) {
+        Get-Content -LiteralPath (Join-Path $PSScriptRoot 'import_lifecycle.py') -Raw |
+            docker compose exec -T $service python -
+        if ($LASTEXITCODE -ne 0) { throw "Efectos al importar: $service" }
+    }
     $checks = @(
         @('payment-service', 'payment_stability.py'),
         @('payment-service', 'http_pool_stability.py'),

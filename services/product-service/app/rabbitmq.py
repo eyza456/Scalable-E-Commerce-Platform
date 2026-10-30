@@ -1,4 +1,3 @@
-
 import json
 import os
 import time
@@ -6,14 +5,20 @@ import time
 import pika
 from app.messaging import declare_topology, forward
 from sqlalchemy import update
-from sqlalchemy.exc import (IntegrityError, OperationalError, InterfaceError, DisconnectionError, TimeoutError as SQLAlchemyTimeoutError)
+from sqlalchemy.exc import (
+    IntegrityError,
+    OperationalError,
+    InterfaceError,
+    DisconnectionError,
+    TimeoutError as SQLAlchemyTimeoutError,
+)
 
 from app.database import SessionLocal
 from app.models import Product, ProcessedPaymentEvent
 from app.reservations import consume
 from app.services.payment_validation import (
     verify_payment_and_order,
-    TemporaryValidationError
+    TemporaryValidationError,
 )
 
 # ==========================================
@@ -33,6 +38,7 @@ DLQ_ROUTING_KEY = "product_payment_failed"
 # ==========================================
 # PROCESAR EVENTO PAYMENT_COMPLETED
 # ==========================================
+
 
 def process_payment_completed(message: dict):
     """
@@ -84,14 +90,9 @@ def process_payment_completed(message: dict):
             or type(quantity) is not int
             or quantity <= 0
         ):
-            raise ValueError(
-                "Producto o cantidad invalida"
-            )
+            raise ValueError("Producto o cantidad invalida")
 
-        normalized_items[product_id] = (
-            normalized_items.get(product_id, 0)
-            + quantity
-        )
+        normalized_items[product_id] = normalized_items.get(product_id, 0) + quantity
     # ==========================================
     # VERIFICAR AUTENTICIDAD DEL EVENTO
     # ==========================================
@@ -99,9 +100,7 @@ def process_payment_completed(message: dict):
     verified, reason = verify_payment_and_order(message)
 
     if not verified:
-        raise ValueError(
-            f"Evento PAYMENT_COMPLETED no autorizado: {reason}"
-        )
+        raise ValueError(f"Evento PAYMENT_COMPLETED no autorizado: {reason}")
 
     print("VALIDACION DE SEGURIDAD:")
     print(reason)
@@ -114,8 +113,7 @@ def process_payment_completed(message: dict):
         # Debe existir una restriccion UNIQUE
         # sobre transaction_id en PostgreSQL.
         processed_event = ProcessedPaymentEvent(
-            transaction_id=transaction_id,
-            order_id=order_id
+            transaction_id=transaction_id, order_id=order_id
         )
 
         db.add(processed_event)
@@ -128,41 +126,26 @@ def process_payment_completed(message: dict):
         else:
             # Compatibilidad con pagos historicos anteriores a las reservas.
             # Descontar inventario
-            for product_id, quantity in sorted(
-                normalized_items.items()
-            ):
+            for product_id, quantity in sorted(normalized_items.items()):
 
                 result = db.execute(
                     update(Product)
-                    .where(
-                        Product.id == product_id,
-                        Product.stock >= quantity
-                    )
-                    .values(
-                        stock=Product.stock - quantity
-                    )
+                    .where(Product.id == product_id, Product.stock >= quantity)
+                    .values(stock=Product.stock - quantity)
                 )
 
                 if result.rowcount != 1:
                     raise ValueError(
-                        f"Producto #{product_id} inexistente "
-                        f"o stock insuficiente"
+                        f"Producto #{product_id} inexistente " f"o stock insuficiente"
                     )
 
-                print(
-                    f"Producto #{product_id}: "
-                    f"-{quantity} unidades"
-                )
+                print(f"Producto #{product_id}: " f"-{quantity} unidades")
 
         # Confirmar registro y descuento juntos
         db.commit()
 
-        print(
-            f"Pago {transaction_id} "
-            "procesado correctamente"
-        )
+        print(f"Pago {transaction_id} " "procesado correctamente")
 
-    
     except IntegrityError:
 
         db.rollback()
@@ -180,7 +163,7 @@ def process_payment_completed(message: dict):
                 print(
                     f"[IDEMPOTENCIA] Transaccion duplicada: "
                     f"{transaction_id}. No se descuenta stock.",
-                    flush=True
+                    flush=True,
                 )
                 return
 
@@ -192,9 +175,7 @@ def process_payment_completed(message: dict):
 
         # Buscar si la orden ya fue procesada
         existing_order = (
-            db.query(ProcessedPaymentEvent)
-            .filter_by(order_id=order_id)
-            .first()
+            db.query(ProcessedPaymentEvent).filter_by(order_id=order_id).first()
         )
 
         if existing_order:
@@ -227,7 +208,13 @@ def callback(ch, method, properties, body):
     try:
         message = json.loads(body.decode("utf-8"))
         process_payment_completed(message)
-    except (TemporaryValidationError, OperationalError, InterfaceError, DisconnectionError, SQLAlchemyTimeoutError) as exc:
+    except (
+        TemporaryValidationError,
+        OperationalError,
+        InterfaceError,
+        DisconnectionError,
+        SQLAlchemyTimeoutError,
+    ) as exc:
         print(f"Error temporal: {exc}", flush=True)
         forward(ch, method, properties, body, temporary=True)
     except (ValueError, UnicodeDecodeError) as exc:
@@ -237,21 +224,20 @@ def callback(ch, method, properties, body):
         ch.basic_ack(delivery_tag=method.delivery_tag)
 
 
-def start_consumer():
+def start_consumer(stop=None):
     """
     Mantiene el consumidor conectado a RabbitMQ.
     Si la conexion falla, intenta reconectarse.
     """
 
-    while True:
+    while stop is None or not stop.is_set():
 
         connection = None
 
         try:
 
             print(
-                f"Intentando conectar a RabbitMQ "
-                f"{RABBITMQ_HOST}:{RABBITMQ_PORT}..."
+                f"Intentando conectar a RabbitMQ " f"{RABBITMQ_HOST}:{RABBITMQ_PORT}..."
             )
 
             connection = pika.BlockingConnection(
@@ -259,7 +245,7 @@ def start_consumer():
                     host=RABBITMQ_HOST,
                     port=RABBITMQ_PORT,
                     heartbeat=60,
-                    blocked_connection_timeout=300
+                    blocked_connection_timeout=300,
                 )
             )
 
@@ -268,72 +254,56 @@ def start_consumer():
 
             # Crear Dead Letter Exchange
             channel.exchange_declare(
-                exchange=DLX_NAME,
-                exchange_type="direct",
-                durable=True
+                exchange=DLX_NAME, exchange_type="direct", durable=True
             )
 
             # Crear Dead Letter Queue
-            channel.queue_declare(
-                queue=DLQ_NAME,
-                durable=True
-            )
+            channel.queue_declare(queue=DLQ_NAME, durable=True)
 
             # Asociar DLQ con DLX
             channel.queue_bind(
-                exchange=DLX_NAME,
-                queue=DLQ_NAME,
-                routing_key=DLQ_ROUTING_KEY
+                exchange=DLX_NAME, queue=DLQ_NAME, routing_key=DLQ_ROUTING_KEY
             )
 
             # Crear o verificar cola principal
             # El DLX se configura mediante
             # una politica existente de RabbitMQ.
-            channel.queue_declare(
-                queue=QUEUE_NAME,
-                durable=True
-            )
+            channel.queue_declare(queue=QUEUE_NAME, durable=True)
 
             # Procesar un mensaje a la vez
-            channel.basic_qos(
-                prefetch_count=1
-            )
+            channel.basic_qos(prefetch_count=1)
 
             channel.basic_consume(
-                queue=QUEUE_NAME,
-                on_message_callback=callback,
-                auto_ack=False
+                queue=QUEUE_NAME, on_message_callback=callback, auto_ack=False
             )
 
             print("====================================")
             print("Product Service conectado a RabbitMQ")
-            print(
-                "Esperando eventos PAYMENT_COMPLETED "
-                f"en {QUEUE_NAME}..."
-            )
+            print("Esperando eventos PAYMENT_COMPLETED " f"en {QUEUE_NAME}...")
             print("====================================")
 
-            channel.start_consuming()
+            if stop is None:
+                channel.start_consuming()
+            else:
+                while not stop.is_set():
+                    connection.process_data_events(time_limit=1)
 
         except pika.exceptions.AMQPConnectionError as exc:
 
-            print(
-                f"Error de conexion RabbitMQ: {exc}"
-            )
+            print(f"Error de conexion RabbitMQ: {exc}")
 
         except Exception as exc:
 
-            print(
-                f"Error en consumidor RabbitMQ: {exc}"
-            )
+            print(f"Error en consumidor RabbitMQ: {exc}")
 
         finally:
 
             if connection and connection.is_open:
                 connection.close()
 
-        print(
-            "Reintentando conexion en 5 segundos..."
-        )
+        print("Reintentando conexion en 5 segundos...")
 
-        time.sleep(5)
+        if stop is None:
+            time.sleep(5)
+        else:
+            stop.wait(5)

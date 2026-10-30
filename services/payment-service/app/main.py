@@ -5,18 +5,14 @@ from threading import Event, Thread
 from app.outbox import run_outbox
 from app.inventory import run_recovery
 
-from app.database import Base, engine
+from app.schema import initialize_schema
 from app.models import Payment
 from app.routers import payments
 
 
-Base.metadata.create_all(
-    bind=engine
-)
-
-
 @asynccontextmanager
 async def lifespan(app):
+    initialize_schema()
     stop = Event()
     worker = Thread(target=run_outbox, args=(stop,), daemon=True)
     recovery = Thread(target=run_recovery, args=(stop,), daemon=True)
@@ -35,27 +31,20 @@ app = FastAPI(
     lifespan=lifespan,
     title="Payment Service",
     description="Microservicio encargado del procesamiento de pagos",
-    version="1.0.0"
+    version="1.0.0",
 )
 
 
-app.include_router(
-    payments.router
-)
+app.include_router(payments.router)
 
 
 @app.get("/")
 def root():
 
-    return {
-        "service": "Payment Service",
-        "status": "running"
-    }
+    return {"service": "Payment Service", "status": "running"}
 
 
 @app.get("/health")
 def health_check():
 
-    return {
-        "status": "healthy"
-    }
+    return {"status": "healthy"}
