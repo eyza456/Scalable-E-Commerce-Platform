@@ -8,6 +8,7 @@ try {
     }
     $checks = @(
         @('payment-service', 'payment_stability.py'),
+        @('payment-service', 'payment_latest.py'),
         @('payment-service', 'http_pool_stability.py'),
         @('order-service', 'http_pool_stability.py'),
         @('cart-service', 'http_pool_stability.py'),

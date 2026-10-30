@@ -4,7 +4,7 @@ from dataclasses import dataclass
 
 from app.core.rabbitmq import publisher_batch
 from app.database import SessionLocal
-from app.models import OutboxEvent
+from app import payment_repository as repository
 
 logger = logging.getLogger(__name__)
 BATCH_SIZE = 50
@@ -25,14 +25,7 @@ class DispatchResult:
 def dispatch_pending():
     """Entrega al menos una vez; informa progreso confirmado en DB y filas fallidas."""
     with SessionLocal() as db:
-        events = (
-            db.query(OutboxEvent)
-            .filter(OutboxEvent.status == "PENDING")
-            .order_by(OutboxEvent.created_at, OutboxEvent.id)
-            .with_for_update(skip_locked=True)
-            .limit(BATCH_SIZE)
-            .all()
-        )
+        events = repository.pending_events(db, BATCH_SIZE)
         published = 0
         with publisher_batch() as publish:
             for event in events:
