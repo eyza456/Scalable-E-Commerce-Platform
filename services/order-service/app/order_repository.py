@@ -1,6 +1,6 @@
 """Local order persistence; no remote service access or transaction commits."""
 
-from sqlalchemy.orm import selectinload
+from sqlalchemy.orm import joinedload, selectinload
 from app.models import Order, Checkout
 
 
@@ -22,7 +22,9 @@ def get(db, order_id, user_id=None, *, lock=False, eager=False):
 def list_owned(db, user_id, skip, limit, status=None):
     query = (
         db.query(Order)
-        .options(selectinload(Order.items))
+        # History is read-only and returns the complete order graph. Join the
+        # items in the same round trip to avoid a second SELECT per page.
+        .options(joinedload(Order.items))
         .filter(Order.user_id == user_id)
     )
     if status is not None:
