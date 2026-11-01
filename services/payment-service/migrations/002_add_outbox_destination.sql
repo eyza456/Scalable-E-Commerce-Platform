@@ -6,7 +6,7 @@
 BEGIN;
 
 ALTER TABLE outbox_events
-ADD COLUMN destination VARCHAR(100);
+ADD COLUMN IF NOT EXISTS destination VARCHAR(100);
 
 -- La tabla debe estar vacía antes de aplicar NOT NULL.
 -- Esta migración se ejecutará después de comprobarlo.

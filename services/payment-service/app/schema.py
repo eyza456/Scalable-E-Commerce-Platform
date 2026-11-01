@@ -1,8 +1,7 @@
-"""Explicit startup schema bootstrap. Product schema uses Alembic separately."""
+"""Compatibility entry point for the versioned payment migrations."""
 
 
 def initialize_schema():
-    from app.database import Base, engine
-    from app import models
+    from app.migration_runner import apply_migrations
 
-    Base.metadata.create_all(bind=engine)
+    return apply_migrations()

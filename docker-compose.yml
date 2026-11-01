@@ -201,6 +201,7 @@ services:
 
     volumes:
       - ./services/user-service/app:/app/app
+      - ./services/user-service/migrations:/app/migrations
 
     depends_on:
       user-db:
@@ -305,6 +306,7 @@ services:
 
     volumes:
       - ./services/order-service/app:/app/app
+      - ./services/order-service/migrations:/app/migrations
 
     depends_on:
       order-db:
@@ -349,6 +351,7 @@ services:
 
     volumes:
       - ./services/payment-service/app:/app/app
+      - ./services/payment-service/migrations:/app/migrations
 
     depends_on:
       payment-db:
