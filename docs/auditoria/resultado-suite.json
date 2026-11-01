@@ -1,5 +1,5 @@
 {
-  "audit_date": "2026-11-01T03:26:44.798644+00:00",
+  "audit_date": "2026-11-01T03:49:31.164010+00:00",
   "command": "powershell -NoProfile -ExecutionPolicy Bypass -File tests/run_stability.ps1",
   "observed_exit_code": 0,
   "unittest_total": 164,
@@ -8,43 +8,43 @@
   "unittest_runs": [
     {
       "tests": 42,
-      "seconds": 1.695
+      "seconds": 2.689
     },
     {
       "tests": 3,
-      "seconds": 0.18
+      "seconds": 0.173
     },
     {
       "tests": 6,
-      "seconds": 0.05
+      "seconds": 0.046
     },
     {
       "tests": 6,
-      "seconds": 0.087
+      "seconds": 0.042
     },
     {
       "tests": 6,
-      "seconds": 0.04
+      "seconds": 0.058
     },
     {
       "tests": 12,
-      "seconds": 0.443
+      "seconds": 0.541
     },
     {
       "tests": 15,
-      "seconds": 0.655
+      "seconds": 0.968
     },
     {
       "tests": 9,
-      "seconds": 0.19
+      "seconds": 0.131
     },
     {
       "tests": 17,
-      "seconds": 0.487
+      "seconds": 0.568
     },
     {
       "tests": 12,
-      "seconds": 0.76
+      "seconds": 0.387
     },
     {
       "tests": 2,
@@ -52,19 +52,19 @@
     },
     {
       "tests": 6,
-      "seconds": 0.181
+      "seconds": 0.203
     },
     {
       "tests": 4,
-      "seconds": 2.033
+      "seconds": 1.97
     },
     {
       "tests": 1,
-      "seconds": 0.021
+      "seconds": 0.032
     },
     {
       "tests": 1,
-      "seconds": 0.021
+      "seconds": 0.023
     },
     {
       "tests": 1,
@@ -72,23 +72,23 @@
     },
     {
       "tests": 5,
-      "seconds": 0.006
+      "seconds": 0.009
     },
     {
       "tests": 5,
-      "seconds": 0.005
+      "seconds": 0.007
     },
     {
       "tests": 10,
-      "seconds": 37.844
+      "seconds": 34.503
     },
     {
       "tests": 1,
-      "seconds": 11.206
+      "seconds": 11.278
     }
   ],
   "log": "suite-pagos-modular.log",
-  "log_sha256": "b6a70f8062eb2a6e9065a369d524dabc302495be8bde87e7b8311123bbb20215",
+  "log_sha256": "fa42c03b0dd7269301c1db7ebc7a08da4cae9e41d778377236c4486632b3e5ca",
   "additional_success_messages": [
     "OK: ASGI import without SQL, sockets or background threads",
     "OK: ASGI import without SQL, sockets or background threads",

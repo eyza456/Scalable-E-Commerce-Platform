@@ -1,6 +1,6 @@
 {
-  "project": "fresh-455519b2eb71",
-  "executed_at": "2026-11-01T03:04:05.953479+00:00",
+  "project": "fresh-105e22a4ce40",
+  "executed_at": "2026-11-01T03:45:14.219061+00:00",
   "checks": {
     "configuration": "Plantilla independiente; sin .env ni datos locales",
     "replicas": {
@@ -117,13 +117,13 @@
     "original_installation": "Container IDs, start times and restart counts unchanged"
   },
   "volumes": [
-    "fresh-455519b2eb71_order_postgres_data",
-    "fresh-455519b2eb71_payment_postgres_data",
-    "fresh-455519b2eb71_product_postgres_data",
-    "fresh-455519b2eb71_user_postgres_data"
+    "fresh-105e22a4ce40_order_postgres_data",
+    "fresh-105e22a4ce40_payment_postgres_data",
+    "fresh-105e22a4ce40_product_postgres_data",
+    "fresh-105e22a4ce40_user_postgres_data"
   ],
   "readme_sha256": "8007df790d51a3d0f3a4b912842c522fb74843b55a889b38244974299a0a9b35",
-  "source_commit": "dca91380ca56b5615e23c8d1b71882a62f22ed1a",
+  "source_commit": "080f527f65113ce3d34789b30941f28829ea34d7",
   "sha256": {
     "docker-compose.yml": "b5f13fb36000129db748b6096891ba7dc132cc0f73b1df39c8cc461a2b9da70e",
     "compose.frontend.yml": "28192dae4badfce6b8aded5f34ef8eee5b443b75c566cfb383b0d30c1d545f96",
@@ -149,8 +149,9 @@
     "services/notification-service/app/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
     "services/notification-service/app/routers/notifications.py": "3a59f40f63be3f79c41cd619946edbe13567ae7e113a6903516460d1edc0c727",
     "services/notification-service/app/routers/__init__.py": "d5dcb93331e9bb63a373b7634a94aa60800a4bcdc1bff26d6db48abeb31e2844",
-    "services/order-service/app/cancellations.py": "38ecffdf9d23c0bd575839381543db66373c27c5fc2c24b8181d73151ab39640",
+    "services/order-service/app/cancellations.py": "fad60c25cbab7e7732c5f3cc525c62b84c2f4b1e06c5c334ff29956e31ef8b03",
     "services/order-service/app/cancellation_contracts.py": "a7c837a5e15962707ca42b4b28ee33d8a923ef52357e92505e20fb5684711f89",
+    "services/order-service/app/cancellation_repository.py": "e76c2ee7c7f594836aa1de5230810b85afb8a7c9c728fb247680c5148947fe74",
     "services/order-service/app/checkouts.py": "b2127313e8dbbeae0b624fdcd8671fd2b7222fa4d058e604c16fd8603cacf27f",
     "services/order-service/app/checkout_clients.py": "add27822400adbfc727407f98cfd54af6861def607e29476cbe0cf6511e799a0",
     "services/order-service/app/checkout_contracts.py": "4eef03aaea97cb3ba8408b1ef30a8f5a989377bdec4837b60d2707484f274fc6",

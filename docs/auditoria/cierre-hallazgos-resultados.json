@@ -16,9 +16,9 @@
   "concurrent_checkouts": {
     "requests": 4,
     "orders_created": 1,
-    "checkout_id": "eeeea5f9-2efc-415d-a0b3-5c53043c46e0"
+    "checkout_id": "e4f5e867-eabb-4013-a203-485721d82542"
   },
-  "approved_processed_at": "2026-11-01T03:00:15.743484Z",
+  "approved_processed_at": "2026-11-01T03:31:28.826428Z",
   "price_changed": {
     "http_status": 409,
     "code": "PRICE_CHANGED"
@@ -31,5 +31,5 @@
     "http_status": 409,
     "code": "PRODUCT_UNAVAILABLE"
   },
-  "rejected_processed_at": "2026-11-01T03:00:21.810248+00:00"
+  "rejected_processed_at": "2026-11-01T03:31:34.296340+00:00"
 }

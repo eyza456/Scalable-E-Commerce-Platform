@@ -116,6 +116,7 @@
     "productactions": "services/product-service/app/product_actions.py",
     "orderrepo": "services/order-service/app/order_repository.py",
     "checkoutrepo": "services/order-service/app/checkout_repository.py",
+    "cancellationrepo": "services/order-service/app/cancellation_repository.py",
     "checkoutcontracts": "services/order-service/app/checkout_contracts.py",
     "paymentclient": "services/order-service/app/payment_client.py",
     "cancellationcontracts": "services/order-service/app/cancellation_contracts.py",
@@ -795,6 +796,7 @@
         "cancellationcontracts",
         "ordereventcontracts",
         "producteventcontracts"
+        ,"cancellationrepo"
       ],
       [
         "checkouttest@test_incompatible_catalog_contract_never_creates_an_order",
@@ -966,6 +968,7 @@
         ,"cancellationcontracts"
         ,"ordereventcontracts"
         ,"producteventcontracts"
+        ,"cancellationrepo"
         ,"migrationrunner"
       ],
       [

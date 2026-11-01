@@ -1625,7 +1625,7 @@
       },
       {
         "path": "services/order-service/app/cancellations.py",
-        "line": 11
+        "line": 12
       }
     ],
     "verification": [
@@ -2728,6 +2728,10 @@
       {
         "path": "services/product-service/app/event_contracts.py",
         "line": 1
+      },
+      {
+        "path": "services/order-service/app/cancellation_repository.py",
+        "line": 1
       }
     ],
     "verification": [
@@ -3115,7 +3119,7 @@
       },
       {
         "path": "services/order-service/app/cancellations.py",
-        "line": 38
+        "line": 39
       },
       {
         "path": "services/payment-service/app/inventory.py",
@@ -3326,6 +3330,10 @@
       },
       {
         "path": "services/product-service/app/event_contracts.py",
+        "line": 1
+      },
+      {
+        "path": "services/order-service/app/cancellation_repository.py",
         "line": 1
       },
       {
