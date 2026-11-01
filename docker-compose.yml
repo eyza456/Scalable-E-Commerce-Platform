@@ -166,6 +166,7 @@ services:
   # =========================
   rabbitmq:
     image: rabbitmq:3-management
+    command: ["sh", "-c", "chown -R rabbitmq:rabbitmq /var/lib/rabbitmq && chmod 600 /var/lib/rabbitmq/.erlang.cookie 2>/dev/null || true; exec gosu rabbitmq rabbitmq-server"]
     healthcheck:
       test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
       interval: 5s
