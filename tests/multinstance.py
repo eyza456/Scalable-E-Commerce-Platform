@@ -184,7 +184,9 @@ with engine.connect() as c:
         with urllib.request.urlopen(frontend) as response: assert b"Nexo" in response.read()
         with urllib.request.urlopen(frontend+"/api/products/") as response: assert json.load(response)
         containers=self.containers()
-        assert len(containers)==20 and all(c["RestartCount"]==0 for c in containers)
+        assert len(containers)==20 and all(c["RestartCount"]==0 for c in containers), [
+            (c["Name"], c["RestartCount"], c["State"]["Status"]) for c in containers
+        ]
         self.result["checks"]["independent_scaling"]={"order_replicas":[2,3,1,2],"other_app_ids_unchanged":True,"frontend_proxy":True,"containers":20}
 
     def ready(self):
