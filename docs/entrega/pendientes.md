@@ -21,9 +21,9 @@ Estas diferencias no cambian los 78 estados formales: las capacidades existen po
 
 | Prioridad de ampliacion | Falta visual | Situacion de entrega |
 | --- | --- | --- |
-| Media | Boton dedicado de vaciado completo del carrito (RF-25) | Quitar items y checkout integrados; DELETE /api/cart disponible por API |
-| Segun alcance administrativo | Alta/edicion/borrado de productos, categorias, stock, roles y transiciones de pedidos | APIs con permisos; sin consola administrativa GUI |
-| Media | Revision con lector de pantalla, otro navegador y zoom real 200% | Axe en 14 estados y comprobaciones de teclado/reflow; no certificacion integral |
+| Cerrado en alcance local | Boton dedicado de vaciado completo del carrito (RF-25) | Dialogo accesible y DELETE /api/cart con confirmacion; prueba visual opcional |
+| Parcial / segun alcance administrativo | Alta/edicion/borrado de productos, categorias, stock, roles y transiciones de pedidos | Consola GUI de usuarios/roles implementada; productos, categorias, stock y pedidos siguen por API |
+| Parcial | Revision con lector de pantalla, otro navegador y zoom real 200% | Axe, nombres/roles, teclado y zoom 200% automatizados; motores disponibles se registran y falta validacion manual con lector nativo |
 
 No hay recuperacion de contraseña, verificacion de correo o sesion persistente
 en navegador; no se presentan como funcionalidades implementadas.
@@ -53,7 +53,7 @@ Estos pendientes limitan la afirmacion de cumplimiento del PDF; no se han oculta
 | Alta | Acceso HTTP local y puertos directos publicados | Perfil de despliegue con HTTPS, certificados, puertos internos cerrados y gestion/rotacion de secretos |
 | Parcial | Recuperacion operativa y DLQ manuales | Backup/restore y monitor local disponibles en `scripts/`; falta probar restauracion aislada, alertas y reproceso operativo idempotente |
 | Cerrado en alcance local | /health de aplicaciones principalmente liveness | `/ready` comprueba DB/Redis/RabbitMQ, Compose lo usa como healthcheck y `scripts/monitor.*` informa colas y Outbox; faltan alertas productivas |
-| Parcial | Administracion de usuarios/roles incompleta respecto al plano | API administrativa paginada con cambios de rol/estado y proteccion contra auto-bloqueo; falta consola GUI y auditoria de cambios |
+| Parcial | Administracion de usuarios/roles incompleta respecto al plano | API y consola GUI paginadas con cambios de rol/estado y proteccion contra auto-bloqueo; falta auditoria de cambios y gestion visual del resto de recursos |
 | Cerrado en alcance local | Dependencias Python sin versiones fijadas | Versiones directas fijadas y reconstruccion/regresion local verificada; falta fijar digests de imagen y dependencias transitivas en CI |
 
 ## Evolucion opcional para el MVP inicial

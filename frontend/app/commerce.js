@@ -24,6 +24,7 @@ window.NexoCommerce = function ({api, state, $, feedback, element, money}) {
     $('add-button').disabled = working || !selectedProduct?.is_active || selectedProduct.stock < 1 || (signed() && locked());
     $('add-quantity').disabled = $('add-button').disabled;
     $('cart-summary').hidden = !cart?.items.length || !signed();
+    $('clear-cart').disabled = locked() || !cart?.items.length || !signed();
     $('recover-checkout').hidden = !checkoutId || !signed();
     $('confirm-order').hidden = !signed() || !cart?.items.length || Boolean(checkoutId) || Boolean(order);
     $('confirm-order').disabled = locked() || phase === 'rejected';
@@ -203,6 +204,23 @@ window.NexoCommerce = function ({api, state, $, feedback, element, money}) {
     mutate('/cart/items', 'POST', {product_id: selectedProduct.id, quantity}, 'Producto agregado al carrito.');
   });
   $('refresh-cart').addEventListener('click', () => loadCart());
+  $('clear-cart').addEventListener('click', () => {
+    if (locked() || !cart?.items.length || !signed()) return;
+    $('clear-cart-dialog').showModal();
+    $('keep-cart').focus();
+  });
+  $('keep-cart').addEventListener('click', () => $('clear-cart-dialog').close());
+  $('clear-cart-dialog').addEventListener('cancel', event => {
+    event.preventDefault(); $('clear-cart-dialog').close(); $('clear-cart').focus();
+  });
+  $('clear-cart-dialog').addEventListener('close', () => {
+    if (document.activeElement === document.body) $('clear-cart').focus();
+  });
+  $('confirm-clear-cart').addEventListener('click', async () => {
+    $('clear-cart-dialog').close();
+    await mutate('/cart', 'DELETE', undefined, 'Carrito vaciado.');
+    if (document.activeElement === document.body) $('refresh-cart').focus();
+  });
   $('confirm-order').addEventListener('click', () => submitOrder());
   $('resume-order').addEventListener('click', () => submitOrder(true));
   $('check-order').addEventListener('click', async () => {

@@ -58,6 +58,7 @@
   const commerce = window.NexoCommerce({api, state, $, feedback, element, money});
   const orders = window.NexoOrders({api, state, $, feedback, element, money});
   const profile = window.NexoProfile({api, state, $, feedback, syncAccount});
+  const admin = window.NexoAdmin({api, state, $, element});
   function imageFor(product) {
     const box = element('div', undefined, 'product-image');
     const fallback = () => box.replaceChildren(element('span', 'Nexo', 'image-placeholder'));
@@ -147,6 +148,7 @@
     const signed = Boolean(state.user && state.token);
     $('account-lead').textContent = signed ? 'Gestiona tus datos y continúa explorando el catálogo.' : 'Inicia sesión o crea tu cuenta para acceder a tu perfil.';
     $('account-link').textContent = signed ? 'Mi cuenta' : 'Iniciar sesión'; $('logout').hidden = !signed;
+    $('admin-link').hidden = !(signed && state.user.role === 'admin');
     $('profile').hidden = !signed; document.querySelector('.tabs').hidden = signed;
     $('login-form').hidden = signed || $('register-tab').getAttribute('aria-pressed') === 'true';
     $('register-form').hidden = signed || $('login-tab').getAttribute('aria-pressed') === 'true';
@@ -155,6 +157,7 @@
     commerce.session(signed ? state.user.id : null);
     orders.session(signed ? state.user.id : null);
     profile.session(signed ? state.user.id : null);
+    admin.session(signed ? state.user.id : null);
   }
   function setMode(mode) {
     for (const tab of ['login', 'register']) $(tab + '-tab').setAttribute('aria-pressed', String(tab === mode));
@@ -216,14 +219,16 @@
     const hash = location.hash || '#catalogo';
     const match = /^#producto\/([1-9]\d*)$/.exec(hash);
     const orderMatch = /^#pedidos\/([1-9]\d*)$/.exec(hash);
-    const view = match ? 'detail' : hash === '#pedidos' || orderMatch ? 'orders' : hash === '#cuenta' ? 'account' : hash === '#carrito' ? 'cart' : hash === '#checkout' ? 'checkout' : 'catalog';
-    for (const name of ['catalog', 'account', 'detail', 'cart', 'checkout', 'orders']) $(name + '-view').hidden = name !== view;
-    const titles = {catalog: 'Catálogo', account: 'Mi cuenta', detail: 'Producto', cart: 'Carrito', checkout: 'Confirmar pedido', orders: 'Mis pedidos'};
+    const adminView = hash === '#admin' && state.user?.role === 'admin' && Boolean(state.token);
+    const view = match ? 'detail' : hash === '#pedidos' || orderMatch ? 'orders' : hash === '#cuenta' ? 'account' : hash === '#carrito' ? 'cart' : hash === '#checkout' ? 'checkout' : adminView ? 'admin' : 'catalog';
+    for (const name of ['catalog', 'account', 'detail', 'cart', 'checkout', 'orders', 'admin']) $(name + '-view').hidden = name !== view;
+    const titles = {catalog: 'Catálogo', account: 'Mi cuenta', detail: 'Producto', cart: 'Carrito', checkout: 'Confirmar pedido', orders: 'Mis pedidos', admin: 'Administración'};
     document.title = `Nexo · ${titles[view]}`;
     if (match) loadDetail(match[1]);
     else {detailController?.abort(); state.detailRequest++;}
     commerce.route(view);
     orders.route(view, orderMatch ? Number(orderMatch[1]) : null);
+    admin.route(view);
     if (event) {$('main').focus({preventScroll: true}); window.scrollTo(0, 0);}
   }
   window.addEventListener('hashchange', route);

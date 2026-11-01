@@ -14,6 +14,7 @@
   <script src="commerce.js" defer></script>
   <script src="orders.js" defer></script>
   <script src="profile.js" defer></script>
+  <script src="admin.js" defer></script>
   <script src="app.js" defer></script>
 </head>
 <body>
@@ -27,6 +28,7 @@
       <a href="#carrito" id="cart-link">Carrito</a>
       <a href="#pedidos">Mis pedidos</a>
       <a href="#cuenta" id="account-link">Iniciar sesión</a>
+      <a href="#admin" id="admin-link" hidden>Administración</a>
       <button id="logout" class="link-button" hidden>Cerrar sesión</button>
     </nav>
   </div></header>
@@ -97,7 +99,7 @@
         <p id="cart-status" role="status" aria-live="polite"></p><p id="cart-error" class="feedback error" role="alert" hidden></p>
         <button id="refresh-cart" class="secondary">Actualizar carrito</button>
         <div id="cart-items" aria-busy="false"></div>
-        <div id="cart-summary" class="cart-summary" hidden><p>Total del carrito <strong id="cart-total"></strong></p><small>El servidor volverá a comprobar precios y disponibilidad al confirmar. Los productos aún no están reservados.</small><a href="#checkout" class="button">Revisar pedido</a></div>
+        <div id="cart-summary" class="cart-summary" hidden><p>Total del carrito <strong id="cart-total"></strong></p><small>El servidor volverá a comprobar precios y disponibilidad al confirmar. Los productos aún no están reservados.</small><div class="cart-summary-actions"><a href="#checkout" class="button">Revisar pedido</a><button type="button" id="clear-cart" class="secondary">Vaciar carrito</button></div></div>
         <a id="recover-checkout" href="#checkout" class="button" hidden>Consultar mi pedido</a>
       </div>
     </section>
@@ -145,7 +147,17 @@
         </section>
       </div>
     </section>
+    <section id="admin-view" aria-labelledby="admin-title" hidden>
+      <div class="intro"><p class="eyebrow">CONTROL DE ACCESO</p><h1 id="admin-title">Administración</h1><p class="lead">Gestiona roles y acceso de las cuentas registradas. Los cambios se aplican de inmediato.</p></div>
+      <div id="admin-private" hidden>
+        <form id="admin-toolbar" class="filters" role="search" aria-label="Buscar usuarios"><div><label for="admin-search">Buscar por nombre o correo</label><input id="admin-search" type="search" maxlength="254" autocomplete="off"></div><button type="submit">Buscar</button><button type="button" id="admin-refresh" class="secondary">Actualizar</button></form>
+        <p id="admin-status" role="status" aria-live="polite"></p><p id="admin-error" class="feedback error" role="alert" hidden></p>
+        <div class="admin-table-wrap"><table class="admin-table"><caption class="sr-only">Usuarios registrados y sus permisos</caption><thead><tr><th scope="col">Usuario</th><th scope="col">Rol</th><th scope="col">Estado</th><th scope="col">Acción</th></tr></thead><tbody id="admin-users" aria-busy="false"></tbody></table></div>
+      </div>
+      <div id="admin-denied" hidden><p>Esta sección requiere una cuenta administradora.</p><a href="#cuenta" class="button">Volver a mi cuenta</a></div>
+    </section>
     <dialog id="cancel-dialog" aria-labelledby="cancel-title"><h2 id="cancel-title">¿Cancelar este pedido?</h2><p id="cancel-description"></p><p>Si hay una reserva que pueda liberarse, el servidor coordinará su devolución al inventario. Un pago confirmado no se reembolsa desde aquí.</p><div class="dialog-actions"><button id="keep-order" class="secondary">Conservar pedido</button><button id="confirm-cancel">Confirmar cancelación</button></div></dialog>
+    <dialog id="clear-cart-dialog" aria-labelledby="clear-cart-title" aria-describedby="clear-cart-description"><h2 id="clear-cart-title">¿Vaciar carrito?</h2><p id="clear-cart-description">Se quitarán todos los productos de tu carrito. Esta acción no crea un pedido ni reserva inventario.</p><div class="dialog-actions"><button id="keep-cart" class="secondary">Conservar productos</button><button id="confirm-clear-cart">Vaciar carrito</button></div></dialog>
   </main>
   <footer><span class="brand">Nexo</span><p>Objetos para tu día a día.</p><small>Catálogo, cuenta, perfil, carrito, pago simulado e historial conectados. Entorno local de demostración.</small></footer>
 </body>

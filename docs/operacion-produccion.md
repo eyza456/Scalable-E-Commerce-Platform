@@ -82,5 +82,6 @@ Un administrador puede consultar y modificar usuarios mediante:
 - `PATCH /api/users/{id}` con `role` (`Customer`, `seller`, `admin`) o `is_active`.
 
 El endpoint exige rol `admin` y no permite que un administrador se quite su
-propio rol o se desactive. Falta todavía una pantalla GUI; la operación queda
-disponible por API para el procedimiento administrativo.
+propio rol o se desactive. La consola visual de `#admin` consume estos contratos
+y permite buscar usuarios, cambiar rol/estado y restaurar cambios; la auditoría
+de cambios y la gestión visual de productos/categorías siguen fuera de alcance.

@@ -10,7 +10,10 @@ Nombre Nexo provisional; no representa una marca definitiva.
 cierre local de sesion, edicion de nombre/correo, catalogo con filtros por nombre/categoria/disponibilidad,
 paginacion, detalle, carrito, creacion de pedidos, pago simulado, historial y cancelacion. Los productos,
 precios y stock vienen del backend real.
-No se crean datos de demostracion al arrancar.
+No se crean datos de demostracion al arrancar. La vista de carrito incluye vaciado
+completo con confirmacion accesible. Las cuentas con rol `admin` disponen de una
+consola visual para listar usuarios y actualizar rol o estado activo; la API sigue
+siendo la autoridad y protege la propia cuenta del administrador.
 
 Con el backend configurado y sus migraciones aplicadas, desde la raiz:
 
@@ -74,6 +77,7 @@ sus dependencias, accesibilidad y recursos de forma explicita.
    del ultimo intento antes de permitir otro envio.
 6. Historial y cancelacion integrados segun estado: `/api/orders`.
 7. Consulta y edicion del perfil integradas, con sustitucion del token al guardar.
+8. Consola administrativa de usuarios/roles y vaciado completo del carrito con dialogos accesibles.
 
 Todas las llamadas del frontend final se dirigiran al API Gateway. Al integrar,
 consultar los contratos actuales y OpenAPI: los identificadores, precios, stock,
@@ -217,5 +221,16 @@ Ver [evidencias y limites del perfil](../docs/frontend/perfil.md). La demostraci
 completa y revision automatizada de teclado/accesibilidad estan disponibles en
 [el guion visual](../docs/frontend/demostracion-visual.md). Incluye instalacion de
 axe como herramienta de pruebas y el comando `node tests/frontend_journey.cjs`.
-Las interfaces administrativas siguen fuera de esta etapa; no se afirma
-cumplimiento productivo ni certificacion completa de accesibilidad.
+
+Para la ampliacion opcional de consola, vaciado, lectores de pantalla orientados
+por nombres/roles, zoom 200% y motores adicionales:
+
+```powershell
+$env:BROWSER_CHANNEL = "msedge"
+$env:BROWSER_ENGINES = "chromium,firefox,webkit"
+node tests/frontend_visual_optional.cjs
+```
+
+El resultado queda en `docs/frontend/pruebas-compatibilidad.json`. Axe, teclado,
+landmarks y nombres accesibles se automatizan; la certificacion manual con NVDA,
+VoiceOver o TalkBack sigue requiriendo un operador en el sistema correspondiente.

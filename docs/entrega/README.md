@@ -16,9 +16,9 @@ buscar productos, gestionar cantidades/items del carrito, crear un pedido,
 simular pagos aprobados/rechazados, consultar historial y cancelar cuando procede.
 Los precios, stock, importes, permisos y estados los decide el backend.
 
-No hay consola administrativa visual de productos, categorias, roles o estados,
-ni boton dedicado de vaciado completo del carrito. Esas operaciones API no se
-presentan como pantallas implementadas. No hay cobros bancarios, envios, cupones,
+La consola administrativa visual cubre usuarios/roles y estados de acceso, y el
+carrito dispone de vaciado completo con confirmacion. La administracion visual de
+productos, categorias, stock y estados de pedidos sigue fuera del alcance. No hay cobros bancarios, envios, cupones,
 recuperacion de contraseña ni verificacion por correo.
 
 ## Material de entrega
@@ -29,6 +29,7 @@ recuperacion de contraseña ni verificacion por correo.
 | [Matriz principal](../auditoria/matriz-requisitos.md), [CSV](../auditoria/matriz-requisitos.csv), [JSON](../auditoria/matriz-requisitos.json) | 78 requisitos con codigo, pruebas y enlace a GUI |
 | [Cobertura visual](../auditoria/matriz-frontend.md) y [JSON](../auditoria/matriz-frontend.json) | Relacion RF/RNF con pantallas, API y limites |
 | [Guion visual completo](../frontend/demostracion-visual.md) | Recorrido cliente, teclado, movil y accesibilidad acotada |
+| [Pruebas visuales opcionales](../../tests/frontend_visual_optional.cjs) | Consola administrativa, vaciado, axe, zoom 200% y motores disponibles |
 | [Guion API](demostracion.md) y [resultado](demo-resultados.json) | Incluye administracion y vaciado por API |
 | [Suite backend](../auditoria/resultado-suite.json) | 164 unittest y escenarios adicionales; cierre actual |
 | [Resumen frontend](../auditoria/resultado-frontend.json) | Fechas de 56 escenarios y recorrido; no cambia fechas al revisar |
@@ -79,6 +80,7 @@ $codigoSuite = $LASTEXITCODE
 if ($codigoSuite -ne 0) { throw 'La suite backend fallo; revisar el log' }
 npm ci --prefix tests/browser-tools --ignore-scripts --no-audit --no-fund
 node tests/frontend_journey.cjs
+node tests/frontend_visual_optional.cjs
 python -X utf8 tests/frontend_fresh_install.py
 ```
 
@@ -111,5 +113,6 @@ No hay remoto configurado ni se ha enviado codigo a un servicio externo.
 El MVP es demostrable localmente; no representa cumplimiento integral del PDF ni
 operacion productiva. Siguen parciales replicas/balanceo observado, Kubernetes
 aplicado en cluster, CA/rotacion HTTPS, acoplamiento/capas y portabilidad a otro
-host. La revision automatica de
-accesibilidad no es una certificacion completa ni una prueba con lector de pantalla.
+host. La revision automatica de accesibilidad y las pruebas de nombres/roles
+orientadas a lector de pantalla no sustituyen una certificacion manual con un
+lector nativo.
