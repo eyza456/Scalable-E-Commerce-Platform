@@ -2,8 +2,8 @@
 
 Esta etapa mejora RNF-08 y RNF-21. Ambos quedan **Cumplidos** en la matriz vigente:
 checkout, recuperadores, contratos y migraciones versionadas tienen evidencia
-de código, suite e instalación limpia. La matriz vigente queda en 74 cumplidos,
-4 parciales y 0 pendientes.
+de código, suite e instalación limpia. La matriz vigente queda en 75 cumplidos,
+3 parciales y 0 pendientes.
 
 ## Cambios
 

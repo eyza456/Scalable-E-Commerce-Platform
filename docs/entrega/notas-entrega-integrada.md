@@ -58,7 +58,7 @@ Se entrega como commit local, sin push, publicacion web ni nueva etiqueta.
 
 RNF-05/06 cerrados con [configuracion y pruebas](../escalabilidad/README.md): dos replicas por servicio, escalado independiente de los seis y carga original aprobada. La RC historica se conserva; no se declara alta disponibilidad ni balanceo uniforme.
 
-La preparación futura no cambia los estados formales: RNF-07 tiene manifiestos renderizables pero falta aplicar en cluster; RNF-15 tiene HTTPS local pero falta CA/rotación; RF-49 tiene runner de failover pero falta observación en dos réplicas vivas; RNF-27 tiene scripts portables pero falta ejecutar en Linux/macOS.
+La preparación futura no cambia los estados formales de RNF-07, RNF-15 y RNF-27: Kubernetes real, CA/rotación TLS y ejecución en Linux/macOS siguen pendientes. RF-49 ya tiene observación local de 80 solicitudes repartidas entre dos réplicas vivas, además del failover; esto no equivale a una certificación productiva.
 
 La etapa inicial multinstancia conservo las pruebas anteriores. Tras este refactor
 se repiten la suite backend (164), instalacion con recorrido UI y pruebas/carga

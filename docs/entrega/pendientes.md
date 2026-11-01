@@ -58,7 +58,7 @@ Estos pendientes limitan la afirmacion de cumplimiento del PDF; no se han oculta
 
 ## Evolucion opcional para el MVP inicial
 
-- RF-49: balanceo de carga real. Se tiene Nginx con DNS dinamico, recuperacion, runner de fallo de replica y replicas locales; falta una observacion productiva del reparto.
+- RF-49: balanceo local observado y documentado. La prueba `tests/multinstance_distribution.py` correlaciona 80 solicitudes con `upstream_addr` y confirma tráfico en ambas réplicas. Sigue sin ser una certificación de balanceo productivo, SLA o Kubernetes.
 - RNF-07: manifests Kustomize y validacion offline preparados; falta aplicar y operar un cluster real.
 - RNF-15: configuración TLS local preparada; falta CA confiable, rotación y validación productiva.
 - Pasarela real y reembolsos, Elasticsearch, inventario independiente, notificaciones externas, discovery especializado, logs centralizados, Prometheus/Grafana, CI/CD y autoscaling (pp.8,22,36-37).

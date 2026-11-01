@@ -47,6 +47,7 @@ sin borrar volumenes si se necesitan sus datos.
 ```powershell
 python tests/multinstance_independence.py
 python tests/multinstance_load.py
+python tests/multinstance_distribution.py
 ```
 
 Ambos runners esperan la disponibilidad HTTP de cada proceso nuevo antes de
@@ -77,27 +78,35 @@ Los cambios nuevos deben estar al menos agregados a Git para entrar en la copia.
   sus procesos y verifica que los otros cinco conservan sus IDs.
   El driver escribe tambien `resultado.json` como alias de esa misma ejecucion;
   no se cuentan esos dos archivos como pruebas ejecutadas por separado.
+- [Distribución del gateway](distribucion.json): con dos réplicas vivas de
+  `product-service`, envía 80 solicitudes etiquetadas y correlaciona el log de
+  Nginx (`upstream_addr`) con los dos contenedores. La prueba exige que ambas
+  réplicas reciban tráfico; el encabezado de prueba solo sirve para filtrar el
+  registro y no forma parte del contrato público.
 
 ## Limites de la evidencia
 
-La carga multinstancia aprobo el perfil original: 17.844 solicitudes medidas.
-0 errores y 1.023 compras contando el calentamiento. A 20 usuarios:
+La carga multinstancia conserva el perfil reproducible, pero esta repetición
+queda `targets-not-met` por latencia y registra un checkout 503 transitorio.
+Se midieron 11.179 solicitudes y 643 compras contando el calentamiento. A 20 usuarios:
 
 | Operacion | p95 observado | Limite p95 sin cambios |
 | --- | ---: | ---: |
-| Historial | 444,24 ms | 500 ms |
-| Checkout | 1.157,91 ms | 1.500 ms |
-| Pago | 960,82 ms | 2.000 ms |
-| Compra completa | 3.155,24 ms | 10.000 ms |
+| Historial | 1.039,41 ms | 500 ms |
+| Checkout | 2.464,09 ms | 1.500 ms |
+| Pago | 2.144,96 ms | 2.000 ms |
+| Compra completa | 5.925,02 ms | 10.000 ms |
 
-Tambien aprobaron p99, muestras minimas, errores, throughput e invariantes.
-El throughput util a 20 usuarios fue 94,39 solicitudes/s. Historial queda a
-aproximadamente un 11% de su limite p95. No se infiere mejora frente a la
+Las muestras mínimas y el throughput pasan; la etapa de 20 usuarios tuvo 0,03%
+de errores y un checkout 503, por debajo del máximo de 1%, pero las invariantes
+del informe quedan marcadas como no satisfechas por ese fallo transitorio.
+El throughput útil a 20 usuarios fue 53,00 solicitudes/s. Historial queda por
+encima de su límite p95. No se infiere mejora frente a la
 medicion historica de una instancia: es otro perfil con mas procesos en el
 mismo host y se acredita capacidad multinstancia local, no ganancia lineal.
 
 No se prueba caida abrupta de replicas durante un pago, reparto uniforme de
-solicitudes en Nginx, redelivery de notificaciones sin duplicados, durabilidad
+solicitudes en Nginx más allá de la observación local de dos réplicas, redelivery de notificaciones sin duplicados, durabilidad
 de Redis/RabbitMQ al recrearlos, particiones de red ni otro sistema operativo.
 La notificacion unica observada es una entrega normal: el consumidor imprime
 el evento y no tiene una deduplicacion durable. RNF-05/06 se refieren a capacidad

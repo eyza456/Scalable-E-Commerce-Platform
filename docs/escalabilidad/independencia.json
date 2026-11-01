@@ -1,6 +1,6 @@
 {
-  "project": "fresh-8964b4c6b7d2",
-  "executed_at": "2026-11-01T17:13:47.090003+00:00",
+  "project": "fresh-2ae360415ccd",
+  "executed_at": "2026-11-01T18:09:31.318693+00:00",
   "checks": {
     "configuration": "Plantilla independiente; sin .env ni datos locales",
     "replicas": {
@@ -117,15 +117,15 @@
     "original_installation": "Container IDs, start times and restart counts unchanged"
   },
   "volumes": [
-    "fresh-8964b4c6b7d2_order_postgres_data",
-    "fresh-8964b4c6b7d2_payment_postgres_data",
-    "fresh-8964b4c6b7d2_product_postgres_data",
-    "fresh-8964b4c6b7d2_rabbitmq_data",
-    "fresh-8964b4c6b7d2_redis_data",
-    "fresh-8964b4c6b7d2_user_postgres_data"
+    "fresh-2ae360415ccd_order_postgres_data",
+    "fresh-2ae360415ccd_payment_postgres_data",
+    "fresh-2ae360415ccd_product_postgres_data",
+    "fresh-2ae360415ccd_rabbitmq_data",
+    "fresh-2ae360415ccd_redis_data",
+    "fresh-2ae360415ccd_user_postgres_data"
   ],
   "readme_sha256": "729f821d5232d64dc5ae49ccbed2a6d222c41f442c63ce26dfa8c39e31901182",
-  "source_commit": "9101a4974b9dd6a14e671da379fbb6c0051caef2",
+  "source_commit": "5aa3c7d4b3e6495ed5cbaa4e46a9baafc4957502",
   "sha256": {
     "docker-compose.yml": "abf3b39b8d814267b2a5bbebc2dc81dea8e953fa62fc752737dbc58e6eb75a33",
     "compose.frontend.yml": "28192dae4badfce6b8aded5f34ef8eee5b443b75c566cfb383b0d30c1d545f96",
@@ -263,8 +263,8 @@
     "services/user-service/app/routers/__init__.py": "143f60b67481a9740dc34352b383826814c15ed109dec5808781a084583c42c2",
     "services/user-service/app/schemas/user.py": "067d37d2b79afa262b5775918671fa43d39a1a3662240f14c0409fd41226fba3",
     "services/user-service/app/schemas/__init__.py": "0077e213ba1192ffd3faa1cac0e8c5d05f9d4104cfa4cd45d988ec7934b0ec5f",
-    "gateway/nginx.conf": "96ac5e75f1eb2aef05529e3db99799636ee9e862139d955cbad1e5c5eac53293",
-    "gateway/nginx.tls.conf": "41a35f3c00b80c0661b9fe2dc9d3005f355716d3320c6c62273eeb665666aabe",
+    "gateway/nginx.conf": "343000144b293edbceced8a09e7e805970dced7ecc89b44f0f3d7dfa9b7ba2e4",
+    "gateway/nginx.tls.conf": "78a737a73f3de9a413b7427da16f4d5e5f849288888dbc2a22df39f5547257ed",
     "gateway/proxy.inc": "d42fab381e02d1d2c40b692283b3c29a85f01e9b9133debfd74e8fe2d1bced31",
     "frontend/app/admin.js": "bfdf8036c9c6ed2e571e982d494f51cf526bf12a72c0f6325a8ba2364b41e267",
     "frontend/app/app.js": "aa457ca4e62b76b5151a259db0f30d4d62f1b78b199ffaf4d0f6ba34c438c7f4",

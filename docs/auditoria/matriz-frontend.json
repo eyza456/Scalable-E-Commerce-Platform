@@ -1166,11 +1166,11 @@
     "code": [],
     "verification": [
       {
-        "path": "docs/frontend/instalacion-desde-cero.json",
+        "path": "docs/escalabilidad/distribucion.json",
         "line": 1
       }
     ],
-    "note": "Este requisito sigue parcial. Instalacion y replicas locales verificadas en el mismo host Windows/Docker Linux; no se acreditan reparto del gateway, Kubernetes, TLS ni otro host por tener interfaz visual."
+    "note": "La evidencia visual no aplica: el requisito queda cubierto por la prueba de infraestructura local. Kubernetes, CA/TLS y otro sistema operativo siguen fuera de este cierre."
   },
   {
     "id": "RF-50",

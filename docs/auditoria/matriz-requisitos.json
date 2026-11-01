@@ -2280,11 +2280,15 @@
     "page": 18,
     "requirement": "El API Gateway deberá facilitar la incorporación futura de mecanismos de balanceo de carga.",
     "type": "Funcional",
-    "status": "Parcial",
+    "status": "Cumplido",
     "code": [
       {
         "path": "gateway/nginx.conf",
-        "line": 20
+        "line": 21
+      },
+      {
+        "path": "gateway/nginx.conf",
+        "line": 15
       },
       {
         "path": "gateway/proxy.inc",
@@ -2309,22 +2313,26 @@
         "line": 1
       },
       {
-        "path": "tests/future_preparation.py",
-        "line": 1
+        "path": "tests/multinstance_distribution.py",
+        "line": 46
+      },
+      {
+        "path": "docs/escalabilidad/distribucion.json",
+        "line": 6
       }
     ],
-    "finding": "Gateway con DNS dinamico y recuperacion; se añade un runner reproducible para detener una replica y observar continuidad por gateway. La ejecución depende de un proyecto multinstancia activo; no certifica balanceo productivo ni SLA.",
+    "finding": "Gateway con DNS dinamico, registro del upstream real y prueba aislada con 80 solicitudes a dos replicas vivas; ambas reciben trafico. El alcance es local y no certifica balanceo productivo ni SLA.",
     "scope": "Evolucion futura",
     "frontend": {
       "status": "Infraestructura",
       "code": [],
       "verification": [
         {
-          "path": "docs/frontend/instalacion-desde-cero.json",
+          "path": "docs/escalabilidad/distribucion.json",
           "line": 1
         }
       ],
-      "note": "Este requisito sigue parcial. Instalacion y replicas locales verificadas en el mismo host Windows/Docker Linux; no se acreditan reparto del gateway, Kubernetes, TLS ni otro host por tener interfaz visual."
+      "note": "La evidencia visual no aplica: el requisito queda cubierto por la prueba de infraestructura local. Kubernetes, CA/TLS y otro sistema operativo siguen fuera de este cierre."
     }
   },
   {
@@ -2426,7 +2434,7 @@
         "line": 1
       }
     ],
-    "finding": "El perfil multinstancia final conserva 0 errores e invariantes, pero queda targets-not-met por historial p95 553.50 ms frente a 500 ms; checkout 1358.20 ms, pago 1380.67 ms y compra 4.139 s permanecen dentro de sus objetivos. El estado formal conserva el alcance local previamente medido; este resultado es una alerta para perfilar y optimizar antes de producción. No certifica grandes volúmenes, otros hosts ni rendimiento web.",
+    "finding": "El perfil multinstancia más reciente queda targets-not-met: a 20 usuarios historial p95 1039.41 ms, checkout 2464.09 ms y pago 2144.96 ms superan sus límites; compra p95 5925.02 ms permanece dentro de 10000 ms. El informe conserva una advertencia de invariantes por un checkout 503 transitorio y no se relajan objetivos. El estado formal mantiene el alcance local previamente medido; hay que perfilar SQL/HTTP antes de producción.",
     "scope": "MVP / calidad",
     "frontend": {
       "status": "Sin carga UI",
@@ -3063,7 +3071,7 @@
     "code": [
       {
         "path": "gateway/nginx.conf",
-        "line": 24
+        "line": 25
       },
       {
         "path": "docker-compose.yml",
