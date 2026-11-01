@@ -20,6 +20,8 @@ Modularidad: [capas, contratos e inicializacion](docs/modularidad.md) y [segunda
 
 Auditoria actualizada: [matriz completa con cobertura visual](docs/auditoria/matriz-requisitos.md).
 
+Preparacion futura: [Kubernetes, HTTPS, fallo de réplicas y portabilidad](docs/preparacion-futura.md).
+
 Plataforma escalable de comercio electrónico basada en una arquitectura de microservicios, desarrollada con Python (FastAPI/SQLAlchemy), PostgreSQL, Redis, RabbitMQ y Docker Compose.
 
 ---

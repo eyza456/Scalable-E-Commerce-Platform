@@ -1,0 +1,122 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata: {name: user-db}
+spec:
+  serviceName: user-db
+  replicas: 1
+  selector: {matchLabels: {app: user-db}}
+  template:
+    metadata: {labels: {app: user-db}}
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:16
+          ports: [{name: postgres, containerPort: 5432}]
+          env:
+            - {name: POSTGRES_DB, valueFrom: {configMapKeyRef: {name: ecommerce-config, key: USER_DB_NAME}}}
+            - {name: POSTGRES_USER, valueFrom: {secretKeyRef: {name: ecommerce-secrets, key: USER_DB_USER}}}
+            - {name: POSTGRES_PASSWORD, valueFrom: {secretKeyRef: {name: ecommerce-secrets, key: USER_DB_PASSWORD}}}
+          readinessProbe: {exec: {command: ["sh", "-c", "pg_isready -U $POSTGRES_USER -d $POSTGRES_DB"]}, initialDelaySeconds: 5, periodSeconds: 5}
+          volumeMounts: [{name: data, mountPath: /var/lib/postgresql/data}]
+  volumeClaimTemplates:
+    - metadata: {name: data}
+      spec: {accessModes: [ReadWriteOnce], resources: {requests: {storage: 2Gi}}}
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata: {name: product-db}
+spec:
+  serviceName: product-db
+  replicas: 1
+  selector: {matchLabels: {app: product-db}}
+  template:
+    metadata: {labels: {app: product-db}}
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:16
+          ports: [{name: postgres, containerPort: 5432}]
+          env:
+            - {name: POSTGRES_DB, valueFrom: {configMapKeyRef: {name: ecommerce-config, key: PRODUCT_DB_NAME}}}
+            - {name: POSTGRES_USER, valueFrom: {secretKeyRef: {name: ecommerce-secrets, key: PRODUCT_DB_USER}}}
+            - {name: POSTGRES_PASSWORD, valueFrom: {secretKeyRef: {name: ecommerce-secrets, key: PRODUCT_DB_PASSWORD}}}
+          readinessProbe: {exec: {command: ["sh", "-c", "pg_isready -U $POSTGRES_USER -d $POSTGRES_DB"]}, initialDelaySeconds: 5, periodSeconds: 5}
+          volumeMounts: [{name: data, mountPath: /var/lib/postgresql/data}]
+  volumeClaimTemplates:
+    - metadata: {name: data}
+      spec: {accessModes: [ReadWriteOnce], resources: {requests: {storage: 2Gi}}}
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata: {name: order-db}
+spec:
+  serviceName: order-db
+  replicas: 1
+  selector: {matchLabels: {app: order-db}}
+  template:
+    metadata: {labels: {app: order-db}}
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:16
+          ports: [{name: postgres, containerPort: 5432}]
+          env:
+            - {name: POSTGRES_DB, valueFrom: {configMapKeyRef: {name: ecommerce-config, key: ORDER_DB_NAME}}}
+            - {name: POSTGRES_USER, valueFrom: {secretKeyRef: {name: ecommerce-secrets, key: ORDER_DB_USER}}}
+            - {name: POSTGRES_PASSWORD, valueFrom: {secretKeyRef: {name: ecommerce-secrets, key: ORDER_DB_PASSWORD}}}
+          readinessProbe: {exec: {command: ["sh", "-c", "pg_isready -U $POSTGRES_USER -d $POSTGRES_DB"]}, initialDelaySeconds: 5, periodSeconds: 5}
+          volumeMounts: [{name: data, mountPath: /var/lib/postgresql/data}]
+  volumeClaimTemplates:
+    - metadata: {name: data}
+      spec: {accessModes: [ReadWriteOnce], resources: {requests: {storage: 2Gi}}}
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata: {name: payment-db}
+spec:
+  serviceName: payment-db
+  replicas: 1
+  selector: {matchLabels: {app: payment-db}}
+  template:
+    metadata: {labels: {app: payment-db}}
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:16
+          ports: [{name: postgres, containerPort: 5432}]
+          env:
+            - {name: POSTGRES_DB, valueFrom: {configMapKeyRef: {name: ecommerce-config, key: PAYMENT_DB_NAME}}}
+            - {name: POSTGRES_USER, valueFrom: {secretKeyRef: {name: ecommerce-secrets, key: PAYMENT_DB_USER}}}
+            - {name: POSTGRES_PASSWORD, valueFrom: {secretKeyRef: {name: ecommerce-secrets, key: PAYMENT_DB_PASSWORD}}}
+          readinessProbe: {exec: {command: ["sh", "-c", "pg_isready -U $POSTGRES_USER -d $POSTGRES_DB"]}, initialDelaySeconds: 5, periodSeconds: 5}
+          volumeMounts: [{name: data, mountPath: /var/lib/postgresql/data}]
+  volumeClaimTemplates:
+    - metadata: {name: data}
+      spec: {accessModes: [ReadWriteOnce], resources: {requests: {storage: 2Gi}}}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata: {name: redis}
+spec:
+  replicas: 1
+  selector: {matchLabels: {app: redis}}
+  template:
+    metadata: {labels: {app: redis}}
+    spec:
+      containers:
+        - {name: redis, image: redis:7-alpine, ports: [{name: redis, containerPort: 6379}], readinessProbe: {exec: {command: ["redis-cli", "ping"]}, periodSeconds: 5}}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata: {name: rabbitmq}
+spec:
+  replicas: 1
+  selector: {matchLabels: {app: rabbitmq}}
+  template:
+    metadata: {labels: {app: rabbitmq}}
+    spec:
+      containers:
+        - name: rabbitmq
+          image: rabbitmq:3-management
+          ports: [{name: amqp, containerPort: 5672}, {name: management, containerPort: 15672}]
+          readinessProbe: {exec: {command: ["rabbitmq-diagnostics", "-q", "ping"]}, initialDelaySeconds: 10, periodSeconds: 5}

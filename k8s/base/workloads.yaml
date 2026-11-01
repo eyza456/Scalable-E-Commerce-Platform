@@ -1,0 +1,145 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: {name: user-service}
+spec:
+  replicas: 2
+  selector: {matchLabels: {app: user-service}}
+  template:
+    metadata: {labels: {app: user-service}}
+    spec:
+      containers:
+        - name: user-service
+          image: ecommerce/user-service:latest
+          imagePullPolicy: IfNotPresent
+          ports: [{name: http, containerPort: 8000}]
+          envFrom: [{configMapRef: {name: ecommerce-config}}, {secretRef: {name: ecommerce-secrets}}]
+          env: [{name: DATABASE_URL, valueFrom: {secretKeyRef: {name: ecommerce-secrets, key: USER_DATABASE_URL}}}]
+          readinessProbe: {httpGet: {path: /health, port: http}, initialDelaySeconds: 10, periodSeconds: 5}
+          livenessProbe: {httpGet: {path: /health, port: http}, initialDelaySeconds: 20, periodSeconds: 10}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata: {name: product-service}
+spec:
+  replicas: 2
+  selector: {matchLabels: {app: product-service}}
+  template:
+    metadata: {labels: {app: product-service}}
+    spec:
+      containers:
+        - name: product-service
+          image: ecommerce/product-service:latest
+          imagePullPolicy: IfNotPresent
+          ports: [{name: http, containerPort: 8000}]
+          envFrom: [{configMapRef: {name: ecommerce-config}}, {secretRef: {name: ecommerce-secrets}}]
+          env: [{name: DATABASE_URL, valueFrom: {secretKeyRef: {name: ecommerce-secrets, key: PRODUCT_DATABASE_URL}}}]
+          readinessProbe: {httpGet: {path: /health, port: http}, initialDelaySeconds: 10, periodSeconds: 5}
+          livenessProbe: {httpGet: {path: /health, port: http}, initialDelaySeconds: 20, periodSeconds: 10}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata: {name: cart-service}
+spec:
+  replicas: 2
+  selector: {matchLabels: {app: cart-service}}
+  template:
+    metadata: {labels: {app: cart-service}}
+    spec:
+      containers:
+        - name: cart-service
+          image: ecommerce/cart-service:latest
+          imagePullPolicy: IfNotPresent
+          ports: [{name: http, containerPort: 8000}]
+          envFrom: [{configMapRef: {name: ecommerce-config}}, {secretRef: {name: ecommerce-secrets}}]
+          readinessProbe: {httpGet: {path: /health, port: http}, initialDelaySeconds: 10, periodSeconds: 5}
+          livenessProbe: {httpGet: {path: /health, port: http}, initialDelaySeconds: 20, periodSeconds: 10}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata: {name: order-service}
+spec:
+  replicas: 2
+  selector: {matchLabels: {app: order-service}}
+  template:
+    metadata: {labels: {app: order-service}}
+    spec:
+      containers:
+        - name: order-service
+          image: ecommerce/order-service:latest
+          imagePullPolicy: IfNotPresent
+          ports: [{name: http, containerPort: 8000}]
+          envFrom: [{configMapRef: {name: ecommerce-config}}, {secretRef: {name: ecommerce-secrets}}]
+          env: [{name: DATABASE_URL, valueFrom: {secretKeyRef: {name: ecommerce-secrets, key: ORDER_DATABASE_URL}}}]
+          readinessProbe: {httpGet: {path: /health, port: http}, initialDelaySeconds: 10, periodSeconds: 5}
+          livenessProbe: {httpGet: {path: /health, port: http}, initialDelaySeconds: 20, periodSeconds: 10}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata: {name: payment-service}
+spec:
+  replicas: 2
+  selector: {matchLabels: {app: payment-service}}
+  template:
+    metadata: {labels: {app: payment-service}}
+    spec:
+      containers:
+        - name: payment-service
+          image: ecommerce/payment-service:latest
+          imagePullPolicy: IfNotPresent
+          ports: [{name: http, containerPort: 8000}]
+          envFrom: [{configMapRef: {name: ecommerce-config}}, {secretRef: {name: ecommerce-secrets}}]
+          env: [{name: DATABASE_URL, valueFrom: {secretKeyRef: {name: ecommerce-secrets, key: PAYMENT_DATABASE_URL}}}]
+          readinessProbe: {httpGet: {path: /health, port: http}, initialDelaySeconds: 10, periodSeconds: 5}
+          livenessProbe: {httpGet: {path: /health, port: http}, initialDelaySeconds: 20, periodSeconds: 10}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata: {name: notification-service}
+spec:
+  replicas: 2
+  selector: {matchLabels: {app: notification-service}}
+  template:
+    metadata: {labels: {app: notification-service}}
+    spec:
+      containers:
+        - name: notification-service
+          image: ecommerce/notification-service:latest
+          imagePullPolicy: IfNotPresent
+          ports: [{name: http, containerPort: 8000}]
+          envFrom: [{configMapRef: {name: ecommerce-config}}, {secretRef: {name: ecommerce-secrets}}]
+          readinessProbe: {httpGet: {path: /health, port: http}, initialDelaySeconds: 10, periodSeconds: 5}
+          livenessProbe: {httpGet: {path: /health, port: http}, initialDelaySeconds: 20, periodSeconds: 10}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata: {name: api-gateway}
+spec:
+  replicas: 2
+  selector: {matchLabels: {app: api-gateway}}
+  template:
+    metadata: {labels: {app: api-gateway}}
+    spec:
+      containers:
+        - name: api-gateway
+          image: ecommerce/api-gateway:latest
+          imagePullPolicy: IfNotPresent
+          ports: [{name: http, containerPort: 80}]
+          readinessProbe: {httpGet: {path: /health, port: http}, initialDelaySeconds: 5, periodSeconds: 5}
+          livenessProbe: {httpGet: {path: /health, port: http}, initialDelaySeconds: 10, periodSeconds: 10}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata: {name: frontend}
+spec:
+  replicas: 2
+  selector: {matchLabels: {app: frontend}}
+  template:
+    metadata: {labels: {app: frontend}}
+    spec:
+      containers:
+        - name: frontend
+          image: ecommerce/frontend:latest
+          imagePullPolicy: IfNotPresent
+          ports: [{name: http, containerPort: 80}]
+          readinessProbe: {httpGet: {path: /, port: http}, initialDelaySeconds: 5, periodSeconds: 5}
+          livenessProbe: {httpGet: {path: /, port: http}, initialDelaySeconds: 10, periodSeconds: 10}

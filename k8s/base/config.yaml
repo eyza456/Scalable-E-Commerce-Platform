@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ecommerce-config
+data:
+  JWT_ALGORITHM: HS256
+  ACCESS_TOKEN_EXPIRE_MINUTES: "60"
+  USER_DB_NAME: users
+  PRODUCT_DB_NAME: products
+  ORDER_DB_NAME: orders
+  PAYMENT_DB_NAME: payments
+  REDIS_HOST: redis
+  REDIS_PORT: "6379"
+  RABBITMQ_HOST: rabbitmq
+  RABBITMQ_PORT: "5672"
+  PRODUCT_SERVICE_URL: http://product-service:8000
+  CART_SERVICE_URL: http://cart-service:8000
+  ORDER_SERVICE_URL: http://order-service:8000
+  PAYMENT_SERVICE_URL: http://payment-service:8000

@@ -117,6 +117,17 @@
     "orderrepo": "services/order-service/app/order_repository.py",
     "checkoutrepo": "services/order-service/app/checkout_repository.py",
     "cancellationrepo": "services/order-service/app/cancellation_repository.py",
+    "k8sbase": "k8s/base/kustomization.yaml",
+    "k8soverlay": "k8s/overlays/dev/ingress.yaml",
+    "tlsconf": "gateway/nginx.tls.conf",
+    "tlscompose": "compose.tls.yml",
+    "certps": "scripts/generate-dev-cert.ps1",
+    "certsh": "scripts/generate-dev-cert.sh",
+    "failover": "tests/replica_failover.py",
+    "futuretest": "tests/future_preparation.py",
+    "installps": "scripts/install.ps1",
+    "installsh": "scripts/install.sh",
+    "futureddoc": "k8s/README.md",
     "checkoutcontracts": "services/order-service/app/checkout_contracts.py",
     "paymentclient": "services/order-service/app/payment_client.py",
     "cancellationcontracts": "services/order-service/app/cancellation_contracts.py",
@@ -664,13 +675,15 @@
       [
         "gw@resolver",
         "proxy@proxy_pass",
-        "multicompose"
+        "multicompose",
+        "failover"
       ],
       [
         "resilience",
-        "multiindependent"
+        "multiindependent",
+        "futuretest"
       ],
-      "Gateway con DNS dinamico y recuperacion; perfil multinstancia probado. Falta observar reparto de solicitudes del gateway entre replicas y continuidad ante fallo de una replica durante operaciones. Preparacion futura, no bloqueo del MVP funcional."
+      "Gateway con DNS dinamico y recuperacion; se añade un runner reproducible para detener una replica y observar continuidad por gateway. La ejecución depende de un proyecto multinstancia activo; no certifica balanceo productivo ni SLA."
     ],
     "RF-50": [
       "Cumplido",
@@ -769,10 +782,13 @@
       "Parcial",
       [
         "compose",
-        "gwdocker"
+        "gwdocker",
+        "k8sbase",
+        "k8soverlay",
+        "futureddoc"
       ],
-      [],
-      "Base en contenedores y variables de entorno; no hay manifiestos ni verificacion Kubernetes. Preparacion futura, fuera del MVP inicial segun pagina 8."
+      ["futuretest"],
+      "Se entregan Kustomize base/overlay con workloads, StatefulSets, probes, Ingress TLS y validacion offline de render. Falta aplicar en un cluster real y sustituir secretos/imagenes por valores de despliegue."
     ],
     "RNF-08": [
       "Cumplido",
@@ -879,10 +895,14 @@
       "Parcial",
       [
         "gw@listen 80;",
-        "compose@127.0.0.1:"
+        "compose@127.0.0.1:",
+        "tlsconf",
+        "tlscompose",
+        "certps",
+        "certsh"
       ],
-      [],
-      "Gateway HTTP preparado para configurarse; no hay certificado, listener HTTPS ni validacion TLS. Capacidad futura, no bloqueo MVP."
+      ["futuretest"],
+      "Se incorpora listener HTTPS TLS 1.2/1.3, redireccion HTTP, HSTS, override Compose y generadores de certificado de desarrollo. La certificacion productiva, rotacion y CA confiable siguen pendientes."
     ],
     "RNF-16": [
       "Cumplido",
@@ -1045,13 +1065,16 @@
         "compose",
         "fresh",
         "uicompose",
-        "uifresh"
+        "uifresh",
+        "installps",
+        "installsh"
       ],
       [
         "fresh",
-        "uifreshresult"
+        "uifreshresult",
+        "futuretest"
       ],
-      "Instalacion limpia y reinicio verificados en Windows con contenedores Linux. Falta ejecutar la misma verificacion en host Linux/macOS; no se infiere portabilidad completa. Frontend incluido en instalacion nueva de 14 contenedores; sigue siendo el mismo host."
+      "Se añaden instaladores equivalentes PowerShell y POSIX, pero la instalación ejecutada sigue siendo Windows con contenedores Linux. Falta ejecutar el runner en un host Linux y macOS; no se infiere portabilidad completa."
     ],
     "RNF-28": [
       "Cumplido",

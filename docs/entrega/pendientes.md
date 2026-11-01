@@ -1,6 +1,6 @@
 # Pendientes reales y prioridades
 
-Revision: 29 de octubre de 2026. Matriz vigente: 72 cumplidos, 6 parciales y 0 pendientes de 78. No se incluyen como pendientes los seis defectos iniciales ya corregidos. RNF-01 ya cumple los objetivos del perfil local v1 tras el perfilado SQL/HTTP; no representa un SLA productivo. La RC etiquetada originalmente tenia 69/8/1; esta es la revision posterior. Los 12 criterios basicos de aceptacion de pp.22-23 tienen evidencia; eso no equivale a cumplir todos los RNF.
+Revision: 1 de noviembre de 2026. Matriz vigente: 74 cumplidos, 4 parciales y 0 pendientes de 78. No se incluyen como pendientes los seis defectos iniciales ya corregidos. RNF-01 tiene objetivos medidos en el perfil local, pero no representa un SLA productivo. La preparación futura de Kubernetes, TLS, fallo de réplicas y portabilidad está documentada en [preparacion-futura.md](../preparacion-futura.md).
 
 ## Cierre del candidato integrado
 
@@ -37,8 +37,8 @@ alcance y las pruebas de cierre. RNF-05/06 quedan cerrados en alcance local con 
 | --- | --- | --- | --- |
 | Cerrado en alcance local | RNF-01, Cumplido | Referencia de una instancia: historial 286,88 ms, checkout 770,97 ms, pago 525,38 ms y compra 2,738 s en p95. El perfil multinstancia tambien aprueba los mismos 30 criterios | [Referencia](../rendimiento/informe.md), [perfil SQL/HTTP](../perfilado/informe.md) y [nueva carga](../escalabilidad/README.md). Ampliar volumen y duracion antes de inferir capacidad productiva |
 | Cerrado en alcance local | RNF-05/06, Cumplido | Overlay aislado; dos instancias de los seis servicios, escalado independiente 2/3/1/2 y compra/cancelacion concurrentes | [Evidencias](../escalabilidad/README.md), incluido benchmark original aprobado; sin garantia productiva |
-| 3 / media | RNF-27, Parcial | Ejecutar instalacion limpia en otro host compatible con Docker, Linux y/o macOS | Reporte del mismo fresh_install.py con host/version y resultado; contenedores Linux en Windows no son otro host |
-| 4 / media | RNF-08/21, Parcial | Usuarios, catálogo y pagos ya separan acciones/repositorios. Restan checkout/eventos y migraciones versionadas de usuarios/pedidos/pagos | [Etapas de modularidad](../modularidad.md) y [pagos](../modularidad-pagos.md); falta completar el resto del backend |
+| 3 / media | RNF-27, Parcial | Ejecutar instalación limpia en un host Linux y otro macOS; ya existen helpers PowerShell/POSIX | [Preparación futura](../preparacion-futura.md) y `tests/frontend_fresh_install.py` |
+| 4 / media | RNF-07/15/49, Parciales | Aplicar Kubernetes en un cluster, usar certificados confiables y observar fallo/reparto de réplicas en un entorno real | [Preparación futura](../preparacion-futura.md); los manifests y runners locales ya están preparados |
 
 Estos pendientes limitan la afirmacion de cumplimiento del PDF; no se han ocultado como capacidades productivas. Se entrega RC para revision y demostracion mientras siguen abiertos.
 
@@ -55,9 +55,9 @@ Estos pendientes limitan la afirmacion de cumplimiento del PDF; no se han oculta
 
 ## Evolucion opcional para el MVP inicial
 
-- RF-49: balanceo de carga real. Se tiene Nginx con DNS dinamico, recuperacion y replicas locales; falta medir y demostrar el reparto de solicitudes del gateway entre ellas.
-- RNF-07: preparacion/despliegue Kubernetes. Sigue parcial; el PDF excluye la implementacion inicial completa de Kubernetes (p.8).
-- RNF-15: HTTPS futuro. Sigue parcial; imprescindible antes de exposicion productiva.
+- RF-49: balanceo de carga real. Se tiene Nginx con DNS dinamico, recuperacion, runner de fallo de replica y replicas locales; falta una observacion productiva del reparto.
+- RNF-07: manifests Kustomize y validacion offline preparados; falta aplicar y operar un cluster real.
+- RNF-15: configuración TLS local preparada; falta CA confiable, rotación y validación productiva.
 - Pasarela real y reembolsos, Elasticsearch, inventario independiente, notificaciones externas, discovery especializado, logs centralizados, Prometheus/Grafana, CI/CD y autoscaling (pp.8,22,36-37).
 
 Son opciones de evolucion del alcance inicial; no se consideran implementadas por existir carpetas de infraestructura o dependencias. El orden recomendado tras revisar esta RC es reducir acoplamiento, completar modularidad y verificar portabilidad, y ampliar duracion/volumen de las pruebas de rendimiento, antes de anunciar escalabilidad o disponibilidad productiva.
