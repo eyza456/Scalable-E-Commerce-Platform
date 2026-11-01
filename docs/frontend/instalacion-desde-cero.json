@@ -1,6 +1,6 @@
 {
-  "project": "fresh-57217d790607",
-  "executed_at": "2026-11-01T17:07:22.973444+00:00",
+  "project": "fresh-3f1632f08e13",
+  "executed_at": "2026-11-01T18:45:03.580751+00:00",
   "checks": {
     "configuration": "Plantilla independiente; sin .env ni datos locales",
     "frontend_configuration": "Actual frontend overlay; isolated project, network and loopback random port",
@@ -78,15 +78,15 @@
     "original_installation": "Original IDs, start times and restart counts unchanged"
   },
   "volumes": [
-    "fresh-57217d790607_order_postgres_data",
-    "fresh-57217d790607_payment_postgres_data",
-    "fresh-57217d790607_product_postgres_data",
-    "fresh-57217d790607_rabbitmq_data",
-    "fresh-57217d790607_redis_data",
-    "fresh-57217d790607_user_postgres_data"
+    "fresh-3f1632f08e13_order_postgres_data",
+    "fresh-3f1632f08e13_payment_postgres_data",
+    "fresh-3f1632f08e13_product_postgres_data",
+    "fresh-3f1632f08e13_rabbitmq_data",
+    "fresh-3f1632f08e13_redis_data",
+    "fresh-3f1632f08e13_user_postgres_data"
   ],
   "readme_sha256": "729f821d5232d64dc5ae49ccbed2a6d222c41f442c63ce26dfa8c39e31901182",
-  "source_commit": "9101a4974b9dd6a14e671da379fbb6c0051caef2",
+  "source_commit": "d7dbf78c59d4fc500cf09da3e1941571c94b8e76",
   "source_note": "Tracked working-tree bytes copied at preparation; hashes identify exact sources, including staged edits",
   "sha256": {
     "README.md": "9dcaa654b55547516efdccb785038a727a313eee5c729862a047b80cef3ed24b",

@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-11-01T17:39:28.450493+00:00",
-  "runtime_reference_commit": "9101a4974b9dd6a14e671da379fbb6c0051caef2",
+  "generated_at": "2026-11-01T18:49:36.263625+00:00",
+  "runtime_reference_commit": "d7dbf78c59d4fc500cf09da3e1941571c94b8e76",
   "runtime_matches_reference": true,
   "additional_deployment_profiles": [
     "compose.multinstance.yml"
   ],
-  "documentation_review_base": "f4f1ebb73603e1ecefd3f69325ec021a70cdc0eb",
+  "documentation_review_base": "d7dbf78c59d4fc500cf09da3e1941571c94b8e76",
   "historical_tag": {
     "name": "v0.1.0-rc.1",
     "commit": "d92380e505fd050be4483f3896aa1643c39f4e6c",
@@ -14,8 +14,8 @@
   "configured_remotes": [],
   "requirements": {
     "total": 78,
-    "fulfilled": 74,
-    "partial": 4,
+    "fulfilled": 75,
+    "partial": 3,
     "pending": 0
   },
   "validation": {
@@ -29,7 +29,7 @@
     "replicas_per_service": 2,
     "replica_profile_containers": 20,
     "replica_load_goals_passed": 30,
-    "replica_load_http_requests": 14106
+    "replica_load_http_requests": 11179
   },
   "normalization": "SHA-256; text CRLF normalized to LF, binary files hashed raw. Manifest excludes itself.",
   "scope": "Local integrated delivery. Core runtime matches reference; additional replica overlay and its executions are verified separately. This manifest does not rerun tests or imply production certification. Execution dates live in the evidence files.",
@@ -67,20 +67,20 @@
       "canonical_bytes": 5605
     },
     "docs/auditoria/criterios-revision.json": {
-      "sha256": "2f5be4b9bc8414c20ca6ea51e348994a8880cd728b482c9d2dc60f7b13427f4c",
-      "canonical_bytes": 59711
+      "sha256": "aed0cb111b99ac82a0b8f7ee10a0dc2ab1009a0a6127df17ce72bdb0c2571cff",
+      "canonical_bytes": 59886
     },
     "docs/auditoria/estado-entorno.json": {
-      "sha256": "774f07ab798bb617f768372d85046c462b70e04c9de08fb4bc74df05f3800d62",
+      "sha256": "eab376828e46952d7e8bae16e1ea1cfb8049524744554f8132cc3c76ddde5c3b",
       "canonical_bytes": 5933
     },
     "docs/auditoria/generar_auditoria.py": {
-      "sha256": "fd82fff25c2f8f7eaaa35eb2846e5a19645fe95285f9514aa529578bd895407f",
-      "canonical_bytes": 22484
+      "sha256": "378fc89d9a0ac01a2d308aae25cd6e54a61e8bee69eee5aa7eab84ca4c99077f",
+      "canonical_bytes": 23040
     },
     "docs/auditoria/hashes-evidencias.json": {
-      "sha256": "12e3c21e4f879b8bb722c8e3ee004e8ac8edcfea6d1adf2331d29763a34d9327",
-      "canonical_bytes": 13815
+      "sha256": "ac9c7bc5dffde98de1c3f2f4ab84e7c13691e7f35db13211c96757738ddee103",
+      "canonical_bytes": 14033
     },
     "docs/auditoria/instalacion-desde-cero.json": {
       "sha256": "7975ec5af0e5b005c2b8d12a443fe51599d2306f759a43c7571d0ea11918031e",
@@ -91,24 +91,24 @@
       "canonical_bytes": 3608
     },
     "docs/auditoria/matriz-frontend.json": {
-      "sha256": "f257765b8de4d19f21c06ff053bdbe19d4036c248520e42e853507c92e4607a9",
-      "canonical_bytes": 37869
+      "sha256": "18e977a55aea88c814592b858e11f8e421abdab00b5656785246acd68caa2087",
+      "canonical_bytes": 37831
     },
     "docs/auditoria/matriz-frontend.md": {
-      "sha256": "9f41c9f538cb21d0451e350664fde25125f83a3b619d44dc14d64419127b0d98",
-      "canonical_bytes": 48940
+      "sha256": "f7beb256720cb445da185178294eac5d1dffbddfc0b90283ecf733af09970841",
+      "canonical_bytes": 48897
     },
     "docs/auditoria/matriz-requisitos.csv": {
-      "sha256": "9c5fea68f02e0afde2be7edbddc3c369cb9fc0b8940d7a5d224eb5d1912fae2a",
-      "canonical_bytes": 48406
+      "sha256": "d329de59d32fbebdb057217bd70d99fad6682bb0be34072b06b8a68c384067fa",
+      "canonical_bytes": 48407
     },
     "docs/auditoria/matriz-requisitos.json": {
-      "sha256": "a52dc15ef2ab317031f41163441f50ef8d76541e5e6813acb0886eadee09565b",
-      "canonical_bytes": 100887
+      "sha256": "625f2c3d05b9f0184cf1e24ff97952e3441ef427c50178068f3bf59636f8b3e7",
+      "canonical_bytes": 100988
     },
     "docs/auditoria/matriz-requisitos.md": {
-      "sha256": "b9e843a0e7b6eeb9857dd7d1ff4b4fb35e5f8bfc96ccca1f0c2a173df3c4e255",
-      "canonical_bytes": 80595
+      "sha256": "2806a0f5b6218a43d6e67245654692557dfc3fc81da2d3d2b6c966adcc4f3cd0",
+      "canonical_bytes": 80900
     },
     "docs/auditoria/openapi-observado.json": {
       "sha256": "6d2cb9cfa562bd736645fc63c9322690996f56618c755e7782f1ad2296ebffda",
@@ -119,7 +119,7 @@
       "canonical_bytes": 578
     },
     "docs/auditoria/resultado-frontend.json": {
-      "sha256": "55c2401bd1a91eb14554ed68f7f2f3ba0a3d3f0bec200262ca5d0dd813f6da36",
+      "sha256": "273b45354890345dbdb8877f09c74c93a2308788d9f30b02207097f32d102c23",
       "canonical_bytes": 1147
     },
     "docs/auditoria/resultado-suite-cierre.json": {
@@ -131,7 +131,7 @@
       "canonical_bytes": 727
     },
     "docs/auditoria/resultado-suite.json": {
-      "sha256": "8fd2756ff278a99c5ea6906d749d431bab6b2fd1c62fd2b7a6578bbfae60735d",
+      "sha256": "c56f8067dddf04a2b240017437b753193ec9debaf0cbf575fda24eb58e1642ad",
       "canonical_bytes": 3312
     },
     "docs/auditoria/sondas-2026-10-28.json": {
@@ -151,28 +151,28 @@
       "canonical_bytes": 2548
     },
     "docs/entrega/generar_manifiesto.py": {
-      "sha256": "3f7d5b41983e0e66540a9ed920de96a10ce14ad75d204541a49d18b288f2e337",
-      "canonical_bytes": 7210
+      "sha256": "19f44b3068668e640f311f2ae1dcb91956ef9c12857da212eba9b4187b3a54eb",
+      "canonical_bytes": 7252
     },
     "docs/entrega/notas-entrega-integrada.md": {
-      "sha256": "e51e9dede7cccb6662eb45a028e6eca410046e32c8cb7b62656e061e9f0ccca7",
-      "canonical_bytes": 4832
+      "sha256": "f65eff4428897e18f4be61b8baa0a5953f8a517b60fa6011b1679ff37fa1536f",
+      "canonical_bytes": 4836
     },
     "docs/entrega/notas-version.md": {
       "sha256": "4d36e607a1eeb973a49d863805253601b2e24712fc3ffcfb6cc7a21d36e33d85",
       "canonical_bytes": 1854
     },
     "docs/entrega/pendientes.md": {
-      "sha256": "1a418e700161bdc8fe86deb5626060933cfc2ef2dff93a01e1aaa330cb9d2931",
-      "canonical_bytes": 6574
+      "sha256": "967bbdae2c04b7c97d7cc084aa55e9087fae3749de685fdec62638fb86ae49db",
+      "canonical_bytes": 6660
     },
     "docs/entrega/plan-cierre-parciales.md": {
-      "sha256": "309e35f21fd66c055754850908705f9058fac30e4210aafdb3ad788fe4392692",
-      "canonical_bytes": 8323
+      "sha256": "faf556e102a04d74e9cedde2def165ddf427672a44cda5aaf2cc57b797eb74e6",
+      "canonical_bytes": 8336
     },
     "docs/escalabilidad/README.md": {
-      "sha256": "a83598a927c4d5262088fbb9d1ad6e7c64cc51de0207f058cbb1b77c7926cc10",
-      "canonical_bytes": 6438
+      "sha256": "19474383ffc1639b8cd5b102b438063e9f56493a41446aa2e84ea9ea213e54e6",
+      "canonical_bytes": 7148
     },
     "docs/escalabilidad/carga/inicial/README.md": {
       "sha256": "7c181b95e4203bdb944328aa0fa7926b030b33f672f8f95387726d71f37ac4fe",
@@ -195,23 +195,27 @@
       "canonical_bytes": 38699
     },
     "docs/escalabilidad/carga/muestras.jsonl": {
-      "sha256": "1a6e87239e613f4efd78fd00c02589b7274cc435d3089bb1bdd1a2498b38f067",
-      "canonical_bytes": 1562745
+      "sha256": "6146d52ab632f404576130dc8ea44ee7f4d47dbadd12677fb129a6d326834b00",
+      "canonical_bytes": 1237413
     },
     "docs/escalabilidad/carga/recursos.json": {
-      "sha256": "f8dd4759c8eb887d78a942d0013ffb4a25190d41027df60fd1b7b54a71473c23",
-      "canonical_bytes": 305295
+      "sha256": "fecc4bd37891e91cbf91795b767ea9c7412bb3d094f378f94943309c8e90ed94",
+      "canonical_bytes": 297979
     },
     "docs/escalabilidad/carga/resultado.json": {
-      "sha256": "7dd791efd12d7994b9a86e654a003eccb80584be3d7065a4eff0667ca8418791",
-      "canonical_bytes": 43450
+      "sha256": "90e6520661f7b1bb390a65d66c2eee5e9368ad999269d31aa28d59c3cb05b12a",
+      "canonical_bytes": 43691
+    },
+    "docs/escalabilidad/distribucion.json": {
+      "sha256": "132574938b54be01bd63d934c166b715931352e8638c85c5855c27f9dd5095b4",
+      "canonical_bytes": 18956
     },
     "docs/escalabilidad/fallo-replica.json": {
       "sha256": "bf4253c12217fd38942792edc34615a12dd965ca298eb7a40e657c4c0e5cdadf",
       "canonical_bytes": 634
     },
     "docs/escalabilidad/independencia.json": {
-      "sha256": "21b6db6ab688a9e82f9a4484b7bcb086aef88135cb92a518bd8f6b31520132ef",
+      "sha256": "fe07800f10275889d9a84e0de79608f804a2c50e73b2b25f253ad9754d71fc63",
       "canonical_bytes": 20735
     },
     "docs/escalabilidad/intentos/independencia-arranque.json": {
@@ -219,7 +223,7 @@
       "canonical_bytes": 15045
     },
     "docs/escalabilidad/resultado.json": {
-      "sha256": "3fe4c2a12b9162309ee57bcb6b553d099646e6000a84fc99787d341c2c9bf656",
+      "sha256": "b1018e4797cd58eab0841444c135db83cb684bd71d2b42be6d558152009b92fa",
       "canonical_bytes": 20780
     },
     "docs/frontend/a11y-antes.json": {
@@ -287,27 +291,27 @@
       "canonical_bytes": 157280
     },
     "docs/frontend/instalacion-cero/carrito-desktop.png": {
-      "sha256": "1af4e38e6dab982cb754b4cadd701a2feef44dca9440b1f534637b455ae624b9",
-      "canonical_bytes": 75899
+      "sha256": "da4f80621612fc918190bdd763b67dd8139631030d96ef738e834fdb77454a0a",
+      "canonical_bytes": 75758
     },
     "docs/frontend/instalacion-cero/catalogo-mobile.png": {
-      "sha256": "dd9188fd344dc0a26e710939dddd8d3101a2fe2df0b4c8880cfa7194577725c3",
-      "canonical_bytes": 72176
+      "sha256": "e588200881f744967807640921df31974820c62391b38f9e3efd02dafc050914",
+      "canonical_bytes": 71589
     },
     "docs/frontend/instalacion-cero/historial-mobile.png": {
-      "sha256": "561a39271facc12040ec3c3d8863d157e6654fe1e493cbb62dbf699cb561ae1f",
-      "canonical_bytes": 63331
+      "sha256": "c819f3a0c8d7718dc0dd725edfa8bd4aa4bf2411b20624a9f4fdda58798bd7b4",
+      "canonical_bytes": 63938
     },
     "docs/frontend/instalacion-cero/pago-aprobado.png": {
-      "sha256": "082e16ad292b9b4f74c0ddb02b7d242d00d5e03ecc0e31c0ce285f80fef7b565",
-      "canonical_bytes": 100662
+      "sha256": "c62b27f451c4507114091a89cd0e07757b2f932dd3ea0d4d889ec5dcc3c85e0f",
+      "canonical_bytes": 100352
     },
     "docs/frontend/instalacion-cero/recorrido-accesibilidad.json": {
-      "sha256": "c0dab66289aa550acdf6fc9bc278a2347bc42d6572fa9b27e7df18272a61df73",
+      "sha256": "94bfd864e361234ac0d9922b74a38944dab1de1336ad03516b3859b3d08db682",
       "canonical_bytes": 4765
     },
     "docs/frontend/instalacion-desde-cero.json": {
-      "sha256": "e4c7a183219389f84bc304863b3ce3f76b0c2fb77d19532a14a2d6746377aafe",
+      "sha256": "831600a0833d87d06b99eb8223ec4fae947de579232a8281acf5018f1a07f825",
       "canonical_bytes": 4957
     },
     "docs/frontend/instalacion-desde-cero.md": {
@@ -391,7 +395,7 @@
       "canonical_bytes": 2760
     },
     "docs/modularidad.md": {
-      "sha256": "2bcd1ebc8e8c2a2ef9fd2573a8c05ea62d1449383b6148ecdcf7c8840bcd49e3",
+      "sha256": "33059e2bd7bfae3db39c5eeecd7cf27a4b17a085eb8c1ce50d42bfd350b810d1",
       "canonical_bytes": 5819
     },
     "docs/rendimiento/evidencias.json": {
@@ -463,12 +467,12 @@
       "canonical_bytes": 236
     },
     "gateway/nginx.conf": {
-      "sha256": "96ac5e75f1eb2aef05529e3db99799636ee9e862139d955cbad1e5c5eac53293",
-      "canonical_bytes": 2440
+      "sha256": "343000144b293edbceced8a09e7e805970dced7ecc89b44f0f3d7dfa9b7ba2e4",
+      "canonical_bytes": 2520
     },
     "gateway/nginx.tls.conf": {
-      "sha256": "41a35f3c00b80c0661b9fe2dc9d3005f355716d3320c6c62273eeb665666aabe",
-      "canonical_bytes": 2525
+      "sha256": "78a737a73f3de9a413b7427da16f4d5e5f849288888dbc2a22df39f5547257ed",
+      "canonical_bytes": 2631
     },
     "gateway/proxy.inc": {
       "sha256": "d42fab381e02d1d2c40b692283b3c29a85f01e9b9133debfd74e8fe2d1bced31",
@@ -1305,6 +1309,10 @@
     "tests/multinstance.py": {
       "sha256": "651ce98de5514c1ac1d09ed299b461b3493c70fcf054d15428a72bfa6af55f16",
       "canonical_bytes": 12659
+    },
+    "tests/multinstance_distribution.py": {
+      "sha256": "b909cc6b02e7b91c6930c3e8cf52f01353c5b3157986d61a92c6dba97aaf2205",
+      "canonical_bytes": 5938
     },
     "tests/multinstance_independence.py": {
       "sha256": "224dc5475891dd64324257514e10bde88bba19c876524ff123b981cd8afc6fa8",
