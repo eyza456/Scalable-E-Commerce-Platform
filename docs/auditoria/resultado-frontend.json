@@ -1,5 +1,5 @@
 {
-  "reviewed_at": "2026-10-30T22:08:24.364511+00:00",
+  "reviewed_at": "2026-10-30T23:02:14.915564+00:00",
   "scenarios": 56,
   "runs": [
     {
@@ -36,7 +36,7 @@
   },
   "installation": {
     "path": "docs/frontend/instalacion-desde-cero.json",
-    "executed_at": "2026-10-30T21:48:06.755809+00:00"
+    "executed_at": "2026-10-30T22:48:09.475419+00:00"
   },
   "scope": "Evidence reviewed without re-running browser/load tests; dates identify actual recorded executions"
 }

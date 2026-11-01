@@ -1,5 +1,5 @@
 {
-  "audit_date": "2026-10-30T22:08:24.365514+00:00",
+  "audit_date": "2026-10-30T23:02:14.916565+00:00",
   "command": "powershell -NoProfile -ExecutionPolicy Bypass -File tests/run_stability.ps1",
   "observed_exit_code": 0,
   "unittest_total": 161,
@@ -8,43 +8,43 @@
   "unittest_runs": [
     {
       "tests": 42,
-      "seconds": 2.194
+      "seconds": 1.547
     },
     {
       "tests": 3,
-      "seconds": 0.336
+      "seconds": 0.18
     },
     {
       "tests": 6,
-      "seconds": 0.062
+      "seconds": 0.031
     },
     {
       "tests": 6,
-      "seconds": 0.063
+      "seconds": 0.036
     },
     {
       "tests": 6,
-      "seconds": 0.053
+      "seconds": 0.047
     },
     {
       "tests": 12,
-      "seconds": 0.508
+      "seconds": 0.401
     },
     {
       "tests": 15,
-      "seconds": 1.035
+      "seconds": 0.735
     },
     {
       "tests": 9,
-      "seconds": 0.213
+      "seconds": 0.123
     },
     {
       "tests": 17,
-      "seconds": 0.784
+      "seconds": 0.898
     },
     {
       "tests": 12,
-      "seconds": 0.613
+      "seconds": 0.428
     },
     {
       "tests": 2,
@@ -52,15 +52,15 @@
     },
     {
       "tests": 6,
-      "seconds": 0.236
+      "seconds": 0.195
     },
     {
       "tests": 4,
-      "seconds": 1.843
+      "seconds": 1.815
     },
     {
       "tests": 5,
-      "seconds": 0.006
+      "seconds": 0.003
     },
     {
       "tests": 5,
@@ -68,15 +68,15 @@
     },
     {
       "tests": 10,
-      "seconds": 31.608
+      "seconds": 32.216
     },
     {
       "tests": 1,
-      "seconds": 11.679
+      "seconds": 11.466
     }
   ],
   "log": "suite-pagos-modular.log",
-  "log_sha256": "c57082805cd6ec268df4cfece844c997b5d16e0dbf2aef69ce811c27a349352e",
+  "log_sha256": "218bfb5e5ea98a1bc9a71d105468bd1496f42853529d1628872a0e8f7c39aebb",
   "additional_success_messages": [
     "OK: ASGI import without SQL, sockets or background threads",
     "OK: ASGI import without SQL, sockets or background threads",

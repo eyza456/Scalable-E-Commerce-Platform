@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-10-30T22:09:56.616638+00:00",
-  "runtime_reference_commit": "1cfacffa9fd784edf6df3bd5602c8eb2600b4fe8",
+  "generated_at": "2026-11-01T02:17:32.587019+00:00",
+  "runtime_reference_commit": "0b0d95956671e7b6644397aaf4a984e46146be39",
   "runtime_matches_reference": true,
   "additional_deployment_profiles": [
     "compose.multinstance.yml"
   ],
-  "documentation_review_base": "9635e010999cbcf8abbc9227fe6ec9fbf3dec9d9",
+  "documentation_review_base": "0b0d95956671e7b6644397aaf4a984e46146be39",
   "historical_tag": {
     "name": "v0.1.0-rc.1",
     "commit": "d92380e505fd050be4483f3896aa1643c39f4e6c",
@@ -29,7 +29,7 @@
     "replicas_per_service": 2,
     "replica_profile_containers": 20,
     "replica_load_goals_passed": 30,
-    "replica_load_http_requests": 19126
+    "replica_load_http_requests": 17844
   },
   "normalization": "SHA-256; text CRLF normalized to LF, binary files hashed raw. Manifest excludes itself.",
   "scope": "Local integrated delivery. Core runtime matches reference; additional replica overlay and its executions are verified separately. This manifest does not rerun tests or imply production certification. Execution dates live in the evidence files.",
@@ -55,7 +55,7 @@
       "canonical_bytes": 8728
     },
     "docs/auditoria/cierre-hallazgos-resultados.json": {
-      "sha256": "87e68d9f2c1dd46f14bdea48e79b734d533808c4523f7e95e284aec920f9dd34",
+      "sha256": "0b80652f0d1facb57077bd5b779ab5b2dfd1cd3885d25160942de6a6c7abbd41",
       "canonical_bytes": 769
     },
     "docs/auditoria/cierre-hallazgos.md": {
@@ -63,11 +63,11 @@
       "canonical_bytes": 5605
     },
     "docs/auditoria/criterios-revision.json": {
-      "sha256": "07a340475d56d1e8af37e87b8eab162b224dde1213be9eedcfa6bbc359134cbe",
-      "canonical_bytes": 56665
+      "sha256": "07297e453ab30f470cf72d0f4aa64c3a04c75218645ad0be36db35588546b262",
+      "canonical_bytes": 57354
     },
     "docs/auditoria/estado-entorno.json": {
-      "sha256": "d66d64d3ad199669a09807d01dcc7cb2a92534905c3eb0997f741843fc3723e6",
+      "sha256": "489d707d92a7fedaa03727da1c996119c55d5328430d850ea3cb44da134aa88a",
       "canonical_bytes": 5899
     },
     "docs/auditoria/generar_auditoria.py": {
@@ -75,8 +75,8 @@
       "canonical_bytes": 22332
     },
     "docs/auditoria/hashes-evidencias.json": {
-      "sha256": "7a6d3e692eafb91d79d41b474c9c250b50ef7470909393f38b411760286b3a40",
-      "canonical_bytes": 10769
+      "sha256": "afb6892f6323ff383daeff35ee9ce426ea51b11d70f48eb71aa0984176cc8f44",
+      "canonical_bytes": 11370
     },
     "docs/auditoria/instalacion-desde-cero.json": {
       "sha256": "7975ec5af0e5b005c2b8d12a443fe51599d2306f759a43c7571d0ea11918031e",
@@ -95,27 +95,27 @@
       "canonical_bytes": 47933
     },
     "docs/auditoria/matriz-requisitos.csv": {
-      "sha256": "a979ec170407a44e6420939bf39e7144417060b296d1388b46b210ce5047fe58",
-      "canonical_bytes": 46425
+      "sha256": "1235711d6159057445da3858f6cc892e194d861355f428e84cf60945c8444f9e",
+      "canonical_bytes": 46958
     },
     "docs/auditoria/matriz-requisitos.json": {
-      "sha256": "829e8aa9445112c2f01d6cd268df29a9903436a12fbaf9f7785b6b2a19ae63da",
-      "canonical_bytes": 96340
+      "sha256": "7ca8f80947334bfe5853ee4b778b3588a5ced2845d0fa0b8b1e4e7822798125d",
+      "canonical_bytes": 97383
     },
     "docs/auditoria/matriz-requisitos.md": {
-      "sha256": "081347e0c40ead5d2b329a01ead5f41bf9a78b4e88b3707ee78b0d62108ce44d",
-      "canonical_bytes": 73744
+      "sha256": "38bbdc77bb07197766e6ea9437dadec84cb18077fa0d8649b1a9fbc29acc7936",
+      "canonical_bytes": 75599
     },
     "docs/auditoria/openapi-observado.json": {
       "sha256": "83d9aeb823b6380eb2157e992cddaa8a55569a25172c7b36af62814d95fca77a",
       "canonical_bytes": 60680
     },
     "docs/auditoria/rechazos-pago-resultados.json": {
-      "sha256": "7870324878a65fb4bbb8f6bc14daaf760b0897cce62d99a2ea962174a65ff353",
+      "sha256": "af95474257734e7b2eddeab2a66222197dbe62b0a780d77ea46737d15efc1db2",
       "canonical_bytes": 578
     },
     "docs/auditoria/resultado-frontend.json": {
-      "sha256": "d8c83bfb95f0cdff5486d6c2f2ad62cf9e1a3ed36ee1b8b5a81fec883640d150",
+      "sha256": "8cb61c0d37c4a749a3c94a60616e996ef67f165a5cd4066c41f6d3da37e2aeb4",
       "canonical_bytes": 1147
     },
     "docs/auditoria/resultado-suite-cierre.json": {
@@ -127,19 +127,19 @@
       "canonical_bytes": 727
     },
     "docs/auditoria/resultado-suite.json": {
-      "sha256": "926da6f3e39d5226319f1fd83954fac1d660f82b01f8b39359dbcd7314dfd0d8",
-      "canonical_bytes": 3153
+      "sha256": "1fc5b98d059a06362ae5d21d58b45cdc826f2fddd0712376c06944fafbd33fe6",
+      "canonical_bytes": 3152
     },
     "docs/auditoria/sondas-2026-10-28.json": {
       "sha256": "2d860ec3ccafe3017ad4ba8e56da8f49fdd6e8d9f49618f55e48d3f19f3e7560",
       "canonical_bytes": 1115
     },
     "docs/entrega/README.md": {
-      "sha256": "065b581fa4781d8ce1c4b4ff39efce23e6ff0fd1fd2479d55f58d38d6525dcf2",
-      "canonical_bytes": 6552
+      "sha256": "bfbf7b057db32442d04d4498e3d50de151bef993e5650400251fadef6732ef39",
+      "canonical_bytes": 6543
     },
     "docs/entrega/demo-resultados.json": {
-      "sha256": "fc9231072c256e18b43454732dd28d1ec16a26bd64da08e5e017690c97f90400",
+      "sha256": "90de8b870acba48085826f36eca6dacca2597cbadb4546b7a2230a62bfec6d72",
       "canonical_bytes": 1000
     },
     "docs/entrega/demostracion.md": {
@@ -151,24 +151,24 @@
       "canonical_bytes": 7186
     },
     "docs/entrega/notas-entrega-integrada.md": {
-      "sha256": "96014a24d3eadae76d8d31992d49478ddfbcbf127a45ffc58494935955814abd",
-      "canonical_bytes": 4365
+      "sha256": "55f7911bfb884465883bda7913feec5df46bb592f284460fe4a3924525eba2f0",
+      "canonical_bytes": 4368
     },
     "docs/entrega/notas-version.md": {
       "sha256": "4d36e607a1eeb973a49d863805253601b2e24712fc3ffcfb6cc7a21d36e33d85",
       "canonical_bytes": 1854
     },
     "docs/entrega/pendientes.md": {
-      "sha256": "7c02cc79e9ee6ae2adba60cb8331f5282a6f921dc205fafe78d565626c76c3aa",
-      "canonical_bytes": 6395
+      "sha256": "38c116d892877952838f9070e9fe5177f99dd9c0451c4e5b13327b0ce3e3061e",
+      "canonical_bytes": 6368
     },
     "docs/entrega/plan-cierre-parciales.md": {
       "sha256": "981b999e30e6c30edb37f2e2a562f4cf0a4073101cce16a8464840f85bef9ad9",
       "canonical_bytes": 8232
     },
     "docs/escalabilidad/README.md": {
-      "sha256": "a91993b36aab4d9e0fddccc7223da2cef1f47387a352a7eed6f9536c960cbf77",
-      "canonical_bytes": 6408
+      "sha256": "3dd46df6529a46771786629a0e19a1a3266b5f5f269f02421ed82286a16e5792",
+      "canonical_bytes": 6407
     },
     "docs/escalabilidad/carga/inicial/README.md": {
       "sha256": "7c181b95e4203bdb944328aa0fa7926b030b33f672f8f95387726d71f37ac4fe",
@@ -191,28 +191,28 @@
       "canonical_bytes": 38699
     },
     "docs/escalabilidad/carga/muestras.jsonl": {
-      "sha256": "1be2ff0cd4b454f7a247c78bd8de860e6ad17e76d4093a4d262bf346beda632f",
-      "canonical_bytes": 2121188
+      "sha256": "06c36e3c343a5743bac6c98b06c41e4f6e77334463b0f696c4040aaecfd82fa1",
+      "canonical_bytes": 1978531
     },
     "docs/escalabilidad/carga/recursos.json": {
-      "sha256": "aa14ce423bea94e6aae5a0ac2f58b368e540b07766533b97f098bb08acda9d71",
-      "canonical_bytes": 304877
+      "sha256": "5f9849edb08f30117cb9779e19f83e2fb4743b9f9bd9befd3430bee61510c13b",
+      "canonical_bytes": 297329
     },
     "docs/escalabilidad/carga/resultado.json": {
-      "sha256": "96e29dc148f0bead5906c0e9caf5313ef128ae8b4174806ef35f321a9ec5d007",
-      "canonical_bytes": 41378
+      "sha256": "61e1f69a22cc81ab23c1aaef69dd218b7d4b7ff5a8b50550bf80837832e57cf6",
+      "canonical_bytes": 41963
     },
     "docs/escalabilidad/independencia.json": {
-      "sha256": "ca52c81371e28d946633578bcc0d781981ab30d4dbdf468edab1a0164d5f7eef",
-      "canonical_bytes": 18615
+      "sha256": "c7c3356b816afb6114e0cb44da127078069a31fede1d41789f7607c8b112e1f5",
+      "canonical_bytes": 19226
     },
     "docs/escalabilidad/intentos/independencia-arranque.json": {
       "sha256": "de046a850baf6f704e41a5fef45c1e88ef938b474449492b0361bbe08e45364f",
       "canonical_bytes": 15045
     },
     "docs/escalabilidad/resultado.json": {
-      "sha256": "ae3149d86556326c0187d8caf1ac00bdb4613847daaa44d202f473379e2215b4",
-      "canonical_bytes": 18660
+      "sha256": "773ca3f6e91c75de7a3e7d11f04cd12077930f6854f6223ee3d53c7600a465bb",
+      "canonical_bytes": 19271
     },
     "docs/frontend/a11y-antes.json": {
       "sha256": "89e87565e59b3ad099b47bd0b7c12259648726a0e16d84ecc39f851a3b2ae365",
@@ -279,31 +279,31 @@
       "canonical_bytes": 163494
     },
     "docs/frontend/instalacion-cero/carrito-desktop.png": {
-      "sha256": "3f1a67595e88644abc3e55ba118e2762e83aadf68979e2d62b1ae9b4073730da",
-      "canonical_bytes": 74760
+      "sha256": "f2b0f1ad7dbd9edbdfaddedb40b61f896285e968cace017873602bba1c567d1b",
+      "canonical_bytes": 74177
     },
     "docs/frontend/instalacion-cero/catalogo-mobile.png": {
-      "sha256": "48dad76bff149cd82de463135f76b89f9a359a68bb603a3ef400fd31af187ed4",
-      "canonical_bytes": 72304
+      "sha256": "763a2ab07cced8e45e3e01ccebb5c7e874e0eb08cbcec75f2322d9a86e30f37b",
+      "canonical_bytes": 71602
     },
     "docs/frontend/instalacion-cero/historial-mobile.png": {
-      "sha256": "07cbdc71f528871147680c06d6544d00c3d2302cede544f7ec9e82cb086abdc5",
-      "canonical_bytes": 65056
+      "sha256": "6fdd41d9e8ac9b03ac980665e566bfeee0794d3c6fcd9fd437846ba97dbcf3f8",
+      "canonical_bytes": 65257
     },
     "docs/frontend/instalacion-cero/pago-aprobado.png": {
-      "sha256": "e827bbf069276c9352be5d243dc6161125182532e841c91658712f442d099dfb",
-      "canonical_bytes": 101033
+      "sha256": "75c5393108e047fa2048ef00c013d401958b29b13fe0dc8d528e1240b1c707ba",
+      "canonical_bytes": 101243
     },
     "docs/frontend/instalacion-cero/recorrido-accesibilidad.json": {
-      "sha256": "fe76185d8fe3708b3165539338b9ffe2d85b5811cdc7f448679cca8905071fe4",
+      "sha256": "53357cc9dbe9238b9ff7cad266ac26d750d1eb825420a6e09ab2dabcb129459b",
       "canonical_bytes": 4765
     },
     "docs/frontend/instalacion-desde-cero.json": {
-      "sha256": "0f55ac58ff2881d687654ea2a0d65345b92335a68a1cb7fe864e6ffcee262525",
+      "sha256": "11b14d7630203145e8ecf5ea267fb11705c4ac7909ff340e4e2edfacd41eec3a",
       "canonical_bytes": 4784
     },
     "docs/frontend/instalacion-desde-cero.md": {
-      "sha256": "1aea96623a06769d63b37cdceab732a822cfb751f723b4f8db60b112bb8631a5",
+      "sha256": "fad68e105fcd3bd954d509a4050252649ecf0c592e58146af61afff3c7f7df7b",
       "canonical_bytes": 5360
     },
     "docs/frontend/integracion.json": {
@@ -379,8 +379,8 @@
       "canonical_bytes": 2760
     },
     "docs/modularidad.md": {
-      "sha256": "9e49701cecaf22daa9ab95e6286b8192352b802947282ef15f8ab4355b3c677d",
-      "canonical_bytes": 5499
+      "sha256": "36830a95ad611fe78fa1d467954fed5dbb98c74e44b0d067838fee32223fddd3",
+      "canonical_bytes": 6075
     },
     "docs/rendimiento/evidencias.json": {
       "sha256": "bc113106c9dfe5ca6dbd8212b2508875dfede4d07e8e2a96875c234e2f9761e9",
@@ -607,8 +607,8 @@
       "canonical_bytes": 5866
     },
     "services/order-service/app/order_repository.py": {
-      "sha256": "202debae1fc6014f2a73d8ce5fa172a224cc086454e0f05b63698a8a27022441",
-      "canonical_bytes": 1000
+      "sha256": "f4e1e7ba248aade555b9933768046a9010cff49c926b311e72a7ac858a7b4086",
+      "canonical_bytes": 1162
     },
     "services/order-service/app/rabbitmq.py": {
       "sha256": "52576b59ffd601a3c960c6514bee5a8e1e605bff2ba91faaa6b19d1422cfcafb",
@@ -826,6 +826,14 @@
       "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "canonical_bytes": 0
     },
+    "services/product-service/app/category_actions.py": {
+      "sha256": "88b8c9ce9379907f2f54593f54aaa8241ec7352d682a73fcf68b268dafe1e7ca",
+      "canonical_bytes": 1754
+    },
+    "services/product-service/app/category_repository.py": {
+      "sha256": "51131b22b06c95c4636f6fe9a745201825b8fa62dff1a96fd2ba6f45dc0d6c7c",
+      "canonical_bytes": 756
+    },
     "services/product-service/app/core/__init__.py": {
       "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "canonical_bytes": 0
@@ -886,6 +894,10 @@
       "sha256": "d64034f899d34ed7a2753f1c905bebb357beb0c94d5dd194472ffc7daa694620",
       "canonical_bytes": 1354
     },
+    "services/product-service/app/product_actions.py": {
+      "sha256": "47494173c62f7dd793927d933c435ac7a54afb9969bef9225e1292bb4b0546de",
+      "canonical_bytes": 1018
+    },
     "services/product-service/app/rabbitmq.py": {
       "sha256": "bfd35a2989912a225df7c14a15a115b2fec2d0af8e06ff69d75e869ad9107618",
       "canonical_bytes": 8986
@@ -899,12 +911,12 @@
       "canonical_bytes": 0
     },
     "services/product-service/app/routers/categories.py": {
-      "sha256": "c221c34d99fcc601ae9548f38ffc84f1da8443ab08a5d2b82fb479f3940937dc",
-      "canonical_bytes": 2389
+      "sha256": "51395c7e563d124a2d178b52f7f695dec9b2c16a08965979adc04545befcaae7",
+      "canonical_bytes": 1649
     },
     "services/product-service/app/routers/products.py": {
-      "sha256": "0bafde1f7abc981de4bd612d5a91d8def5ea6bd64169a80eb3948ea6f35d0064",
-      "canonical_bytes": 4053
+      "sha256": "0451167ed456eef310ca5a938d5ef16c5c9652255086737926f010a56bd813b8",
+      "canonical_bytes": 3391
     },
     "services/product-service/app/routers/reservations.py": {
       "sha256": "a522794fafccd37e366fa49df17c2ca787e94b2636ec2b2c2a824d2b207dd84b",
@@ -991,12 +1003,12 @@
       "canonical_bytes": 58
     },
     "services/user-service/app/routers/auth.py": {
-      "sha256": "4fd5e20616b7574376325a3ff29e2453d564313c938d7bdc8dc030d567052b0f",
-      "canonical_bytes": 2414
+      "sha256": "ea9fa5b64baa3d6a95797e0c120c3b88b6e6bfa318308b872f01c3de4d29caea",
+      "canonical_bytes": 748
     },
     "services/user-service/app/routers/users.py": {
-      "sha256": "9dd0129fae17bcfba84a0ca9ded5ddc9fe48b30b40010506d39f7f114f91d1f6",
-      "canonical_bytes": 2007
+      "sha256": "e9124dfa2accd96b79ebe4358b4d6d2f1884a53a48db748d298a79e3a7c98d5e",
+      "canonical_bytes": 1048
     },
     "services/user-service/app/schema.py": {
       "sha256": "318e2a015b58772af3a5e28b8d269c743373acd5bdbf8b623c4c7e980900ed74",
@@ -1009,6 +1021,14 @@
     "services/user-service/app/schemas/user.py": {
       "sha256": "2462ac1f079ada57b0d095c5cea8304698c329e73217d27dad487b9ab45a47cf",
       "canonical_bytes": 1729
+    },
+    "services/user-service/app/user_actions.py": {
+      "sha256": "c6ba6a409debf1f43ff43eb003dc7352be4de9cdcdb7fde4ce64e83256f63f0c",
+      "canonical_bytes": 2682
+    },
+    "services/user-service/app/user_repository.py": {
+      "sha256": "2e26d41c08e8f28efb925ad608f86e09bdd0d5fe374c823486120a4c47c30019",
+      "canonical_bytes": 790
     },
     "services/user-service/migrations/001_unique_email_lower.sql": {
       "sha256": "cccdb9cd55b4902a530defa89cd4cc0bf9e8301e892b4f5cb5e1162752a2b63d",

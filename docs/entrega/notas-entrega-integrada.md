@@ -1,8 +1,8 @@
 # Notas de cierre integrado - 29 de octubre de 2026
 
 Documentacion final del candidato local de backend + frontend. Codigo funcional
-actual `1cfacff`: primera separacion de operaciones de pedidos/carrito, segunda
-separacion de pagos, repositorio, adaptadores de checkout e importacion ASGI sin efectos. Se conservan los contratos
+actual `0b0d959`: primera separacion de operaciones de pedidos/carrito, pagos,
+usuarios y catalogo, repositorios, adaptadores de checkout e importacion ASGI sin efectos. Se conservan los contratos
 publicos y los objetivos de rendimiento. La etiqueta historica `v0.1.0-rc.1`
 se conserva sin moverla.
 
@@ -32,7 +32,7 @@ los 56 escenarios del navegador. Tests dirigidos de consulta de pagos, perfil y
 metricas tienen evidencias separadas; no se suman como otra suite total ejecutada.
 
 La instalacion se probo con los hashes que constan en su informe; corresponden al
-snapshot `1cfacff`. Los enlaces y resumenes finales se actualizan despues sin
+snapshot `0b0d959`. Los enlaces y resumenes finales se actualizan despues sin
 cambiar pasos de arranque ni fuentes funcionales. No se reescriben hashes de
 instalacion para aparentar una version distinta.
 
@@ -66,5 +66,5 @@ recorrido UI nuevo ni se presentan como reejecutados.
 ## Modularidad: avance parcial
 
 [Cambios y siguientes extracciones](../modularidad.md) y [separacion de pagos](../modularidad-pagos.md). RNF-08/21 siguen parciales:
-hay otros routers y recuperadores por separar, contratos por extender y bootstrap
+hay checkout/eventos y recuperadores por separar, contratos por extender y bootstrap
 por sustituir con migraciones versionadas en tres servicios.

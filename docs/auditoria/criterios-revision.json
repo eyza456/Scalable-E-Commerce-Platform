@@ -109,6 +109,12 @@
     "prepository": "services/payment-service/app/payment_repository.py",
     "orderclient": "services/payment-service/app/order_client.py",
     "inventoryclient": "services/payment-service/app/inventory_client.py",
+    "useractions": "services/user-service/app/user_actions.py",
+    "userrepo": "services/user-service/app/user_repository.py",
+    "categoryactions": "services/product-service/app/category_actions.py",
+    "categoryrepo": "services/product-service/app/category_repository.py",
+    "productactions": "services/product-service/app/product_actions.py",
+    "orderrepo": "services/order-service/app/order_repository.py",
     "oschema": "services/order-service/app/schema.py",
     "omain": "services/order-service/app/main.py"
   },
@@ -684,7 +690,7 @@
         "ordertest@test_history_releases_read_connection_and_preserves_response_schema",
         "multiload"
       ],
-      "Revalidado tras 1cfacff en perfil local-mvp-20vu-v1 con dos replicas por servicio y objetivos sin cambios: historial p95 446.37 ms, checkout 1108.81 ms, pago 863.09 ms, compra 2.963 s; los 30 criterios aprobados. La referencia previa de una instancia se conserva como histórica. No certifica producción, grandes volúmenes, otros hosts ni rendimiento web."
+      "Revalidado tras 0b0d959 en perfil local-mvp-20vu-v1 con dos replicas por servicio y objetivos sin cambios: historial p95 444.24 ms, checkout 1157.91 ms, pago 960.82 ms, compra 3.155 s; los 30 criterios aprobados. La referencia previa de una instancia se conserva como histórica. No certifica producción, grandes volúmenes, otros hosts ni rendimiento web."
     ],
     "RNF-02": [
       "Cumplido",
@@ -768,6 +774,11 @@
         "prepository",
         "orderclient",
         "inventoryclient",
+        "useractions",
+        "userrepo",
+        "categoryactions",
+        "categoryrepo",
+        "productactions",
         "validation",
         "ocancel"
       ],
@@ -777,7 +788,7 @@
         "paytest",
         "paymentmoddoc"
       ],
-      "Checkout conserva contratos locales; pagos ya separa router, operaciones, repositorio y clientes tipados de pedidos/inventario. Persisten dependencias sincronas necesarias y falta extender adaptadores/contratos a cancelacion y eventos. Sigue parcial."
+      "Usuarios y catálogo ya separan acciones/repositorios; pagos separa router, operaciones, repositorio y clientes tipados de pedidos/inventario. Persisten dependencias síncronas necesarias y falta extender adaptadores/contratos a cancelación y eventos. Sigue parcial."
     ],
     "RNF-09": [
       "Cumplido",
@@ -930,6 +941,11 @@
         "prepository",
         "orderclient",
         "inventoryclient"
+        ,"useractions"
+        ,"userrepo"
+        ,"categoryactions"
+        ,"categoryrepo"
+        ,"productactions"
       ],
       [
         "importtest",
@@ -938,7 +954,7 @@
         "paymentmoddoc",
         "paytest"
       ],
-      "Segunda etapa: pagos separa coordinación/persistencia y adaptadores HTTP con contratos locales; la regresión cubre respuestas incompatibles sin efectos y liberación ambigua recuperable. Quedan usuarios/productos, checkout/eventos y migraciones versionadas. Sigue parcial."
+      "Tercera etapa: usuarios y catálogo separan acciones/repositorios, pagos mantiene esa separación y el historial optimiza su consulta. La regresión cubre login, perfil, categorías, stock concurrente y contratos de pagos. Quedan checkout/eventos y migraciones versionadas. Sigue parcial."
     ],
     "RNF-22": [
       "Cumplido",

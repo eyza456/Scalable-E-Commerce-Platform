@@ -1,6 +1,6 @@
 {
-  "project": "fresh-e3022b04b926",
-  "executed_at": "2026-10-30T21:48:06.755809+00:00",
+  "project": "fresh-8c6343f742fb",
+  "executed_at": "2026-10-30T22:48:09.475419+00:00",
   "checks": {
     "configuration": "Plantilla independiente; sin .env ni datos locales",
     "frontend_configuration": "Actual frontend overlay; isolated project, network and loopback random port",
@@ -78,16 +78,16 @@
     "original_installation": "Original IDs, start times and restart counts unchanged"
   },
   "volumes": [
-    "fresh-e3022b04b926_order_postgres_data",
-    "fresh-e3022b04b926_payment_postgres_data",
-    "fresh-e3022b04b926_product_postgres_data",
-    "fresh-e3022b04b926_user_postgres_data"
+    "fresh-8c6343f742fb_order_postgres_data",
+    "fresh-8c6343f742fb_payment_postgres_data",
+    "fresh-8c6343f742fb_product_postgres_data",
+    "fresh-8c6343f742fb_user_postgres_data"
   ],
-  "readme_sha256": "7ae035577b40fe5b763c5dcb731ab4a235adf75370a588a18ead62afdf58b2c2",
-  "source_commit": "1cfacffa9fd784edf6df3bd5602c8eb2600b4fe8",
+  "readme_sha256": "31313d2ba291833fb3b8561b905a8b64b3edd09b037b7fd03fd17df716514864",
+  "source_commit": "0b0d95956671e7b6644397aaf4a984e46146be39",
   "source_note": "Tracked working-tree bytes copied at preparation; hashes identify exact sources, including staged edits",
   "sha256": {
-    "README.md": "225c75910678b767b2952e86793686d5dea2032953ce97f4507c94fd537bffca",
+    "README.md": "68cec9bb79757327e03e1656021d0260548ac076a16c69cc2bf46a68fcb0a1da",
     "frontend/README.md": "3e946db64f41223c3afe93e8211f8b3e3d93b044042c8da3207e95da80312cde",
     ".env.example": "1d0ff79b53e3a78d9cb5a3f6a63e8404c2849d834c5ddaaf10673973837f093b",
     "docker-compose.yml": "c0fefe69d42dc13e8a6b66a8c4a1b023a8393b78b9403abf241844812cd21115",

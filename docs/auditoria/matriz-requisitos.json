@@ -8,7 +8,7 @@
     "code": [
       {
         "path": "services/user-service/app/routers/auth.py",
-        "line": 24
+        "line": 19
       }
     ],
     "verification": [
@@ -53,7 +53,7 @@
     "code": [
       {
         "path": "services/user-service/app/routers/auth.py",
-        "line": 24
+        "line": 19
       },
       {
         "path": "services/user-service/app/models/user.py",
@@ -102,7 +102,7 @@
     "code": [
       {
         "path": "services/user-service/app/routers/auth.py",
-        "line": 64
+        "line": 31
       }
     ],
     "verification": [
@@ -155,7 +155,7 @@
       },
       {
         "path": "services/user-service/app/routers/auth.py",
-        "line": 64
+        "line": 31
       }
     ],
     "verification": [
@@ -249,7 +249,7 @@
     "code": [
       {
         "path": "services/user-service/app/routers/users.py",
-        "line": 36
+        "line": 34
       }
     ],
     "verification": [
@@ -298,7 +298,7 @@
     "code": [
       {
         "path": "services/user-service/app/routers/users.py",
-        "line": 44
+        "line": 42
       }
     ],
     "verification": [
@@ -2381,7 +2381,7 @@
         "line": 1
       }
     ],
-    "finding": "Revalidado tras 1cfacff en perfil local-mvp-20vu-v1 con dos replicas por servicio y objetivos sin cambios: historial p95 446.37 ms, checkout 1108.81 ms, pago 863.09 ms, compra 2.963 s; los 30 criterios aprobados. La referencia previa de una instancia se conserva como histórica. No certifica producción, grandes volúmenes, otros hosts ni rendimiento web.",
+    "finding": "Revalidado tras 0b0d959 en perfil local-mvp-20vu-v1 con dos replicas por servicio y objetivos sin cambios: historial p95 444.24 ms, checkout 1157.91 ms, pago 960.82 ms, compra 3.155 s; los 30 criterios aprobados. La referencia previa de una instancia se conserva como histórica. No certifica producción, grandes volúmenes, otros hosts ni rendimiento web.",
     "scope": "MVP / calidad",
     "frontend": {
       "status": "Sin carga UI",
@@ -2678,6 +2678,26 @@
         "line": 1
       },
       {
+        "path": "services/user-service/app/user_actions.py",
+        "line": 1
+      },
+      {
+        "path": "services/user-service/app/user_repository.py",
+        "line": 1
+      },
+      {
+        "path": "services/product-service/app/category_actions.py",
+        "line": 1
+      },
+      {
+        "path": "services/product-service/app/category_repository.py",
+        "line": 1
+      },
+      {
+        "path": "services/product-service/app/product_actions.py",
+        "line": 1
+      },
+      {
         "path": "services/product-service/app/services/payment_validation.py",
         "line": 1
       },
@@ -2704,7 +2724,7 @@
         "line": 1
       }
     ],
-    "finding": "Checkout conserva contratos locales; pagos ya separa router, operaciones, repositorio y clientes tipados de pedidos/inventario. Persisten dependencias sincronas necesarias y falta extender adaptadores/contratos a cancelacion y eventos. Sigue parcial.",
+    "finding": "Usuarios y catálogo ya separan acciones/repositorios; pagos separa router, operaciones, repositorio y clientes tipados de pedidos/inventario. Persisten dependencias síncronas necesarias y falta extender adaptadores/contratos a cancelación y eventos. Sigue parcial.",
     "scope": "MVP / calidad",
     "frontend": null
   },
@@ -2717,7 +2737,7 @@
     "code": [
       {
         "path": "services/user-service/app/routers/auth.py",
-        "line": 24
+        "line": 19
       },
       {
         "path": "services/user-service/app/models/user.py",
@@ -2887,7 +2907,7 @@
       },
       {
         "path": "services/user-service/app/routers/users.py",
-        "line": 44
+        "line": 42
       }
     ],
     "verification": [
@@ -3239,6 +3259,26 @@
       {
         "path": "services/payment-service/app/inventory_client.py",
         "line": 1
+      },
+      {
+        "path": "services/user-service/app/user_actions.py",
+        "line": 1
+      },
+      {
+        "path": "services/user-service/app/user_repository.py",
+        "line": 1
+      },
+      {
+        "path": "services/product-service/app/category_actions.py",
+        "line": 1
+      },
+      {
+        "path": "services/product-service/app/category_repository.py",
+        "line": 1
+      },
+      {
+        "path": "services/product-service/app/product_actions.py",
+        "line": 1
       }
     ],
     "verification": [
@@ -3263,7 +3303,7 @@
         "line": 1
       }
     ],
-    "finding": "Segunda etapa: pagos separa coordinación/persistencia y adaptadores HTTP con contratos locales; la regresión cubre respuestas incompatibles sin efectos y liberación ambigua recuperable. Quedan usuarios/productos, checkout/eventos y migraciones versionadas. Sigue parcial.",
+    "finding": "Tercera etapa: usuarios y catálogo separan acciones/repositorios, pagos mantiene esa separación y el historial optimiza su consulta. La regresión cubre login, perfil, categorías, stock concurrente y contratos de pagos. Quedan checkout/eventos y migraciones versionadas. Sigue parcial.",
     "scope": "MVP / calidad",
     "frontend": {
       "status": "Modulos visuales",

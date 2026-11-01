@@ -1,4 +1,4 @@
-# Modularidad y contratos: primera y segunda etapa
+# Modularidad y contratos: primera, segunda y tercera etapa
 
 Esta etapa mejora RNF-08 y RNF-21. Ambos conservan estado **Parcial**:
 no se cierra la modularidad de todos los microservicios por reorganizar pedidos
@@ -72,9 +72,19 @@ inventario. Se conservaron el bloqueo por pedido, los puntos de commit y la
 recuperación durable. La regresión añade contratos incompatibles, liberación
 ambigua y tres motivos adicionales de rechazo.
 
+## Tercera etapa completada: usuarios y catálogo
+
+Usuarios separa `user_actions.py` y `user_repository.py`; catálogo separa
+`category_actions.py`, `category_repository.py` y `product_actions.py`. Las
+rutas conservan sus firmas y respuestas, mientras las pruebas mantienen el
+login, perfil, categorías, filtros y decrementos concurrentes de stock.
+También se optimizó la lectura del historial de pedidos con una carga joinada;
+la repetición del perfil multinstancia dejó los 30 objetivos de rendimiento
+aprobados.
+
 ## Trabajo restante
 
-1. Separar coordinacion y persistencia en usuarios/productos y en los otros routers que aun
+1. Separar coordinacion y persistencia en los otros routers que aun
    contienen negocio/SQL, asi como en checkout y recuperadores que todavia
    consultan SQL directamente; reducir tambien el acoplamiento del codigo de aplicacion
    a excepciones y objetos HTTP.
@@ -86,13 +96,13 @@ ambigua y tres motivos adicionales de rechazo.
 La extraccion actual permite avanzar en estos puntos con cambios menores y
 pruebas separadas; no implica que se hayan completado.
 
-## Resultados sobre 1cfacff
+## Resultados sobre 0b0d959
 
 | Comprobacion | Resultado |
 | --- | --- |
-| [Suite backend](auditoria/resultado-suite.json) | 161 unittest y seis importaciones ASGI sin efectos; HTTP, TTL/DLQ y gateway aprobados |
+| [Suite backend](auditoria/resultado-suite.json) | Regresion completa aprobada tras la tercera etapa; la evidencia integrada de pagos conserva 161 unittest y seis importaciones ASGI |
 | [Instalacion y frontend](frontend/instalacion-desde-cero.json) | 14 contenedores nuevos, migraciones, reinicio, nueve etapas UI y 14 estados axe sin incidencias |
 | [Concurrencia e independencia](escalabilidad/independencia.json) | Checkout/pago con 12 solicitudes por operacion, cancelacion concurrente y seis servicios escalados 2/3/1/2 |
-| [Carga con replicas](escalabilidad/carga/resultado.json) | 19.126 solicitudes medidas. 1.102 compras con calentamiento y 30 objetivos aprobados |
+| [Carga con replicas](escalabilidad/carga/resultado.json) | 17.844 solicitudes medidas. 1.023 compras con calentamiento y 30 objetivos aprobados; historial p95 444,24 ms |
 
 Todos los proyectos UUID de prueba fueron eliminados y conservaron la instalacion habitual al ejecutarse. Los 56 escenarios GUI previos mantienen su fecha; el recorrido de pagos y la instalacion limpia se reejecutaron sobre este codigo. La carga multinstancia conserva los objetivos y queda aprobada; RNF-08 y RNF-21 siguen parciales.

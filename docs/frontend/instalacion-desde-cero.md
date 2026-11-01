@@ -58,7 +58,7 @@ Los helpers del navegador y de limpieza reciben `TEST_COMPOSE_ARGS` con el proye
 `fresh-...` propio. Validan ese prefijo antes de ejecutar Docker. En uso normal,
 sin esa variable, conservan el Compose habitual. Se conserva el recorrido anterior
 de la instalacion habitual con su fecha propia. Esta etapa revalida el recorrido
-en el stack nuevo sobre el refactor `1cfacff`, incluyendo el bootstrap en lifespan.
+en el stack nuevo sobre el refactor `0b0d959`, incluyendo el bootstrap en lifespan.
 
 ## Evidencias
 
