@@ -1,8 +1,8 @@
 # Entrega integrada de backend y frontend
 
-Revision de cierre: 29 de octubre de 2026. Candidato local del MVP con seis
+Revision de cierre: 1 de noviembre de 2026. Candidato local del MVP con seis
 microservicios, API Gateway y frontend Nexo basado en Stitch. El codigo funcional
-de referencia es `dca9138`; la evidencia integrada, la instalación limpia y el perfil multinstancia se ejecutaron sobre ese commit.
+de referencia es `d563b2c`; la evidencia integrada y la instalación limpia se ejecutaron sobre la base funcional correspondiente.
 
 ## Resultado y alcance
 
@@ -37,6 +37,7 @@ recuperacion de contraseña ni verificacion por correo.
 | [Pendientes](pendientes.md) y [notas de esta entrega](notas-entrega-integrada.md) | Limites reales y separacion de evoluciones |
 | [Plan de cierre de parciales](plan-cierre-parciales.md) | Clasificacion individual, orden y pruebas de aceptacion de los ocho parciales |
 | [Escalabilidad multinstancia](../escalabilidad/README.md) | Seis servicios replicados, escalado independiente y carga sin relajar objetivos |
+| [Preparación futura](../preparacion-futura.md) y [Kubernetes](../../k8s/README.md) | Manifiestos Kustomize, TLS local, runner de fallo de réplica e instaladores portables |
 | [Modularidad y contratos](../modularidad.md) y [pagos](../modularidad-pagos.md) | Cuatro etapas de RNF-08/21; checkout, eventos y migraciones versionadas cerrados |
 | [Manifiesto](manifiesto-entrega.json) | Hashes de fuentes/documentos/evidencias y referencia Git |
 
@@ -107,6 +108,7 @@ estos documentos; no se inventa una nueva etiqueta ni se publica un despliegue.
 No hay remoto configurado ni se ha enviado codigo a un servicio externo.
 
 El MVP es demostrable localmente; no representa cumplimiento integral del PDF ni
-operacion productiva. Siguen parciales replicas/balanceo, Kubernetes futuro,
-acoplamiento/capas, HTTPS y portabilidad a otro host. La revision automatica de
+operacion productiva. Siguen parciales replicas/balanceo observado, Kubernetes
+aplicado en cluster, CA/rotacion HTTPS, acoplamiento/capas y portabilidad a otro
+host. La revision automatica de
 accesibilidad no es una certificacion completa ni una prueba con lector de pantalla.

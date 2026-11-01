@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-11-01T03:49:42.357763+00:00",
-  "runtime_reference_commit": "080f527f65113ce3d34789b30941f28829ea34d7",
+  "generated_at": "2026-11-01T04:26:06.045438+00:00",
+  "runtime_reference_commit": "d563b2ca43651911009e2b76d8e2252f2b70ad7f",
   "runtime_matches_reference": true,
   "additional_deployment_profiles": [
     "compose.multinstance.yml"
   ],
-  "documentation_review_base": "080f527f65113ce3d34789b30941f28829ea34d7",
+  "documentation_review_base": "d563b2ca43651911009e2b76d8e2252f2b70ad7f",
   "historical_tag": {
     "name": "v0.1.0-rc.1",
     "commit": "d92380e505fd050be4483f3896aa1643c39f4e6c",
@@ -39,8 +39,8 @@
       "canonical_bytes": 565
     },
     "README.md": {
-      "sha256": "de96189117ec06e8617b101760c06b4c169cbbf6ff26da755430fa6bf64122f2",
-      "canonical_bytes": 11738
+      "sha256": "9dcaa654b55547516efdccb785038a727a313eee5c729862a047b80cef3ed24b",
+      "canonical_bytes": 11843
     },
     "compose.frontend.yml": {
       "sha256": "28192dae4badfce6b8aded5f34ef8eee5b443b75c566cfb383b0d30c1d545f96",
@@ -49,6 +49,10 @@
     "compose.multinstance.yml": {
       "sha256": "c74e06e2fdd639654501d327f1965482bfb837e4e7933749df53d3dde64e53b5",
       "canonical_bytes": 1136
+    },
+    "compose.tls.yml": {
+      "sha256": "eb319836915579d04184aa518c5ed13feda2aa5d32b97be69275e1412912f702",
+      "canonical_bytes": 295
     },
     "docker-compose.yml": {
       "sha256": "b5f13fb36000129db748b6096891ba7dc132cc0f73b1df39c8cc461a2b9da70e",
@@ -63,11 +67,11 @@
       "canonical_bytes": 5605
     },
     "docs/auditoria/criterios-revision.json": {
-      "sha256": "eef4c6079e9a387e8fbb6fb5918e766375b776dbb93f0e59f4191a51adab9c6f",
-      "canonical_bytes": 58416
+      "sha256": "87222bcf102ef9399ddc8771fae706b5c8f8952282db4b8a6033d8e90d4c91c0",
+      "canonical_bytes": 59236
     },
     "docs/auditoria/estado-entorno.json": {
-      "sha256": "ada87e58ba3ba710edb1108a6a17af678c3fc517fa1df817653ffed2b4a8652c",
+      "sha256": "b9f8402de67f0e5805e89fc7e1ac79405efe05bd7e821def60155db83f6778c7",
       "canonical_bytes": 5899
     },
     "docs/auditoria/generar_auditoria.py": {
@@ -75,8 +79,8 @@
       "canonical_bytes": 22332
     },
     "docs/auditoria/hashes-evidencias.json": {
-      "sha256": "e1826b24fa66abc6f7505c1dceb7a4ba18f88c7d26bb421a39f75e3bb4fc21f9",
-      "canonical_bytes": 12449
+      "sha256": "9e742176ba7d58429ebe24067710d829b1d20094a3e995a6ba7d15ecca3e2d3a",
+      "canonical_bytes": 13515
     },
     "docs/auditoria/instalacion-desde-cero.json": {
       "sha256": "7975ec5af0e5b005c2b8d12a443fe51599d2306f759a43c7571d0ea11918031e",
@@ -95,16 +99,16 @@
       "canonical_bytes": 47933
     },
     "docs/auditoria/matriz-requisitos.csv": {
-      "sha256": "f54bb1658e9f51adfa39e2a32504744fdc782ef235f8839676cd1829ff552ca2",
-      "canonical_bytes": 47709
+      "sha256": "e6afc5861d62a61fe5c3a85ee9492e406ceeb7d74fe264cde6af21bf842000d7",
+      "canonical_bytes": 48168
     },
     "docs/auditoria/matriz-requisitos.json": {
-      "sha256": "53b804eb05c33d69defa0bdb3e9d3c1ce0e283d5baa4fd2885d5fec3be41d17b",
-      "canonical_bytes": 98950
+      "sha256": "679889fb2a1cb5860b2c17a47461be7aebe1781e375aa5473c940d4c99504ee4",
+      "canonical_bytes": 100135
     },
     "docs/auditoria/matriz-requisitos.md": {
-      "sha256": "da49b13e9b3ef0446c36a0ae4fee5829b45161d8db0d2c1cfa9a1606390fc65b",
-      "canonical_bytes": 78477
+      "sha256": "61a3e085b8b597cbda089021dc7249b8b07dd4b8b455b2f28cfdab97562d3b23",
+      "canonical_bytes": 80405
     },
     "docs/auditoria/openapi-observado.json": {
       "sha256": "83d9aeb823b6380eb2157e992cddaa8a55569a25172c7b36af62814d95fca77a",
@@ -115,7 +119,7 @@
       "canonical_bytes": 578
     },
     "docs/auditoria/resultado-frontend.json": {
-      "sha256": "be5b441b4d1f49712f311afc95d39de5a245b83f378ff1eb28dde510bc0fe63d",
+      "sha256": "c7bdc9140dc8bd3723ef59f73225d96c9b54afc65485322005bf43d595254b3d",
       "canonical_bytes": 1147
     },
     "docs/auditoria/resultado-suite-cierre.json": {
@@ -127,7 +131,7 @@
       "canonical_bytes": 727
     },
     "docs/auditoria/resultado-suite.json": {
-      "sha256": "017ff265cdd5581a04cde1d8aa09d14e0726cc6192191fdea6f2d7668cfbd30f",
+      "sha256": "4332d01b9f0fa15fbe52aa9b148b30e02d27f04166ac723059903990ffb3d5b2",
       "canonical_bytes": 3314
     },
     "docs/auditoria/sondas-2026-10-28.json": {
@@ -147,8 +151,8 @@
       "canonical_bytes": 2548
     },
     "docs/entrega/generar_manifiesto.py": {
-      "sha256": "caa13936e58d97d54b809c30262a6b7caa27134c4e5de09d73719703f7f2b098",
-      "canonical_bytes": 7186
+      "sha256": "c1b3f102cf34b3155f83f3bb6451b86a321d54e226bfcf940f68752e599e5cfc",
+      "canonical_bytes": 7225
     },
     "docs/entrega/notas-entrega-integrada.md": {
       "sha256": "7d944128267cb3888060761fd18a8ad852e66c04b356fd2e7de2ebe8408b3a53",
@@ -159,8 +163,8 @@
       "canonical_bytes": 1854
     },
     "docs/entrega/pendientes.md": {
-      "sha256": "38c116d892877952838f9070e9fe5177f99dd9c0451c4e5b13327b0ce3e3061e",
-      "canonical_bytes": 6368
+      "sha256": "de49b4cbfd82d524d68a37d6db6799650142f2eca841e1793c0f17f52f794ace",
+      "canonical_bytes": 6257
     },
     "docs/entrega/plan-cierre-parciales.md": {
       "sha256": "981b999e30e6c30edb37f2e2a562f4cf0a4073101cce16a8464840f85bef9ad9",
@@ -279,27 +283,27 @@
       "canonical_bytes": 163494
     },
     "docs/frontend/instalacion-cero/carrito-desktop.png": {
-      "sha256": "0e05c53f0cc16603489c8c99498b68ab69bf726c77f3d760b3c06bf36abc8458",
-      "canonical_bytes": 74280
+      "sha256": "5672594fdc40b0693cfb4abe80b5dc25030082852e26804d0e747531ce5cf5ed",
+      "canonical_bytes": 74323
     },
     "docs/frontend/instalacion-cero/catalogo-mobile.png": {
-      "sha256": "18a019cead234ab0747c7f2af874ab8eedaa8e29a85a06c00f6cc4ffe6a612ff",
-      "canonical_bytes": 71974
+      "sha256": "975d9be911f0cfcc612cb0732da4ea65e6ce6612e0ecfb9477199a26458c355c",
+      "canonical_bytes": 71629
     },
     "docs/frontend/instalacion-cero/historial-mobile.png": {
-      "sha256": "3edacb1ad7cc6b4fd25961a184cdaf86231cfa8cf6f4f175dff70d7ea977ec26",
-      "canonical_bytes": 64079
+      "sha256": "3e24feae9e21de6a2e1872600604617c101c95ca844ae65ee839016d5fd237f9",
+      "canonical_bytes": 64371
     },
     "docs/frontend/instalacion-cero/pago-aprobado.png": {
-      "sha256": "76d2efd063188225f46f37a4d349ca2ae7c60a846db6908592292298b7fdb468",
-      "canonical_bytes": 100499
+      "sha256": "72c0f314c760f5709ab4d898c9196d19f9904a2ebd355b24c6196775f7c8afae",
+      "canonical_bytes": 100347
     },
     "docs/frontend/instalacion-cero/recorrido-accesibilidad.json": {
-      "sha256": "93fb179e4d5dd83944dfcf7f8da68488cfa83eca6309ff4de3c9c2e7805fe198",
+      "sha256": "23080a5787d39919416d9327769f8bb2caa9fd6a554f0293c7d6cfa4015432f3",
       "canonical_bytes": 4765
     },
     "docs/frontend/instalacion-desde-cero.json": {
-      "sha256": "7a1ed340dbad3e08874626e2095c9586fa06907dd84da6dfc65b2d209bf25850",
+      "sha256": "a3c52ab49937bc39561ccf865b44f3e4d0f590cdad85f88041337eba07309ad4",
       "canonical_bytes": 4783
     },
     "docs/frontend/instalacion-desde-cero.md": {
@@ -450,9 +454,69 @@
       "sha256": "96ac5e75f1eb2aef05529e3db99799636ee9e862139d955cbad1e5c5eac53293",
       "canonical_bytes": 2440
     },
+    "gateway/nginx.tls.conf": {
+      "sha256": "41a35f3c00b80c0661b9fe2dc9d3005f355716d3320c6c62273eeb665666aabe",
+      "canonical_bytes": 2525
+    },
     "gateway/proxy.inc": {
       "sha256": "d42fab381e02d1d2c40b692283b3c29a85f01e9b9133debfd74e8fe2d1bced31",
       "canonical_bytes": 1042
+    },
+    "k8s/README.md": {
+      "sha256": "79ede72bd5002d297de888e4a87c125005360107d6947ce484ad8839ec0cee91",
+      "canonical_bytes": 1595
+    },
+    "k8s/base/config.yaml": {
+      "sha256": "86cc858debe3d6cf41d81ff7e28827649b9a3fcb525f2ef8de09ca43f9aab4a6",
+      "canonical_bytes": 518
+    },
+    "k8s/base/infrastructure.yaml": {
+      "sha256": "f10d533cad9a40e9974324739ea33d46e8a3d113db2e8c46579ff29246034466",
+      "canonical_bytes": 5120
+    },
+    "k8s/base/kustomization.yaml": {
+      "sha256": "5f09857f69d2619bc499fb57f2702e0dfdf8d38acaadf3a05a2b5f57f7ffaa9a",
+      "canonical_bytes": 216
+    },
+    "k8s/base/namespace.yaml": {
+      "sha256": "c7fc0f228dab191ffdb7e8c38a8d508dba1de5596529fde346c71ade684d5796",
+      "canonical_bytes": 119
+    },
+    "k8s/base/secret.example.yaml": {
+      "sha256": "5a751a21deb68fa5174e4a5a096237df30a755e64b82ccbed0f1611f656dbe58",
+      "canonical_bytes": 908
+    },
+    "k8s/base/services.yaml": {
+      "sha256": "72d3c6dc68f8d5c99533a52f6008be7cd5be92f074a4d256b896ce3cbe43f665",
+      "canonical_bytes": 2275
+    },
+    "k8s/base/workloads.yaml": {
+      "sha256": "ad3c492564c6b70c00ae7f3e072b154bc33cccf269971726c85fb8df27f1be96",
+      "canonical_bytes": 5975
+    },
+    "k8s/overlays/dev/ingress.yaml": {
+      "sha256": "4871af1ac8bff36a5325a9c67ac0b624f14c9507d58ce99cf7e7cf50aabbccc0",
+      "canonical_bytes": 611
+    },
+    "k8s/overlays/dev/kustomization.yaml": {
+      "sha256": "8fba64b22d0ea2d4803e033f47adca781faec1f71eeaccbedda0002d8b487559",
+      "canonical_bytes": 314
+    },
+    "scripts/generate-dev-cert.ps1": {
+      "sha256": "ca75033944e06747c3027134313c41a0b366f95d24ae86c8f6e89e19629cca4e",
+      "canonical_bytes": 889
+    },
+    "scripts/generate-dev-cert.sh": {
+      "sha256": "7071edf9275b7900cc7e8bfcec8ac20b7b68af85d578cbe2bd3ea32c65d42bb4",
+      "canonical_bytes": 446
+    },
+    "scripts/install.ps1": {
+      "sha256": "82151f85de7c84bdca4ced2dcebd7dfedd26ddca7822da3ff7518173489a00a1",
+      "canonical_bytes": 522
+    },
+    "scripts/install.sh": {
+      "sha256": "347254889089994dd35f6f1560fa236833bd5758a52954742a919be9977cbde5",
+      "canonical_bytes": 607
     },
     "services/cart-service/Dockerfile": {
       "sha256": "984144e192a937b88438ec0ebc8a4661d53bbefef76b97dd596fb3733da360f7",
@@ -1158,6 +1222,10 @@
       "sha256": "792d95f076b5c15c5707904b2a07cf9ed7b032718758501dff5cccaee897d916",
       "canonical_bytes": 10313
     },
+    "tests/future_preparation.py": {
+      "sha256": "0e146a2fb48c3409867307a99a339062c89630a5aeda226b9b009247d38daeaa",
+      "canonical_bytes": 2303
+    },
     "tests/gateway_probe.py": {
       "sha256": "ed5e525c030e44591e42a4938f202b222d8243ec8ff021082c8c7483a0e6f243",
       "canonical_bytes": 937
@@ -1257,6 +1325,10 @@
     "tests/profile_stability.py": {
       "sha256": "a72041b646c898b9b73b123c99cdd8b9c576ba2343ae77256b5d0730a9181d40",
       "canonical_bytes": 3994
+    },
+    "tests/replica_failover.py": {
+      "sha256": "3e1ad1fe4e59b77cf987b33714f7d06503823907176e7dbc2882e45472f40ac4",
+      "canonical_bytes": 3384
     },
     "tests/run_stability.ps1": {
       "sha256": "7ab635408332842e740007325aae75ef33d9002066c45b4798b0e1ad9d4c8bfb",

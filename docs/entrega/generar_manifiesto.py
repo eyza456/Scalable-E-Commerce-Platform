@@ -55,8 +55,8 @@ def main():
         assert hashlib.sha256(historical).hexdigest() == digest, name
     assert hashlib.sha256(git("show", f"{BASE}:tests/frontend_fresh_install.py").replace(b"\r\n", b"\n")).hexdigest() == install["runner_sha256"]
     tracked = git("ls-files").decode("utf-8").splitlines()
-    runtime = [name for name in tracked if name.startswith(("services/", "gateway/", "frontend/app/"))
-               or name in ("docker-compose.yml", "compose.frontend.yml", "frontend/Dockerfile", "frontend/nginx.conf", "frontend/.dockerignore", ".env.example")]
+    runtime = [name for name in tracked if name.startswith(("services/", "gateway/", "frontend/app/", "k8s/", "scripts/"))
+               or name in ("docker-compose.yml", "compose.frontend.yml", "compose.tls.yml", "frontend/Dockerfile", "frontend/nginx.conf", "frontend/.dockerignore", ".env.example")]
     for name in runtime:
         assert normalized(Path(name), (ROOT/name).read_bytes()) == normalized(Path(name), git("show", f"{BASE}:{name}")), name
     artifacts = [name for name in tracked if name in ("README.md", "frontend/README.md", "tests/run_stability.ps1", "compose.multinstance.yml", "docs/modularidad.md")

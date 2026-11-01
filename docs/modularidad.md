@@ -1,8 +1,9 @@
 # Modularidad y contratos: cuatro etapas
 
-Esta etapa mejora RNF-08 y RNF-21. Ambos conservan estado **Parcial**:
-no se cierra la modularidad de todos los microservicios por reorganizar pedidos
-y carrito. La matriz sigue en 72 cumplidos, 6 parciales y 0 pendientes.
+Esta etapa mejora RNF-08 y RNF-21. Ambos quedan **Cumplidos** en la matriz vigente:
+checkout, recuperadores, contratos y migraciones versionadas tienen evidencia
+de código, suite e instalación limpia. La matriz vigente queda en 74 cumplidos,
+4 parciales y 0 pendientes.
 
 ## Cambios
 
@@ -90,7 +91,7 @@ usuario. Cancelaciones usan un cliente tipado y los consumidores de eventos
 validan contratos estrictos antes de aplicar efectos. User, Order y Payment
 arrancan con migraciones versionadas idempotentes y sin `create_all`.
 
-## Resultados sobre 0b0d959 + cuarta etapa
+## Resultados sobre d563b2c + cuarta etapa
 
 | Comprobacion | Resultado |
 | --- | --- |
@@ -99,4 +100,4 @@ arrancan con migraciones versionadas idempotentes y sin `create_all`.
 | [Concurrencia e independencia](escalabilidad/independencia.json) | Checkout/pago con 12 solicitudes por operacion, cancelacion concurrente y seis servicios escalados 2/3/1/2 |
 | [Carga con replicas](escalabilidad/carga/resultado.json) | 17.844 solicitudes medidas. 1.023 compras con calentamiento y 30 objetivos aprobados; historial p95 444,24 ms |
 
-Todos los proyectos UUID de prueba fueron eliminados y conservaron la instalacion habitual al ejecutarse. Los 56 escenarios GUI previos mantienen su fecha; el recorrido de pagos y la instalacion limpia se reejecutaron sobre este codigo. La carga multinstancia conserva los objetivos y queda aprobada; RNF-08 y RNF-21 siguen parciales.
+Todos los proyectos UUID de prueba fueron eliminados y conservaron la instalacion habitual al ejecutarse. Los 56 escenarios GUI previos mantienen su fecha; el recorrido de pagos y la instalacion limpia se reejecutaron sobre este codigo. La carga multinstancia conserva los objetivos y queda aprobada; RNF-08 y RNF-21 quedan cerrados en el alcance documentado.

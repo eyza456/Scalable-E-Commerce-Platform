@@ -1,16 +1,16 @@
 # Plan de cierre de los ocho requisitos parciales
 
-Revision: 29 de octubre de 2026. Base de la entrega revisada: `0703d96`.
+Revision: 1 de noviembre de 2026. Base de la entrega revisada: `d563b2c`.
 La clasificacion inicial registro 70 cumplidos, 8 parciales y 0 pendientes.
 El avance posterior figura debajo. Una prioridad futura no equivale a cumplimiento.
 
 ## Avance posterior de este plan
 
-RNF-05 y RNF-06 cerrados en alcance local con [pruebas multinstancia](../escalabilidad/README.md). Estado actual: 72 cumplidos, 6 parciales y 0 pendientes. Restan RNF-08/21/27 y RF-49/RNF-07/RNF-15. La clasificacion y el orden originales se conservan a continuacion como antecedente; el siguiente bloque es RNF-08/21.
+RNF-05 y RNF-06 cerrados en alcance local con [pruebas multinstancia](../escalabilidad/README.md). RNF-08 y RNF-21 también quedan cerrados con contratos, recuperadores y migraciones versionadas. Estado actual: 74 cumplidos, 4 parciales y 0 pendientes. Restan RNF-27 y la preparación/observación futura de RF-49, RNF-07 y RNF-15. La clasificacion y el orden originales se conservan a continuacion como antecedente.
 
-Primera etapa de RNF-08/21 implementada: [separacion de pedidos/carrito, contratos
-e importacion sin efectos](../modularidad.md). Siguen parciales por el resto de
-routers, recuperadores, contratos remotos y migraciones pendientes.
+RNF-08/21 completados en el alcance revisado: [separacion de pedidos/carrito,
+contratos, recuperadores e importacion sin efectos](../modularidad.md), con
+migraciones versionadas de User/Order/Payment y verificación de instalación limpia.
 
 ## Criterio de alcance
 

@@ -2256,6 +2256,10 @@
       {
         "path": "compose.multinstance.yml",
         "line": 1
+      },
+      {
+        "path": "tests/replica_failover.py",
+        "line": 1
       }
     ],
     "verification": [
@@ -2266,9 +2270,13 @@
       {
         "path": "docs/escalabilidad/independencia.json",
         "line": 1
+      },
+      {
+        "path": "tests/future_preparation.py",
+        "line": 1
       }
     ],
-    "finding": "Gateway con DNS dinamico y recuperacion; perfil multinstancia probado. Falta observar reparto de solicitudes del gateway entre replicas y continuidad ante fallo de una replica durante operaciones. Preparacion futura, no bloqueo del MVP funcional.",
+    "finding": "Gateway con DNS dinamico y recuperacion; se añade un runner reproducible para detener una replica y observar continuidad por gateway. La ejecución depende de un proyecto multinstancia activo; no certifica balanceo productivo ni SLA.",
     "scope": "Evolucion futura",
     "frontend": {
       "status": "Infraestructura",
@@ -2629,10 +2637,27 @@
       {
         "path": "gateway/Dockerfile",
         "line": 1
+      },
+      {
+        "path": "k8s/base/kustomization.yaml",
+        "line": 1
+      },
+      {
+        "path": "k8s/overlays/dev/ingress.yaml",
+        "line": 1
+      },
+      {
+        "path": "k8s/README.md",
+        "line": 1
       }
     ],
-    "verification": [],
-    "finding": "Base en contenedores y variables de entorno; no hay manifiestos ni verificacion Kubernetes. Preparacion futura, fuera del MVP inicial segun pagina 8.",
+    "verification": [
+      {
+        "path": "tests/future_preparation.py",
+        "line": 1
+      }
+    ],
+    "finding": "Se entregan Kustomize base/overlay con workloads, StatefulSets, probes, Ingress TLS y validacion offline de render. Falta aplicar en un cluster real y sustituir secretos/imagenes por valores de despliegue.",
     "scope": "Evolucion futura",
     "frontend": {
       "status": "Infraestructura",
@@ -3006,10 +3031,31 @@
       {
         "path": "docker-compose.yml",
         "line": 8
+      },
+      {
+        "path": "gateway/nginx.tls.conf",
+        "line": 1
+      },
+      {
+        "path": "compose.tls.yml",
+        "line": 1
+      },
+      {
+        "path": "scripts/generate-dev-cert.ps1",
+        "line": 1
+      },
+      {
+        "path": "scripts/generate-dev-cert.sh",
+        "line": 1
       }
     ],
-    "verification": [],
-    "finding": "Gateway HTTP preparado para configurarse; no hay certificado, listener HTTPS ni validacion TLS. Capacidad futura, no bloqueo MVP.",
+    "verification": [
+      {
+        "path": "tests/future_preparation.py",
+        "line": 1
+      }
+    ],
+    "finding": "Se incorpora listener HTTPS TLS 1.2/1.3, redireccion HTTP, HSTS, override Compose y generadores de certificado de desarrollo. La certificacion productiva, rotacion y CA confiable siguen pendientes.",
     "scope": "Evolucion futura",
     "frontend": {
       "status": "Infraestructura",
@@ -3705,6 +3751,14 @@
       {
         "path": "tests/frontend_fresh_install.py",
         "line": 1
+      },
+      {
+        "path": "scripts/install.ps1",
+        "line": 1
+      },
+      {
+        "path": "scripts/install.sh",
+        "line": 1
       }
     ],
     "verification": [
@@ -3715,9 +3769,13 @@
       {
         "path": "docs/frontend/instalacion-desde-cero.json",
         "line": 1
+      },
+      {
+        "path": "tests/future_preparation.py",
+        "line": 1
       }
     ],
-    "finding": "Instalacion limpia y reinicio verificados en Windows con contenedores Linux. Falta ejecutar la misma verificacion en host Linux/macOS; no se infiere portabilidad completa. Frontend incluido en instalacion nueva de 14 contenedores; sigue siendo el mismo host.",
+    "finding": "Se añaden instaladores equivalentes PowerShell y POSIX, pero la instalación ejecutada sigue siendo Windows con contenedores Linux. Falta ejecutar el runner en un host Linux y macOS; no se infiere portabilidad completa.",
     "scope": "MVP / calidad",
     "frontend": {
       "status": "Infraestructura",

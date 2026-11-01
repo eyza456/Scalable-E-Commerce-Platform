@@ -1,6 +1,6 @@
 # Instalacion limpia del backend y frontend
 
-Verificada el 29 de octubre de 2026 en Windows con Docker Desktop y contenedores
+Verificada el 1 de noviembre de 2026 en Windows con Docker Desktop y contenedores
 Linux. Resultado: **aprobado**, con [evidencia JSON](instalacion-desde-cero.json).
 La evidencia anterior de `docs/auditoria/` se conserva como instalacion del backend.
 
@@ -58,7 +58,7 @@ Los helpers del navegador y de limpieza reciben `TEST_COMPOSE_ARGS` con el proye
 `fresh-...` propio. Validan ese prefijo antes de ejecutar Docker. En uso normal,
 sin esa variable, conservan el Compose habitual. Se conserva el recorrido anterior
 de la instalacion habitual con su fecha propia. Esta etapa revalida el recorrido
-en el stack nuevo sobre el refactor `dca9138`, incluyendo migraciones versionadas en lifespan.
+en el stack nuevo sobre `d563b2c`, incluyendo migraciones versionadas en lifespan.
 
 ## Evidencias
 
@@ -83,4 +83,4 @@ host Linux/macOS (RNF-27 sigue parcial). Reiniciar no prueba durabilidad de Redi
 o RabbitMQ al recrear sus contenedores; siguen pendientes los volumenes persistentes
 y recuperacion operativa documentados en la entrega. No se verifica produccion,
 TLS, replicas, lectores de pantalla o nuevos objetivos de rendimiento.
-La instalacion limpia se ejecuto sobre el commit `1cfacff`; la suite integrada y la carga RNF-01 se repitieron por separado y sus resultados estan enlazados en la auditoria y en escalabilidad.
+La instalacion limpia aprobada se ejecuto sobre el commit `d563b2c`; la suite integrada y la carga RNF-01 se repitieron por separado y sus resultados estan enlazados en la auditoria y en escalabilidad.

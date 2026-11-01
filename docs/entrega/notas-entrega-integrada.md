@@ -1,7 +1,7 @@
-# Notas de cierre integrado - 29 de octubre de 2026
+# Notas de cierre integrado - 1 de noviembre de 2026
 
 Documentacion final del candidato local de backend + frontend. Codigo funcional
-actual `dca9138`: separación completa de checkout, contratos y migraciones, además de operaciones de pedidos/carrito, pagos,
+actual `d563b2c`: separación completa de checkout, contratos y migraciones, además de operaciones de pedidos/carrito, pagos,
 usuarios y catalogo, repositorios, adaptadores de checkout e importacion ASGI sin efectos. Se conservan los contratos
 publicos y los objetivos de rendimiento. La etiqueta historica `v0.1.0-rc.1`
 se conserva sin moverla.
@@ -16,6 +16,7 @@ se conserva sin moverla.
 - Mejoras de foco, dialogo, semantica y adaptacion de las vistas revisadas.
 - Instalacion nueva incluyendo frontend, aislada de los datos locales.
 - Matriz de 78 requisitos ampliada con cobertura visual, sin aumentar el conteo.
+- Preparación futura: Kustomize base/dev, TLS local validado con Nginx, runner de fallo de réplica y helpers de instalación PowerShell/POSIX.
 
 ## Evidencia utilizada
 
@@ -31,7 +32,7 @@ Los JSON distinguen fecha de ejecucion y revision. Los 164 unittest no incluyen
 los 56 escenarios del navegador. Tests dirigidos de consulta de pagos, perfil y
 metricas tienen evidencias separadas; no se suman como otra suite total ejecutada.
 
-La instalación limpia y las pruebas multinstancia se ejecutaron sobre `dca9138`;
+La instalación limpia se reejecutó sobre `d563b2c` y quedó aprobada; las pruebas multinstancia históricas se conservan con sus hashes de origen;
 los hashes del informe corresponden a esa revisión.
 
 ## Limites explicitos
@@ -55,6 +56,8 @@ Se entrega como commit local, sin push, publicacion web ni nueva etiqueta.
 ## Ampliacion posterior: multinstancia local
 
 RNF-05/06 cerrados con [configuracion y pruebas](../escalabilidad/README.md): dos replicas por servicio, escalado independiente de los seis y carga original aprobada. La RC historica se conserva; no se declara alta disponibilidad ni balanceo uniforme.
+
+La preparación futura no cambia los estados formales: RNF-07 tiene manifiestos renderizables pero falta aplicar en cluster; RNF-15 tiene HTTPS local pero falta CA/rotación; RF-49 tiene runner de failover pero falta observación en dos réplicas vivas; RNF-27 tiene scripts portables pero falta ejecutar en Linux/macOS.
 
 La etapa inicial multinstancia conservo las pruebas anteriores. Tras este refactor
 se repiten la suite backend (164), instalacion con recorrido UI y pruebas/carga
