@@ -112,7 +112,7 @@
   "services/order-service/app/main.py": "79c2843a8b07dcaf58dc521c053846cd55cacd22ba5022d8504e53156b97d2a9",
   "services/order-service/app/migration_runner.py": "8055b82ed7ce19c616e9adffd476949805caae94fefe06e22fbbe266c2666b09",
   "tests/import_lifecycle.py": "d11d9cbe918d6063c363b094752c6c970391df3739742c70c77439abe053979a",
-  "docs/modularidad.md": "0de8bc8710a3de6a20bd4c51b5f270be8e188fa63db6cdc565a424403914764f",
+  "docs/modularidad.md": "e3f0a4b83d9f26b05272ea3fcaf10bddea8605a10aed1468f66bfa6e60a5fd0d",
   "tests/migrations_stability.py": "9f7869fa3a8383e22896f489ba92d867e4571b2048767e4c7d10f36678ae8325",
   "docs/frontend/recorrido-accesibilidad.json": "250e0cc81ddd29e71a8645d8cf1fcdac4cb509a5510bcb4d77b0d929e1e3f742",
   "tests/frontend_journey.cjs": "3aa2bd6ea7e3a33175fda13b9401e2defd234d8ff80e76ba773afdadc62a2e89",
@@ -122,7 +122,7 @@
   "docs/frontend/pedidos.json": "c959d6b30d0ef812254e62fcfcbab9299ea9d542c3dc4a57470b694ae31e5ddc",
   "docs/frontend/perfil.json": "0de08246ee1f9faed592354fe05fcd25c5e5d5f067358882e345188465072222",
   "tests/run_stability.ps1": "2bad307c90870f951a7a26a04f46b23dc1ee187818c6499a9302659b295b1798",
-  "docs/auditoria/estado-entorno.json": "ce8e63c5c24324e4777e88a1f63d8d6a5f46b8fa0deb8afe33abdfd57c8657a2",
+  "docs/auditoria/estado-entorno.json": "61b235c76d16d66105d173f05d3516f8d42ee11241d68b19bbe3d27fb0dce133",
   "scripts/install.ps1": "82151f85de7c84bdca4ced2dcebd7dfedd26ddca7822da3ff7518173489a00a1",
   "scripts/install.sh": "347254889089994dd35f6f1560fa236833bd5758a52954742a919be9977cbde5"
 }

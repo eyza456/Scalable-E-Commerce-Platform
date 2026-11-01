@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-11-01T04:26:06.045438+00:00",
+  "generated_at": "2026-11-01T04:28:02.407472+00:00",
   "runtime_reference_commit": "d563b2ca43651911009e2b76d8e2252f2b70ad7f",
   "runtime_matches_reference": true,
   "additional_deployment_profiles": [
     "compose.multinstance.yml"
   ],
-  "documentation_review_base": "d563b2ca43651911009e2b76d8e2252f2b70ad7f",
+  "documentation_review_base": "751dd2f6f4d8243abd815e7b3cfdb788f456771a",
   "historical_tag": {
     "name": "v0.1.0-rc.1",
     "commit": "d92380e505fd050be4483f3896aa1643c39f4e6c",
@@ -71,7 +71,7 @@
       "canonical_bytes": 59236
     },
     "docs/auditoria/estado-entorno.json": {
-      "sha256": "b9f8402de67f0e5805e89fc7e1ac79405efe05bd7e821def60155db83f6778c7",
+      "sha256": "661b43bf90f54ae45af2759f8aff3ae9c4409a14e61d51361ae56d497325fd39",
       "canonical_bytes": 5899
     },
     "docs/auditoria/generar_auditoria.py": {
@@ -79,7 +79,7 @@
       "canonical_bytes": 22332
     },
     "docs/auditoria/hashes-evidencias.json": {
-      "sha256": "9e742176ba7d58429ebe24067710d829b1d20094a3e995a6ba7d15ecca3e2d3a",
+      "sha256": "3f4c46d26d456a84bbb8aa551f8323af2eb1c13ac191cab629fafaccb78272a4",
       "canonical_bytes": 13515
     },
     "docs/auditoria/instalacion-desde-cero.json": {
@@ -119,7 +119,7 @@
       "canonical_bytes": 578
     },
     "docs/auditoria/resultado-frontend.json": {
-      "sha256": "c7bdc9140dc8bd3723ef59f73225d96c9b54afc65485322005bf43d595254b3d",
+      "sha256": "2cd173092ba826805dbbfc77c95a1496db48ea194b0675ef791e310cba86f055",
       "canonical_bytes": 1147
     },
     "docs/auditoria/resultado-suite-cierre.json": {
@@ -131,7 +131,7 @@
       "canonical_bytes": 727
     },
     "docs/auditoria/resultado-suite.json": {
-      "sha256": "4332d01b9f0fa15fbe52aa9b148b30e02d27f04166ac723059903990ffb3d5b2",
+      "sha256": "7afb4c0de20cfbb26d93c1deb221b47e9c64b228af9bfd599233a9bee658d559",
       "canonical_bytes": 3314
     },
     "docs/auditoria/sondas-2026-10-28.json": {
@@ -139,8 +139,8 @@
       "canonical_bytes": 1115
     },
     "docs/entrega/README.md": {
-      "sha256": "27d0d7c4a8870a6b93ace71757447de9b092c5021d431cba602e7fd0826d2f5b",
-      "canonical_bytes": 6598
+      "sha256": "bb172f650d7386f15b7e4633d6bead2527699bd012df5c2c6ad84bc71eb490aa",
+      "canonical_bytes": 6809
     },
     "docs/entrega/demo-resultados.json": {
       "sha256": "382f463587b51159ba41be95fa3dc85debe93ebc9d7cad21ce6a103b147d620d",
@@ -155,8 +155,8 @@
       "canonical_bytes": 7225
     },
     "docs/entrega/notas-entrega-integrada.md": {
-      "sha256": "7d944128267cb3888060761fd18a8ad852e66c04b356fd2e7de2ebe8408b3a53",
-      "canonical_bytes": 4249
+      "sha256": "1169b4f08bfb36d804cb47cf8da2a6fe56597f97b6c999a8a60ecfc84a84b670",
+      "canonical_bytes": 4784
     },
     "docs/entrega/notas-version.md": {
       "sha256": "4d36e607a1eeb973a49d863805253601b2e24712fc3ffcfb6cc7a21d36e33d85",
@@ -167,8 +167,8 @@
       "canonical_bytes": 6257
     },
     "docs/entrega/plan-cierre-parciales.md": {
-      "sha256": "981b999e30e6c30edb37f2e2a562f4cf0a4073101cce16a8464840f85bef9ad9",
-      "canonical_bytes": 8232
+      "sha256": "e2992d5fb57292bca9d52cd73ee49a53bbf497faafe872131bdd98ba7296dc7e",
+      "canonical_bytes": 8341
     },
     "docs/escalabilidad/README.md": {
       "sha256": "a83598a927c4d5262088fbb9d1ad6e7c64cc51de0207f058cbb1b77c7926cc10",
@@ -307,8 +307,8 @@
       "canonical_bytes": 4783
     },
     "docs/frontend/instalacion-desde-cero.md": {
-      "sha256": "f5c0be7ec21e55a677d649578c94bbca407ff75e7c969af7a48436736cc465b2",
-      "canonical_bytes": 5345
+      "sha256": "94bb13f5c5c54ae9989e21a31560070cb6ffcb665bb6cf6e843f3292bc434ef1",
+      "canonical_bytes": 5343
     },
     "docs/frontend/integracion.json": {
       "sha256": "0d764e3cab0a07ad7addc8a1e010493ecec83edb6c612d7f25fb56391dc238d0",
@@ -383,8 +383,8 @@
       "canonical_bytes": 2760
     },
     "docs/modularidad.md": {
-      "sha256": "39ba450572c41fe038179e4851e10ed6b4a3a1a6e16b98160c91992444f5207c",
-      "canonical_bytes": 5745
+      "sha256": "2bcd1ebc8e8c2a2ef9fd2573a8c05ea62d1449383b6148ecdcf7c8840bcd49e3",
+      "canonical_bytes": 5819
     },
     "docs/rendimiento/evidencias.json": {
       "sha256": "bc113106c9dfe5ca6dbd8212b2508875dfede4d07e8e2a96875c234e2f9761e9",
