@@ -166,7 +166,9 @@ services:
   # =========================
   rabbitmq:
     image: rabbitmq:3-management
-    command: ["sh", "-c", "chown -R rabbitmq:rabbitmq /var/lib/rabbitmq && chmod 600 /var/lib/rabbitmq/.erlang.cookie 2>/dev/null || true; exec gosu rabbitmq rabbitmq-server"]
+    environment:
+      RABBITMQ_ERLANG_COOKIE: ${RABBITMQ_ERLANG_COOKIE:-ecommerce-local-cookie-change-me}
+    command: ["sh", "-c", "printf '%s' \"$$RABBITMQ_ERLANG_COOKIE\" > /var/lib/rabbitmq/.erlang.cookie && chown -R rabbitmq:rabbitmq /var/lib/rabbitmq && chmod 600 /var/lib/rabbitmq/.erlang.cookie && exec gosu rabbitmq rabbitmq-server"]
     healthcheck:
       test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
       interval: 5s
