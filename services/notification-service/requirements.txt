@@ -1,5 +1,5 @@
-fastapi
-uvicorn[standard]
-pydantic
-pika
-h2
+fastapi==0.162.0
+uvicorn[standard]==0.54.0
+pydantic==2.14.2
+pika==1.4.4
+h2==4.4.1

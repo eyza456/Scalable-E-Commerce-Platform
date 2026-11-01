@@ -142,6 +142,7 @@ services:
   # =========================
   redis:
     image: redis:7-alpine
+    command: ["redis-server", "--appendonly", "yes", "--appendfsync", "everysec", "--save", "60", "1"]
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
       interval: 5s
@@ -152,6 +153,9 @@ services:
 
     ports:
       - "${REDIS_PORT}:6379"
+
+    volumes:
+      - redis_data:/data
 
     networks:
       - ecommerce-network
@@ -175,6 +179,9 @@ services:
       - "5672:5672"
       - "15672:15672"
 
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+
     networks:
       - ecommerce-network
 
@@ -188,6 +195,13 @@ services:
 
     container_name: user-service
     restart: unless-stopped
+
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/ready', timeout=2)"]
+      interval: 10s
+      timeout: 4s
+      retries: 6
+      start_period: 15s
 
     ports:
       - "8001:8000"
@@ -219,6 +233,12 @@ services:
       context: ./services/product-service
     container_name: product-service
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/ready', timeout=2)"]
+      interval: 10s
+      timeout: 4s
+      retries: 6
+      start_period: 15s
     ports:
       - "8002:8000"
 
@@ -253,6 +273,12 @@ services:
 
     container_name: cart-service
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/ready', timeout=2)"]
+      interval: 10s
+      timeout: 4s
+      retries: 6
+      start_period: 15s
 
     ports:
       - "8003:8000"
@@ -289,6 +315,12 @@ services:
 
     container_name: order-service
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/ready', timeout=2)"]
+      interval: 10s
+      timeout: 4s
+      retries: 6
+      start_period: 15s
 
     ports:
       - "8004:8000"
@@ -331,6 +363,12 @@ services:
 
     container_name: payment-service
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/ready', timeout=2)"]
+      interval: 10s
+      timeout: 4s
+      retries: 6
+      start_period: 15s
 
     ports:
       - "8005:8000"
@@ -374,6 +412,12 @@ services:
 
     container_name: notification-service
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/ready', timeout=2)"]
+      interval: 10s
+      timeout: 4s
+      retries: 6
+      start_period: 15s
 
     ports:
       - "8006:8000"
@@ -414,3 +458,7 @@ volumes:
   order_postgres_data:
 
   payment_postgres_data:
+
+  redis_data:
+
+  rabbitmq_data:

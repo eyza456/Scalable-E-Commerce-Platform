@@ -1,8 +1,9 @@
 from contextlib import asynccontextmanager
 from app.http_client import close as close_http_pool
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 
 from app.routers import cart
+from app.redis_client import redis_client
 
 
 @asynccontextmanager
@@ -42,3 +43,12 @@ def health_check():
     return {
         "status": "healthy"
     }
+
+
+@app.get("/ready")
+def readiness_check():
+    try:
+        redis_client.ping()
+    except Exception as exc:
+        raise HTTPException(status_code=503, detail="cart redis unavailable") from exc
+    return {"status": "ready", "dependencies": {"redis": "ready"}}

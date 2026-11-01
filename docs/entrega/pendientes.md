@@ -49,12 +49,12 @@ Estos pendientes limitan la afirmacion de cumplimiento del PDF; no se han oculta
 
 | Prioridad | Limite actual | Siguiente trabajo |
 | --- | --- | --- |
-| Alta | Redis y RabbitMQ sin volumenes nombrados en Compose | Definir persistencia y recuperacion; probar recreacion con carritos, reservas y eventos pendientes. La prueba de reinicio no demuestra durabilidad al recrear |
+| Cerrado en alcance local | Redis y RabbitMQ sin volumenes nombrados en Compose | `redis_data` con AOF, `rabbitmq_data`, scripts de backup/restore y hashes SHA-256. Falta probar restore en una instalacion aislada y custodiar copias fuera del host |
 | Alta | Acceso HTTP local y puertos directos publicados | Perfil de despliegue con HTTPS, certificados, puertos internos cerrados y gestion/rotacion de secretos |
-| Alta | Recuperacion operativa y DLQ manuales | Procedimientos probados de respaldo/restauracion, alertas y reproceso idempotente |
-| Media | /health de aplicaciones principalmente liveness | Readiness de DB/Redis/broker y monitoreo de colas/Outbox/recuperadores |
-| Media | Administracion de usuarios/roles incompleta respecto al plano | Procedimiento de alta de administrador y luego endpoints administrativos con auditoria; la demo usa un token de fixture |
-| Media | Dependencias Python sin versiones fijadas | Fijar un conjunto probado y ejecutar construccion/regresion en CI; el controlador PostgreSQL ya se selecciona explicitamente |
+| Parcial | Recuperacion operativa y DLQ manuales | Backup/restore y monitor local disponibles en `scripts/`; falta probar restauracion aislada, alertas y reproceso operativo idempotente |
+| Cerrado en alcance local | /health de aplicaciones principalmente liveness | `/ready` comprueba DB/Redis/RabbitMQ, Compose lo usa como healthcheck y `scripts/monitor.*` informa colas y Outbox; faltan alertas productivas |
+| Parcial | Administracion de usuarios/roles incompleta respecto al plano | API administrativa paginada con cambios de rol/estado y proteccion contra auto-bloqueo; falta consola GUI y auditoria de cambios |
+| Cerrado en alcance local | Dependencias Python sin versiones fijadas | Versiones directas fijadas y reconstruccion/regresion local verificada; falta fijar digests de imagen y dependencias transitivas en CI |
 
 ## Evolucion opcional para el MVP inicial
 

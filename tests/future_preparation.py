@@ -51,6 +51,35 @@ class FuturePreparation(unittest.TestCase):
         self.assertTrue((ROOT / "scripts/generate-dev-cert.sh").is_file())
         self.assertTrue((ROOT / "tests/replica_failover.py").is_file())
 
+    def test_production_hardening_artifacts(self):
+        compose = (ROOT / "docker-compose.yml").read_text(encoding="utf-8")
+        self.assertIn("redis_data:", compose)
+        self.assertIn("rabbitmq_data:", compose)
+        self.assertIn('"--appendonly", "yes"', compose)
+        for script in (
+            ROOT / "scripts/backup.ps1",
+            ROOT / "scripts/backup.sh",
+            ROOT / "scripts/restore.ps1",
+            ROOT / "scripts/restore.sh",
+            ROOT / "scripts/monitor.ps1",
+            ROOT / "scripts/monitor.sh",
+        ):
+            self.assertTrue(script.is_file(), script)
+        for requirements in ROOT.glob("services/*/requirements.txt"):
+            direct = [
+                line.strip()
+                for line in requirements.read_text(encoding="utf-8").splitlines()
+                if line.strip() and not line.startswith("#")
+            ]
+            self.assertTrue(direct, requirements)
+            self.assertTrue(all("==" in line for line in direct), requirements)
+        users = (ROOT / "services/user-service/app/routers/users.py").read_text(encoding="utf-8")
+        self.assertIn('@router.get("", response_model=list[UserResponse])', users)
+        self.assertIn('@router.get("/{user_id}"', users)
+        self.assertIn('@router.patch("/{user_id}"', users)
+        for main in ROOT.glob("services/*/app/main.py"):
+            self.assertIn('"/ready"', main.read_text(encoding="utf-8"))
+
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)

@@ -1,4 +1,5 @@
 from datetime import datetime
+from typing import Literal
 from pydantic import BaseModel, ConfigDict, EmailStr, Field, model_validator, field_validator
 
 
@@ -62,6 +63,20 @@ class UserUpdate(BaseModel):
 class UserUpdateResponse(UserResponse):
     access_token: str
     token_type: str = "bearer"
+
+
+class AdminUserUpdate(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    role: Literal["Customer", "seller", "admin"] | None = None
+    is_active: bool | None = None
+
+    @model_validator(mode="after")
+    def valid_changes(self):
+        if not self.model_fields_set:
+            raise ValueError("Enviar al menos role o is_active")
+        if any(getattr(self, field) is None for field in self.model_fields_set):
+            raise ValueError("Los campos administrativos no pueden ser null")
+        return self
 
     
 

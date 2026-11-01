@@ -38,6 +38,7 @@ recuperacion de contraseña ni verificacion por correo.
 | [Plan de cierre de parciales](plan-cierre-parciales.md) | Clasificacion individual, orden y pruebas de aceptacion de los ocho parciales |
 | [Escalabilidad multinstancia](../escalabilidad/README.md) | Seis servicios replicados, escalado independiente y carga sin relajar objetivos |
 | [Preparación futura](../preparacion-futura.md) y [Kubernetes](../../k8s/README.md) | Manifiestos Kustomize, TLS local, runner de fallo de réplica e instaladores portables |
+| [Operación y recuperación](../operacion-produccion.md) | Persistencia Redis/RabbitMQ, backup/restore, readiness, monitoreo, dependencias fijadas y administración API |
 | [Modularidad y contratos](../modularidad.md) y [pagos](../modularidad-pagos.md) | Cuatro etapas de RNF-08/21; checkout, eventos y migraciones versionadas cerrados |
 | [Manifiesto](manifiesto-entrega.json) | Hashes de fuentes/documentos/evidencias y referencia Git |
 

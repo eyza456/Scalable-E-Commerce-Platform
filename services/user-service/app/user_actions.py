@@ -7,7 +7,7 @@ from sqlalchemy.orm import Session
 from app.core.security import create_access_token, hash_password, verify_password
 from app.models import User
 from app.schemas import UserCreate, UserLogin, UserResponse
-from app.schemas.user import UserUpdate, UserUpdateResponse
+from app.schemas.user import AdminUserUpdate, UserUpdate, UserUpdateResponse
 from app.user_repository import add_user, commit_user, find_by_email, find_duplicate_email
 
 
@@ -75,4 +75,20 @@ def update_profile(db: Session, current_user: User, data: UserUpdate) -> UserUpd
         **UserResponse.model_validate(current_user).model_dump(),
         access_token=token,
     )
+
+
+def update_user_admin(db: Session, current_user: User, target: User, data: AdminUserUpdate) -> User:
+    changes = data.model_dump(exclude_unset=True)
+    if target.id == current_user.id and (
+        changes.get("role", target.role) != target.role
+        or changes.get("is_active", target.is_active) is False
+    ):
+        raise HTTPException(409, "No puedes desactivar o cambiar tu propio rol")
+    for field, value in changes.items():
+        setattr(target, field, value)
+    try:
+        return commit_user(db, target)
+    except IntegrityError as exc:
+        db.rollback()
+        raise HTTPException(409, "No se pudo actualizar el usuario") from exc
 
