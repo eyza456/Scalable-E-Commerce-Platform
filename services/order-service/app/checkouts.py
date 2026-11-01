@@ -13,20 +13,14 @@ from app.checkout_clients import (
     CartReadError,
 )
 from fastapi import HTTPException
-from sqlalchemy import text
-
 from app.database import SessionLocal
 from app.models import Checkout, Order, OrderItem
+from app import checkout_repository as repository
 
 logger = logging.getLogger(__name__)
 
 
-def lock_user(db, user_id, skip=False):
-    function = "pg_try_advisory_xact_lock" if skip else "pg_advisory_xact_lock"
-    result = db.execute(
-        text(f"SELECT {function}(17003, :id)"), {"id": user_id}
-    ).scalar()
-    return bool(result) if skip else True
+lock_user = repository.lock_user
 
 
 def validate_products(snapshot):
@@ -89,13 +83,7 @@ def process_checkout(db, checkout_id, skip=False):
         if not lock_user(db, user_id, skip):
             db.rollback()
             return
-        checkout = (
-            db.query(Checkout)
-            .filter_by(id=checkout_id)
-            .with_for_update()
-            .populate_existing()
-            .one()
-        )
+        checkout = repository.lock(db, checkout_id)
         try:
             if checkout.state in ("COMPLETE", "REJECTED"):
                 db.commit()
@@ -142,20 +130,13 @@ def begin_checkout(db, current_user, key=None):
     user_id = current_user["id"]
     lock_user(db, user_id)
     if key:
-        checkout = db.get(Checkout, str(key))
+        checkout = repository.get(db, str(key))
         if checkout is not None:
             if checkout.user_id != user_id:
                 raise HTTPException(404, "Checkout no encontrado")
             db.commit()
             return checkout.id, False
-    active = (
-        db.query(Checkout)
-        .filter(
-            Checkout.user_id == user_id,
-            Checkout.state.in_(("PENDING", "FINALIZING", "ABORTING")),
-        )
-        .first()
-    )
+    active = repository.active_for_user(db, user_id)
     if active:
         if key and str(key) != active.id:
             raise HTTPException(409, "Ya existe un checkout en curso")
@@ -167,7 +148,7 @@ def begin_checkout(db, current_user, key=None):
         raise HTTPException(exc.status_code, str(exc)) from exc
     if not cart.get("items"):
         previous = (
-            db.get(Checkout, cart.get("last_checkout_id"))
+            repository.get(db, cart.get("last_checkout_id"))
             if cart.get("last_checkout_id")
             else None
         )
@@ -186,10 +167,10 @@ def begin_checkout(db, current_user, key=None):
         raise HTTPException(503, "Version del carrito no verificable") from exc
     if key and str(key) != version:
         raise HTTPException(409, "La version del carrito cambio")
-    checkout = db.get(Checkout, version)
+    checkout = repository.get(db, version)
     created = checkout is None
     if created:
-        db.add(Checkout(id=version, user_id=user_id, state="PENDING"))
+        repository.add(db, Checkout(id=version, user_id=user_id, state="PENDING"))
     elif checkout.user_id != user_id:
         raise HTTPException(404, "Checkout no encontrado")
     db.commit()
@@ -198,12 +179,7 @@ def begin_checkout(db, current_user, key=None):
 
 def recover_checkouts():
     with SessionLocal() as db:
-        ids = [
-            r[0]
-            for r in db.query(Checkout.id)
-            .filter(Checkout.state.in_(("PENDING", "FINALIZING", "ABORTING")))
-            .all()
-        ]
+        ids = repository.pending_ids(db)
     for checkout_id in ids:
         try:
             with SessionLocal() as db:

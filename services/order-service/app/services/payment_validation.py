@@ -5,6 +5,7 @@ import urllib.request
 from decimal import Decimal, InvalidOperation
 
 from app.core.config import settings
+from app.event_contracts import PaymentCompletedEvent
 
 
 class PermanentValidationError(Exception):
@@ -23,15 +24,12 @@ def verify_payment_event(message: dict, order) -> None:
     No modifica PostgreSQL ni RabbitMQ.
     """
 
-    if not isinstance(message, dict):
-        raise PermanentValidationError(
-            "El evento debe ser un objeto JSON"
-        )
+    try:
+        event = PaymentCompletedEvent.model_validate(message)
+    except (TypeError, ValueError) as exc:
+        raise PermanentValidationError("Contrato PAYMENT_COMPLETED invalido") from exc
 
-    if message.get("event") != "PAYMENT_COMPLETED":
-        raise PermanentValidationError(
-            "Tipo de evento incorrecto"
-        )
+    message = event.model_dump()
 
     order_id = message.get("order_id")
     user_id = message.get("user_id")

@@ -20,6 +20,7 @@ from app.services.payment_validation import (
     verify_payment_and_order,
     TemporaryValidationError,
 )
+from app.event_contracts import PaymentCompletedEvent
 
 # ==========================================
 # CONFIGURACION DE RABBITMQ
@@ -46,11 +47,10 @@ def process_payment_completed(message: dict):
     el inventario de manera atomica.
     """
 
-    if not isinstance(message, dict):
-        raise ValueError("El evento debe ser un objeto JSON")
-
-    if message.get("event") != "PAYMENT_COMPLETED":
-        raise ValueError("Tipo de evento incorrecto")
+    try:
+        message = PaymentCompletedEvent.model_validate(message).model_dump()
+    except (TypeError, ValueError) as exc:
+        raise ValueError("Contrato PAYMENT_COMPLETED invalido") from exc
 
     order_id = message.get("order_id")
     transaction_id = message.get("transaction_id")

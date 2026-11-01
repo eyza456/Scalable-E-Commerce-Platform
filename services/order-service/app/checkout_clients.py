@@ -1,18 +1,10 @@
 """HTTP adapters for checkout contracts; no SQL, Redis or order decisions."""
 
 import httpx
-from decimal import Decimal
-from pydantic import BaseModel, Field, StrictBool
+from pydantic import ValidationError
 from app import http_client
 from app.core.config import settings
-
-
-class ProductContract(BaseModel):
-    id: int = Field(strict=True, gt=0)
-    name: str = Field(min_length=1)
-    price: Decimal = Field(gt=0, allow_inf_nan=False)
-    stock: int = Field(strict=True, ge=0)
-    is_active: StrictBool
+from app.checkout_contracts import CartActionContract, CartSnapshotContract, ProductContract
 
 
 class CartReadError(Exception):
@@ -30,11 +22,8 @@ def get_cart(token):
         )
         if response.status_code != 200:
             raise CartReadError(response.status_code, "No se pudo consultar el carrito")
-        cart = response.json()
-        if not isinstance(cart, dict) or not isinstance(cart.get("items"), list):
-            raise ValueError("Contrato de carrito incompatible")
-        return cart
-    except (httpx.RequestError, ValueError) as exc:
+        return CartSnapshotContract.model_validate(response.json()).model_dump()
+    except (httpx.RequestError, ValidationError, ValueError) as exc:
         raise CartReadError(503, "Carrito no disponible") from exc
 
 
@@ -51,7 +40,7 @@ def get_product(product_id):
         if product.id != product_id:
             raise ValueError("Producto de otro identificador")
         return product.model_dump()
-    except (httpx.RequestError, ValueError) as exc:
+    except (httpx.RequestError, ValidationError, ValueError) as exc:
         raise Unavailable("Catalogo temporalmente no disponible") from exc
 
 
@@ -82,6 +71,7 @@ def cart_call(checkout, action):
         raise Unavailable("No se pudo coordinar el carrito")
     if action != "prepare":
         expected = "COMMITTED" if action == "commit" else "ABORTED"
-        if data.get("checkout_id") != checkout.id or data.get("state") != expected:
+        action_result = CartActionContract.model_validate(data)
+        if action_result.checkout_id != checkout.id or action_result.state != expected:
             raise Unavailable("Confirmacion de carrito invalida")
     return data

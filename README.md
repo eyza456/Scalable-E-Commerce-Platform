@@ -156,7 +156,10 @@ docker compose run --rm --no-deps product-service alembic current
 
 La revision actual debe ser `b1c5a09e3d72 (head)`. Repetir `upgrade head` es seguro. Product usa Alembic para crear productos, categorias, reservas, cancelaciones y registro de eventos.
 
-En una instalacion nueva, User, Order y Payment crean sus tablas actuales al arrancar mediante SQLAlchemy; no necesitan ejecutar los SQL historicos. Esos SQL actualizan instalaciones existentes y se explican en los documentos de cada funcionalidad. `create_all` no migra tablas antiguas. No aplicar indiscriminadamente todas las migraciones historicas (por ejemplo Payment 002 fue sustituida por 003).
+User, Order y Payment aplican sus migraciones SQL versionadas al arrancar mediante
+un runner idempotente que registra cada revision en `schema_migrations`. No se
+usa `create_all` en produccion: las migraciones pendientes se ejecutan en orden
+y repetir el arranque no cambia el esquema. Product usa Alembic.
 
 ### 5. Arrancar y comprobar los servicios
 

@@ -41,10 +41,10 @@ simplemente reemplazando todas las llamadas por eventos.
 
 ## Inicializacion y consumidores
 
-Usuarios, pedidos y pagos crean su esquema mediante `initialize_schema()` al
-entrar al lifespan, antes de aceptar trafico o arrancar sus workers. Importar
-ASGI ya no crea tablas. `create_all` sigue siendo un bootstrap, no un sistema
-de migraciones para esos tres servicios. Productos conserva Alembic.
+Usuarios, pedidos y pagos aplican migraciones SQL versionadas mediante
+`initialize_schema()` al entrar al lifespan, antes de aceptar trafico o arrancar
+sus workers. Importar ASGI ya no crea tablas y cada revision queda registrada en
+`schema_migrations`; repetir el arranque es idempotente. Productos conserva Alembic.
 
 Pedidos y productos arrancan el consumidor RabbitMQ dentro del lifespan.
 Reciben una señal de parada y procesan eventos en su propio hilo; cierran la
@@ -82,25 +82,19 @@ También se optimizó la lectura del historial de pedidos con una carga joinada;
 la repetición del perfil multinstancia dejó los 30 objetivos de rendimiento
 aprobados.
 
-## Trabajo restante
+## Cuarta etapa completada: checkout, contratos y migraciones
 
-1. Separar coordinacion y persistencia en los otros routers que aun
-   contienen negocio/SQL, asi como en checkout y recuperadores que todavia
-   consultan SQL directamente; reducir tambien el acoplamiento del codigo de aplicacion
-   a excepciones y objetos HTTP.
-2. Extender los adaptadores con contratos explicitos a cancelaciones y validacion
-   de eventos. Los timeouts y reintentos deben conservar la recuperacion durable.
-3. Sustituir el bootstrap `create_all` de usuarios/pedidos/pagos por migraciones
-   versionadas y un paso de despliegue explicito, sin efectos al importar.
+Checkout separa repositorio, coordinacion HTTP y contratos versionados; sus
+recuperadores reutilizan el mismo repositorio y mantienen los bloqueos por
+usuario. Cancelaciones usan un cliente tipado y los consumidores de eventos
+validan contratos estrictos antes de aplicar efectos. User, Order y Payment
+arrancan con migraciones versionadas idempotentes y sin `create_all`.
 
-La extraccion actual permite avanzar en estos puntos con cambios menores y
-pruebas separadas; no implica que se hayan completado.
-
-## Resultados sobre 0b0d959
+## Resultados sobre 0b0d959 + cuarta etapa
 
 | Comprobacion | Resultado |
 | --- | --- |
-| [Suite backend](auditoria/resultado-suite.json) | Regresion completa aprobada tras la tercera etapa; la evidencia integrada de pagos conserva 161 unittest y seis importaciones ASGI |
+| [Suite backend](auditoria/resultado-suite.json) | Regresion completa aprobada tras la tercera etapa; 163 unittest y seis importaciones ASGI |
 | [Instalacion y frontend](frontend/instalacion-desde-cero.json) | 14 contenedores nuevos, migraciones, reinicio, nueve etapas UI y 14 estados axe sin incidencias |
 | [Concurrencia e independencia](escalabilidad/independencia.json) | Checkout/pago con 12 solicitudes por operacion, cancelacion concurrente y seis servicios escalados 2/3/1/2 |
 | [Carga con replicas](escalabilidad/carga/resultado.json) | 17.844 solicitudes medidas. 1.023 compras con calentamiento y 30 objetivos aprobados; historial p95 444,24 ms |
