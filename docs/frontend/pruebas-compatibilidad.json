@@ -28,12 +28,47 @@
           "fits": true
         }
       ]
+    },
+    {
+      "engine": "firefox",
+      "checks": [],
+      "audits": [],
+      "layouts": [],
+      "skipped": "Motor no disponible: browserType.launch: spawn UNKNOWN\nCall log:\n\u001b[2m  - <launching> C:\\Users\\Usuario\\AppData\\Local\\ms-playwright\\firefox-1555\\firefox\\firefox.exe -no-remote -headless -profile C:\\Users\\Usuario\\AppData\\Local\\Temp\\playwright_firefoxdev_profile-3Oy6Iz -juggler-pipe -silent\u001b[22m\n"
+    },
+    {
+      "engine": "webkit",
+      "checks": [
+        "screen-reader-oriented landmarks and accessible control names",
+        "admin can change role and active state of another user",
+        "empty-cart confirmation preserves and then clears the cart",
+        "keyboard focus remains available after zoom and dialogs"
+      ],
+      "audits": [
+        {
+          "name": "webkit: admin",
+          "violations": [],
+          "incomplete": 0
+        },
+        {
+          "name": "webkit: cart",
+          "violations": [],
+          "incomplete": 0
+        }
+      ],
+      "layouts": [
+        {
+          "zoom": 2,
+          "width": 1440,
+          "fits": true
+        }
+      ]
     }
   ],
   "checks": [],
   "cleanup": true,
   "status": "passed",
-  "date": "2026-11-01T17:06:57.553Z",
+  "date": "2026-11-01T17:39:09.014Z",
   "sha256": {
     "frontend/app/index.html": "dbbc197874a4a2a600af239fd271a78aee726ddbb2469f09e2b45da64fbed1ae",
     "frontend/app/app.js": "aa457ca4e62b76b5151a259db0f30d4d62f1b78b199ffaf4d0f6ba34c438c7f4",
