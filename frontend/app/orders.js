@@ -79,7 +79,11 @@ window.NexoOrders = function ({api, state, $, feedback, element, money}) {
       if (!current(version) || request !== detailRequest || id !== selected || view !== 'orders') return;
       order = value; $('orders-status').textContent = ''; $('history-detail').hidden = false;
       if (order.status === 'CANCELLING') {feedback('history-status', 'Cancelación en curso. Consultaremos el resultado sin volver a enviarla.'); schedule(version);}
-      else {stop(); feedback('history-status', order.status === 'CANCELLED' ? 'Pedido cancelado.' : '');}
+      else {
+        feedback('history-status', order.status === 'CANCELLED' ? 'Pedido cancelado.' : '');
+        if (order.status === 'PENDING') {polls = 0; schedule(version);}
+        else stop();
+      }
     } catch (error) {
       if (!current(version) || request !== detailRequest) return;
       stop(); order = null; $('orders-status').textContent = '';
