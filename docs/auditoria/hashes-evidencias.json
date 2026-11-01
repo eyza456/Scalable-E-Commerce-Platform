@@ -62,7 +62,7 @@
   "tests/gateway_resilience.py": "6a9c9516002bb79bbd4b7432704fef7795cc1a48a57a4b83caa4e209dc0b13b9",
   "docs/escalabilidad/independencia.json": "58f95b43834025e47c91a4a5b4af834db6a42ab1660a6171a4eee727902a136b",
   "tests/future_preparation.py": "51a25a376a815538a66496648cafc850328c0c1fc8532876e0c858d69fab818e",
-  "docs/frontend/instalacion-desde-cero.json": "00fd6a10e00a10e3bb6777adf67fb3752bcf40bf6cd16d12278bc6b01a4cb0b6",
+  "docs/frontend/instalacion-desde-cero.json": "42b495e88f211756c03cc24b9e77437eb2d600434c2a410e7acf14237eb7a36a",
   "tests/performance_goals.json": "1fc71a41394ff7974e29b2dff2c4010c27b47cbb863fb59c54f05c8b0d069585",
   "tests/performance_load.py": "16ffed2485d0cd610716d84f34d74c67d776bbfae1bf7fdb1b6f2dee9ef78775",
   "services/order-service/app/http_client.py": "f816e8234dcacc46ad00c87fcadc3f40b0229977a24cbb9600dc0eaae2236a17",
@@ -122,7 +122,7 @@
   "docs/frontend/pedidos.json": "c959d6b30d0ef812254e62fcfcbab9299ea9d542c3dc4a57470b694ae31e5ddc",
   "docs/frontend/perfil.json": "0de08246ee1f9faed592354fe05fcd25c5e5d5f067358882e345188465072222",
   "tests/run_stability.ps1": "2bad307c90870f951a7a26a04f46b23dc1ee187818c6499a9302659b295b1798",
-  "docs/auditoria/estado-entorno.json": "ba9ba29c24675b59612f6c0f988c9d726f431d0967bfe5bf4622ea6db2a08ff3",
+  "docs/auditoria/estado-entorno.json": "143bd34ec4f8936a4bf9b5d78e38ee429323b38ac6a7e9ae4f91eaacd423fbf5",
   "scripts/install.ps1": "82151f85de7c84bdca4ced2dcebd7dfedd26ddca7822da3ff7518173489a00a1",
   "scripts/install.sh": "347254889089994dd35f6f1560fa236833bd5758a52954742a919be9977cbde5"
 }

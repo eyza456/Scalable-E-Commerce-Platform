@@ -1,6 +1,6 @@
 {
-  "project": "fresh-c1d8dfcb746f",
-  "executed_at": "2026-11-01T04:21:41.688509+00:00",
+  "project": "fresh-b11e5268e1aa",
+  "executed_at": "2026-11-01T04:37:47.548951+00:00",
   "checks": {
     "configuration": "Plantilla independiente; sin .env ni datos locales",
     "frontend_configuration": "Actual frontend overlay; isolated project, network and loopback random port",
@@ -78,13 +78,13 @@
     "original_installation": "Original IDs, start times and restart counts unchanged"
   },
   "volumes": [
-    "fresh-c1d8dfcb746f_order_postgres_data",
-    "fresh-c1d8dfcb746f_payment_postgres_data",
-    "fresh-c1d8dfcb746f_product_postgres_data",
-    "fresh-c1d8dfcb746f_user_postgres_data"
+    "fresh-b11e5268e1aa_order_postgres_data",
+    "fresh-b11e5268e1aa_payment_postgres_data",
+    "fresh-b11e5268e1aa_product_postgres_data",
+    "fresh-b11e5268e1aa_user_postgres_data"
   ],
   "readme_sha256": "729f821d5232d64dc5ae49ccbed2a6d222c41f442c63ce26dfa8c39e31901182",
-  "source_commit": "d563b2ca43651911009e2b76d8e2252f2b70ad7f",
+  "source_commit": "8885132c4344f4c225fbc20b76c609581220929c",
   "source_note": "Tracked working-tree bytes copied at preparation; hashes identify exact sources, including staged edits",
   "sha256": {
     "README.md": "9dcaa654b55547516efdccb785038a727a313eee5c729862a047b80cef3ed24b",
