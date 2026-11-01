@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-11-01T03:26:23.802848+00:00",
+  "generated_at": "2026-11-01T03:26:57.096407+00:00",
   "runtime_reference_commit": "dca91380ca56b5615e23c8d1b71882a62f22ed1a",
   "runtime_matches_reference": true,
   "additional_deployment_profiles": [
     "compose.multinstance.yml"
   ],
-  "documentation_review_base": "dca91380ca56b5615e23c8d1b71882a62f22ed1a",
+  "documentation_review_base": "d9386377e4d9e01ee63075246b0c1ad281d193ca",
   "historical_tag": {
     "name": "v0.1.0-rc.1",
     "commit": "d92380e505fd050be4483f3896aa1643c39f4e6c",
@@ -67,7 +67,7 @@
       "canonical_bytes": 58279
     },
     "docs/auditoria/estado-entorno.json": {
-      "sha256": "23d5e4df21fb973b31a228179da580cb47d2e200135f007d27027d7fad05ff0e",
+      "sha256": "3240d9cc23d28c0d68597b88d76247bb4628dc26f094f2f6a68c79f8fe88e28b",
       "canonical_bytes": 5899
     },
     "docs/auditoria/generar_auditoria.py": {
@@ -75,7 +75,7 @@
       "canonical_bytes": 22332
     },
     "docs/auditoria/hashes-evidencias.json": {
-      "sha256": "b3429b5486df3813721b9903a528e4920e62cb449935efb4bf3ff3cfa1f289c7",
+      "sha256": "4f511bf2a60fd09105ac1ff6a9c4215bc6be6db5a917fab243d270860db47f25",
       "canonical_bytes": 12322
     },
     "docs/auditoria/instalacion-desde-cero.json": {
@@ -115,7 +115,7 @@
       "canonical_bytes": 578
     },
     "docs/auditoria/resultado-frontend.json": {
-      "sha256": "80276a7d9bf9ddefb1f5bb740670044e0a081ccc40a392c20935e75a8515a6c4",
+      "sha256": "023ef56be6621a1f0ff58047d2b2690a1c0376e0e8b9c73cbe6693a9e406f9b4",
       "canonical_bytes": 1147
     },
     "docs/auditoria/resultado-suite-cierre.json": {
@@ -127,7 +127,7 @@
       "canonical_bytes": 727
     },
     "docs/auditoria/resultado-suite.json": {
-      "sha256": "649ecbbe191649459d647cebeb6604738015c97df8f9d7c2835ac3875a4ba5f6",
+      "sha256": "b3e736eb8213c50c4baa224e7b21496c2c141e6a0161b389cecca1ca55091a65",
       "canonical_bytes": 3310
     },
     "docs/auditoria/sondas-2026-10-28.json": {
