@@ -66,14 +66,15 @@ No se necesita contratar infraestructura para preparar el perfil multinstancia.
 ## Frontend y entrega
 
 El boton de vaciar carrito es una mejora visual concreta sobre RF-25 ya cubierto
-por API. Una consola administrativa completa es una ampliacion de la interfaz:
-los criterios de pp.22-23 exigen gestionar productos con autorizacion, pero no
-especifican que se haga mediante GUI. No se convierte esa ampliacion en un
-requisito nuevo del PDF. Se mantienen las limitaciones declaradas de la entrega.
+por API. La consola administrativa implementada cubre la administracion de
+usuarios/roles; los criterios de pp.22-23 exigen gestionar productos con
+autorizacion, pero no especifican que se haga mediante GUI. No se convierte esa
+ampliacion en un requisito nuevo del PDF.
 
-Otro navegador, zoom al 200% y lector de pantalla son verificaciones visuales
-recomendadas; las auditorias automaticas existentes no las sustituyen. Estos
-trabajos se registran separados de los ocho parciales de arquitectura/calidad.
+Otro navegador, zoom al 200% y lector de pantalla se cubren de forma automatizada
+en `tests/frontend_visual_optional.cjs` cuando los motores estan instalados;
+la validacion manual con lector nativo sigue separada de los ocho parciales de
+arquitectura/calidad.
 
 ## Fuentes y trazabilidad
 

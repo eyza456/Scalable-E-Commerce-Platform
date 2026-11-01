@@ -1856,5 +1856,5 @@
       "note": "56 escenarios de navegador; recorrido integral, 14 estados auditados y nueva instalacion completa. No es certificacion de accesibilidad."
     }
   },
-  "frontend_scope_note": "Cobertura complementaria del cliente; no agrega requisitos al PDF ni convierte API administrativa en GUI. Cancelacion y accesibilidad se documentan tambien por flujos, sin inventar IDs RF."
+  "frontend_scope_note": "Cobertura complementaria del cliente; no agrega requisitos al PDF. La consola cubre usuarios/roles y el carrito tiene vaciado dedicado; productos, categorias, stock y estados de pedidos siguen por API. Cancelacion y accesibilidad se documentan tambien por flujos, sin inventar IDs RF."
 }

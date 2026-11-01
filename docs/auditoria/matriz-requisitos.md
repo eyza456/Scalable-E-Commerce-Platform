@@ -22,7 +22,7 @@ Suite completa: **codigo 0, 164 unittest aprobados y 0 fallos**, seis comprobaci
 
 Frontend: **56 escenarios de navegador** registrados, recorrido integral, **14 estados auditados sin incidencias automaticas** e instalacion nueva de **14 contenedores**. Las fechas de ejecucion se conservan; revisar evidencias no equivale a repetir pruebas. [Resumen de ejecuciones](resultado-frontend.json), [matriz visual](matriz-frontend.md), [guion](../frontend/demostracion-visual.md) e [instalacion completa](../frontend/instalacion-desde-cero.md). No es certificacion de accesibilidad ni carga de pagina medida.
 
-Los estados formales siguen siendo los del sistema completo. La columna visual no agrega requisitos al PDF: operaciones administrativas, hash de contraseña y vaciado completo pueden estar cumplidos por API sin tener un control GUI dedicado. El snapshot anterior se preserva en [historico-7338855](historico-7338855/README.md).
+Los estados formales siguen siendo los del sistema completo. La columna visual no agrega requisitos al PDF: la consola cubre usuarios/roles y vaciado; productos, categorias, stock y estados de pedidos pueden seguir cumplidos por API sin control GUI dedicado. El snapshot anterior se preserva en [historico-7338855](historico-7338855/README.md).
 
 ## Hallazgos anteriores cerrados
 
@@ -135,7 +135,7 @@ Estas observaciones no se suman al conteo formal:
 
 | ID / PDF | Estado actual |
 | --- | --- |
-| D-01 / p.25 | Perfil propio implementado; faltan listado administrativo de usuarios y gestion explicita de roles. La demo utiliza JWT administrativo de fixture, no un endpoint de promocion. |
+| D-01 / p.25 | Perfil propio, listado administrativo y gestion de roles/estado implementados por API y consola GUI. La gestion visual de productos/categorias/pedidos sigue fuera del alcance. |
 | D-02 / p.28 | Consulta de pago por transaction_id y ultimo intento por pedido, en lugar de GET /payments/{id}; el segundo permite recuperar respuestas perdidas sin reenviar automaticamente el pago. |
 | D-03 / pp.28,33 | Fecha final corregida; PAID es el nombre usado para aprobado. No se anaden updated_at a todas las entidades. |
 | D-04 / p.36 | El dibujo cancela tras rechazo; RF-43 permite mantener el pedido segun regla. Se documenta PENDING y reintento, con cancelacion explicita. |

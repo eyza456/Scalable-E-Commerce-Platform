@@ -2,7 +2,9 @@
 
 Revision de cierre: 1 de noviembre de 2026. Candidato local del MVP con seis
 microservicios, API Gateway y frontend Nexo basado en Stitch. El codigo funcional
-de referencia es `e65e84b`; la evidencia integrada y la instalación limpia se ejecutaron sobre la base funcional correspondiente.
+de referencia es `e65e84b`; las mejoras visuales opcionales de esta revisión están
+en `eef2add`. La evidencia integrada y la instalación limpia histórica se
+ejecutaron sobre la base funcional correspondiente.
 
 ## Resultado y alcance
 

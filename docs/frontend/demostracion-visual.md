@@ -91,15 +91,17 @@ incompletos se registran, no se contabilizan como aprobados automaticamente.
 
 La automatizacion no certifica accesibilidad completa: [axe-core documenta sus
 limites y la necesidad de revision manual](https://github.com/dequelabs/axe-core#the-accessibility-rules).
-Se revisaron teclado, dialogo, foco visible, menor movimiento, disponibilidad del
+Se revisaron teclado, dialogos, foco visible, menor movimiento, disponibilidad del
 titulo sin fuentes remotas y reflow a 320/390/768/1440 px en catalogo/historial/perfil.
-No se afirma prueba con lector de pantalla, dispositivo movil fisico, zoom real del
-navegador al 200%, todos los navegadores ni condiciones productivas.
+El guion opcional `tests/frontend_visual_optional.cjs` añade nombres/roles orientados
+a lector de pantalla, consola admin, vaciado, zoom 200% automatizado y motores
+Firefox/WebKit cuando estan instalados. No equivale a una prueba manual con lector,
+dispositivo movil fisico ni a condiciones productivas.
 
 ## Siguiente cierre
 
-La demostracion valida el recorrido principal del cliente. Para ampliar la entrega:
-revision con lector de pantalla y otro navegador, y documentacion final. La
-[instalacion limpia con frontend](instalacion-desde-cero.md) ya esta verificada.
-Las pantallas administrativas y
-los pendientes de replicas, portabilidad y operacion del backend siguen separados.
+La demostracion valida el recorrido principal del cliente. La consola de usuarios/
+roles y el vaciado del carrito tienen un guion separado para no mezclar fixtures
+administrativos con la evidencia del cliente. La [instalacion limpia con frontend](instalacion-desde-cero.md)
+ya esta verificada. Los pendientes de replicas, portabilidad y operacion del backend
+siguen separados.

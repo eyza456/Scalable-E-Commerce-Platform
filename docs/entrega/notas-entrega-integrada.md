@@ -38,8 +38,9 @@ los hashes del informe corresponden a esa revisión.
 ## Limites explicitos
 
 **74 cumplidos, 4 parciales, 0 pendientes.** La cobertura GUI no convierte toda
-capacidad de API en pantalla: productos/categorias, roles, estados administrativos
-y vaciado completo del carrito carecen de controles visuales dedicados.
+capacidad de API en pantalla: productos/categorias, stock y estados administrativos
+de pedidos siguen por API; usuarios/roles y vaciado completo del carrito sí cuentan
+con controles visuales dedicados.
 
 No hay pago bancario, envios, promociones, recuperacion de contraseña o verificacion
 del correo nuevo. Acceso local HTTP y sesion en memoria. Se acreditan replicas

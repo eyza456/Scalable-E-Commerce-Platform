@@ -198,7 +198,7 @@ def main():
            "Suite completa: **codigo 0, 164 unittest aprobados y 0 fallos**, seis comprobaciones ASGI sin SQL/sockets/hilos, mas HTTP de perfil, catalogo, compra, inventario, historial/cancelacion, hallazgos, rechazos y demostracion. Tambien pasan migracion de categorias, TTL/DLQ reales, nginx y resiliencia del gateway.", "",
            f"[Resultado de suite](resultado-suite.json), [demo ejecutada](../entrega/demo-resultados.json), [instalacion historica del backend](instalacion-desde-cero.json), [OpenAPI observado](openapi-observado.json) y [estado sin secretos](estado-entorno.json). Log local: {args.suite_log.name}. " + perf_note, "",
            "Frontend: **56 escenarios de navegador** registrados, recorrido integral, **14 estados auditados sin incidencias automaticas** e instalacion nueva de **14 contenedores**. Las fechas de ejecucion se conservan; revisar evidencias no equivale a repetir pruebas. [Resumen de ejecuciones](resultado-frontend.json), [matriz visual](matriz-frontend.md), [guion](../frontend/demostracion-visual.md) e [instalacion completa](../frontend/instalacion-desde-cero.md). No es certificacion de accesibilidad ni carga de pagina medida.", "",
-           "Los estados formales siguen siendo los del sistema completo. La columna visual no agrega requisitos al PDF: operaciones administrativas, hash de contraseña y vaciado completo pueden estar cumplidos por API sin tener un control GUI dedicado. El snapshot anterior se preserva en [historico-7338855](historico-7338855/README.md).", "",
+           "Los estados formales siguen siendo los del sistema completo. La columna visual no agrega requisitos al PDF: la consola cubre usuarios/roles y vaciado; productos, categorias, stock y estados de pedidos pueden seguir cumplidos por API sin control GUI dedicado. El snapshot anterior se preserva en [historico-7338855](historico-7338855/README.md).", "",
            "## Hallazgos anteriores cerrados", "",
            "| Hallazgo | Cierre y evidencia |", "| --- | --- |",
            "| H-01 Pedido obsoleto | Revalidacion completa y total recalculado; checkout_stability y smoke_audit_fixes. |",
@@ -224,7 +224,7 @@ def main():
            "## Diferencias del plano que permanecen", "",
            "Estas observaciones no se suman al conteo formal:", "",
            "| ID / PDF | Estado actual |", "| --- | --- |",
-           "| D-01 / p.25 | Perfil propio implementado; faltan listado administrativo de usuarios y gestion explicita de roles. La demo utiliza JWT administrativo de fixture, no un endpoint de promocion. |",
+           "| D-01 / p.25 | Perfil propio, listado administrativo y gestion de roles/estado implementados por API y consola GUI. La gestion visual de productos/categorias/pedidos sigue fuera del alcance. |",
            "| D-02 / p.28 | Consulta de pago por transaction_id y ultimo intento por pedido, en lugar de GET /payments/{id}; el segundo permite recuperar respuestas perdidas sin reenviar automaticamente el pago. |",
            "| D-03 / pp.28,33 | Fecha final corregida; PAID es el nombre usado para aprobado. No se anaden updated_at a todas las entidades. |",
            "| D-04 / p.36 | El dibujo cancela tras rechazo; RF-43 permite mantener el pedido segun regla. Se documenta PENDING y reintento, con cancelacion explicita. |",
@@ -240,7 +240,7 @@ def main():
     visual_rows = [{"id": row["id"], "page": row["page"], **row["frontend"]} for row in rows if row["frontend"]]
     save("matriz-frontend.json", visual_rows)
     visual_md = ["# Cobertura visual complementaria", "", criteria["frontend_scope_note"], "",
-        "El estado Cumplido/Parcial/Pendiente del sistema permanece en la [matriz principal](matriz-requisitos.md). Las etiquetas siguientes describen pantallas, lectura o API; no son un segundo conteo de requisitos. No hay consola administrativa de productos/roles/estados ni boton dedicado de vaciado completo del carrito.", "",
+        "El estado Cumplido/Parcial/Pendiente del sistema permanece en la [matriz principal](matriz-requisitos.md). Las etiquetas siguientes describen pantallas, lectura o API; no son un segundo conteo de requisitos. La consola cubre usuarios/roles y el carrito tiene vaciado dedicado; productos/categorias/estados de pedidos siguen por API.", "",
         "| Requisito | Cobertura visual | Codigo | Pruebas/evidencia | Limite |", "| --- | --- | --- | --- | --- |"]
     for row in visual_rows:
         code = '<br>'.join(link(ref) for ref in row['code']) or 'Backend / no pantalla dedicada'
