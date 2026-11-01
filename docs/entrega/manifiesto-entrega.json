@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-11-01T04:41:26.347709+00:00",
+  "generated_at": "2026-11-01T04:50:13.898921+00:00",
   "runtime_reference_commit": "8885132c4344f4c225fbc20b76c609581220929c",
   "runtime_matches_reference": true,
   "additional_deployment_profiles": [
     "compose.multinstance.yml"
   ],
-  "documentation_review_base": "8885132c4344f4c225fbc20b76c609581220929c",
+  "documentation_review_base": "6bd052a75d46d154a2a243d0f8cf380b57e6e5db",
   "historical_tag": {
     "name": "v0.1.0-rc.1",
     "commit": "d92380e505fd050be4483f3896aa1643c39f4e6c",
@@ -163,8 +163,8 @@
       "canonical_bytes": 1854
     },
     "docs/entrega/pendientes.md": {
-      "sha256": "de49b4cbfd82d524d68a37d6db6799650142f2eca841e1793c0f17f52f794ace",
-      "canonical_bytes": 6257
+      "sha256": "c1c0637601fa7e4bb9b3d8c987a724350e1e7ecfbb9fc8db0587ea5be57adf67",
+      "canonical_bytes": 6202
     },
     "docs/entrega/plan-cierre-parciales.md": {
       "sha256": "e2992d5fb57292bca9d52cd73ee49a53bbf497faafe872131bdd98ba7296dc7e",

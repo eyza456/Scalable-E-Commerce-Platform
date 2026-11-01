@@ -31,7 +31,10 @@ en navegador; no se presentan como funcionalidades implementadas.
 ## Obligatorio antes de declarar cumplimiento integral o escalabilidad verificada
 
 La [clasificacion de los ocho parciales](plan-cierre-parciales.md) detalla el
-alcance y las pruebas de cierre. RNF-05/06 quedan cerrados en alcance local con el [perfil y las pruebas multinstancia](../escalabilidad/README.md). Restan tres parciales de calidad (RNF-08/21/27) y tres de preparacion futura. El siguiente bloque es modularidad/acoplamiento; portabilidad requiere otro host.
+alcance y las pruebas de cierre. RNF-05/06 y RNF-08/21 quedan cerrados en el
+alcance local con sus perfiles, contratos y migraciones. Restan cuatro parciales:
+RNF-27 y la preparación futura de RF-49, RNF-07 y RNF-15. La portabilidad requiere
+otro host.
 
 | Orden | Requisito | Falta y accion concreta | Evidencia para cerrar |
 | --- | --- | --- | --- |
