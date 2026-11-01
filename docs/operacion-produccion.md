@@ -5,8 +5,9 @@ sustituye un plan de continuidad probado en infraestructura productiva.
 
 ## Persistencia
 
-Compose conserva Redis en `redis_data` con AOF (`everysec`) y RabbitMQ en
-`rabbitmq_data`. PostgreSQL ya usa volúmenes separados por servicio. No usar
+Compose conserva Redis en `redis_data` con AOF (`everysec`) y el estado durable
+de RabbitMQ (Mnesia, colas y metadatos) en `rabbitmq_data`; el cookie Erlang se
+mantiene como secreto de runtime de la imagen. PostgreSQL ya usa volúmenes separados por servicio. No usar
 `docker compose down -v` salvo que se quiera destruir expresamente los datos.
 
 ## Backup
@@ -23,9 +24,9 @@ En Linux/macOS:
 bash scripts/backup.sh
 ```
 
-El backup contiene dumps PostgreSQL, un RDB de Redis, definiciones de RabbitMQ
-y `SHA256SUMS`. Guardar la carpeta fuera del host y protegerla con cifrado y
-control de acceso.
+El backup contiene dumps PostgreSQL, un RDB de Redis, definiciones y Mnesia de
+RabbitMQ, y `SHA256SUMS`. Guardar la carpeta fuera del host y protegerla con
+cifrado y control de acceso.
 
 ## Restore
 

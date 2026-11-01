@@ -25,5 +25,12 @@ $rabbitId = (docker compose ps -q rabbitmq).Trim()
 docker cp (Join-Path $backup "rabbitmq-definitions.json") "${rabbitId}:/tmp/rabbitmq-definitions.json"
 docker compose exec -T rabbitmq rabbitmqctl import_definitions /tmp/rabbitmq-definitions.json | Out-Null
 docker compose exec -T rabbitmq rm -f /tmp/rabbitmq-definitions.json | Out-Null
+if (Test-Path -LiteralPath (Join-Path $backup "rabbitmq-mnesia.tgz")) {
+  docker compose stop rabbitmq | Out-Null
+  $rabbitId = (docker compose ps -aq rabbitmq).Trim()
+  docker cp (Join-Path $backup "rabbitmq-mnesia.tgz") "${rabbitId}:/tmp/rabbitmq-mnesia.tgz"
+  docker run --rm --volumes-from $rabbitId alpine sh -lc 'rm -rf /var/lib/rabbitmq/mnesia && tar -xzf /tmp/rabbitmq-mnesia.tgz -C /var/lib/rabbitmq && rm -f /tmp/rabbitmq-mnesia.tgz' | Out-Null
+  docker compose start rabbitmq | Out-Null
+}
 docker compose up -d $services | Out-Null
 Write-Host "Restauracion completada desde $backup"

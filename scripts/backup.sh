@@ -26,7 +26,9 @@ rabbit_id="$("${compose[@]}" ps -q rabbitmq)"
 [ -n "$rabbit_id" ] || { echo "RabbitMQ no activo" >&2; exit 1; }
 "${compose[@]}" exec -T rabbitmq rabbitmqctl export_definitions /tmp/rabbitmq-definitions.json >/dev/null
 docker cp "$rabbit_id:/tmp/rabbitmq-definitions.json" "$target/rabbitmq-definitions.json"
-"${compose[@]}" exec -T rabbitmq rm -f /tmp/rabbitmq-definitions.json >/dev/null
+"${compose[@]}" exec -T rabbitmq sh -lc 'tar -czf /tmp/rabbitmq-mnesia.tgz -C /var/lib/rabbitmq mnesia' >/dev/null
+docker cp "$rabbit_id:/tmp/rabbitmq-mnesia.tgz" "$target/rabbitmq-mnesia.tgz"
+"${compose[@]}" exec -T rabbitmq rm -f /tmp/rabbitmq-definitions.json /tmp/rabbitmq-mnesia.tgz >/dev/null
 
 sha256sum "$target"/* > "$target/SHA256SUMS"
 printf 'Backup creado en %s\n' "$target"

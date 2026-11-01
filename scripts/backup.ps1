@@ -22,7 +22,9 @@ $rabbitId = (docker compose ps -q rabbitmq).Trim()
 if (-not $rabbitId) { throw "RabbitMQ no activo" }
 docker compose exec -T rabbitmq rabbitmqctl export_definitions /tmp/rabbitmq-definitions.json | Out-Null
 docker cp "${rabbitId}:/tmp/rabbitmq-definitions.json" (Join-Path $target "rabbitmq-definitions.json")
-docker compose exec -T rabbitmq rm -f /tmp/rabbitmq-definitions.json | Out-Null
+docker compose exec -T rabbitmq sh -lc 'tar -czf /tmp/rabbitmq-mnesia.tgz -C /var/lib/rabbitmq mnesia' | Out-Null
+docker cp "${rabbitId}:/tmp/rabbitmq-mnesia.tgz" (Join-Path $target "rabbitmq-mnesia.tgz")
+docker compose exec -T rabbitmq rm -f /tmp/rabbitmq-definitions.json /tmp/rabbitmq-mnesia.tgz | Out-Null
 
 Get-ChildItem -LiteralPath $target -File | Get-FileHash -Algorithm SHA256 | ForEach-Object {
   "{0} *{1}" -f $_.Hash.ToLowerInvariant(), $_.Path.Substring($target.Length + 1)

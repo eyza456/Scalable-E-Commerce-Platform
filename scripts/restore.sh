@@ -24,5 +24,12 @@ rabbit_id="$("${compose[@]}" ps -q rabbitmq)"
 docker cp "$backup/rabbitmq-definitions.json" "$rabbit_id:/tmp/rabbitmq-definitions.json"
 "${compose[@]}" exec -T rabbitmq rabbitmqctl import_definitions /tmp/rabbitmq-definitions.json >/dev/null
 "${compose[@]}" exec -T rabbitmq rm -f /tmp/rabbitmq-definitions.json >/dev/null
+if [ -f "$backup/rabbitmq-mnesia.tgz" ]; then
+  "${compose[@]}" stop rabbitmq >/dev/null
+  rabbit_id="$("${compose[@]}" ps -aq rabbitmq)"
+  docker cp "$backup/rabbitmq-mnesia.tgz" "$rabbit_id:/tmp/rabbitmq-mnesia.tgz"
+  docker run --rm --volumes-from "$rabbit_id" alpine sh -lc 'rm -rf /var/lib/rabbitmq/mnesia && tar -xzf /tmp/rabbitmq-mnesia.tgz -C /var/lib/rabbitmq && rm -f /tmp/rabbitmq-mnesia.tgz' >/dev/null
+  "${compose[@]}" start rabbitmq >/dev/null
+fi
 "${compose[@]}" up -d "${services[@]}" >/dev/null
 printf 'Restauracion completada desde %s\n' "$backup"
