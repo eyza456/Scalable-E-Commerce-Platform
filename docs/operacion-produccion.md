@@ -5,9 +5,9 @@ sustituye un plan de continuidad probado en infraestructura productiva.
 
 ## Persistencia
 
-Compose conserva Redis en `redis_data` con AOF (`everysec`) y el estado durable
-de RabbitMQ (Mnesia, colas y metadatos) en `rabbitmq_data`; el cookie Erlang se
-mantiene como secreto de runtime de la imagen. PostgreSQL ya usa volúmenes separados por servicio. No usar
+Compose conserva Redis en `redis_data` con AOF (`everysec`) y RabbitMQ completo
+(Mnesia, colas, metadatos y cookie Erlang) en `rabbitmq_data`; el cookie se
+inicializa desde el secreto de entorno. PostgreSQL ya usa volúmenes separados por servicio. No usar
 `docker compose down -v` salvo que se quiera destruir expresamente los datos.
 
 ## Backup
