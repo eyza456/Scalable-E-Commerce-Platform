@@ -61,7 +61,7 @@
   "tests/replica_failover.py": "3e1ad1fe4e59b77cf987b33714f7d06503823907176e7dbc2882e45472f40ac4",
   "tests/gateway_resilience.py": "6a9c9516002bb79bbd4b7432704fef7795cc1a48a57a4b83caa4e209dc0b13b9",
   "docs/escalabilidad/independencia.json": "58f95b43834025e47c91a4a5b4af834db6a42ab1660a6171a4eee727902a136b",
-  "tests/future_preparation.py": "0e146a2fb48c3409867307a99a339062c89630a5aeda226b9b009247d38daeaa",
+  "tests/future_preparation.py": "51a25a376a815538a66496648cafc850328c0c1fc8532876e0c858d69fab818e",
   "docs/frontend/instalacion-desde-cero.json": "00fd6a10e00a10e3bb6777adf67fb3752bcf40bf6cd16d12278bc6b01a4cb0b6",
   "tests/performance_goals.json": "1fc71a41394ff7974e29b2dff2c4010c27b47cbb863fb59c54f05c8b0d069585",
   "tests/performance_load.py": "16ffed2485d0cd610716d84f34d74c67d776bbfae1bf7fdb1b6f2dee9ef78775",
@@ -100,8 +100,8 @@
   "services/payment-service/app/core/config.py": "b08532f69dde680cfb485fd500e8784dd5fef1a38f27178905dad866bf45135f",
   "gateway/nginx.tls.conf": "41a35f3c00b80c0661b9fe2dc9d3005f355716d3320c6c62273eeb665666aabe",
   "compose.tls.yml": "eb319836915579d04184aa518c5ed13feda2aa5d32b97be69275e1412912f702",
-  "scripts/generate-dev-cert.ps1": "ca75033944e06747c3027134313c41a0b366f95d24ae86c8f6e89e19629cca4e",
-  "scripts/generate-dev-cert.sh": "7071edf9275b7900cc7e8bfcec8ac20b7b68af85d578cbe2bd3ea32c65d42bb4",
+  "scripts/generate-dev-cert.ps1": "b4c305dff1353f7a4bb4eb339fc4b0a7c10665f63e316590f73cfabb2df55da7",
+  "scripts/generate-dev-cert.sh": "38baf12687e263bf9905b404fa5807ac7ec24a15a48c1bff1e65759cfee34985",
   "services/payment-service/app/main.py": "397b0092555eea8a2ed4fa2e10dbebb973ef36367a4239e81ed6e180fe01b2f0",
   "services/order-service/app/messaging.py": "f493ccbc1040fbd1907dcd62c38fe8ed4a33da96eb165e4e144f34f640de63ff",
   "tests/fresh_install.py": "513b0b86956c6840a5e68ebff63954713e93ca266cbda69ab691c30483908741",
@@ -122,7 +122,7 @@
   "docs/frontend/pedidos.json": "c959d6b30d0ef812254e62fcfcbab9299ea9d542c3dc4a57470b694ae31e5ddc",
   "docs/frontend/perfil.json": "0de08246ee1f9faed592354fe05fcd25c5e5d5f067358882e345188465072222",
   "tests/run_stability.ps1": "2bad307c90870f951a7a26a04f46b23dc1ee187818c6499a9302659b295b1798",
-  "docs/auditoria/estado-entorno.json": "d40313536ff8c267570391d5af8d761a85548b7f5ef15cf255a039c8086fac81",
+  "docs/auditoria/estado-entorno.json": "ba9ba29c24675b59612f6c0f988c9d726f431d0967bfe5bf4622ea6db2a08ff3",
   "scripts/install.ps1": "82151f85de7c84bdca4ced2dcebd7dfedd26ddca7822da3ff7518173489a00a1",
   "scripts/install.sh": "347254889089994dd35f6f1560fa236833bd5758a52954742a919be9977cbde5"
 }
