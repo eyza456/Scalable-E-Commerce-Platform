@@ -122,7 +122,7 @@
   "docs/frontend/pedidos.json": "c959d6b30d0ef812254e62fcfcbab9299ea9d542c3dc4a57470b694ae31e5ddc",
   "docs/frontend/perfil.json": "0de08246ee1f9faed592354fe05fcd25c5e5d5f067358882e345188465072222",
   "tests/run_stability.ps1": "2bad307c90870f951a7a26a04f46b23dc1ee187818c6499a9302659b295b1798",
-  "docs/auditoria/estado-entorno.json": "63b246d31103d1884c915948bc099770703267f7e279985760baa97ced3f2011",
+  "docs/auditoria/estado-entorno.json": "d40313536ff8c267570391d5af8d761a85548b7f5ef15cf255a039c8086fac81",
   "scripts/install.ps1": "82151f85de7c84bdca4ced2dcebd7dfedd26ddca7822da3ff7518173489a00a1",
   "scripts/install.sh": "347254889089994dd35f6f1560fa236833bd5758a52954742a919be9977cbde5"
 }

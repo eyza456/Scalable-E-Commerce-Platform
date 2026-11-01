@@ -1,0 +1,30 @@
+{
+  "executed_at": "2026-11-01T04:34:23.133253+00:00",
+  "project": "fresh-54916072c5c7",
+  "service": "product-service",
+  "replicas_before": 2,
+  "stopped_container": "ab0c7a11fad4d046a442064de6e292b4f2a2b1c08956b7e2fb881c8a02051b92",
+  "endpoint": "http://127.0.0.1:32813/api/products/",
+  "before_statuses": [
+    200,
+    200,
+    200,
+    200,
+    200
+  ],
+  "during_failure_statuses": [
+    200,
+    200,
+    200,
+    200,
+    200,
+    200,
+    200,
+    200,
+    200,
+    200
+  ],
+  "gateway_continuous": true,
+  "recovered": true,
+  "scope": "Prueba local de continuidad; no certifica HA de base de datos ni SLA productivo"
+}
