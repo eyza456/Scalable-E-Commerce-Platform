@@ -1,14 +1,14 @@
 {
-  "audit_date": "2026-10-30T23:02:14.916565+00:00",
+  "audit_date": "2026-11-01T03:26:12.340152+00:00",
   "command": "powershell -NoProfile -ExecutionPolicy Bypass -File tests/run_stability.ps1",
   "observed_exit_code": 0,
-  "unittest_total": 161,
+  "unittest_total": 164,
   "asgi_import_checks": 6,
   "unittest_failures": 0,
   "unittest_runs": [
     {
       "tests": 42,
-      "seconds": 1.547
+      "seconds": 1.695
     },
     {
       "tests": 3,
@@ -16,35 +16,35 @@
     },
     {
       "tests": 6,
-      "seconds": 0.031
+      "seconds": 0.05
     },
     {
       "tests": 6,
-      "seconds": 0.036
+      "seconds": 0.087
     },
     {
       "tests": 6,
-      "seconds": 0.047
+      "seconds": 0.04
     },
     {
       "tests": 12,
-      "seconds": 0.401
+      "seconds": 0.443
     },
     {
       "tests": 15,
-      "seconds": 0.735
+      "seconds": 0.655
     },
     {
       "tests": 9,
-      "seconds": 0.123
+      "seconds": 0.19
     },
     {
       "tests": 17,
-      "seconds": 0.898
+      "seconds": 0.487
     },
     {
       "tests": 12,
-      "seconds": 0.428
+      "seconds": 0.76
     },
     {
       "tests": 2,
@@ -52,31 +52,43 @@
     },
     {
       "tests": 6,
-      "seconds": 0.195
+      "seconds": 0.181
     },
     {
       "tests": 4,
-      "seconds": 1.815
-    },
-    {
-      "tests": 5,
-      "seconds": 0.003
-    },
-    {
-      "tests": 5,
-      "seconds": 0.004
-    },
-    {
-      "tests": 10,
-      "seconds": 32.216
+      "seconds": 2.033
     },
     {
       "tests": 1,
-      "seconds": 11.466
+      "seconds": 0.021
+    },
+    {
+      "tests": 1,
+      "seconds": 0.021
+    },
+    {
+      "tests": 1,
+      "seconds": 0.035
+    },
+    {
+      "tests": 5,
+      "seconds": 0.006
+    },
+    {
+      "tests": 5,
+      "seconds": 0.005
+    },
+    {
+      "tests": 10,
+      "seconds": 37.844
+    },
+    {
+      "tests": 1,
+      "seconds": 11.206
     }
   ],
   "log": "suite-pagos-modular.log",
-  "log_sha256": "218bfb5e5ea98a1bc9a71d105468bd1496f42853529d1628872a0e8f7c39aebb",
+  "log_sha256": "b6a70f8062eb2a6e9065a369d524dabc302495be8bde87e7b8311123bbb20215",
   "additional_success_messages": [
     "OK: ASGI import without SQL, sockets or background threads",
     "OK: ASGI import without SQL, sockets or background threads",

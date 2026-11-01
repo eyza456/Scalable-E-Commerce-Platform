@@ -20,8 +20,8 @@ docker @replicaCompose run --rm --no-deps product-service alembic upgrade head
 docker @replicaCompose up -d
 ```
 
-El primer arranque es con una instancia por servicio: actualmente algunos
-servicios inicializan tablas al importar. Esperar a que cada `/health` responda
+El primer arranque es con una instancia por servicio: User, Order y Payment
+aplican migraciones versionadas al iniciar, y Product ejecuta Alembic. Esperar a que cada `/health` responda
 antes de escalar; la prueba automatizada realiza esa espera. Esto no demuestra
 que la creacion inicial simultanea del esquema sea segura. No ejecutar
 `--scale` sobre PostgreSQL, Redis o RabbitMQ.

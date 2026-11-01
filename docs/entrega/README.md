@@ -2,11 +2,11 @@
 
 Revision de cierre: 29 de octubre de 2026. Candidato local del MVP con seis
 microservicios, API Gateway y frontend Nexo basado en Stitch. El codigo funcional
-de referencia es `0b0d959`; la evidencia integrada y el perfil multinstancia se ejecutaron sobre ese commit.
+de referencia es `dca9138`; la evidencia integrada, la instalación limpia y el perfil multinstancia se ejecutaron sobre ese commit.
 
 ## Resultado y alcance
 
-**78 requisitos originales: 72 cumplidos, 6 parciales y 0 pendientes.** La
+**78 requisitos originales: 74 cumplidos, 4 parciales y 0 pendientes.** La
 [matriz principal](../auditoria/matriz-requisitos.md) conserva el alcance del sistema.
 La [matriz de cobertura visual](../auditoria/matriz-frontend.md) distingue pantallas,
 lectura y operaciones disponibles solo por API. No agrega requisitos al PDF.
@@ -30,14 +30,14 @@ recuperacion de contraseña ni verificacion por correo.
 | [Cobertura visual](../auditoria/matriz-frontend.md) y [JSON](../auditoria/matriz-frontend.json) | Relacion RF/RNF con pantallas, API y limites |
 | [Guion visual completo](../frontend/demostracion-visual.md) | Recorrido cliente, teclado, movil y accesibilidad acotada |
 | [Guion API](demostracion.md) y [resultado](demo-resultados.json) | Incluye administracion y vaciado por API |
-| [Suite backend](../auditoria/resultado-suite.json) | 161 unittest y escenarios adicionales; cierre actual |
+| [Suite backend](../auditoria/resultado-suite.json) | 164 unittest y escenarios adicionales; cierre actual |
 | [Resumen frontend](../auditoria/resultado-frontend.json) | Fechas de 56 escenarios y recorrido; no cambia fechas al revisar |
 | [Instalacion completa](../frontend/instalacion-desde-cero.md) | 14 contenedores nuevos, migracion, reinicio y navegador |
 | [Rendimiento](../rendimiento/informe.md) | Medicion historica del perfil local, sin repetir carga |
 | [Pendientes](pendientes.md) y [notas de esta entrega](notas-entrega-integrada.md) | Limites reales y separacion de evoluciones |
 | [Plan de cierre de parciales](plan-cierre-parciales.md) | Clasificacion individual, orden y pruebas de aceptacion de los ocho parciales |
 | [Escalabilidad multinstancia](../escalabilidad/README.md) | Seis servicios replicados, escalado independiente y carga sin relajar objetivos |
-| [Modularidad y contratos](../modularidad.md) y [pagos](../modularidad-pagos.md) | Dos etapas de RNF-08/21; mantienen estado parcial |
+| [Modularidad y contratos](../modularidad.md) y [pagos](../modularidad-pagos.md) | Cuatro etapas de RNF-08/21; checkout, eventos y migraciones versionadas cerrados |
 | [Manifiesto](manifiesto-entrega.json) | Hashes de fuentes/documentos/evidencias y referencia Git |
 
 ## Instalacion y acceso

@@ -115,6 +115,14 @@
     "categoryrepo": "services/product-service/app/category_repository.py",
     "productactions": "services/product-service/app/product_actions.py",
     "orderrepo": "services/order-service/app/order_repository.py",
+    "checkoutrepo": "services/order-service/app/checkout_repository.py",
+    "checkoutcontracts": "services/order-service/app/checkout_contracts.py",
+    "paymentclient": "services/order-service/app/payment_client.py",
+    "cancellationcontracts": "services/order-service/app/cancellation_contracts.py",
+    "ordereventcontracts": "services/order-service/app/event_contracts.py",
+    "producteventcontracts": "services/product-service/app/event_contracts.py",
+    "migrationrunner": "services/order-service/app/migration_runner.py",
+    "migrationtest": "tests/migrations_stability.py",
     "oschema": "services/order-service/app/schema.py",
     "omain": "services/order-service/app/main.py"
   },
@@ -766,7 +774,7 @@
       "Base en contenedores y variables de entorno; no hay manifiestos ni verificacion Kubernetes. Preparacion futura, fuera del MVP inicial segun pagina 8."
     ],
     "RNF-08": [
-      "Parcial",
+      "Cumplido",
       [
         "oclients@get_product",
         "oclients@get_cart",
@@ -780,7 +788,13 @@
         "categoryrepo",
         "productactions",
         "validation",
-        "ocancel"
+        "ocancel",
+        "checkoutrepo",
+        "checkoutcontracts",
+        "paymentclient",
+        "cancellationcontracts",
+        "ordereventcontracts",
+        "producteventcontracts"
       ],
       [
         "checkouttest@test_incompatible_catalog_contract_never_creates_an_order",
@@ -788,7 +802,7 @@
         "paytest",
         "paymentmoddoc"
       ],
-      "Usuarios y catálogo ya separan acciones/repositorios; pagos separa router, operaciones, repositorio y clientes tipados de pedidos/inventario. Persisten dependencias síncronas necesarias y falta extender adaptadores/contratos a cancelación y eventos. Sigue parcial."
+      "Checkout separa repositorio, coordinacion HTTP y contratos; pagos, cancelaciones y consumidores de eventos usan adaptadores tipados. Persisten llamadas síncronas necesarias, pero el acoplamiento queda encapsulado y validado en fronteras explicitas."
     ],
     "RNF-09": [
       "Cumplido",
@@ -929,7 +943,7 @@
       "Healthchecks de cuatro PostgreSQL, Redis, RabbitMQ y gateway; seis endpoints HTTP verificados. Los endpoints de aplicaciones son principalmente liveness."
     ],
     "RNF-21": [
-      "Parcial",
+      "Cumplido",
       [
         "oactions@list_orders",
         "orepository@list_owned",
@@ -946,15 +960,23 @@
         ,"categoryactions"
         ,"categoryrepo"
         ,"productactions"
+        ,"checkoutrepo"
+        ,"checkoutcontracts"
+        ,"paymentclient"
+        ,"cancellationcontracts"
+        ,"ordereventcontracts"
+        ,"producteventcontracts"
+        ,"migrationrunner"
       ],
       [
         "importtest",
         "checkouttest",
         "modularitydoc",
         "paymentmoddoc",
-        "paytest"
+        "paytest",
+        "migrationtest"
       ],
-      "Tercera etapa: usuarios y catálogo separan acciones/repositorios, pagos mantiene esa separación y el historial optimiza su consulta. La regresión cubre login, perfil, categorías, stock concurrente y contratos de pagos. Quedan checkout/eventos y migraciones versionadas. Sigue parcial."
+      "Estructura modular completa en checkout, pagos, usuarios, catálogo y pedidos; recuperadores reutilizan repositorios, contratos separan HTTP/eventos y los tres esquemas SQL usan migraciones versionadas idempotentes."
     ],
     "RNF-22": [
       "Cumplido",
@@ -992,7 +1014,7 @@
         "carttest",
         "demo"
       ],
-      "161 unittest y escenarios HTTP/migraciones/TTL-DLQ/gateway, incluida demostracion. Regresiones del pool HTTP, contratos incompatibles y liberación SQL; pruebas de métricas y benchmark separados. Perfil SQL/HTTP diagnóstico y aceptación se distinguen. Frontend: 56 escenarios, recorrido integral y 14 estados axe; instalación nueva completa con navegador. Evidencias separadas por fecha y alcance. Seis verificaciones de importación sin efectos y contratos incompatibles con ausencia de pedidos y recuperación."
+      "164 unittest y escenarios HTTP/migraciones/TTL-DLQ/gateway, incluida demostracion. Regresiones del pool HTTP, contratos incompatibles y liberación SQL; pruebas de migraciones versionadas, métricas y benchmark separados. Perfil SQL/HTTP diagnóstico y aceptación se distinguen. Frontend: 56 escenarios, recorrido integral y 14 estados axe; instalación nueva completa con navegador. Evidencias separadas por fecha y alcance. Seis verificaciones de importación sin efectos y contratos incompatibles con ausencia de pedidos y recuperación."
     ],
     "RNF-25": [
       "Cumplido",

@@ -1,4 +1,4 @@
-# Modularidad y contratos: primera, segunda y tercera etapa
+# Modularidad y contratos: cuatro etapas
 
 Esta etapa mejora RNF-08 y RNF-21. Ambos conservan estado **Parcial**:
 no se cierra la modularidad de todos los microservicios por reorganizar pedidos
@@ -94,7 +94,7 @@ arrancan con migraciones versionadas idempotentes y sin `create_all`.
 
 | Comprobacion | Resultado |
 | --- | --- |
-| [Suite backend](auditoria/resultado-suite.json) | Regresion completa aprobada tras la tercera etapa; 163 unittest y seis importaciones ASGI |
+| [Suite backend](auditoria/resultado-suite.json) | Regresion completa aprobada tras la cuarta etapa; 164 unittest y seis importaciones ASGI |
 | [Instalacion y frontend](frontend/instalacion-desde-cero.json) | 14 contenedores nuevos, migraciones, reinicio, nueve etapas UI y 14 estados axe sin incidencias |
 | [Concurrencia e independencia](escalabilidad/independencia.json) | Checkout/pago con 12 solicitudes por operacion, cancelacion concurrente y seis servicios escalados 2/3/1/2 |
 | [Carga con replicas](escalabilidad/carga/resultado.json) | 17.844 solicitudes medidas. 1.023 compras con calentamiento y 30 objetivos aprobados; historial p95 444,24 ms |

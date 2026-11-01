@@ -35,8 +35,8 @@ soporte de replicas del Compose original.
    copia de fuentes. Se permite la cache normal de Docker; no es un ensayo sin cache.
 2. Infraestructura nueva y cuatro volumenes PostgreSQL propios, sin datos locales.
 3. Alembic de Product antes de arrancar aplicaciones, upgrade repetido e inspeccion
-   del head `b1c5a09e3d72`. Las tablas de los otros servicios se verifican tras su
-   inicializacion actual; no se afirma que todos tengan migraciones Alembic.
+   del head `b1c5a09e3d72`. User, Order y Payment aplican sus migraciones SQL
+   versionadas e idempotentes antes de aceptar trafico.
 4. Arranque de 14 contenedores, sin reinicios inesperados iniciales. Health de seis
    APIs, gateway y frontend; `nginx -t`, HTML, CSS y cinco modulos JavaScript.
 5. Catalogo inicial vacio, autenticacion por proxy y bloqueo de rutas internas.
@@ -58,7 +58,7 @@ Los helpers del navegador y de limpieza reciben `TEST_COMPOSE_ARGS` con el proye
 `fresh-...` propio. Validan ese prefijo antes de ejecutar Docker. En uso normal,
 sin esa variable, conservan el Compose habitual. Se conserva el recorrido anterior
 de la instalacion habitual con su fecha propia. Esta etapa revalida el recorrido
-en el stack nuevo sobre el refactor `0b0d959`, incluyendo el bootstrap en lifespan.
+en el stack nuevo sobre el refactor `dca9138`, incluyendo migraciones versionadas en lifespan.
 
 ## Evidencias
 
