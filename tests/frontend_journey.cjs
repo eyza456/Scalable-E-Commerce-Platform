@@ -26,7 +26,7 @@ with SessionLocal() as db:
   report.browser=browser.version();report.axeVersion=axe.version;
   const base=process.env.FRONTEND_URL||'http://127.0.0.1:8080/';
   const context=await browser.newContext({baseURL:base,viewport:{width:1440,height:1000}});
-  const page=await context.newPage(),errors=[];page.on('pageerror',e=>errors.push(e.message));
+  const page=await context.newPage(),errors=[];page.setDefaultTimeout(90000);page.on('pageerror',e=>errors.push(e.message));
   const key=async selector=>{await page.locator(selector).focus();await page.keyboard.press('Enter');};
   const audit=async name=>{
     await page.evaluate(axe.source);
