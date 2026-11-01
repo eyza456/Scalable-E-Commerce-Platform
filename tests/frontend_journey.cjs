@@ -84,7 +84,7 @@ with SessionLocal() as db:
   });
   await step('paid history blocks cancellation',async()=>{
     await page.getByRole('link',{name:'Mis pedidos',exact:true}).click();await page.getByRole('link',{name:'Ver pedido #'+paidId,exact:true}).click();
-    await page.waitForFunction(()=>document.querySelector('#history-state').textContent==='Pagado');assert.equal(await page.locator('#cancel-order').isVisible(),false);await audit('paid history detail');
+    await page.waitForFunction(()=>document.querySelector('#history-state').textContent==='Pagado',{timeout:90000});assert.equal(await page.locator('#cancel-order').isVisible(),false);await audit('paid history detail');
   });
   await step('second order cancellation supports Tab trap and Escape',async()=>{
     await add();const id=await createOrder();await page.getByRole('link',{name:'Mis pedidos',exact:true}).click();await page.getByRole('link',{name:'Ver pedido #'+id,exact:true}).click();

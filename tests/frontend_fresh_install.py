@@ -157,10 +157,7 @@ print('Health OK')
         assert json.loads(self.frontend_get("/api/products/")) == []
         ids = self.dc("ps", "-a", "-q", log=False).splitlines()
         containers = json.loads(self.run(["docker", "inspect", *ids], log=False))
-        assert len(containers) == 14 and all(c["State"]["Running"] and c["RestartCount"] == 0 for c in containers), [
-            (c["Name"], c["State"]["Status"], c["State"]["Running"], c["RestartCount"])
-            for c in containers
-        ]
+        assert len(containers) == 14 and all(c["State"]["Running"] and c["RestartCount"] == 0 for c in containers)
         self.result["checks"]["initial_start"] = "14 running containers; zero unexpected restarts"
         self.result["checks"]["frontend"] = "HTML/assets/proxy/auth/internal-route protection checked; empty catalog"
         self.check_schema()
