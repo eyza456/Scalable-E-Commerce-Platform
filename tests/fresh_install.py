@@ -177,7 +177,7 @@ print(jwt.encode({'sub':sys.argv[1],'email':'fresh@example.com','role':'admin','
         payment = self.api("/api/payments", "POST", {"order_id": order["id"], "method": "card"}, token, expected=201)
         assert payment["status"] == "PAID" and payment["processed_at"] is not None
         self.wait(lambda: self.api(f'/api/orders/{order["id"]}', token=token)["status"] == "PAID")
-        assert self.api(f'/api/products/{product["id"]}')["stock"] == 3
+        self.wait(lambda: self.api(f'/api/products/{product["id"]}')["stock"] == 3)
         self.py("product-service", '''
 import sys,time
 from sqlalchemy import text
@@ -211,7 +211,7 @@ print('Tres entregas publicadas')
         self.base = "http://" + self.dc("port", "api-gateway", "80", log=False)
         self.wait(lambda: self.api("/api/users/me", token=token)["id"] == user["id"])
         self.wait(lambda: self.api(f'/api/orders/{order["id"]}', token=token)["status"] == "PAID")
-        assert self.api(f'/api/products/{product["id"]}')["stock"] == 3
+        self.wait(lambda: self.api(f'/api/products/{product["id"]}')["stock"] == 3)
         transaction = self.api("/api/payments/transactions/" + payment["transaction_id"], token=token)
         assert datetime.fromisoformat(transaction["processed_at"].replace("Z", "+00:00")) == datetime.fromisoformat(
             payment["processed_at"].replace("Z", "+00:00"))
