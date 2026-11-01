@@ -25,16 +25,19 @@ backup/restore de las bases.
 ## RNF-15 — HTTPS/TLS
 
 `gateway/nginx.tls.conf` solo permite TLS 1.2/1.3, redirige HTTP a HTTPS y añade
-HSTS. `compose.tls.yml` monta el certificado en `/etc/nginx/tls`.
+HSTS. `compose.tls.yml` monta el certificado en `/etc/nginx/tls`. Los helpers
+generan una CA local (`ca.crt`) y firman el certificado de servidor para poder
+validarlo sin desactivar la verificación:
 
 ```powershell
 .\scripts\generate-dev-cert.ps1
 docker compose -f docker-compose.yml -f compose.tls.yml up -d --build api-gateway
 Invoke-WebRequest https://127.0.0.1:8443/health -SkipCertificateCheck
+curl.exe --ssl-no-revoke --cacert secrets/tls/ca.crt https://127.0.0.1:8443/health
 ```
 
-El certificado es autofirmado y dura 30 días: sirve para desarrollo, no para
-usuarios finales. Producción requiere cert-manager/CA confiable, rotación,
+La CA es local y el certificado de servidor dura 30 días: sirve para desarrollo,
+no para usuarios finales. Producción requiere cert-manager/CA confiable, rotación,
 políticas de cifrado y validación desde clientes reales.
 
 ## RF-49 — fallo de una réplica

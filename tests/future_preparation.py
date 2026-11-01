@@ -35,6 +35,10 @@ class FuturePreparation(unittest.TestCase):
         self.assertIn("Strict-Transport-Security", config)
         self.assertIn("/etc/nginx/tls/tls.crt", config)
         self.assertIn("/etc/nginx/tls/tls.key", config)
+        for script in (ROOT / "scripts/generate-dev-cert.ps1", ROOT / "scripts/generate-dev-cert.sh"):
+            text = script.read_text(encoding="utf-8")
+            self.assertIn("ca.crt", text)
+            self.assertIn("serverAuth", text)
 
     def test_installation_helpers_cover_windows_and_posix(self):
         powershell = (ROOT / "scripts/install.ps1").read_text(encoding="utf-8")
