@@ -249,7 +249,7 @@
     "code": [
       {
         "path": "services/user-service/app/routers/users.py",
-        "line": 34
+        "line": 35
       }
     ],
     "verification": [
@@ -298,7 +298,7 @@
     "code": [
       {
         "path": "services/user-service/app/routers/users.py",
-        "line": 42
+        "line": 43
       }
     ],
     "verification": [
@@ -417,7 +417,7 @@
       },
       {
         "path": "services/user-service/app/schemas/user.py",
-        "line": 5
+        "line": 6
       }
     ],
     "verification": [
@@ -2389,7 +2389,7 @@
         "line": 1
       }
     ],
-    "finding": "Revalidado tras 0b0d959 en perfil local-mvp-20vu-v1 con dos replicas por servicio y objetivos sin cambios: historial p95 444.24 ms, checkout 1157.91 ms, pago 960.82 ms, compra 3.155 s; los 30 criterios aprobados. La referencia previa de una instancia se conserva como histórica. No certifica producción, grandes volúmenes, otros hosts ni rendimiento web.",
+    "finding": "El perfil multinstancia final conserva 0 errores e invariantes, pero queda targets-not-met por historial p95 553.50 ms frente a 500 ms; checkout 1358.20 ms, pago 1380.67 ms y compra 4.139 s permanecen dentro de sus objetivos. El estado formal conserva el alcance local previamente medido; este resultado es una alerta para perfilar y optimizar antes de producción. No certifica grandes volúmenes, otros hosts ni rendimiento web.",
     "scope": "MVP / calidad",
     "frontend": {
       "status": "Sin carga UI",
@@ -2891,7 +2891,7 @@
     "code": [
       {
         "path": "services/user-service/app/schemas/user.py",
-        "line": 5
+        "line": 6
       },
       {
         "path": "services/user-service/app/models/user.py",
@@ -2960,7 +2960,7 @@
       },
       {
         "path": "services/user-service/app/routers/users.py",
-        "line": 42
+        "line": 43
       }
     ],
     "verification": [
@@ -3251,7 +3251,7 @@
       },
       {
         "path": "services/payment-service/app/main.py",
-        "line": 48
+        "line": 52
       }
     ],
     "verification": [
@@ -3312,11 +3312,11 @@
       },
       {
         "path": "services/order-service/app/main.py",
-        "line": 17
+        "line": 21
       },
       {
         "path": "services/payment-service/app/main.py",
-        "line": 14
+        "line": 18
       },
       {
         "path": "services/payment-service/app/payment_actions.py",
@@ -3522,7 +3522,7 @@
     "code": [
       {
         "path": "services/payment-service/app/main.py",
-        "line": 30
+        "line": 34
       },
       {
         "path": "services/order-service/app/routers/orders.py",

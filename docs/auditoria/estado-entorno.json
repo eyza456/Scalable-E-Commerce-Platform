@@ -1,7 +1,7 @@
 {
-  "audit_date": "2026-11-01T04:41:04.635406+00:00",
-  "review_base_commit": "8885132c4344f4c225fbc20b76c609581220929c",
-  "tracked_files_count": 447,
+  "audit_date": "2026-11-01T07:27:10.692129+00:00",
+  "review_base_commit": "e65e84b2e0c588fe3139fced3273fbe7459f7760",
+  "tracked_files_count": 454,
   "configured_remotes": [],
   "delivery_version": "Revision integrada backend + frontend",
   "historical_tag": "v0.1.0-rc.1",
@@ -31,7 +31,7 @@
         "REDIS_PORT",
         "SECRET_KEY"
       ],
-      "has_healthcheck": false,
+      "has_healthcheck": true,
       "ports": [
         {
           "mode": "ingress",
@@ -61,7 +61,7 @@
         "RABBITMQ_HOST",
         "RABBITMQ_PORT"
       ],
-      "has_healthcheck": false,
+      "has_healthcheck": true,
       "ports": [
         {
           "mode": "ingress",
@@ -98,7 +98,7 @@
         "PRODUCT_SERVICE_URL",
         "SECRET_KEY"
       ],
-      "has_healthcheck": false,
+      "has_healthcheck": true,
       "ports": [
         {
           "mode": "ingress",
@@ -137,7 +137,7 @@
         "RABBITMQ_PORT",
         "SECRET_KEY"
       ],
-      "has_healthcheck": false,
+      "has_healthcheck": true,
       "ports": [
         {
           "mode": "ingress",
@@ -174,7 +174,7 @@
         "RABBITMQ_PORT",
         "SECRET_KEY"
       ],
-      "has_healthcheck": false,
+      "has_healthcheck": true,
       "ports": [
         {
           "mode": "ingress",
@@ -186,7 +186,9 @@
       "restart": "unless-stopped"
     },
     "rabbitmq": {
-      "environment_keys": [],
+      "environment_keys": [
+        "RABBITMQ_ERLANG_COOKIE"
+      ],
       "has_healthcheck": true,
       "ports": [
         {
@@ -241,7 +243,7 @@
         "JWT_ALGORITHM",
         "SECRET_KEY"
       ],
-      "has_healthcheck": false,
+      "has_healthcheck": true,
       "ports": [
         {
           "mode": "ingress",

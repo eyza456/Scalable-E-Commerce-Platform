@@ -49,7 +49,7 @@ Estos pendientes limitan la afirmacion de cumplimiento del PDF; no se han oculta
 
 | Prioridad | Limite actual | Siguiente trabajo |
 | --- | --- | --- |
-| Cerrado en alcance local | Redis y RabbitMQ sin volumenes nombrados en Compose | `redis_data` con AOF, `rabbitmq_data`, scripts de backup/restore y hashes SHA-256. Falta probar restore en una instalacion aislada y custodiar copias fuera del host |
+| Cerrado en alcance local | Persistencia Redis y RabbitMQ | `redis_data` con AOF, `rabbitmq_data` con cookie/Mnesia, scripts de backup/restore y hashes SHA-256. Falta probar restore en una instalacion aislada y custodiar copias fuera del host |
 | Alta | Acceso HTTP local y puertos directos publicados | Perfil de despliegue con HTTPS, certificados, puertos internos cerrados y gestion/rotacion de secretos |
 | Parcial | Recuperacion operativa y DLQ manuales | Backup/restore y monitor local disponibles en `scripts/`; falta probar restauracion aislada, alertas y reproceso operativo idempotente |
 | Cerrado en alcance local | /health de aplicaciones principalmente liveness | `/ready` comprueba DB/Redis/RabbitMQ, Compose lo usa como healthcheck y `scripts/monitor.*` informa colas y Outbox; faltan alertas productivas |

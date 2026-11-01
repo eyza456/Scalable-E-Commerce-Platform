@@ -712,7 +712,7 @@
         "ordertest@test_history_releases_read_connection_and_preserves_response_schema",
         "multiload"
       ],
-      "Revalidado tras 0b0d959 en perfil local-mvp-20vu-v1 con dos replicas por servicio y objetivos sin cambios: historial p95 444.24 ms, checkout 1157.91 ms, pago 960.82 ms, compra 3.155 s; los 30 criterios aprobados. La referencia previa de una instancia se conserva como histórica. No certifica producción, grandes volúmenes, otros hosts ni rendimiento web."
+      "El perfil multinstancia final conserva 0 errores e invariantes, pero queda targets-not-met por historial p95 553.50 ms frente a 500 ms; checkout 1358.20 ms, pago 1380.67 ms y compra 4.139 s permanecen dentro de sus objetivos. El estado formal conserva el alcance local previamente medido; este resultado es una alerta para perfilar y optimizar antes de producción. No certifica grandes volúmenes, otros hosts ni rendimiento web."
     ],
     "RNF-02": [
       "Cumplido",

@@ -179,6 +179,170 @@
           ]
         }
       },
+      "/users": {
+        "get": {
+          "tags": [
+            "Users"
+          ],
+          "summary": "List All Users",
+          "operationId": "list_all_users_users_get",
+          "security": [
+            {
+              "HTTPBearer": []
+            }
+          ],
+          "parameters": [
+            {
+              "name": "skip",
+              "in": "query",
+              "required": false,
+              "schema": {
+                "type": "integer",
+                "default": 0,
+                "title": "Skip"
+              }
+            },
+            {
+              "name": "limit",
+              "in": "query",
+              "required": false,
+              "schema": {
+                "type": "integer",
+                "default": 100,
+                "title": "Limit"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/UserResponse"
+                    },
+                    "title": "Response List All Users Users Get"
+                  }
+                }
+              }
+            },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPValidationError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/users/{user_id}": {
+        "get": {
+          "tags": [
+            "Users"
+          ],
+          "summary": "Get User Admin",
+          "operationId": "get_user_admin_users__user_id__get",
+          "security": [
+            {
+              "HTTPBearer": []
+            }
+          ],
+          "parameters": [
+            {
+              "name": "user_id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "integer",
+                "title": "User Id"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/UserResponse"
+                  }
+                }
+              }
+            },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPValidationError"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "patch": {
+          "tags": [
+            "Users"
+          ],
+          "summary": "Update User Admin Route",
+          "operationId": "update_user_admin_route_users__user_id__patch",
+          "security": [
+            {
+              "HTTPBearer": []
+            }
+          ],
+          "parameters": [
+            {
+              "name": "user_id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "integer",
+                "title": "User Id"
+              }
+            }
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminUserUpdate"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/UserResponse"
+                  }
+                }
+              }
+            },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPValidationError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
       "/": {
         "get": {
           "summary": "Root",
@@ -199,6 +363,22 @@
         "get": {
           "summary": "Health Check",
           "operationId": "health_check_health_get",
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {}
+                }
+              }
+            }
+          }
+        }
+      },
+      "/ready": {
+        "get": {
+          "summary": "Readiness Check",
+          "operationId": "readiness_check_ready_get",
           "responses": {
             "200": {
               "description": "Successful Response",
@@ -925,6 +1105,22 @@
             }
           }
         }
+      },
+      "/ready": {
+        "get": {
+          "summary": "Readiness Check",
+          "operationId": "readiness_check_ready_get",
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {}
+                }
+              }
+            }
+          }
+        }
       }
     }
   },
@@ -1309,6 +1505,22 @@
         "get": {
           "summary": "Health Check",
           "operationId": "health_check_health_get",
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {}
+                }
+              }
+            }
+          }
+        }
+      },
+      "/ready": {
+        "get": {
+          "summary": "Readiness Check",
+          "operationId": "readiness_check_ready_get",
           "responses": {
             "200": {
               "description": "Successful Response",
@@ -1793,6 +2005,22 @@
             }
           }
         }
+      },
+      "/ready": {
+        "get": {
+          "summary": "Readiness Check",
+          "operationId": "readiness_check_ready_get",
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {}
+                }
+              }
+            }
+          }
+        }
       }
     }
   },
@@ -2136,6 +2364,22 @@
             }
           }
         }
+      },
+      "/ready": {
+        "get": {
+          "summary": "Readiness Check",
+          "operationId": "readiness_check_ready_get",
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {}
+                }
+              }
+            }
+          }
+        }
       }
     }
   },
@@ -2262,6 +2506,22 @@
         "get": {
           "summary": "Health Check",
           "operationId": "health_check_health_get",
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {}
+                }
+              }
+            }
+          }
+        }
+      },
+      "/ready": {
+        "get": {
+          "summary": "Readiness Check",
+          "operationId": "readiness_check_ready_get",
           "responses": {
             "200": {
               "description": "Successful Response",

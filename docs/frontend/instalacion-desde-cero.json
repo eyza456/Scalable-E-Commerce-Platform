@@ -1,6 +1,6 @@
 {
-  "project": "fresh-b11e5268e1aa",
-  "executed_at": "2026-11-01T04:37:47.548951+00:00",
+  "project": "fresh-119833b60736",
+  "executed_at": "2026-11-01T06:55:59.905876+00:00",
   "checks": {
     "configuration": "Plantilla independiente; sin .env ni datos locales",
     "frontend_configuration": "Actual frontend overlay; isolated project, network and loopback random port",
@@ -78,31 +78,33 @@
     "original_installation": "Original IDs, start times and restart counts unchanged"
   },
   "volumes": [
-    "fresh-b11e5268e1aa_order_postgres_data",
-    "fresh-b11e5268e1aa_payment_postgres_data",
-    "fresh-b11e5268e1aa_product_postgres_data",
-    "fresh-b11e5268e1aa_user_postgres_data"
+    "fresh-119833b60736_order_postgres_data",
+    "fresh-119833b60736_payment_postgres_data",
+    "fresh-119833b60736_product_postgres_data",
+    "fresh-119833b60736_rabbitmq_data",
+    "fresh-119833b60736_redis_data",
+    "fresh-119833b60736_user_postgres_data"
   ],
   "readme_sha256": "729f821d5232d64dc5ae49ccbed2a6d222c41f442c63ce26dfa8c39e31901182",
-  "source_commit": "8885132c4344f4c225fbc20b76c609581220929c",
+  "source_commit": "e65e84b2e0c588fe3139fced3273fbe7459f7760",
   "source_note": "Tracked working-tree bytes copied at preparation; hashes identify exact sources, including staged edits",
   "sha256": {
     "README.md": "9dcaa654b55547516efdccb785038a727a313eee5c729862a047b80cef3ed24b",
     "frontend/README.md": "3e946db64f41223c3afe93e8211f8b3e3d93b044042c8da3207e95da80312cde",
-    ".env.example": "1d0ff79b53e3a78d9cb5a3f6a63e8404c2849d834c5ddaaf10673973837f093b",
-    "docker-compose.yml": "b5f13fb36000129db748b6096891ba7dc132cc0f73b1df39c8cc461a2b9da70e",
+    ".env.example": "23fcf5f3f71e21e682993a1e571eafb5994420906514959132e1103f3f7af680",
+    "docker-compose.yml": "abf3b39b8d814267b2a5bbebc2dc81dea8e953fa62fc752737dbc58e6eb75a33",
     "compose.frontend.yml": "28192dae4badfce6b8aded5f34ef8eee5b443b75c566cfb383b0d30c1d545f96",
     "frontend/Dockerfile": "15308c7c91faac8bdbf37762ff95ca19fbb120549b7aa25a678fc80b1d773411",
     "frontend/nginx.conf": "b8b0cb91a4d13ebe2907bb52a25e8cc49215e7dc2e6dbf8ca7ff8ba09ff68e3e",
-    "tests/fresh_install.py": "513b0b86956c6840a5e68ebff63954713e93ca266cbda69ab691c30483908741",
+    "tests/fresh_install.py": "c042a17e214b382c1c1e4226cbad78363631eeee9534bf36a821cebdaa2e8fc9",
     "tests/smoke_purchase.py": "7e6a4f6bb7ef03f342766cbd601c70d9522877e8e40a38f8092b0de1fcfdd88c",
-    "tests/frontend_journey.cjs": "3aa2bd6ea7e3a33175fda13b9401e2defd234d8ff80e76ba773afdadc62a2e89",
+    "tests/frontend_journey.cjs": "0b8794b93bbcd1152a5e0cbd2b1a81cd52250b425d0cc815ec8e493d0eddfc36",
     "tests/browser-tools/package-lock.json": "43033a83268765d1db148914694aef47c77355c5af08f61e0b17e03108d09bfd",
     "frontend/app/app.js": "babd84b93887314216e8f49862d629305fd685ead31d824426810ec947a89e55",
     "frontend/app/commerce.js": "bb7b0357b83602eb97671e63201059e42281bfb7cb7e99070b0dadab1ba571f3",
     "frontend/app/favicon.svg": "e4a3c6ef07c5b1a3c631b865b3693197a048c8e4a2b4346f70c2186368a446ee",
     "frontend/app/index.html": "0a5b0f3e043747d9ca7f24526822679133202db8db03282a2488c194ef425b44",
-    "frontend/app/orders.js": "512d941f9fd54e3eef8498efe5e80e42dc84933838f25b8b8b94050fbe9d1ee4",
+    "frontend/app/orders.js": "5ec3e960932cc3b0d227f7d75b77cd6448e106cd6c24e38994b388313830e9c9",
     "frontend/app/payments.js": "24525fa846c53cf471896dec7415de3d197519dcdf4ae2f0c8474e3a5ea347f8",
     "frontend/app/profile.js": "9303eaa8def0ea928e536f0e864d91156b1d4476373a00db3fc2b2a5afdfa014",
     "frontend/app/styles.css": "d9ec109a0e4ab1d1055cc78be3ef1a47de8f11be8e1c459d1b2a9a7a7f455da4"
