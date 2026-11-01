@@ -28,7 +28,7 @@
       "code": [
         {
           "path": "frontend/app/app.js",
-          "line": 188
+          "line": 191
         }
       ],
       "verification": [
@@ -77,7 +77,7 @@
       "code": [
         {
           "path": "frontend/app/app.js",
-          "line": 188
+          "line": 191
         }
       ],
       "verification": [
@@ -126,7 +126,7 @@
         },
         {
           "path": "frontend/app/app.js",
-          "line": 168
+          "line": 171
         }
       ],
       "verification": [
@@ -175,7 +175,7 @@
         },
         {
           "path": "frontend/app/app.js",
-          "line": 168
+          "line": 171
         }
       ],
       "verification": [
@@ -224,7 +224,7 @@
         },
         {
           "path": "frontend/app/app.js",
-          "line": 168
+          "line": 171
         }
       ],
       "verification": [
@@ -273,7 +273,7 @@
         },
         {
           "path": "frontend/app/app.js",
-          "line": 146
+          "line": 147
         }
       ],
       "verification": [
@@ -322,7 +322,7 @@
         },
         {
           "path": "frontend/app/app.js",
-          "line": 146
+          "line": 147
         }
       ],
       "verification": [
@@ -363,10 +363,24 @@
     "finding": "Roles Customer, admin y seller; falta un endpoint de asignacion de roles del diseno, ver D-01.",
     "scope": "MVP / calidad",
     "frontend": {
-      "status": "API / sin pantalla",
-      "code": [],
-      "verification": [],
-      "note": "Capacidad del backend indicada en esta fila. No hay consola visual de administracion de productos, roles o estados de pedidos."
+      "status": "Integrado (usuarios/roles)",
+      "code": [
+        {
+          "path": "frontend/app/admin.js",
+          "line": 4
+        },
+        {
+          "path": "frontend/app/app.js",
+          "line": 61
+        }
+      ],
+      "verification": [
+        {
+          "path": "tests/frontend_visual_optional.cjs",
+          "line": 94
+        }
+      ],
+      "note": "La consola gestiona usuarios/roles; productos, categorias, stock y estados de pedidos siguen por API."
     }
   },
   {
@@ -398,10 +412,24 @@
     "finding": "Permisos por rol en operaciones administrativas.",
     "scope": "MVP / calidad",
     "frontend": {
-      "status": "API / sin pantalla",
-      "code": [],
-      "verification": [],
-      "note": "Capacidad del backend indicada en esta fila. No hay consola visual de administracion de productos, roles o estados de pedidos."
+      "status": "Integrado (usuarios/roles)",
+      "code": [
+        {
+          "path": "frontend/app/admin.js",
+          "line": 13
+        },
+        {
+          "path": "frontend/app/app.js",
+          "line": 147
+        }
+      ],
+      "verification": [
+        {
+          "path": "tests/frontend_visual_optional.cjs",
+          "line": 88
+        }
+      ],
+      "note": "El enlace y la consola solo se muestran a administradores; la autorizacion final la aplica la API."
     }
   },
   {
@@ -495,11 +523,11 @@
       "code": [
         {
           "path": "frontend/app/app.js",
-          "line": 83
+          "line": 84
         },
         {
           "path": "frontend/app/app.js",
-          "line": 127
+          "line": 128
         }
       ],
       "verification": [
@@ -540,11 +568,11 @@
       "code": [
         {
           "path": "frontend/app/app.js",
-          "line": 83
+          "line": 84
         },
         {
           "path": "frontend/app/app.js",
-          "line": 127
+          "line": 128
         }
       ],
       "verification": [
@@ -647,11 +675,11 @@
       "code": [
         {
           "path": "frontend/app/app.js",
-          "line": 112
+          "line": 113
         },
         {
           "path": "frontend/app/app.js",
-          "line": 127
+          "line": 128
         }
       ],
       "verification": [
@@ -688,11 +716,11 @@
       "code": [
         {
           "path": "frontend/app/app.js",
-          "line": 83
+          "line": 84
         },
         {
           "path": "frontend/app/app.js",
-          "line": 127
+          "line": 128
         }
       ],
       "verification": [
@@ -737,11 +765,11 @@
       "code": [
         {
           "path": "frontend/app/app.js",
-          "line": 112
+          "line": 113
         },
         {
           "path": "frontend/app/app.js",
-          "line": 127
+          "line": 128
         }
       ],
       "verification": [
@@ -782,11 +810,11 @@
       "code": [
         {
           "path": "frontend/app/app.js",
-          "line": 83
+          "line": 84
         },
         {
           "path": "frontend/app/app.js",
-          "line": 127
+          "line": 128
         }
       ],
       "verification": [
@@ -866,7 +894,7 @@
         },
         {
           "path": "frontend/app/commerce.js",
-          "line": 103
+          "line": 104
         }
       ],
       "verification": [
@@ -919,7 +947,7 @@
         },
         {
           "path": "frontend/app/commerce.js",
-          "line": 103
+          "line": 104
         }
       ],
       "verification": [
@@ -964,7 +992,7 @@
         },
         {
           "path": "frontend/app/commerce.js",
-          "line": 103
+          "line": 104
         }
       ],
       "verification": [
@@ -1013,7 +1041,7 @@
         },
         {
           "path": "frontend/app/commerce.js",
-          "line": 103
+          "line": 104
         }
       ],
       "verification": [
@@ -1058,15 +1086,24 @@
     "finding": "Vaciado explicito y finalizacion idempotente; una confirmacion tardia no borra un carrito nuevo.",
     "scope": "MVP / calidad",
     "frontend": {
-      "status": "API / sin accion dedicada",
-      "code": [],
-      "verification": [
+      "status": "Integrado",
+      "code": [
         {
-          "path": "tests/frontend_commerce.cjs",
-          "line": 81
+          "path": "frontend/app/commerce.js",
+          "line": 207
+        },
+        {
+          "path": "frontend/app/index.html",
+          "line": 102
         }
       ],
-      "note": "No hay boton Vaciar carrito. Quitar items y checkout estan integrados; DELETE /api/cart sigue disponible por API."
+      "verification": [
+        {
+          "path": "tests/frontend_visual_optional.cjs",
+          "line": 106
+        }
+      ],
+      "note": "Vaciado completo con dialogo de confirmacion; DELETE /api/cart mantiene la autoridad del servidor."
     }
   },
   {
@@ -1098,7 +1135,7 @@
         },
         {
           "path": "frontend/app/commerce.js",
-          "line": 103
+          "line": 104
         }
       ],
       "verification": [
@@ -1143,7 +1180,7 @@
         },
         {
           "path": "frontend/app/commerce.js",
-          "line": 103
+          "line": 104
         }
       ],
       "verification": [
@@ -1192,11 +1229,11 @@
       "code": [
         {
           "path": "frontend/app/commerce.js",
-          "line": 173
+          "line": 174
         },
         {
           "path": "frontend/app/commerce.js",
-          "line": 151
+          "line": 152
         }
       ],
       "verification": [
@@ -1253,11 +1290,11 @@
       "code": [
         {
           "path": "frontend/app/commerce.js",
-          "line": 173
+          "line": 174
         },
         {
           "path": "frontend/app/commerce.js",
-          "line": 151
+          "line": 152
         }
       ],
       "verification": [
@@ -1310,7 +1347,7 @@
         },
         {
           "path": "frontend/app/commerce.js",
-          "line": 140
+          "line": 141
         }
       ],
       "verification": [
@@ -1355,7 +1392,7 @@
         },
         {
           "path": "frontend/app/commerce.js",
-          "line": 140
+          "line": 141
         }
       ],
       "verification": [
@@ -1404,7 +1441,7 @@
         },
         {
           "path": "frontend/app/commerce.js",
-          "line": 140
+          "line": 141
         }
       ],
       "verification": [
@@ -1453,7 +1490,7 @@
         },
         {
           "path": "frontend/app/commerce.js",
-          "line": 140
+          "line": 141
         }
       ],
       "verification": [
@@ -1502,7 +1539,7 @@
         },
         {
           "path": "frontend/app/commerce.js",
-          "line": 140
+          "line": 141
         }
       ],
       "verification": [
@@ -1551,7 +1588,7 @@
         },
         {
           "path": "frontend/app/commerce.js",
-          "line": 140
+          "line": 141
         }
       ],
       "verification": [
@@ -1596,7 +1633,7 @@
         },
         {
           "path": "frontend/app/commerce.js",
-          "line": 140
+          "line": 141
         }
       ],
       "verification": [
@@ -1649,7 +1686,7 @@
         },
         {
           "path": "frontend/app/commerce.js",
-          "line": 140
+          "line": 141
         }
       ],
       "verification": [

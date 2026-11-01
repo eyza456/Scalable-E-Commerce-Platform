@@ -1,42 +1,42 @@
 {
-  "reviewed_at": "2026-11-01T07:27:10.691130+00:00",
+  "reviewed_at": "2026-11-01T17:37:40.268189+00:00",
   "scenarios": 56,
   "runs": [
     {
       "path": "docs/frontend/integracion.json",
-      "executed_at": "2026-11-01T07:04:09.757Z",
+      "executed_at": "2026-11-01T17:33:06.406Z",
       "scenarios": 13
     },
     {
       "path": "docs/frontend/carrito-checkout.json",
-      "executed_at": "2026-11-01T07:04:51.345Z",
+      "executed_at": "2026-11-01T17:01:47.986Z",
       "scenarios": 12
     },
     {
       "path": "docs/frontend/pagos.json",
-      "executed_at": "2026-11-01T07:06:52.727Z",
+      "executed_at": "2026-11-01T17:35:20.313Z",
       "scenarios": 11
     },
     {
       "path": "docs/frontend/pedidos.json",
-      "executed_at": "2026-11-01T07:03:05.902Z",
+      "executed_at": "2026-11-01T17:03:27.050Z",
       "scenarios": 10
     },
     {
       "path": "docs/frontend/perfil.json",
-      "executed_at": "2026-11-01T07:07:09.815Z",
+      "executed_at": "2026-11-01T17:02:04.484Z",
       "scenarios": 10
     }
   ],
   "journey": {
     "path": "docs/frontend/recorrido-accesibilidad.json",
-    "executed_at": "2026-11-01T06:55:19.367Z",
+    "executed_at": "2026-11-01T17:35:58.920Z",
     "steps": 9,
     "audits": 14
   },
   "installation": {
     "path": "docs/frontend/instalacion-desde-cero.json",
-    "executed_at": "2026-11-01T06:55:59.905876+00:00"
+    "executed_at": "2026-11-01T17:07:22.973444+00:00"
   },
   "scope": "Evidence reviewed without re-running browser/load tests; dates identify actual recorded executions"
 }

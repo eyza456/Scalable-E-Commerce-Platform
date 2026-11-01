@@ -72,6 +72,7 @@
     "uiapp": "frontend/app/app.js",
     "uihtml": "frontend/app/index.html",
     "uicart": "frontend/app/commerce.js",
+    "uiadmin": "frontend/app/admin.js",
     "uipay": "frontend/app/payments.js",
     "uiorders": "frontend/app/orders.js",
     "uiprofile": "frontend/app/profile.js",
@@ -79,6 +80,7 @@
     "uicompose": "compose.frontend.yml",
     "uicatalogtest": "tests/frontend_browser.cjs",
     "uicarttest": "tests/frontend_commerce.cjs",
+    "uiadmintest": "tests/frontend_visual_optional.cjs",
     "uipaytest": "tests/frontend_payments.cjs",
     "uiordertest": "tests/frontend_orders.cjs",
     "uiprofiletest": "tests/frontend_profile.cjs",
@@ -88,6 +90,7 @@
     "uifreshresult": "docs/frontend/instalacion-desde-cero.json",
     "uiresult": "docs/frontend/integracion.json",
     "uicartresult": "docs/frontend/carrito-checkout.json",
+    "uiadminresult": "docs/frontend/pruebas-compatibilidad.json",
     "uipayresult": "docs/frontend/pagos.json",
     "uiorderresult": "docs/frontend/pedidos.json",
     "uiprofileresult": "docs/frontend/perfil.json",
@@ -1170,16 +1173,16 @@
       "note": "Consulta/edicion nombre y correo; sustituye token. Sin cambio de contraseña, permisos o roles."
     },
     "RF-08": {
-      "status": "API / sin pantalla",
-      "code": [],
-      "verification": [],
-      "note": "Capacidad del backend indicada en esta fila. No hay consola visual de administracion de productos, roles o estados de pedidos."
+      "status": "Integrado (usuarios/roles)",
+      "code": ["uiadmin@NexoAdmin", "uiapp@const admin"],
+      "verification": ["uiadmintest@admin can change role"],
+      "note": "La consola gestiona usuarios/roles; productos, categorias, stock y estados de pedidos siguen por API."
     },
     "RF-09": {
-      "status": "API / sin pantalla",
-      "code": [],
-      "verification": [],
-      "note": "Capacidad del backend indicada en esta fila. No hay consola visual de administracion de productos, roles o estados de pedidos."
+      "status": "Integrado (usuarios/roles)",
+      "code": ["uiadmin@function render", "uiapp@function syncAccount"],
+      "verification": ["uiadmintest@screen-reader-oriented"],
+      "note": "El enlace y la consola solo se muestran a administradores; la autorizacion final la aplica la API."
     },
     "RF-10": {
       "status": "Responsabilidad del servidor",
@@ -1360,12 +1363,10 @@
       "note": "Carrito propio: agregar desde detalle, cantidades, quitar y totales de API. Sin POST automaticos de reintento."
     },
     "RF-25": {
-      "status": "API / sin accion dedicada",
-      "code": [],
-      "verification": [
-        "uicarttest@real add, quantity update"
-      ],
-      "note": "No hay boton Vaciar carrito. Quitar items y checkout estan integrados; DELETE /api/cart sigue disponible por API."
+      "status": "Integrado",
+      "code": ["uicart@$('clear-cart').addEventListener", "uihtml@clear-cart"],
+      "verification": ["uiadmintest@empty-cart confirmation"],
+      "note": "Vaciado completo con dialogo de confirmacion; DELETE /api/cart mantiene la autoridad del servidor."
     },
     "RF-28": {
       "status": "Integrado",
