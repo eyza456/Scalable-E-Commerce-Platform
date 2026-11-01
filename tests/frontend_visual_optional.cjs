@@ -40,36 +40,36 @@ async function login(page) {
 (async () => {
   admin = JSON.parse(service('user-service', `
 import json,sys
-from app.database import SessionLocal
+from app.database import SeccionLocal
 from app.models import User
 from app.user_actions import register_user
 from app.schemas import UserCreate
-with SessionLocal() as db:
+with SeccionLocal() as db:
  u=register_user(db,UserCreate(name=sys.argv[1],email=sys.argv[2],password=sys.argv[3]));print(json.dumps({'id':u.id}))
 `, marker + ' admin', adminEmail, password));
   const managed = JSON.parse(service('user-service', `
 import json,sys
-from app.database import SessionLocal
+from app.database import SeccionLocal
 from app.models import User
 from app.user_actions import register_user
 from app.schemas import UserCreate
-with SessionLocal() as db:
+with SeccionLocal() as db:
  u=register_user(db,UserCreate(name=sys.argv[1],email=sys.argv[2],password=sys.argv[3]));print(json.dumps({'id':u.id}))
 `, marker + ' customer', managedEmail, password));
-  service('user-service', `import sys;from app.database import SessionLocal;from app.models import User
-with SessionLocal() as db:
+  service('user-service', `import sys;from app.database import SeccionLocal;from app.models import User
+with SeccionLocal() as db:
  u=db.get(User,int(sys.argv[1]));u.role='admin';db.commit()`, admin.id);
   product = Number(service('product-service', `import sys;from app.database import SessionLocal;from app.models import Product
 with SessionLocal() as db:
  p=Product(name=sys.argv[1],description='Visual test',price=4.50,stock=3);db.add(p);db.commit();print(p.id)`, marker + ' producto'));
   for (const name of requested) {
-    const launch = engines[name];
-    if (!launch) continue;
+    const engine = engines[name];
+    if (!engine) continue;
     let browser;
     const entry = {engine: name, checks: [], audits: [], layouts: []};
     try {
       try {
-        browser = await launch({headless: true, ...(name === 'chromium' && process.env.BROWSER_CHANNEL ? {channel: process.env.BROWSER_CHANNEL} : {})});
+        browser = await engine.launch({headless: true, ...(name === 'chromium' && process.env.BROWSER_CHANNEL ? {channel: process.env.BROWSER_CHANNEL} : {})});
       } catch (error) {
         entry.skipped = `Motor no disponible: ${error.message}`; report.engines.push(entry); continue;
       }
@@ -121,8 +121,8 @@ with SessionLocal() as db:
   try {
     service('cart-service', 'import sys;from app.redis_client import redis_client;redis_client.delete("cart:"+sys.argv[1])', admin.id);
     service('product-service', 'import sys;from app.database import SessionLocal;from app.models import Product;db=SessionLocal();db.query(Product).filter(Product.id==int(sys.argv[1])).delete();db.commit()', product);
-    service('user-service', `import sys;from app.database import SessionLocal;from app.models import User
-with SessionLocal() as db: db.query(User).filter(User.email.in_([sys.argv[1],sys.argv[2]])).delete(synchronize_session=False);db.commit()`, adminEmail, managedEmail);
+  service('user-service', `import sys;from app.database import SeccionLocal;from app.models import User
+with SeccionLocal() as db: db.query(User).filter(User.email.in_([sys.argv[1],sys.argv[2]])).delete(synchronize_session=False);db.commit()`, adminEmail, managedEmail);
     report.cleanup = true;
   } catch (error) { report.cleanup = false; console.error('Optional visual fixture cleanup failed:', error.message); process.exitCode = 1; }
   report.date = new Date().toISOString();
