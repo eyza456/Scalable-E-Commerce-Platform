@@ -19,28 +19,28 @@ Los contadores se solapan: no sumar columnas ni percentiles. Parte del tiempo re
 
 | Ruta | Contador | Antes | Despues |
 | --- | --- | ---: | ---: |
-| GET /orders | total_ms | 635.27 | 411.05 |
-| GET /orders | db_connect_ms | 57.67 | 41.64 |
-| GET /orders | db_execute_ms | 71.80 | 54.37 |
-| GET /orders | orm_all_ms | 121.95 | 95.68 |
-| GET /orders | db_held_ms | 317.35 | 84.02 |
+| GET /orders | total_ms | 635.27 | 361.84 |
+| GET /orders | db_connect_ms | 57.67 | 37.90 |
+| GET /orders | db_execute_ms | 71.80 | 33.92 |
+| GET /orders | orm_all_ms | 121.95 | 61.84 |
+| GET /orders | db_held_ms | 317.35 | 69.02 |
 | GET /orders | http_client_init_ms | 0.00 | 0.00 |
 | GET /orders | http_send_ms | 0.00 | 0.00 |
 | GET /orders | serialize_ms | 124.68 | 0.00 |
-| POST /orders | total_ms | 1618.35 | 2514.45 |
-| POST /orders | db_connect_ms | 102.81 | 42.18 |
-| POST /orders | db_execute_ms | 346.56 | 308.72 |
-| POST /orders | db_held_ms | 1314.93 | 2340.85 |
-| POST /orders | http_client_init_ms | 316.35 | 1.27 |
-| POST /orders | http_send_ms | 444.21 | 562.06 |
-| POST /orders | serialize_ms | 154.91 | 118.84 |
-| POST /payments | total_ms | 1457.78 | 1495.89 |
-| POST /payments | db_connect_ms | 75.30 | 38.47 |
-| POST /payments | db_execute_ms | 204.39 | 142.23 |
-| POST /payments | db_held_ms | 956.79 | 1124.19 |
-| POST /payments | http_client_init_ms | 150.82 | 1.23 |
-| POST /payments | http_send_ms | 959.18 | 957.19 |
-| POST /payments | serialize_ms | 35.21 | 52.77 |
+| POST /orders | total_ms | 1618.35 | 1199.20 |
+| POST /orders | db_connect_ms | 102.81 | 80.01 |
+| POST /orders | db_execute_ms | 346.56 | 276.62 |
+| POST /orders | db_held_ms | 1314.93 | 927.90 |
+| POST /orders | http_client_init_ms | 316.35 | 1.87 |
+| POST /orders | http_send_ms | 444.21 | 580.97 |
+| POST /orders | serialize_ms | 154.91 | 91.96 |
+| POST /payments | total_ms | 1457.78 | 1022.42 |
+| POST /payments | db_connect_ms | 75.30 | 22.50 |
+| POST /payments | db_execute_ms | 204.39 | 141.86 |
+| POST /payments | db_held_ms | 956.79 | 669.26 |
+| POST /payments | http_client_init_ms | 150.82 | 1.32 |
+| POST /payments | http_send_ms | 959.18 | 823.20 |
+| POST /payments | serialize_ms | 35.21 | 16.05 |
 
 ## Planes SQL en reposo
 
@@ -48,9 +48,9 @@ Despues de drenar el trabajo se ejecuta EXPLAIN (ANALYZE, BUFFERS, FORMAT JSON) 
 
 | Consulta | Ejecucion antes (ms) | Ejecucion despues (ms) | Plan antes/despues |
 | --- | ---: | ---: | --- |
-| history | 0.202 | 0.119 | Limit / Limit |
-| history_paid | 0.083 | 0.059 | Limit / Limit |
-| order_items | 0.217 | 0.141 | Hash Join / Hash Join |
+| history | 0.202 | 0.140 | Limit / Limit |
+| history_paid | 0.083 | 0.065 | Limit / Limit |
+| order_items | 0.217 | 0.155 | Hash Join / Hash Join |
 
 ## Decision y resultado
 
@@ -58,7 +58,7 @@ Los planes del conjunto pequeno son baratos, mientras la construccion repetida d
 
 El contador de construccion HTTP baja claramente, pero este diagnostico no demuestra por si solo una mejora global: tambien hay espera/ORM/serializacion y variacion de carga del equipo. Las latencias totales no se aprobaron a partir de esta corrida. El resultado vinculante del perfil local esta en el benchmark completo sin hooks.
 
-Registros capturados: antes 3537, despues 4029. Compras integras: antes 132, despues 148. El volumen final no es identico porque el generador es cerrado y el numero de ciclos depende de las respuestas. No son mediciones de saturacion ni un SLA productivo.
+Registros capturados: antes 3537, despues 4295. Compras integras: antes 132, despues 156. El volumen final no es identico porque el generador es cerrado y el numero de ciclos depende de las respuestas. No son mediciones de saturacion ni un SLA productivo.
 
 Se preserva un [fallo de arranque aislado](arranque-fallido.json): RabbitMQ no pudo leer su cookie antes de iniciar las aplicaciones. Se elimino ese proyecto y el siguiente arranque limpio completo el perfil. No se utilizo ese intento como muestra de rendimiento.
 
