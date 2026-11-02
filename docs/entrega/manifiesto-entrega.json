@@ -727,7 +727,7 @@
       "canonical_bytes": 1218
     },
     "services/order-service/app/models.py": {
-      "sha256": "eee0058acb84fcef11bf6ce4569b77b0a1f79535a92b02b7159ba4481151ca2f",
+      "sha256": "a644c927a8bdb8afee3c7b1e58867710d6fa2b4f890934637cc3aa7a37e70fef",
       "canonical_bytes": 2103
     },
     "services/order-service/app/order_actions.py": {

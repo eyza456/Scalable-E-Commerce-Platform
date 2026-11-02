@@ -129,7 +129,7 @@
     "services/order-service/app/http_client.py": "f816e8234dcacc46ad00c87fcadc3f40b0229977a24cbb9600dc0eaae2236a17",
     "services/order-service/app/main.py": "73fe40adb2ebefbf2cd2b24ef30c71cb79a9b2509213ba55da5e383c58f0e75a",
     "services/order-service/app/messaging.py": "424d929ae9977461eb232cf64cccaefc27a3f153fc6033264108c951a80bd5e9",
-    "services/order-service/app/models.py": "eee0058acb84fcef11bf6ce4569b77b0a1f79535a92b02b7159ba4481151ca2f",
+    "services/order-service/app/models.py": "a644c927a8bdb8afee3c7b1e58867710d6fa2b4f890934637cc3aa7a37e70fef",
     "services/order-service/app/rabbitmq.py": "538b660580b62500d11bd9b97a08f45ee002362f438471c35bc3a1175f96f19a",
     "services/order-service/app/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
     "services/order-service/app/core/config.py": "ced66c6a69ad38f8675d6345acc0d7e9c7a090dd5e14325ce4a68b7f018f4458",

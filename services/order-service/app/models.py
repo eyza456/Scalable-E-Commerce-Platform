@@ -6,7 +6,8 @@ from sqlalchemy import (
     ForeignKey,
     Integer,
     Numeric,
-    String
+    String,
+    Index,
 )
 from sqlalchemy.orm import relationship
 
@@ -16,6 +17,9 @@ from app.database import Base
 class Order(Base):
 
     __tablename__ = "orders"
+    __table_args__ = (
+        Index("ix_orders_user_created_id", "user_id", "created_at", "id"),
+    )
     checkout_id = Column(String(36), nullable=True, unique=True)
 
     id = Column(

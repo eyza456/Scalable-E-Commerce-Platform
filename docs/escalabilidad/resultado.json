@@ -164,7 +164,7 @@
     "services/order-service/app/main.py": "99eb9877ea8c1ab5713ac7c2db1e8650a5f3423fae308a209f7d8e8c821fffff",
     "services/order-service/app/messaging.py": "424d929ae9977461eb232cf64cccaefc27a3f153fc6033264108c951a80bd5e9",
     "services/order-service/app/migration_runner.py": "98d7b417965970051925f01a5d47faea11e407d66ecb5d9b21a98a168dab5c8b",
-    "services/order-service/app/models.py": "eee0058acb84fcef11bf6ce4569b77b0a1f79535a92b02b7159ba4481151ca2f",
+    "services/order-service/app/models.py": "a644c927a8bdb8afee3c7b1e58867710d6fa2b4f890934637cc3aa7a37e70fef",
     "services/order-service/app/order_actions.py": "0c6fdf22147497351ad83dc6a60eb90d9b335747417216c1f213e3d2d143175a",
     "services/order-service/app/order_repository.py": "2dc3ba3ecca3cc04040a0167013f657a401afd42f07f0708f695c3a09879929d",
     "services/order-service/app/payment_client.py": "f2f5d038de034c2e8526d8eb96fbdb8f33184e379374788ffdba1f65e44ce148",

@@ -1323,11 +1323,11 @@
     "code": [
       {
         "path": "services/order-service/app/models.py",
-        "line": 16
+        "line": 17
       },
       {
         "path": "services/order-service/app/models.py",
-        "line": 103
+        "line": 107
       }
     ],
     "verification": [
@@ -1372,7 +1372,7 @@
     "code": [
       {
         "path": "services/order-service/app/models.py",
-        "line": 44
+        "line": 21
       }
     ],
     "verification": [
@@ -1421,7 +1421,7 @@
       },
       {
         "path": "services/order-service/app/models.py",
-        "line": 27
+        "line": 21
       }
     ],
     "verification": [
@@ -1466,7 +1466,7 @@
     "code": [
       {
         "path": "services/order-service/app/models.py",
-        "line": 56
+        "line": 60
       },
       {
         "path": "services/order-service/app/routers/orders.py",
@@ -2551,7 +2551,7 @@
       },
       {
         "path": "services/order-service/app/models.py",
-        "line": 27
+        "line": 21
       }
     ],
     "verification": [
