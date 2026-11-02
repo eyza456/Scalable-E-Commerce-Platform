@@ -1,5 +1,7 @@
 # Rendimiento tras perfilar SQL y reutilizar conexiones HTTP
 
+> **Repetición posterior (2 de noviembre de 2026):** se aplicó el índice compuesto `ix_orders_user_created_id` y se repitió el benchmark con los mismos objetivos. El resultado completo está en [resultado.json](resultado.json): historial p95 531,92 ms, checkout p95 1333,68 ms/p99 3383,44 ms, pago p95 936,85 ms y compra p95 5,118 s. La prueba registró 0% de errores e invariantes correctas, pero queda `targets-not-met` por historial p95 y checkout p99. Esta repetición reemplaza la conclusión de aprobación de la corrida anterior para la decisión actual.
+
 **Resultado: APROBADO para el perfil local.**
 
 Se repitio la misma prueba: objetivos JSON, generador, calculo de metricas y preparacion de entorno con hashes identicos a la linea base. No se relajo ningun umbral. [Linea base preservada](baseline-1a8d097/README.md) y [objetivos](objetivos.md).
