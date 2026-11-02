@@ -69,7 +69,7 @@
   "tests/performance_goals.json": "1fc71a41394ff7974e29b2dff2c4010c27b47cbb863fb59c54f05c8b0d069585",
   "tests/performance_load.py": "16ffed2485d0cd610716d84f34d74c67d776bbfae1bf7fdb1b6f2dee9ef78775",
   "services/order-service/app/http_client.py": "f816e8234dcacc46ad00c87fcadc3f40b0229977a24cbb9600dc0eaae2236a17",
-  "docs/rendimiento/resultado.json": "f62058f8ff1e700a1ff54a6409f33657524c57a56e380a8908395424c6b6a79c",
+  "docs/rendimiento/resultado.json": "68329f964d1e6b31eb8c5dac7dc420fa370d1e01275a72d692491db8607a1dfb",
   "docs/perfilado/resumen.json": "f2d3cf9906a3f974e0281807f89d25c14aae52298c6a19b6b4fb99ad00d36775",
   "tests/http_pool_stability.py": "a18e2a540d135c85497a44eb9f0b79ea91e4d79cc4cd0731656935fa1bc19cef",
   "docs/escalabilidad/carga/resultado.json": "de3c461d25d3a6c2be4452f82f03a240683120fd48e9847540e804d964bb04dc",
@@ -139,7 +139,7 @@
   "docs/frontend/pedidos.json": "15876e3887df3dd917ee884f699c31803f9523df009c71aa279d7236664849fd",
   "docs/frontend/perfil.json": "90d81833893bc0a0fa31f2b0af4f81c71cc4c419c7fb34c3639ee7577768d07f",
   "tests/run_stability.ps1": "2bad307c90870f951a7a26a04f46b23dc1ee187818c6499a9302659b295b1798",
-  "docs/auditoria/estado-entorno.json": "e070f43cc653429eb459ba972543bf20f8b80ddcaa37ca892d30b26af5cd29be",
+  "docs/auditoria/estado-entorno.json": "e4c8cd66de78671094deed6d5622af6988dfbe5caa2bb6a0b0a5917589befeba",
   "scripts/install.ps1": "82151f85de7c84bdca4ced2dcebd7dfedd26ddca7822da3ff7518173489a00a1",
   "scripts/install.sh": "347254889089994dd35f6f1560fa236833bd5758a52954742a919be9977cbde5"
 }

@@ -1,6 +1,6 @@
 # Rendimiento tras perfilar SQL y reutilizar conexiones HTTP
 
-> **Repetición posterior (2 de noviembre de 2026):** se aplicó el índice compuesto `ix_orders_user_created_id` y se repitió el benchmark con los mismos objetivos. El resultado completo está en [resultado.json](resultado.json): a 20 usuarios el historial quedó en p95 457,97 ms/p99 1150,35 ms, checkout en p95 1670,996 ms/p99 3390,071 ms, pago en p95 1081,58 ms y compra en p95 3,921 s. La prueba registró 0% de errores e invariantes correctas, pero queda `targets-not-met` por historial p99 y checkout p95/p99. Esta repetición reemplaza la conclusión de aprobación de corridas anteriores para la decisión actual.
+> **Repetición con entorno controlado (2 de noviembre de 2026):** se aplicó el índice compuesto `ix_orders_user_created_id`, se detuvieron temporalmente la instancia normal y Kubernetes, y se repitió el benchmark con los mismos objetivos. A 20 usuarios el historial quedó en p95 432,17 ms/p99 532,44 ms, checkout en p95 1247,45 ms/p99 1478,96 ms, pago en p95 2100,38 ms/p99 2865,33 ms y compra en p95 4,661 s. La prueba registró 0% de errores e invariantes correctas, pero queda `targets-not-met` por historial p99 y pago p95. Checkout cumple en este entorno controlado.
 
 **Resultado: OBJETIVOS NO CUMPLIDOS en la aceptación local de 20 usuarios.**
 
@@ -18,11 +18,11 @@ El diagnostico SQL/HTTP antes y despues se documenta en [perfilado](../perfilado
 
 | Metrica | Antes | Despues | Objetivo |
 | --- | ---: | ---: | ---: |
-| Compra p95 (s) | 8.205 | 3.921 | <=10 |
-| Compra p99 (s) | 10.702 | 6.284 | <=15 |
-| Solicitudes utiles/s | 58.47 | 75.50 | >=20 |
+| Compra p95 (s) | 8.205 | 4.661 | <=10 |
+| Compra p99 (s) | 10.702 | 5.941 | <=15 |
+| Solicitudes utiles/s | 58.47 | 75.38 | >=20 |
 | Errores HTTP inesperados (%) | 0.00 | 0.00 | <1 |
-| Compras medidas a 20 usuarios | 221 | 295 | >=100 |
+| Compras medidas a 20 usuarios | 221 | 286 | >=100 |
 
 Reduccion observada de p95 de compra frente a la línea base: **52.21%**. Es una comparacion de dos ejecuciones locales, no una demostracion de causalidad exclusiva ni una estimacion de capacidad productiva.
 
@@ -30,18 +30,18 @@ Reduccion observada de p95 de compra frente a la línea base: **52.21%**. Es una
 
 | Operacion p95 (ms) | Antes | Despues | Limite |
 | --- | ---: | ---: | ---: |
-| history | 804.31 | 457.97 | 500 |
-| checkout | 2894.15 | 1671.00 | 1500 |
-| payment | 2488.61 | 1081.58 | 2000 |
+| history | 804.31 | 432.17 | 500 |
+| checkout | 2894.15 | 1247.45 | 1500 |
+| payment | 2488.61 | 2100.38 | 2000 |
 
 ## Etapas de la nueva ejecucion
 
 | Usuarios | Segundos reales | HTTP | HTTP/s total | HTTP/s util | Errores (%) | Compra p95 (s) | Compra p99 (s) |
 | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| 1 | 60.13 | 945 | 15.72 | 13.57 | 0.00 | 1.663 | 1.957 |
-| 5 | 60.82 | 3551 | 58.39 | 50.77 | 0.00 | 2.086 | 2.914 |
-| 10 | 60.95 | 5053 | 82.90 | 71.47 | 0.00 | 2.634 | 3.327 |
-| 20 | 63.47 | 5566 | 87.70 | 75.50 | 0.00 | 3.921 | 6.284 |
+| 1 | 60.10 | 1017 | 16.92 | 14.60 | 0.00 | 1.721 | 2.020 |
+| 5 | 60.82 | 4111 | 67.59 | 60.00 | 0.00 | 2.218 | 2.948 |
+| 10 | 60.95 | 4655 | 76.38 | 66.70 | 0.00 | 3.455 | 4.828 |
+| 20 | 60.91 | 5395 | 88.59 | 75.38 | 0.00 | 4.661 | 5.941 |
 
 ## Todos los objetivos de latencia a 20 usuarios
 
@@ -50,22 +50,22 @@ Reduccion observada de p95 de compra frente a la línea base: **52.21%**. Es una
 | catalog | 1425 | 19.47 | 97.27 | 220.92 | 500/1000 | Cumple |
 | product | 1425 | 17.53 | 80.54 | 180.86 | 500/1000 | Cumple |
 | profile | 1425 | 10.07 | 30.18 | 55.06 | 500/1000 | Cumple |
-| history | 903 | 198.13 | 457.97 | 1150.35 | 500/1000 | No cumple |
-| cart_read | 295 | 15.79 | 154.53 | 291.77 | 500/1000 | Cumple |
-| cart_add | 295 | 57.01 | 288.97 | 333.32 | 1500/3000 | Cumple |
-| checkout | 295 | 770.82 | 1671.00 | 3390.07 | 1500/3000 | No cumple |
-| payment | 295 | 481.64 | 1081.58 | 1970.75 | 2000/5000 | Cumple |
-| purchase_flow | 295 | 2891.55 | 3921.15 | 6283.88 | 10000/15000 | Cumple |
+| history | 864 | 176.22 | 432.17 | 532.44 | 500/1000 | No cumple |
+| cart_read | 286 | 14.76 | 149.55 | 279.72 | 500/1000 | Cumple |
+| cart_add | 286 | 54.33 | 276.54 | 329.80 | 1500/3000 | Cumple |
+| checkout | 286 | 591.72 | 1247.45 | 1478.96 | 1500/3000 | Cumple |
+| payment | 286 | 513.88 | 2100.38 | 2865.33 | 2000/5000 | No cumple |
+| purchase_flow | 286 | 3237.23 | 4661.33 | 5941.48 | 10000/15000 | Cumple |
 
 ## Integridad
 
-15115 solicitudes HTTP medidas; 0 errores inesperados. Compras totales contando calentamiento: 857. Integridad: APROBADA.
+15028 solicitudes HTTP medidas; 0 errores inesperados. Compras totales contando calentamiento: 849. Integridad: APROBADA.
 
 Pagos: {'paid': 1051, 'other': 0, 'duplicate_orders': 0, 'published': 3153}. Pedidos: {'paid': 1051, 'other': 0, 'unfinished_checkouts': 0}. Inventario: {'stock': 998949, 'consumed': 1051, 'other': 0, 'processed_events': 1051}.
 
 ## Entorno y recursos
 
-Host Windows-11-10.0.26200-SP0; Docker 29.9.2, 8 CPU y 7.66 GiB. La corrida tuvo 40 contenedores adicionales activos (incluido el clúster Kubernetes local), por lo que existe contención externa no controlada. Generador y servicios comparten equipo. Versiones medidas: {'python': '3.12.16', 'fastapi': '0.162.0', 'sqlalchemy': '2.1.6', 'uvicorn': '0.54.0', 'httpx': '0.28.1', 'pika': '1.4.4', 'psycopg2-binary': '2.9.13'}.
+Host Windows-11-10.0.26200-SP0; Docker 29.9.2, 8 CPU y 7.66 GiB. La corrida controlada tuvo 5 contenedores adicionales del sistema; la instancia normal y Kubernetes se restauraron después. Generador y servicios comparten equipo. Versiones medidas: {'python': '3.12.16', 'fastapi': '0.162.0', 'sqlalchemy': '2.1.6', 'uvicorn': '0.54.0', 'httpx': '0.28.1', 'pika': '1.4.4', 'psycopg2-binary': '2.9.13'}.
 
 CPU 100 % representa aproximadamente un nucleo. Se muestrea cada cinco segundos mas el tiempo de docker stats; los maximos no necesariamente coinciden. No hay limites de recursos por servicio.
 
