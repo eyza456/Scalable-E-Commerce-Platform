@@ -1,33 +1,47 @@
 # Preparación futura: Kubernetes, TLS, réplicas y portabilidad
 
 Este bloque prepara los cuatro apartados que siguen fuera de la certificación
-productiva. Los artefactos son verificables localmente, pero no declaran un
-cluster Kubernetes, una CA pública, alta disponibilidad de datos ni ejecución en
-otro sistema operativo.
+productiva. RNF-07 ya tiene una verificación real en Docker Desktop Kubernetes;
+los límites de producción (multi-nodo, HA de datos, emisión pública condicionada
+a DNS y otros sistemas operativos) se mantienen explícitos.
 
 ## RNF-07 — Kubernetes
 
-`k8s/base` contiene Kustomize para namespace, configuración/secretos de ejemplo,
-cuatro PostgreSQL con PVC, Redis, RabbitMQ, seis servicios, gateway y frontend.
-`k8s/overlays/dev` añade un Ingress TLS para `ecommerce.local`.
+`k8s/base` contiene Kustomize para namespace, configuración, cuatro PostgreSQL
+con PVC, Redis y RabbitMQ persistentes, jobs de migración, seis servicios,
+gateway y frontend. `k8s/overlays/dev` añade un Ingress TLS para
+`ecommerce.local`.
 
 ```powershell
 kubectl kustomize k8s/base | kubectl apply --dry-run=client --validate=false -f -
-kubectl apply -k k8s/base
-kubectl -n ecommerce get pods,svc,statefulset
+.\scripts\deploy-k8s.ps1
+kubectl --context docker-desktop -n ecommerce get pods,svc,statefulset,pvc,jobs
 ```
 
-La validación offline se ejecuta con `python tests/future_preparation.py`. Antes
-de un despliegue real hay que publicar las imágenes en un registro, crear
-secretos fuera de Git, elegir StorageClass, configurar NetworkPolicies y probar
-backup/restore de las bases.
+El script construye y etiqueta las ocho imágenes locales, crea un Secret de
+desarrollo aleatorio directamente en Kubernetes (si aún no existe), aplica los
+manifiestos, espera los cuatro jobs de migración y verifica todos los rollouts.
+El Secret no se guarda en Git. La ejecución validada el 1 de noviembre de 2026
+usó el contexto `docker-desktop`, Kubernetes `v1.36.1`, 22 pods `Ready`, cuatro
+jobs `Complete` y seis PVC `Bound` con `StorageClass=hostpath`. El gateway
+respondió `200` en `/health`, `/api/products/` y `/api/categories`; el frontend
+respondió `200` por port-forward.
+
+La validación offline se ejecuta con `python tests/future_preparation.py`. Este
+despliegue demuestra operación local de un solo nodo. Antes de producción hay
+que publicar imágenes versionadas en un registro, usar un gestor de secretos,
+elegir una StorageClass redundante, configurar NetworkPolicies, backup/restore,
+monitoreo y un clúster multi-nodo.
 
 ## RNF-15 — HTTPS/TLS
 
 `gateway/nginx.tls.conf` solo permite TLS 1.2/1.3, redirige HTTP a HTTPS y añade
-HSTS. `compose.tls.yml` monta el certificado en `/etc/nginx/tls`. Los helpers
-generan una CA local (`ca.crt`) y firman el certificado de servidor para poder
-validarlo sin desactivar la verificación:
+HSTS. `compose.tls.yml` monta el certificado en `/etc/nginx/tls` y solo publica
+el puerto HTTPS; el puerto HTTP queda interno para la redirección y no se expone
+directamente. En Kubernetes, ambos overlays mantienen `api-gateway` como
+`ClusterIP` y el Ingress fuerza HTTPS. Los helpers generan una CA local
+(`ca.crt`) y firman el certificado de desarrollo para poder validarlo sin
+desactivar la verificación:
 
 ```powershell
 .\scripts\generate-dev-cert.ps1
@@ -37,8 +51,13 @@ curl.exe --ssl-no-revoke --cacert secrets/tls/ca.crt https://127.0.0.1:8443/heal
 ```
 
 La CA es local y el certificado de servidor dura 30 días: sirve para desarrollo,
-no para usuarios finales. Producción requiere cert-manager/CA confiable, rotación,
-políticas de cifrado y validación desde clientes reales.
+no para usuarios finales. `k8s/overlays/prod` configura cert-manager con Let's
+Encrypt ACME, CA pública confiable, renovación 30 días antes y rotación de clave
+privada. Aplicarlo requiere instalar cert-manager, usar un dominio público y
+completar el correo operativo; el helper es
+`scripts/apply-prod-tls.ps1`/`scripts/apply-prod-tls.sh`. La emisión pública no
+se puede validar en este clúster local sin DNS e Ingress accesibles desde
+Internet.
 
 ## RF-49 — fallo de una réplica
 

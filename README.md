@@ -1,4 +1,70 @@
-# 🛒 E-Commerce Microservices Architecture
+# 🛒 E-Commerce Microservices Platform
+
+> Plataforma personal de comercio electrónico construida para demostrar una arquitectura de microservicios, flujos de compra resilientes y una interfaz web conectada a APIs reales.
+
+[![Python](https://img.shields.io/badge/Python-3.11%2B-3776AB?logo=python&logoColor=white)](https://www.python.org/)
+[![FastAPI](https://img.shields.io/badge/API-FastAPI-009688?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
+[![Docker](https://img.shields.io/badge/Runtime-Docker%20Compose-2496ED?logo=docker&logoColor=white)](https://docs.docker.com/compose/)
+[![Kubernetes](https://img.shields.io/badge/Deploy-Kubernetes-326CE5?logo=kubernetes&logoColor=white)](k8s/README.md)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+
+Este proyecto es un laboratorio profesional y reproducible: todo el flujo puede ejecutarse localmente sin servicios cloud de pago. Incluye catálogo, categorías, stock, carrito, checkout, pagos simulados, historial, cancelaciones, roles y consola administrativa.
+
+## ✨ Qué demuestra
+
+| Área | Implementación |
+| --- | --- |
+| Arquitectura | Servicios independientes para usuarios, catálogo, carrito, pedidos, pagos y notificaciones |
+| Integración | API Gateway con rutas centralizadas y contratos HTTP documentados |
+| Consistencia | Revalidación de precio/stock, reservas atómicas, idempotencia y recuperación de checkout |
+| Mensajería | RabbitMQ, Outbox y consumidores recuperables |
+| Persistencia | PostgreSQL por servicio, Redis para carrito y migraciones versionadas |
+| Frontend | Interfaz responsive con catálogo, checkout, pagos simulados, pedidos y perfil |
+| Operación | Docker Compose, Kubernetes local, TLS, backups, alertas y pruebas de instalación limpia |
+
+## 🖥️ Vista previa
+
+<p align="center">
+  <img src="docs/frontend/catalogo-desktop.png" alt="Catálogo de productos en escritorio" width="48%">
+  <img src="docs/frontend/carrito-mobile.png" alt="Carrito de compras en móvil" width="28%">
+</p>
+
+Consulta el [recorrido visual completo](docs/frontend/demostracion-visual.md) y la [documentación del frontend](frontend/README.md).
+
+## 🚀 Inicio rápido
+
+```powershell
+Copy-Item .env.example .env
+# Editar .env y reemplazar los valores replace-me
+docker compose up -d --build
+Invoke-RestMethod http://localhost:8000/health
+```
+
+Frontend conectado:
+
+```powershell
+docker compose -f docker-compose.yml -f compose.frontend.yml up -d --build frontend
+Start-Process http://127.0.0.1:8080/
+```
+
+Consulta la [guía de instalación completa](docs/entrega/README.md) antes de usar datos persistentes.
+
+## 🧭 Documentación destacada
+
+- [Arquitectura y servicios](#-arquitectura-del-sistema)
+- [Frontend y demo visual](frontend/README.md)
+- [Matriz de requisitos y evidencias](docs/auditoria/matriz-requisitos.md)
+- [Operación, backups y alertas](docs/operacion-produccion.md)
+- [Kubernetes local y despliegue](k8s/README.md)
+- [Pendientes reales y límites](docs/entrega/pendientes.md)
+
+## Estado del proyecto
+
+El proyecto está preparado para demostración local y revisión técnica. La matriz contiene 78 requisitos: 76 cumplidos y 2 parciales, asociados a validaciones que requieren infraestructura externa real, como dominio público, Linux/macOS y alta disponibilidad multinodo. Los límites están documentados explícitamente; no se presenta el entorno local como producción.
+
+---
+
+## Historial técnico
 
 Revision del backend: [cambios de estabilizacion, pruebas y limites pendientes](docs/estabilizacion.md).
 

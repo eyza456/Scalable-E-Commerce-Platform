@@ -180,7 +180,7 @@
     "code": [
       {
         "path": "frontend/app/admin.js",
-        "line": 4
+        "line": 3
       },
       {
         "path": "frontend/app/app.js",
@@ -193,7 +193,7 @@
         "line": 94
       }
     ],
-    "note": "La consola gestiona usuarios/roles; productos, categorias, stock y estados de pedidos siguen por API."
+    "note": "La consola gestiona usuarios/roles, productos, categorias, stock y estados de pedidos; la API mantiene la autorizacion final."
   },
   {
     "id": "RF-09",
@@ -202,7 +202,7 @@
     "code": [
       {
         "path": "frontend/app/admin.js",
-        "line": 13
+        "line": 10
       },
       {
         "path": "frontend/app/app.js",
@@ -231,7 +231,7 @@
     "status": "API / sin pantalla",
     "code": [],
     "verification": [],
-    "note": "Capacidad del backend indicada en esta fila. No hay consola visual de administracion de productos, roles o estados de pedidos."
+    "note": "Capacidad del backend indicada en esta fila; la consola administrativa ofrece operaciones visuales para productos, categorias, stock y pedidos."
   },
   {
     "id": "RF-12",
@@ -291,7 +291,7 @@
     "status": "API / sin pantalla",
     "code": [],
     "verification": [],
-    "note": "Capacidad del backend indicada en esta fila. No hay consola visual de administracion de productos, roles o estados de pedidos."
+    "note": "Capacidad del backend indicada en esta fila; la consola administrativa permite operar productos, stock, roles y estados de pedidos."
   },
   {
     "id": "RF-15",
@@ -299,7 +299,7 @@
     "status": "API / sin pantalla",
     "code": [],
     "verification": [],
-    "note": "Capacidad del backend indicada en esta fila. No hay consola visual de administracion de productos, roles o estados de pedidos."
+    "note": "Capacidad del backend indicada en esta fila; la consola administrativa permite operar productos, stock, roles y estados de pedidos."
   },
   {
     "id": "RF-16",
@@ -321,7 +321,7 @@
         "line": 43
       }
     ],
-    "note": "Consulta/filtra categorias y stock. Clasificar productos o editar existencias sigue por API administrativa."
+    "note": "Consulta/filtra categorias y stock; la consola administrativa permite editar productos y existencias con permisos."
   },
   {
     "id": "RF-17",
@@ -403,7 +403,7 @@
     "status": "API / sin pantalla",
     "code": [],
     "verification": [],
-    "note": "Capacidad del backend indicada en esta fila. No hay consola visual de administracion de productos, roles o estados de pedidos."
+    "note": "Capacidad del backend indicada en esta fila; la consola administrativa permite operar productos, stock, roles y estados de pedidos."
   },
   {
     "id": "RF-21",
@@ -667,7 +667,7 @@
         "line": 96
       }
     ],
-    "note": "Historial privado, estado, fecha, items y total reales. Estado se consulta; administrarlo no tiene pantalla."
+    "note": "Historial privado, estado, fecha, items y total reales; la consola administrativa permite avanzar estados con permisos de administrador."
   },
   {
     "id": "RF-31",
@@ -693,7 +693,7 @@
         "line": 96
       }
     ],
-    "note": "Historial privado, estado, fecha, items y total reales. Estado se consulta; administrarlo no tiene pantalla."
+    "note": "Historial privado, estado, fecha, items y total reales; la consola administrativa permite avanzar estados con permisos de administrador."
   },
   {
     "id": "RF-32",
@@ -719,7 +719,7 @@
         "line": 96
       }
     ],
-    "note": "Historial privado, estado, fecha, items y total reales. Estado se consulta; administrarlo no tiene pantalla."
+    "note": "Historial privado, estado, fecha, items y total reales; la consola administrativa permite avanzar estados con permisos de administrador."
   },
   {
     "id": "RF-33",
@@ -745,7 +745,7 @@
         "line": 96
       }
     ],
-    "note": "Historial privado, estado, fecha, items y total reales. Estado se consulta; administrarlo no tiene pantalla."
+    "note": "Historial privado, estado, fecha, items y total reales; la consola administrativa permite avanzar estados con permisos de administrador."
   },
   {
     "id": "RF-34",
@@ -771,7 +771,7 @@
         "line": 96
       }
     ],
-    "note": "Historial privado, estado, fecha, items y total reales. Estado se consulta; administrarlo no tiene pantalla."
+    "note": "Historial privado, estado, fecha, items y total reales; la consola administrativa permite avanzar estados con permisos de administrador."
   },
   {
     "id": "RF-35",
@@ -797,7 +797,7 @@
         "line": 96
       }
     ],
-    "note": "Historial privado, estado, fecha, items y total reales. Estado se consulta; administrarlo no tiene pantalla."
+    "note": "Historial privado, estado, fecha, items y total reales; la consola administrativa permite avanzar estados con permisos de administrador."
   },
   {
     "id": "RF-36",
@@ -823,7 +823,7 @@
         "line": 96
       }
     ],
-    "note": "Historial privado, estado, fecha, items y total reales. Estado se consulta; administrarlo no tiene pantalla."
+    "note": "Historial privado, estado, fecha, items y total reales; la consola administrativa permite avanzar estados con permisos de administrador."
   },
   {
     "id": "RF-37",
@@ -857,7 +857,7 @@
         "line": 71
       }
     ],
-    "note": "Historial privado, estado, fecha, items y total reales. Estado se consulta; administrarlo no tiene pantalla."
+    "note": "Historial privado, estado, fecha, items y total reales; la consola administrativa permite avanzar estados con permisos de administrador."
   },
   {
     "id": "RF-38",
@@ -865,7 +865,7 @@
     "status": "API / sin pantalla",
     "code": [],
     "verification": [],
-    "note": "Capacidad del backend indicada en esta fila. No hay consola visual de administracion de productos, roles o estados de pedidos."
+    "note": "Capacidad del backend indicada en esta fila; la consola administrativa permite operar productos, stock, roles y estados de pedidos."
   },
   {
     "id": "RF-39",
@@ -1283,9 +1283,13 @@
       {
         "path": "docs/frontend/instalacion-desde-cero.json",
         "line": 1
+      },
+      {
+        "path": "docs/kubernetes/rnf-07.json",
+        "line": 1
       }
     ],
-    "note": "Este requisito sigue parcial. Instalacion y replicas locales verificadas en el mismo host Windows/Docker Linux; no se acreditan reparto del gateway, Kubernetes, TLS ni otro host por tener interfaz visual."
+    "note": "La cobertura visual no aplica: la operación Kubernetes queda acreditada por infraestructura. Docker Desktop/Kubernetes local y la instalación frontend siguen en el mismo host Windows; no se afirma HA multi-nodo, TLS productivo ni portabilidad a otro host."
   },
   {
     "id": "RNF-11",
@@ -1372,7 +1376,7 @@
         "line": 1
       }
     ],
-    "note": "Este requisito sigue parcial. Instalacion y replicas locales verificadas en el mismo host Windows/Docker Linux; no se acreditan reparto del gateway, Kubernetes, TLS ni otro host por tener interfaz visual."
+    "note": "La cobertura visual no aplica: TLS, CA y rotacion se acreditan por manifiestos y pruebas offline. La emision publica requiere un dominio, DNS, Ingress y cert-manager reales."
   },
   {
     "id": "RNF-17",

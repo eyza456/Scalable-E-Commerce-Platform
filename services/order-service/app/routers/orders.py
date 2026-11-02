@@ -68,6 +68,23 @@ def list_orders(
     )
 
 
+@router.get("/admin", response_model=list[OrderResponse])
+def list_all_orders(
+    skip: int = Query(0, ge=0),
+    limit: int = Query(100, ge=1, le=100),
+    order_status: (
+        Literal[
+            "PENDING", "CANCELLING", "CANCELLED", "PAID",
+            "PROCESSING", "SHIPPED", "DELIVERED",
+        ]
+        | None
+    ) = Query(None, alias="status"),
+    current_user: dict = Depends(require_admin),
+    db: Session = Depends(get_db),
+):
+    return JSONResponse(content=actions.list_all_orders(skip, limit, order_status, db))
+
+
 @router.post(
     "/{order_id}/cancel",
     response_model=OrderResponse,

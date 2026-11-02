@@ -1,0 +1,26 @@
+{
+  "status": "partial",
+  "executed_at": "2026-11-02T00:52:00-04:00",
+  "context": "docker-desktop",
+  "components": {
+    "cert_manager": "v1.21.3",
+    "ingress_nginx": "v1.15.1",
+    "ingress_class": "nginx",
+    "certificate_issuer": "Let's Encrypt ACME configured in k8s/overlays/prod",
+    "rotation": {
+      "duration": "2160h",
+      "renew_before": "720h",
+      "private_key_rotation": "Always"
+    }
+  },
+  "local_smoke": {
+    "http_status": 308,
+    "http_location": "https://ecommerce.local/health",
+    "https_status": 200,
+    "hsts": "max-age=31536000; includeSubDomains",
+    "ca_verification": "OpenSSL Verify return code: 0 (ok)",
+    "direct_gateway_service": "ClusterIP",
+    "compose_tls_published_ports": [8443]
+  },
+  "limitation": "La emision publica de Let's Encrypt requiere dominio, DNS, Ingress accesible y correo operativo reales; no se simula esa evidencia en el clúster local."
+}

@@ -1,89 +1,49 @@
 'use strict';
-// Administrative user console. It intentionally exposes only the role and active flag
-// already authorized by the user-service API; no passwords or sensitive fields are shown.
-window.NexoAdmin = function ({api, state, $, element}) {
-  let owner = null, epoch = 0, users = [], loading = false, query = '', statusMessage = '';
+// Consola administrativa: usuarios, catálogo, categorías, stock y pedidos.
+window.NexoAdmin = function ({api, state, $, element, money}) {
+  let owner = null, epoch = 0, users = [], products = [], categories = [], orders = [];
+  let loading = false, query = '', statusMessage = '', activeTab = 'users';
   const roles = ['Customer', 'seller', 'admin'];
   const current = version => version === epoch && state.token && state.user?.id === owner && state.user?.role === 'admin';
-  const formatDate = value => {
-    if (!value) return '—';
-    const date = new Date(value);
-    return Number.isNaN(date.valueOf()) ? String(value) : new Intl.DateTimeFormat('es-BO', {dateStyle: 'medium'}).format(date);
-  };
+  const formatDate = value => { if (!value) return '—'; const date = new Date(value); return Number.isNaN(date.valueOf()) ? String(value) : new Intl.DateTimeFormat('es-BO', {dateStyle: 'medium'}).format(date); };
+  const showStatus = (id, message) => { const node = $(id); if (node) node.textContent = message || ''; };
   function render() {
     const admin = owner !== null && state.user?.role === 'admin' && Boolean(state.token);
-    $('admin-private').hidden = !admin;
-    $('admin-denied').hidden = admin;
-    $('admin-users').setAttribute('aria-busy', String(loading));
+    $('admin-private').hidden = !admin; $('admin-denied').hidden = admin; $('admin-users').setAttribute('aria-busy', String(loading));
     if (!admin) { $('admin-users').replaceChildren(); return; }
-    const needle = query.trim().toLocaleLowerCase();
-    const visible = users.filter(user => !needle || `${user.name} ${user.email} ${user.role}`.toLocaleLowerCase().includes(needle));
-    $('admin-users').replaceChildren(...visible.map(userRow));
-    $('admin-status').textContent = loading ? 'Cargando usuarios…' : statusMessage || `${visible.length} de ${users.length} usuarios mostrados.`;
+    const needle = query.trim().toLocaleLowerCase(); const visible = users.filter(user => !needle || `${user.name} ${user.email} ${user.role}`.toLocaleLowerCase().includes(needle));
+    $('admin-users').replaceChildren(...visible.map(userRow)); $('admin-status').textContent = loading ? 'Cargando usuarios…' : statusMessage || `${visible.length} de ${users.length} usuarios mostrados.`;
+    document.querySelectorAll('[data-admin-tab]').forEach(tab => tab.setAttribute('aria-selected', String(tab.dataset.adminTab === activeTab)));
+    document.querySelectorAll('[data-admin-panel]').forEach(panel => { panel.hidden = panel.dataset.adminPanel !== activeTab; });
   }
   function userRow(user) {
-    const row = document.createElement('tr');
-    const identity = document.createElement('td');
-    identity.append(element('strong', user.name), element('span', user.email, 'admin-email'), element('small', `Alta: ${formatDate(user.create_at)}`));
-    const roleCell = document.createElement('td');
-    const roleLabel = element('label', `Rol de ${user.name}`, 'sr-only');
-    const role = document.createElement('select'); role.id = `admin-role-${user.id}`; role.setAttribute('aria-label', `Rol de ${user.name}`);
-    for (const value of roles) { const option = element('option', value === 'Customer' ? 'Cliente' : value === 'seller' ? 'Vendedor' : 'Administrador'); option.value = value; option.selected = user.role === value; role.append(option); }
-    roleLabel.htmlFor = role.id; roleCell.append(roleLabel, role);
-    const stateCell = document.createElement('td');
-    const activeLabel = document.createElement('label'); activeLabel.className = 'admin-active';
-    const active = document.createElement('input'); active.type = 'checkbox'; active.checked = Boolean(user.is_active); active.id = `admin-active-${user.id}`; active.setAttribute('aria-label', `${user.is_active ? 'Desactivar' : 'Activar'} ${user.name}`);
-    activeLabel.append(active, element('span', user.is_active ? 'Activo' : 'Inactivo')); stateCell.append(activeLabel);
-    const actionCell = document.createElement('td');
-    const save = element('button', 'Guardar', 'secondary'); save.type = 'button'; save.id = `admin-save-${user.id}`;
-    const isSelf = state.user?.id === user.id;
-    if (isSelf) {
-      role.disabled = true; active.disabled = true; save.disabled = true; save.title = 'No puedes cambiar tu propia cuenta desde aquí';
-      actionCell.append(save, element('small', 'Tu cuenta')); row.classList.add('admin-self');
-    } else {
-      save.addEventListener('click', () => updateUser(user, role, active, save)); actionCell.append(save);
-    }
+    const row = document.createElement('tr'); const identity = document.createElement('td'); identity.append(element('strong', user.name), element('span', user.email, 'admin-email'), element('small', `Alta: ${formatDate(user.create_at)}`));
+    const roleCell = document.createElement('td'); const role = document.createElement('select'); role.setAttribute('aria-label', `Rol de ${user.name}`); for (const value of roles) { const option = element('option', value === 'Customer' ? 'Cliente' : value === 'seller' ? 'Vendedor' : 'Administrador'); option.value = value; option.selected = user.role === value; role.append(option); } roleCell.append(role);
+    const stateCell = document.createElement('td'); const activeLabel = element('label'); activeLabel.className = 'admin-active'; const active = document.createElement('input'); active.type = 'checkbox'; active.checked = Boolean(user.is_active); active.setAttribute('aria-label', `${user.is_active ? 'Desactivar' : 'Activar'} ${user.name}`); activeLabel.append(active, element('span', user.is_active ? 'Activo' : 'Inactivo')); stateCell.append(activeLabel);
+    const actionCell = document.createElement('td'); const save = element('button', 'Guardar', 'secondary'); save.type = 'button'; const isSelf = state.user?.id === user.id;
+    if (isSelf) { role.disabled = true; active.disabled = true; save.disabled = true; save.title = 'No puedes cambiar tu propia cuenta'; actionCell.append(save, element('small', 'Tu cuenta')); row.classList.add('admin-self'); } else { save.addEventListener('click', () => updateUser(user, role, active, save)); actionCell.append(save); }
     row.append(identity, roleCell, stateCell, actionCell); return row;
   }
-  async function load() {
-    if (!state.token || state.user?.role !== 'admin') { users = []; render(); return; }
-    const version = epoch; loading = true; statusMessage = ''; $('admin-error').hidden = true; render();
-    try {
-      const result = await api('/users?skip=0&limit=100', {authenticated: true});
-      if (!current(version)) return;
-      users = Array.isArray(result) ? result : [];
-      statusMessage = `${users.length} usuarios cargados.`;
-    } catch (error) {
-      if (!current(version)) return;
-      $('admin-error').textContent = error.message; $('admin-error').hidden = false; users = [];
-    } finally { if (current(version)) { loading = false; render(); } }
+  async function loadUsers() { if (!current(epoch)) return; loading = true; render(); try { const result = await api('/users?skip=0&limit=100', {authenticated: true}); users = Array.isArray(result) ? result : []; statusMessage = `${users.length} usuarios cargados.`; } catch (error) { $('admin-error').textContent = error.message; $('admin-error').hidden = false; users = []; } finally { loading = false; render(); } }
+  async function updateUser(user, role, active, save) { if (!current(epoch) || user.id === state.user.id || save.disabled) return; const changes = {}; if (role.value !== user.role) changes.role = role.value; if (active.checked !== Boolean(user.is_active)) changes.is_active = active.checked; if (!Object.keys(changes).length) { statusMessage = 'No hay cambios para guardar.'; render(); return; } save.disabled = true; try { const updated = await api(`/users/${user.id}`, {method: 'PATCH', authenticated: true, body: changes}); const index = users.findIndex(item => item.id === user.id); if (index >= 0) users[index] = updated; statusMessage = `Cambios guardados para ${updated.name}.`; } catch (error) { $('admin-error').textContent = error.message; $('admin-error').hidden = false; } finally { save.disabled = false; render(); } }
+  function productRow(product) {
+    const row = document.createElement('tr'); const price = document.createElement('input'); price.type = 'number'; price.step = '0.01'; price.min = '0.01'; price.value = product.price; price.setAttribute('aria-label', `Precio de ${product.name}`); const stock = document.createElement('input'); stock.type = 'number'; stock.min = '0'; stock.value = product.stock; stock.setAttribute('aria-label', `Stock de ${product.name}`); const state = document.createElement('select'); for (const [value, label] of [['true', 'Activo'], ['false', 'Inactivo']]) { const option = element('option', label); option.value = value; option.selected = String(product.is_active) === value; state.append(option); }
+    const action = element('td'); const save = element('button', 'Guardar', 'secondary'); save.type = 'button'; const remove = element('button', 'Eliminar', 'secondary'); remove.type = 'button';
+    save.addEventListener('click', async () => { save.disabled = true; try { const updated = await api(`/products/${product.id}`, {method: 'PUT', authenticated: true, body: {price: Number(price.value), stock: Number(stock.value), is_active: state.value === 'true'}}); products[products.findIndex(item => item.id === product.id)] = updated; showStatus('admin-product-status', `Producto ${updated.name} actualizado.`); renderProducts(); } catch (error) { showStatus('admin-product-status', error.message); } finally { save.disabled = false; } });
+    remove.addEventListener('click', async () => { if (!confirm(`¿Eliminar ${product.name}?`)) return; remove.disabled = true; try { await api(`/products/${product.id}`, {method: 'DELETE', authenticated: true}); products = products.filter(item => item.id !== product.id); showStatus('admin-product-status', 'Producto eliminado.'); renderProducts(); } catch (error) { showStatus('admin-product-status', error.message); } finally { remove.disabled = false; } });
+    const priceCell = document.createElement('td'); priceCell.append(price); const stockCell = document.createElement('td'); stockCell.append(stock); const stateCell = document.createElement('td'); stateCell.append(state); row.append(element('td', product.name), priceCell, stockCell, stateCell, action); action.append(save, remove); return row;
   }
-  async function updateUser(user, role, active, save) {
-    if (!current(epoch) || user.id === state.user.id || save.disabled) return;
-    const changes = {};
-    if (role.value !== user.role) changes.role = role.value;
-    if (active.checked !== Boolean(user.is_active)) changes.is_active = active.checked;
-    if (!Object.keys(changes).length) { statusMessage = 'No hay cambios para guardar.'; render(); return; }
-    save.disabled = true; role.disabled = true; active.disabled = true; $('admin-error').hidden = true;
-    try {
-      const updated = await api(`/users/${user.id}`, {method: 'PATCH', authenticated: true, body: changes});
-      if (!current(epoch)) return;
-      const index = users.findIndex(item => item.id === user.id); if (index >= 0) users[index] = updated;
-      statusMessage = `Cambios guardados para ${updated.name}.`; render();
-    } catch (error) {
-      if (!current(epoch)) return;
-      role.value = user.role; active.checked = Boolean(user.is_active); $('admin-error').textContent = error.message; $('admin-error').hidden = false;
-      save.disabled = false; role.disabled = false; active.disabled = false;
-    }
-  }
-  $('admin-toolbar').addEventListener('submit', event => { event.preventDefault(); query = $('admin-search').value; statusMessage = ''; render(); });
-  $('admin-refresh').addEventListener('click', () => load());
-  return {
-    session(id) {
-      if (id !== owner) { epoch++; owner = id; users = []; query = ''; statusMessage = ''; $('admin-search').value = ''; $('admin-error').hidden = true; }
-      render();
-      if (state.user?.role === 'admin' && id !== null && !loading) load();
-    },
-    route(view) { if (view === 'admin' && state.user?.role === 'admin' && !users.length && !loading) load(); }
-  };
+  function renderProducts() { $('admin-products').replaceChildren(...products.map(productRow)); }
+  async function loadProducts() { try { const result = await api('/products/?skip=0&limit=100'); products = Array.isArray(result) ? result : []; renderProducts(); showStatus('admin-product-status', `${products.length} productos cargados.`); } catch (error) { showStatus('admin-product-status', error.message); } }
+  async function createProduct(event) { event.preventDefault(); const body = {name: $('admin-product-name').value.trim(), price: Number($('admin-product-price').value), stock: Number($('admin-product-stock').value)}; const category = Number($('admin-product-category').value); if (category) body.category_id = category; try { const created = await api('/products/', {method: 'POST', authenticated: true, body}); products.unshift(created); event.currentTarget.reset(); renderProducts(); showStatus('admin-product-status', 'Producto creado.'); } catch (error) { showStatus('admin-product-status', error.message); } }
+  function categoryRow(category) { const row = document.createElement('tr'); const action = element('td'); const remove = element('button', 'Eliminar', 'secondary'); remove.type = 'button'; remove.addEventListener('click', async () => { if (!confirm(`¿Eliminar ${category.name}?`)) return; try { await api(`/categories/${category.id}`, {method: 'DELETE', authenticated: true}); categories = categories.filter(item => item.id !== category.id); renderCategories(); showStatus('admin-category-status', 'Categoría eliminada.'); } catch (error) { showStatus('admin-category-status', error.message); } }); action.append(remove); row.append(element('td', category.name), action); return row; }
+  function renderCategories() { $('admin-categories').replaceChildren(...categories.map(categoryRow)); }
+  async function loadCategories() { try { const result = await api('/categories?skip=0&limit=100'); categories = Array.isArray(result) ? result : []; renderCategories(); showStatus('admin-category-status', `${categories.length} categorías cargadas.`); } catch (error) { showStatus('admin-category-status', error.message); } }
+  async function createCategory(event) { event.preventDefault(); try { const created = await api('/categories', {method: 'POST', authenticated: true, body: {name: $('admin-category-name').value.trim()}}); categories.unshift(created); event.currentTarget.reset(); renderCategories(); showStatus('admin-category-status', 'Categoría creada.'); } catch (error) { showStatus('admin-category-status', error.message); } }
+  function orderRow(order) { const row = document.createElement('tr'); const state = document.createElement('select'); const next = {PAID: 'PROCESSING', PROCESSING: 'SHIPPED', SHIPPED: 'DELIVERED'}[order.status]; if (next) { const option = element('option', next); option.value = next; state.append(option); } else { state.disabled = true; state.append(element('option', order.status)); } const action = element('td'); const save = element('button', 'Actualizar', 'secondary'); save.type = 'button'; save.disabled = !next; save.addEventListener('click', async () => { save.disabled = true; try { const updated = await api(`/orders/${order.id}/status`, {method: 'PATCH', authenticated: true, body: {status: state.value}}); order.status = updated.status; showStatus('admin-order-status-message', `Pedido #${order.id} actualizado.`); renderOrders(); } catch (error) { showStatus('admin-order-status-message', error.message); save.disabled = false; } }); action.append(save); row.append(element('td', `#${order.id}`), element('td', String(order.user_id)), element('td', `Bs ${money(order.total)}`), element('td', order.status), action); return row; }
+  function renderOrders() { $('admin-orders').replaceChildren(...orders.map(orderRow)); }
+  async function loadOrders() { try { const status = $('admin-order-status').value; const result = await api(`/orders/admin?limit=100${status ? `&status=${encodeURIComponent(status)}` : ''}`, {authenticated: true}); orders = Array.isArray(result) ? result : []; renderOrders(); showStatus('admin-order-status-message', `${orders.length} pedidos cargados.`); } catch (error) { showStatus('admin-order-status-message', error.message); } }
+  document.querySelectorAll('[data-admin-tab]').forEach(tab => tab.addEventListener('click', () => { activeTab = tab.dataset.adminTab; render(); if (activeTab === 'products') loadProducts(); if (activeTab === 'categories') loadCategories(); if (activeTab === 'orders') loadOrders(); }));
+  $('admin-toolbar').addEventListener('submit', event => { event.preventDefault(); query = $('admin-search').value; statusMessage = ''; render(); }); $('admin-refresh').addEventListener('click', loadUsers); $('admin-product-form').addEventListener('submit', createProduct); $('admin-category-form').addEventListener('submit', createCategory); $('admin-orders-filter').addEventListener('submit', event => { event.preventDefault(); loadOrders(); });
+  return { session(id) { if (id !== owner) { epoch++; owner = id; users = []; products = []; categories = []; orders = []; query = ''; statusMessage = ''; $('admin-search').value = ''; $('admin-error').hidden = true; } render(); if (state.user?.role === 'admin' && id !== null && !loading) loadUsers(); }, route(view) { if (view === 'admin' && state.user?.role === 'admin' && !users.length && !loading) loadUsers(); } };
 };

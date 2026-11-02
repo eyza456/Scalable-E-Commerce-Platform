@@ -35,3 +35,15 @@ def list_owned(db, user_id, skip, limit, status=None):
         .limit(limit)
         .all()
     )
+
+
+def list_all(db, skip, limit, status=None):
+    query = db.query(Order).options(joinedload(Order.items))
+    if status is not None:
+        query = query.filter(Order.status == status)
+    return (
+        query.order_by(Order.created_at.desc(), Order.id.desc())
+        .offset(skip)
+        .limit(limit)
+        .all()
+    )

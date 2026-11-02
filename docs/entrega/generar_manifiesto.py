@@ -24,7 +24,7 @@ def main():
     rows = json.loads((ROOT / "docs/auditoria/matriz-requisitos.json").read_text(encoding="utf-8"))
     assert len(rows) == 78 and len({r["id"] for r in rows}) == 78
     counts = Counter(r["status"] for r in rows)
-    assert counts == {"Cumplido": 75, "Parcial": 3}
+    assert counts == {"Cumplido": 76, "Parcial": 2}
     suite = json.loads((ROOT / "docs/auditoria/resultado-suite.json").read_text(encoding="utf-8"))
     assert suite["unittest_total"] == 164 and suite["observed_exit_code"] == 0
     assert suite["asgi_import_checks"] == 6

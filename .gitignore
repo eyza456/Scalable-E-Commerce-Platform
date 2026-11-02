@@ -47,4 +47,5 @@ Thumbs.db
 
 # PostgreSQL
 postgres_data/
+backups/
 .env

@@ -70,11 +70,11 @@
   "status": "passed",
   "date": "2026-11-01T17:39:09.014Z",
   "sha256": {
-    "frontend/app/index.html": "dbbc197874a4a2a600af239fd271a78aee726ddbb2469f09e2b45da64fbed1ae",
+    "frontend/app/index.html": "618c2a1bf8299d5ac7adc5d652e5bdb024060a172f1daa2fe0753b656c0b3ac1",
     "frontend/app/app.js": "aa457ca4e62b76b5151a259db0f30d4d62f1b78b199ffaf4d0f6ba34c438c7f4",
     "frontend/app/commerce.js": "bcea0186f1767b3f37c28ebeedfb679319bd50d7c01728cb9760e68887a9ea82",
-    "frontend/app/admin.js": "bfdf8036c9c6ed2e571e982d494f51cf526bf12a72c0f6325a8ba2364b41e267",
-    "frontend/app/styles.css": "6e07a5bf4f8ea3ef4a1afacd9dad573595ced360711036e8fa7911db93c4d0ca",
+    "frontend/app/admin.js": "9188e00991a1016b0770c3f03abc8c31bd7ec9e9a95d7fa05109cd0be13c0fb5",
+    "frontend/app/styles.css": "dbe1935ef76d42988d9cb10b43ea175ecec8664b10659c6a8b8cee94ed91d052",
     "tests/frontend_visual_optional.cjs": "eeb62e97af166ec94b4282a344502858f50695e8a61c3e43cbbe431fa2ad1329"
   }
 }

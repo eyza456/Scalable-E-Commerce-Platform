@@ -10,7 +10,7 @@ spec:
     spec:
       containers:
         - name: postgres
-          image: postgres:16
+          image: postgres@sha256:c1b3783309b6499c795eed7c20135a1a4d25cae1b575c3d52c6f536129a1b109
           ports: [{name: postgres, containerPort: 5432}]
           env:
             - {name: POSTGRES_DB, valueFrom: {configMapKeyRef: {name: ecommerce-config, key: USER_DB_NAME}}}
@@ -20,7 +20,7 @@ spec:
           volumeMounts: [{name: data, mountPath: /var/lib/postgresql/data}]
   volumeClaimTemplates:
     - metadata: {name: data}
-      spec: {accessModes: [ReadWriteOnce], resources: {requests: {storage: 2Gi}}}
+      spec: {storageClassName: hostpath, accessModes: [ReadWriteOnce], resources: {requests: {storage: 2Gi}}}
 ---
 apiVersion: apps/v1
 kind: StatefulSet
@@ -34,7 +34,7 @@ spec:
     spec:
       containers:
         - name: postgres
-          image: postgres:16
+          image: postgres@sha256:c1b3783309b6499c795eed7c20135a1a4d25cae1b575c3d52c6f536129a1b109
           ports: [{name: postgres, containerPort: 5432}]
           env:
             - {name: POSTGRES_DB, valueFrom: {configMapKeyRef: {name: ecommerce-config, key: PRODUCT_DB_NAME}}}
@@ -44,7 +44,7 @@ spec:
           volumeMounts: [{name: data, mountPath: /var/lib/postgresql/data}]
   volumeClaimTemplates:
     - metadata: {name: data}
-      spec: {accessModes: [ReadWriteOnce], resources: {requests: {storage: 2Gi}}}
+      spec: {storageClassName: hostpath, accessModes: [ReadWriteOnce], resources: {requests: {storage: 2Gi}}}
 ---
 apiVersion: apps/v1
 kind: StatefulSet
@@ -58,7 +58,7 @@ spec:
     spec:
       containers:
         - name: postgres
-          image: postgres:16
+          image: postgres@sha256:c1b3783309b6499c795eed7c20135a1a4d25cae1b575c3d52c6f536129a1b109
           ports: [{name: postgres, containerPort: 5432}]
           env:
             - {name: POSTGRES_DB, valueFrom: {configMapKeyRef: {name: ecommerce-config, key: ORDER_DB_NAME}}}
@@ -68,7 +68,7 @@ spec:
           volumeMounts: [{name: data, mountPath: /var/lib/postgresql/data}]
   volumeClaimTemplates:
     - metadata: {name: data}
-      spec: {accessModes: [ReadWriteOnce], resources: {requests: {storage: 2Gi}}}
+      spec: {storageClassName: hostpath, accessModes: [ReadWriteOnce], resources: {requests: {storage: 2Gi}}}
 ---
 apiVersion: apps/v1
 kind: StatefulSet
@@ -82,7 +82,7 @@ spec:
     spec:
       containers:
         - name: postgres
-          image: postgres:16
+          image: postgres@sha256:c1b3783309b6499c795eed7c20135a1a4d25cae1b575c3d52c6f536129a1b109
           ports: [{name: postgres, containerPort: 5432}]
           env:
             - {name: POSTGRES_DB, valueFrom: {configMapKeyRef: {name: ecommerce-config, key: PAYMENT_DB_NAME}}}
@@ -92,24 +92,34 @@ spec:
           volumeMounts: [{name: data, mountPath: /var/lib/postgresql/data}]
   volumeClaimTemplates:
     - metadata: {name: data}
-      spec: {accessModes: [ReadWriteOnce], resources: {requests: {storage: 2Gi}}}
+      spec: {storageClassName: hostpath, accessModes: [ReadWriteOnce], resources: {requests: {storage: 2Gi}}}
 ---
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata: {name: redis}
 spec:
+  serviceName: redis
   replicas: 1
   selector: {matchLabels: {app: redis}}
   template:
     metadata: {labels: {app: redis}}
     spec:
       containers:
-        - {name: redis, image: redis:7-alpine, ports: [{name: redis, containerPort: 6379}], readinessProbe: {exec: {command: ["redis-cli", "ping"]}, periodSeconds: 5}}
+        - name: redis
+          image: redis@sha256:ff02b58f971e7d7d156a1267e283fcbbeee91773b6aa36c49dac28ecfe28eadf
+          command: ["redis-server", "--appendonly", "yes", "--appendfsync", "everysec", "--save", "60", "1"]
+          ports: [{name: redis, containerPort: 6379}]
+          readinessProbe: {exec: {command: ["redis-cli", "ping"]}, periodSeconds: 5}
+          volumeMounts: [{name: data, mountPath: /data}]
+  volumeClaimTemplates:
+    - metadata: {name: data}
+      spec: {storageClassName: hostpath, accessModes: [ReadWriteOnce], resources: {requests: {storage: 1Gi}}}
 ---
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata: {name: rabbitmq}
 spec:
+  serviceName: rabbitmq
   replicas: 1
   selector: {matchLabels: {app: rabbitmq}}
   template:
@@ -117,6 +127,13 @@ spec:
     spec:
       containers:
         - name: rabbitmq
-          image: rabbitmq:3-management
+          image: rabbitmq@sha256:e582c0bc7766f3342496d8485efb5a1df782b5ce3886ad017e2eaae442311f69
           ports: [{name: amqp, containerPort: 5672}, {name: management, containerPort: 15672}]
-          readinessProbe: {exec: {command: ["rabbitmq-diagnostics", "-q", "ping"]}, initialDelaySeconds: 10, periodSeconds: 5}
+          env:
+            - name: RABBITMQ_ERLANG_COOKIE
+              valueFrom: {secretKeyRef: {name: ecommerce-secrets, key: RABBITMQ_ERLANG_COOKIE}}
+          readinessProbe: {exec: {command: ["rabbitmq-diagnostics", "-q", "ping"]}, initialDelaySeconds: 20, timeoutSeconds: 5, periodSeconds: 5, failureThreshold: 12}
+          volumeMounts: [{name: data, mountPath: /var/lib/rabbitmq}]
+  volumeClaimTemplates:
+    - metadata: {name: data}
+      spec: {storageClassName: hostpath, accessModes: [ReadWriteOnce], resources: {requests: {storage: 1Gi}}}

@@ -1,6 +1,6 @@
 # Pendientes reales y prioridades
 
-Revision: 1 de noviembre de 2026. Matriz vigente: 74 cumplidos, 4 parciales y 0 pendientes de 78. No se incluyen como pendientes los seis defectos iniciales ya corregidos. RNF-01 tiene objetivos medidos en el perfil local, pero no representa un SLA productivo. La preparación futura de Kubernetes, TLS, fallo de réplicas y portabilidad está documentada en [preparacion-futura.md](../preparacion-futura.md).
+Revision: 2 de noviembre de 2026. Matriz vigente: 76 cumplidos, 2 parciales y 0 pendientes de 78. No se incluyen como pendientes los seis defectos iniciales ya corregidos. RNF-01 tiene objetivos medidos en el perfil local, pero no representa un SLA productivo. Kubernetes local queda acreditado por [preparacion-futura.md](../preparacion-futura.md); TLS productivo y portabilidad siguen abiertos.
 
 ## Cierre del candidato integrado
 
@@ -22,7 +22,7 @@ Estas diferencias no cambian los 78 estados formales: las capacidades existen po
 | Prioridad de ampliacion | Falta visual | Situacion de entrega |
 | --- | --- | --- |
 | Cerrado en alcance local | Boton dedicado de vaciado completo del carrito (RF-25) | Dialogo accesible y DELETE /api/cart con confirmacion; prueba visual opcional |
-| Parcial / segun alcance administrativo | Alta/edicion/borrado de productos, categorias, stock, roles y transiciones de pedidos | Consola GUI de usuarios/roles implementada; productos, categorias, stock y pedidos siguen por API |
+| Cerrado en alcance local | Alta/edicion/borrado de productos, categorias, stock, roles y transiciones de pedidos | Consola GUI administrativa implementada; la API conserva autorización y validación final |
 | Parcial | Revision con lector de pantalla, otro navegador y zoom real 200% | Axe, nombres/roles, teclado y zoom 200% automatizados; motores disponibles se registran y falta validacion manual con lector nativo |
 
 No hay recuperacion de contraseña, verificacion de correo o sesion persistente
@@ -32,16 +32,16 @@ en navegador; no se presentan como funcionalidades implementadas.
 
 La [clasificacion de los ocho parciales](plan-cierre-parciales.md) detalla el
 alcance y las pruebas de cierre. RNF-05/06 y RNF-08/21 quedan cerrados en el
-alcance local con sus perfiles, contratos y migraciones. Restan cuatro parciales:
-RNF-27 y la preparación futura de RF-49, RNF-07 y RNF-15. La portabilidad requiere
-otro host.
+alcance local con sus perfiles, contratos y migraciones. Restan dos parciales:
+RNF-27 y la validación pública de RNF-15; RF-49 y RNF-07 tienen preparación y
+evidencia local verificadas. La portabilidad requiere otro host.
 
 | Orden | Requisito | Falta y accion concreta | Evidencia para cerrar |
 | --- | --- | --- | --- |
 | Cerrado en alcance local | RNF-01, Cumplido | Referencia de una instancia: historial 286,88 ms, checkout 770,97 ms, pago 525,38 ms y compra 2,738 s en p95. El perfil multinstancia tambien aprueba los mismos 30 criterios | [Referencia](../rendimiento/informe.md), [perfil SQL/HTTP](../perfilado/informe.md) y [nueva carga](../escalabilidad/README.md). Ampliar volumen y duracion antes de inferir capacidad productiva |
 | Cerrado en alcance local | RNF-05/06, Cumplido | Overlay aislado; dos instancias de los seis servicios, escalado independiente 2/3/1/2 y compra/cancelacion concurrentes | [Evidencias](../escalabilidad/README.md), incluido benchmark original aprobado; sin garantia productiva |
 | 3 / media | RNF-27, Parcial | Ejecutar instalación limpia en un host Linux y otro macOS; ya existen helpers PowerShell/POSIX | [Preparación futura](../preparacion-futura.md) y `tests/frontend_fresh_install.py` |
-| 4 / media | RNF-07/15/49, Parciales | Aplicar Kubernetes en un cluster, usar certificados confiables y observar fallo/reparto de réplicas en un entorno real | [Preparación futura](../preparacion-futura.md); los manifests y runners locales ya están preparados |
+| 4 / media | RNF-15/49, Parciales | Emitir el certificado público con dominio/DNS/Ingress reales y observar fallo/reparto de réplicas en un entorno real | [Preparación futura](../preparacion-futura.md); configuración cert-manager y Kubernetes local ya están verificadas |
 
 Estos pendientes limitan la afirmacion de cumplimiento del PDF; no se han ocultado como capacidades productivas. Se entrega RC para revision y demostracion mientras siguen abiertos.
 
@@ -49,18 +49,18 @@ Estos pendientes limitan la afirmacion de cumplimiento del PDF; no se han oculta
 
 | Prioridad | Limite actual | Siguiente trabajo |
 | --- | --- | --- |
-| Cerrado en alcance local | Persistencia Redis y RabbitMQ | `redis_data` con AOF, `rabbitmq_data` con cookie/Mnesia, scripts de backup/restore y hashes SHA-256. Falta probar restore en una instalacion aislada y custodiar copias fuera del host |
-| Alta | Acceso HTTP local y puertos directos publicados | Perfil de despliegue con HTTPS, certificados, puertos internos cerrados y gestion/rotacion de secretos |
-| Parcial | Recuperacion operativa y DLQ manuales | Backup/restore y monitor local disponibles en `scripts/`; falta probar restauracion aislada, alertas y reproceso operativo idempotente |
-| Cerrado en alcance local | /health de aplicaciones principalmente liveness | `/ready` comprueba DB/Redis/RabbitMQ, Compose lo usa como healthcheck y `scripts/monitor.*` informa colas y Outbox; faltan alertas productivas |
-| Parcial | Administracion de usuarios/roles incompleta respecto al plano | API y consola GUI paginadas con cambios de rol/estado y proteccion contra auto-bloqueo; falta auditoria de cambios y gestion visual del resto de recursos |
-| Cerrado en alcance local | Dependencias Python sin versiones fijadas | Versiones directas fijadas y reconstruccion/regresion local verificada; falta fijar digests de imagen y dependencias transitivas en CI |
+| Cerrado en alcance local | Persistencia Redis y RabbitMQ | `redis_data` con AOF, `rabbitmq_data` con cookie/Mnesia, backup/restore con hashes SHA-256 y restauración aislada de PostgreSQL/RabbitMQ verificada. Falta custodiar copias fuera del host y validar un restore Redis operativo |
+| Alta | Validación pública de HTTPS | Perfil de despliegue con CA pública, renovación, puertos internos cerrados y gestión/rotación; falta ejecutar emisión contra dominio real |
+| Cerrado en alcance local | Recuperacion operativa y DLQ manuales | `scripts/verify-backup.*` y `verify-restore-isolated.ps1` restauran y validan dumps SQL, definiciones/Mnesia de RabbitMQ; `alerts.*` vigila RabbitMQ, Redis y Outbox. Falta custodiar copias fuera del host y automatizar reproceso DLQ |
+| Cerrado en alcance local | /health de aplicaciones principalmente liveness | `/ready` comprueba DB/Redis/RabbitMQ, Compose lo usa como healthcheck y `scripts/monitor.*`/`alerts.*` informan colas, Outbox y Redis |
+| Cerrado en alcance local | Administracion de usuarios/roles y recursos | API y consola GUI para usuarios, productos, categorías, stock y transiciones de pedidos; falta auditoria histórica de cambios |
+| Parcial | Dependencias e imágenes reproducibles | Versiones Python fijadas e infraestructura con digests; `scripts/pin-images.*` prepara digests de imágenes propias, pendiente ejecutarlo contra un registro real y fijar transitivas en CI |
 
 ## Evolucion opcional para el MVP inicial
 
 - RF-49: balanceo local observado y documentado. La prueba `tests/multinstance_distribution.py` correlaciona 80 solicitudes con `upstream_addr` y confirma tráfico en ambas réplicas. Sigue sin ser una certificación de balanceo productivo, SLA o Kubernetes.
-- RNF-07: manifests Kustomize y validacion offline preparados; falta aplicar y operar un cluster real.
-- RNF-15: configuración TLS local preparada; falta CA confiable, rotación y validación productiva.
+- RNF-07: Kustomize aplicado en Docker Desktop Kubernetes; NetworkPolicies, PDB, alertas y digests de infraestructura preparados. Quedan HA multi-nodo, gestor de secretos y StorageClass redundante reales.
+- RNF-15: CA pública, rotación y cierre de HTTP directo configurados; falta emitir/validar el certificado con dominio, DNS, Ingress y cert-manager reales.
 - Pasarela real y reembolsos, Elasticsearch, inventario independiente, notificaciones externas, discovery especializado, logs centralizados, Prometheus/Grafana, CI/CD y autoscaling (pp.8,22,36-37).
 
 Son opciones de evolucion del alcance inicial; no se consideran implementadas por existir carpetas de infraestructura o dependencias. El orden recomendado tras revisar esta RC es reducir acoplamiento, completar modularidad y verificar portabilidad, y ampliar duracion/volumen de las pruebas de rendimiento, antes de anunciar escalabilidad o disponibilidad productiva.

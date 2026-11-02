@@ -235,7 +235,7 @@
       "canonical_bytes": 62222
     },
     "docs/frontend/carrito-checkout.json": {
-      "sha256": "daef4c806428a9e257f4da75d415ae5fd80b097d884715ae0aa9aa6048ac513a",
+      "sha256": "31fe8f4cde60d8ffc1a0908dcad58f905c09f8a500b9b70eee56546f79348957",
       "canonical_bytes": 1918
     },
     "docs/frontend/carrito-checkout.md": {
@@ -319,7 +319,7 @@
       "canonical_bytes": 5343
     },
     "docs/frontend/integracion.json": {
-      "sha256": "777827622fd11b2a53a03d192f8890efa58af3388f862606885482c1b8a4150e",
+      "sha256": "b4cd6d5349a5fe2f5cc476af0412b2a585ea657df0890f5e850ab7d37c1c48ae",
       "canonical_bytes": 2163
     },
     "docs/frontend/integracion.md": {
@@ -339,7 +339,7 @@
       "canonical_bytes": 848
     },
     "docs/frontend/pagos.json": {
-      "sha256": "f39b4ca3505943633f3ff326abd5d6ec510cf9ab7e2ebdce1cb2252a2ad27fd0",
+      "sha256": "637f1065226dfc1ac30ca117f36c2a599d9d7c2ab53c281715ce886f48df45cb",
       "canonical_bytes": 2059
     },
     "docs/frontend/pagos.md": {
@@ -355,7 +355,7 @@
       "canonical_bytes": 721
     },
     "docs/frontend/pedidos.json": {
-      "sha256": "62568814ddfc01f9296ec26733d57f09eed24f36644137964bcd295953743255",
+      "sha256": "cfc21dd13b57491cbeb29c06958244cc1c4deb0b1494b6a256d3e19717fe6622",
       "canonical_bytes": 1542
     },
     "docs/frontend/pedidos.md": {
@@ -375,7 +375,7 @@
       "canonical_bytes": 88367
     },
     "docs/frontend/perfil.json": {
-      "sha256": "213a22d0162ea3d3501b55bcd2429df68a1133f9e5f36a158bb9992ae5e2eb3c",
+      "sha256": "13f6610b185aa8ef02ea4b6748aa7e8fdba8ed3461d7074b8338ecbd26c178f3",
       "canonical_bytes": 1374
     },
     "docs/frontend/perfil.md": {
@@ -387,7 +387,7 @@
       "canonical_bytes": 2659
     },
     "docs/frontend/recorrido-accesibilidad.json": {
-      "sha256": "2ff3664799986b44bf8989db370c99ca0bcdd6a1f770dc422e101c392b48052d",
+      "sha256": "a9b3a4264162c06922b7aa8430f9e74ae274935f51539139cb1375a6927e020a",
       "canonical_bytes": 4765
     },
     "docs/frontend/recorrido-antes-dialogo.json": {
@@ -723,7 +723,7 @@
       "canonical_bytes": 1917
     },
     "services/order-service/app/migration_runner.py": {
-      "sha256": "8055b82ed7ce19c616e9adffd476949805caae94fefe06e22fbbe266c2666b09",
+      "sha256": "98d7b417965970051925f01a5d47faea11e407d66ecb5d9b21a98a168dab5c8b",
       "canonical_bytes": 1218
     },
     "services/order-service/app/models.py": {
@@ -735,7 +735,7 @@
       "canonical_bytes": 5866
     },
     "services/order-service/app/order_repository.py": {
-      "sha256": "f4e1e7ba248aade555b9933768046a9010cff49c926b311e72a7ac858a7b4086",
+      "sha256": "2dc3ba3ecca3cc04040a0167013f657a401afd42f07f0708f695c3a09879929d",
       "canonical_bytes": 1162
     },
     "services/order-service/app/payment_client.py": {
@@ -839,7 +839,7 @@
       "canonical_bytes": 1890
     },
     "services/payment-service/app/migration_runner.py": {
-      "sha256": "b737bce52107b09b2b4aa5a43505fb2ca49e680d22c310499d9a25de59ad8f75",
+      "sha256": "c2212be145c7b4cce0e17303316af8b4cba30f75afbae731d86990684baaf478",
       "canonical_bytes": 1220
     },
     "services/payment-service/app/models/__init__.py": {
@@ -1139,7 +1139,7 @@
       "canonical_bytes": 1060
     },
     "services/user-service/app/migration_runner.py": {
-      "sha256": "b4fa0b365002c94131ac4517dd290b5dce439ef32d0af2aa05b17c9af84e24dd",
+      "sha256": "0d3a34e7aaef9742373198ccc7be4c67f8296c7c374fe395faf46ff91dd0596c",
       "canonical_bytes": 1217
     },
     "services/user-service/app/models/__init__.py": {

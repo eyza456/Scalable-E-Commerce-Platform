@@ -11,7 +11,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 class FuturePreparation(unittest.TestCase):
     def test_kustomize_base_and_tls_overlay_render(self):
-        for folder, expected in (("k8s/base", 31), ("k8s/overlays/dev", 32)):
+        for folder, expected in (("k8s/base", 34), ("k8s/overlays/dev", 35)):
             rendered = subprocess.check_output(
                 ["kubectl", "kustomize", folder], cwd=ROOT, text=True
             )
@@ -26,6 +26,19 @@ class FuturePreparation(unittest.TestCase):
         )
         self.assertIn("kind: Ingress", overlay)
         self.assertIn("secretName: ecommerce-tls", overlay)
+        self.assertNotIn("type: LoadBalancer", overlay)
+
+        production = subprocess.check_output(
+            ["kubectl", "kustomize", "k8s/overlays/prod"], cwd=ROOT, text=True
+        )
+        self.assertEqual(production.count("apiVersion:"), 43)
+        self.assertIn("kind: ClusterIssuer", production)
+        self.assertIn("server: https://acme-v02.api.letsencrypt.org/directory", production)
+        self.assertIn("renewBefore: 720h", production)
+        self.assertIn("rotationPolicy: Always", production)
+        self.assertNotIn("type: LoadBalancer", production)
+        self.assertIn("kind: NetworkPolicy", production)
+        self.assertIn("kind: PodDisruptionBudget", production)
 
     def test_tls_config_has_modern_protocols_and_no_plaintext_proxy(self):
         config = (ROOT / "gateway/nginx.tls.conf").read_text(encoding="utf-8")
@@ -40,6 +53,10 @@ class FuturePreparation(unittest.TestCase):
             self.assertIn("ca.crt", text)
             self.assertIn("serverAuth", text)
 
+        compose_tls = (ROOT / "compose.tls.yml").read_text(encoding="utf-8")
+        self.assertIn("TLS_GATEWAY_PORT", compose_tls)
+        self.assertNotIn("TLS_HTTP_PORT", compose_tls)
+
     def test_installation_helpers_cover_windows_and_posix(self):
         powershell = (ROOT / "scripts/install.ps1").read_text(encoding="utf-8")
         shell = (ROOT / "scripts/install.sh").read_text(encoding="utf-8")
@@ -49,6 +66,14 @@ class FuturePreparation(unittest.TestCase):
             self.assertIn("alembic upgrade head", text)
         self.assertTrue((ROOT / "scripts/generate-dev-cert.ps1").is_file())
         self.assertTrue((ROOT / "scripts/generate-dev-cert.sh").is_file())
+        self.assertTrue((ROOT / "scripts/apply-prod-tls.ps1").is_file())
+        self.assertTrue((ROOT / "scripts/apply-prod-tls.sh").is_file())
+        self.assertTrue((ROOT / "scripts/alerts.ps1").is_file())
+        self.assertTrue((ROOT / "scripts/alerts.sh").is_file())
+        self.assertTrue((ROOT / "scripts/verify-backup.ps1").is_file())
+        self.assertTrue((ROOT / "scripts/verify-backup.sh").is_file())
+        self.assertTrue((ROOT / "scripts/verify-restore-isolated.ps1").is_file())
+        self.assertTrue((ROOT / "scripts/deploy-k8s.ps1").is_file())
         self.assertTrue((ROOT / "tests/replica_failover.py").is_file())
 
     def test_production_hardening_artifacts(self):
@@ -79,6 +104,13 @@ class FuturePreparation(unittest.TestCase):
         self.assertIn('@router.patch("/{user_id}"', users)
         for main in ROOT.glob("services/*/app/main.py"):
             self.assertIn('"/ready"', main.read_text(encoding="utf-8"))
+
+        admin = (ROOT / "frontend/app/admin.js").read_text(encoding="utf-8")
+        admin_html = (ROOT / "frontend/app/index.html").read_text(encoding="utf-8")
+        for endpoint in ("/products/", "/categories", "/orders/admin", "/status"):
+            self.assertIn(endpoint, admin)
+        for panel in ("data-admin-tab=\"products\"", "data-admin-tab=\"categories\"", "data-admin-tab=\"orders\""):
+            self.assertIn(panel, admin_html)
 
 
 if __name__ == "__main__":

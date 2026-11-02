@@ -13,6 +13,7 @@ MIGRATIONS = Path(__file__).resolve().parents[1] / "migrations"
 def apply_migrations() -> list[str]:
     applied: list[str] = []
     with engine.begin() as connection:
+        connection.execute(text("SELECT pg_advisory_xact_lock(hashtext('ecommerce:order-service:migrations'))"))
         connection.execute(
             text(
                 "CREATE TABLE IF NOT EXISTS schema_migrations ("

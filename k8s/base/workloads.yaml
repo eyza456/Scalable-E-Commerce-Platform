@@ -123,6 +123,14 @@ spec:
         - name: api-gateway
           image: ecommerce/api-gateway:latest
           imagePullPolicy: IfNotPresent
+          command: ["/bin/sh", "-c"]
+          args:
+            - |
+              DNS_IP=$(awk '/^nameserver/{print $2; exit}' /etc/resolv.conf)
+              test -n "$DNS_IP"
+              sed -i -E "s#resolver [^;]+;#resolver ${DNS_IP} valid=5s ipv6=off;#" /etc/nginx/nginx.conf
+              sed -i -E 's#(set \$backend [a-z-]+):8000;#\1.ecommerce.svc.cluster.local:8000;#' /etc/nginx/nginx.conf
+              exec nginx -g 'daemon off;'
           ports: [{name: http, containerPort: 80}]
           readinessProbe: {httpGet: {path: /health, port: http}, initialDelaySeconds: 5, periodSeconds: 5}
           livenessProbe: {httpGet: {path: /health, port: http}, initialDelaySeconds: 10, periodSeconds: 10}

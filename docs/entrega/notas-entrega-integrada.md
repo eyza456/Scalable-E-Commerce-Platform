@@ -37,7 +37,7 @@ los hashes del informe corresponden a esa revisión.
 
 ## Limites explicitos
 
-**74 cumplidos, 4 parciales, 0 pendientes.** La cobertura GUI no convierte toda
+**76 cumplidos, 2 parciales, 0 pendientes.** La cobertura GUI no convierte toda
 capacidad de API en pantalla: productos/categorias, stock y estados administrativos
 de pedidos siguen por API; usuarios/roles y vaciado completo del carrito sí cuentan
 con controles visuales dedicados.
@@ -58,7 +58,12 @@ Se entrega como commit local, sin push, publicacion web ni nueva etiqueta.
 
 RNF-05/06 cerrados con [configuracion y pruebas](../escalabilidad/README.md): dos replicas por servicio, escalado independiente de los seis y carga original aprobada. La RC historica se conserva; no se declara alta disponibilidad ni balanceo uniforme.
 
-La preparación futura no cambia los estados formales de RNF-07, RNF-15 y RNF-27: Kubernetes real, CA/rotación TLS y ejecución en Linux/macOS siguen pendientes. RF-49 ya tiene observación local de 80 solicitudes repartidas entre dos réplicas vivas, además del failover; esto no equivale a una certificación productiva.
+RNF-07 ya tiene despliegue real verificado en Docker Desktop Kubernetes con
+imágenes, secretos de desarrollo, migraciones y PVC. RNF-15 ya tiene CA pública,
+rotación y cierre de HTTP directo configurados; queda validar la emisión con
+dominio/DNS/Ingress reales. RNF-27 requiere instalación en Linux/macOS. RF-49 ya tiene
+observación local de 80 solicitudes repartidas entre dos réplicas vivas, además
+del failover; esto no equivale a una certificación productiva.
 
 La etapa inicial multinstancia conservo las pruebas anteriores. Tras este refactor
 se repiten la suite backend (164), instalacion con recorrido UI y pruebas/carga

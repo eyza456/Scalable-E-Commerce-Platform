@@ -8,7 +8,7 @@ ejecutaron sobre la base funcional correspondiente.
 
 ## Resultado y alcance
 
-**78 requisitos originales: 74 cumplidos, 4 parciales y 0 pendientes.** La
+**78 requisitos originales: 76 cumplidos, 2 parciales y 0 pendientes.** La
 [matriz principal](../auditoria/matriz-requisitos.md) conserva el alcance del sistema.
 La [matriz de cobertura visual](../auditoria/matriz-frontend.md) distingue pantallas,
 lectura y operaciones disponibles solo por API. No agrega requisitos al PDF.
@@ -114,7 +114,7 @@ No hay remoto configurado ni se ha enviado codigo a un servicio externo.
 
 El MVP es demostrable localmente; no representa cumplimiento integral del PDF ni
 operacion productiva. Siguen parciales replicas/balanceo observado, Kubernetes
-aplicado en cluster, CA/rotacion HTTPS, acoplamiento/capas y portabilidad a otro
+aplicado en cluster, validación pública de CA/rotación HTTPS, acoplamiento/capas y portabilidad a otro
 host. La revision automatica de accesibilidad y las pruebas de nombres/roles
 orientadas a lector de pantalla no sustituyen una certificacion manual con un
 lector nativo.

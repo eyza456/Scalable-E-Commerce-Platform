@@ -4,13 +4,3 @@ namespace: ecommerce
 resources:
   - ../../base
   - ingress.yaml
-patches:
-  - target:
-      group: ""
-      version: v1
-      kind: Service
-      name: api-gateway
-    patch: |-
-      - op: replace
-        path: /spec/type
-        value: LoadBalancer

@@ -6,7 +6,7 @@ El avance posterior figura debajo. Una prioridad futura no equivale a cumplimien
 
 ## Avance posterior de este plan
 
-RNF-05 y RNF-06 cerrados en alcance local con [pruebas multinstancia](../escalabilidad/README.md). RNF-08 y RNF-21 también quedan cerrados con contratos, recuperadores y migraciones versionadas. Con la observación local del gateway, el estado pasa a 75 cumplidos, 3 parciales y 0 pendientes. Restan RNF-27 y la preparación futura de RNF-07 y RNF-15. La clasificacion y el orden originales se conservan a continuacion como antecedente.
+RNF-05 y RNF-06 cerrados en alcance local con [pruebas multinstancia](../escalabilidad/README.md). RNF-08 y RNF-21 también quedan cerrados con contratos, recuperadores y migraciones versionadas. Con Kubernetes local verificado, el estado pasa a 76 cumplidos, 2 parciales y 0 pendientes. Restan RNF-15 (validación pública de emisión) y RNF-27. La clasificacion y el orden originales se conservan a continuacion como antecedente.
 
 RNF-08/21 completados en el alcance revisado: [separacion de pedidos/carrito,
 contratos, recuperadores e importacion sin efectos](../modularidad.md), con
@@ -22,8 +22,9 @@ que impidan por si solos demostrar el recorrido funcional del MVP.
 La implementacion inicial completa de Kubernetes y el escalado automatico
 productivo estan fuera del MVP (p.8). Esto no excluye permitir varias instancias
 en Compose: escalado independiente y multinstancia son requisitos expresos.
-RNF-07 y RNF-15 hablan de capacidades futuras. RF-49 ya cuenta con observación
-local del reparto entre réplicas; su preparacion debe
+RNF-15 ya tiene la capacidad TLS y la automatización de CA/rotación preparadas;
+falta la emisión pública con dominio real. RF-49 ya cuenta con observación local
+del reparto entre réplicas; su preparacion debe
 demostrarse para cerrarlos, aunque no se exige un despliegue productivo completo
 para presentar el MVP. HTTPS es necesario antes de exponer datos reales.
 
@@ -37,11 +38,12 @@ para presentar el MVP. HTTPS es necesario antes de exponer datos reales.
 | 2 | RNF-21 / 20: estructura modular | Calidad obligatoria para cumplimiento integral | Existen modulos checkout/storage y modulos visuales; routers conservan acceso SQL y `services/order-service/app/main.py` crea tablas al importar | Extraer casos de uso/repositorios en cambios pequenos. Llevar inicializacion de esquema a un paso explicito de arranque/migracion. Verificar importacion sin efectos de DB, instalacion limpia y regresion funcional |
 | 3 | RNF-27 / 20: distintos sistemas operativos | Calidad obligatoria para cumplimiento integral; requiere otro entorno | Instalacion completa registrada con 14 contenedores en Windows/Docker Linux; es un solo host | Ejecutar el mismo runner integrado en un host Linux o macOS compatible, guardar SO, versiones, commit, resultado y limpieza. Un contenedor Linux adicional dentro del host actual no sustituye esta evidencia |
 | Futuro A | RF-49 / 18: facilitar balanceo futuro | Preparacion futura, no bloqueo del MVP funcional | Observación local ya ejecutada: 80 solicitudes, dos `upstream_addr`, dos réplicas | Mantener la evidencia y, para producción, repetir con métricas del entorno real; tener Nginx no prueba por sí solo SLA |
-| Futuro B | RNF-07 / 19: permitir orquestacion futura | Preparacion futura; Kubernetes completo excluido del MVP en p.8 | Docker y variables de entorno presentes; sin validacion Kubernetes | Documentar restricciones de almacenamiento, secretos, migraciones y workers. Preparar y validar un despliegue minimo reproducible en cluster local antes de marcar cumplido; no exigir autoscaling productivo para el MVP |
-| Antes de exposicion | RNF-15 / 19: permitir HTTPS futuro | Preparacion futura en local; necesaria para exposicion real | Gateway y frontend HTTP; sin listener/certificado TLS probado | Definir terminacion TLS coherente para cliente y API. Probar certificado confiable en el entorno elegido, redireccion, llamadas API sin contenido mixto y politica de acceso. Certificados locales solo demuestran el perfil local |
+| Futuro B | RNF-07 / 19: permitir orquestacion futura | Cerrado en alcance local; Kubernetes productivo sigue fuera del MVP en p.8 | Docker Desktop Kubernetes v1.36.1, Kustomize aplicado, jobs de migración completados, secretos de desarrollo y PVC verificados | Mantener el despliegue local; para producción añadir HA multi-nodo, gestor de secretos, StorageClass redundante, backup/restore y observabilidad |
+| Antes de exposicion | RNF-15 / 19: permitir HTTPS futuro | Configuración productiva preparada; necesaria la validación con dominio real | TLS 1.2/1.3, HSTS, cert-manager/Let's Encrypt, renovación y rotación declaradas; HTTP directo cerrado en Compose TLS/Kubernetes | Instalar cert-manager/Ingress, usar DNS y correo reales, emitir el certificado público y comprobar renovación, redirección, llamadas API sin contenido mixto y política de acceso |
 
-Los cinco requisitos de calidad son RNF-05, RNF-06, RNF-08, RNF-21 y RNF-27.
-Los otros tres no se eliminan de la matriz ni se reclasifican como cumplidos.
+Los requisitos de calidad todavía abiertos son RNF-15 y RNF-27. RNF-07 se
+mantiene como capacidad local verificada, sin declararlo una certificación
+productiva.
 
 ## Primer bloque de implementacion
 

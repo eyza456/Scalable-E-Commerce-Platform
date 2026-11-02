@@ -28,6 +28,19 @@ El backup contiene dumps PostgreSQL, un RDB de Redis, definiciones y Mnesia de
 RabbitMQ, y `SHA256SUMS`. Guardar la carpeta fuera del host y protegerla con
 cifrado y control de acceso.
 
+Verificar una copia sin restaurar sobre el entorno principal:
+
+```powershell
+.\scripts\verify-backup.ps1 -BackupDirectory backups\20261102T000000Z
+```
+
+Para comprobar restauración PostgreSQL en contenedores efímeros, sin tocar el
+stack activo:
+
+```powershell
+.\scripts\verify-restore-isolated.ps1 -BackupDirectory backups\20261102T000000Z
+```
+
 ## Restore
 
 La restauración detiene las aplicaciones y reemplaza datos. Requiere confirmación
@@ -66,6 +79,15 @@ bash scripts/monitor.sh
 
 En producción, enviar estas métricas a un sistema de monitorización, definir
 umbrales y alertas, y probar el reproceso de mensajes y eventos pendientes.
+El chequeo local con umbrales explícitos es:
+
+```powershell
+.\scripts\alerts.ps1 -MaxReadyMessages 100 -MaxUnackedMessages 100 -MaxOutboxPending 100
+```
+
+En Linux/macOS usar `MAX_READY_MESSAGES=100 MAX_OUTBOX_PENDING=100 bash
+scripts/alerts.sh`. El comando devuelve código 2 cuando RabbitMQ, Redis u
+Outbox superan el umbral para que CI/monitorización pueda generar una alerta.
 
 ## Dependencias
 

@@ -4,7 +4,7 @@ namespace: ecommerce
 resources:
   - namespace.yaml
   - config.yaml
-  - secret.example.yaml
+  - migrations.yaml
   - infrastructure.yaml
   - services.yaml
   - workloads.yaml

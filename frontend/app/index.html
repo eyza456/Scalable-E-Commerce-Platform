@@ -148,11 +148,31 @@
       </div>
     </section>
     <section id="admin-view" aria-labelledby="admin-title" hidden>
-      <div class="intro"><p class="eyebrow">CONTROL DE ACCESO</p><h1 id="admin-title">Administración</h1><p class="lead">Gestiona roles y acceso de las cuentas registradas. Los cambios se aplican de inmediato.</p></div>
+      <div class="intro"><p class="eyebrow">CONTROL OPERATIVO</p><h1 id="admin-title">Administración</h1><p class="lead">Gestiona usuarios, catálogo, stock y estados de pedidos con los mismos permisos que la API.</p></div>
       <div id="admin-private" hidden>
-        <form id="admin-toolbar" class="filters" role="search" aria-label="Buscar usuarios"><div><label for="admin-search">Buscar por nombre o correo</label><input id="admin-search" type="search" maxlength="254" autocomplete="off"></div><button type="submit">Buscar</button><button type="button" id="admin-refresh" class="secondary">Actualizar</button></form>
-        <p id="admin-status" role="status" aria-live="polite"></p><p id="admin-error" class="feedback error" role="alert" hidden></p>
-        <div class="admin-table-wrap"><table class="admin-table"><caption class="sr-only">Usuarios registrados y sus permisos</caption><thead><tr><th scope="col">Usuario</th><th scope="col">Rol</th><th scope="col">Estado</th><th scope="col">Acción</th></tr></thead><tbody id="admin-users" aria-busy="false"></tbody></table></div>
+        <div class="admin-tabs" role="tablist" aria-label="Secciones administrativas">
+          <button type="button" role="tab" aria-selected="true" data-admin-tab="users">Usuarios</button>
+          <button type="button" role="tab" aria-selected="false" data-admin-tab="products">Productos</button>
+          <button type="button" role="tab" aria-selected="false" data-admin-tab="categories">Categorías</button>
+          <button type="button" role="tab" aria-selected="false" data-admin-tab="orders">Pedidos</button>
+        </div>
+        <section class="admin-panel" data-admin-panel="users" role="tabpanel">
+          <form id="admin-toolbar" class="filters" role="search" aria-label="Buscar usuarios"><div><label for="admin-search">Buscar por nombre o correo</label><input id="admin-search" type="search" maxlength="254" autocomplete="off"></div><button type="submit">Buscar</button><button type="button" id="admin-refresh" class="secondary">Actualizar</button></form>
+          <p id="admin-status" role="status" aria-live="polite"></p><p id="admin-error" class="feedback error" role="alert" hidden></p>
+          <div class="admin-table-wrap"><table class="admin-table"><caption class="sr-only">Usuarios registrados y sus permisos</caption><thead><tr><th scope="col">Usuario</th><th scope="col">Rol</th><th scope="col">Estado</th><th scope="col">Acción</th></tr></thead><tbody id="admin-users" aria-busy="false"></tbody></table></div>
+        </section>
+        <section class="admin-panel" data-admin-panel="products" role="tabpanel" hidden>
+          <form id="admin-product-form" class="filters" aria-label="Crear producto"><div><label for="admin-product-name">Nombre</label><input id="admin-product-name" required maxlength="150"></div><div><label for="admin-product-price">Precio</label><input id="admin-product-price" type="number" min="0.01" step="0.01" required></div><div><label for="admin-product-stock">Stock</label><input id="admin-product-stock" type="number" min="0" step="1" required></div><div><label for="admin-product-category">Categoría</label><input id="admin-product-category" type="number" min="1"></div><button type="submit">Crear producto</button></form>
+          <p id="admin-product-status" role="status" aria-live="polite"></p><div class="admin-table-wrap"><table class="admin-table"><caption class="sr-only">Productos y stock</caption><thead><tr><th>Producto</th><th>Precio</th><th>Stock</th><th>Estado</th><th>Acción</th></tr></thead><tbody id="admin-products"></tbody></table></div>
+        </section>
+        <section class="admin-panel" data-admin-panel="categories" role="tabpanel" hidden>
+          <form id="admin-category-form" class="filters" aria-label="Crear categoría"><div><label for="admin-category-name">Nombre</label><input id="admin-category-name" required maxlength="100"></div><button type="submit">Crear categoría</button></form>
+          <p id="admin-category-status" role="status" aria-live="polite"></p><div class="admin-table-wrap"><table class="admin-table"><caption class="sr-only">Categorías</caption><thead><tr><th>Nombre</th><th>Acción</th></tr></thead><tbody id="admin-categories"></tbody></table></div>
+        </section>
+        <section class="admin-panel" data-admin-panel="orders" role="tabpanel" hidden>
+          <form id="admin-orders-filter" class="filters"><div><label for="admin-order-status">Estado</label><select id="admin-order-status"><option value="">Todos</option><option>PENDING</option><option>PAID</option><option>PROCESSING</option><option>SHIPPED</option><option>DELIVERED</option><option>CANCELLED</option></select></div><button type="submit">Actualizar pedidos</button></form>
+          <p id="admin-order-status-message" role="status" aria-live="polite"></p><div class="admin-table-wrap"><table class="admin-table"><caption class="sr-only">Pedidos y estados</caption><thead><tr><th>Pedido</th><th>Usuario</th><th>Total</th><th>Estado</th><th>Acción</th></tr></thead><tbody id="admin-orders"></tbody></table></div>
+        </section>
       </div>
       <div id="admin-denied" hidden><p>Esta sección requiere una cuenta administradora.</p><a href="#cuenta" class="button">Volver a mi cuenta</a></div>
     </section>

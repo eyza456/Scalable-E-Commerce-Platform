@@ -82,6 +82,15 @@ def list_orders(
     return payload
 
 
+def list_all_orders(skip: int, limit: int, order_status, db: Session):
+    rows = repository.list_all(db, skip, limit, order_status)
+    payload = [
+        OrderResponse.model_validate(row).model_dump(mode="json") for row in rows
+    ]
+    db.rollback()
+    return payload
+
+
 def cancel_order(order_id: int, response: Response, current_user: dict, db: Session):
     order = repository.get(db, order_id, current_user["id"], lock=True)
     if order is None:

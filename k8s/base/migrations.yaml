@@ -1,0 +1,83 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: user-migrations
+spec:
+  backoffLimit: 12
+  activeDeadlineSeconds: 600
+  ttlSecondsAfterFinished: 86400
+  template:
+    metadata: {labels: {app: user-migrations}}
+    spec:
+      restartPolicy: OnFailure
+      containers:
+        - name: migrate
+          image: ecommerce/user-service:latest
+          imagePullPolicy: IfNotPresent
+          command: ["python", "-c"]
+          args: ["from app.migration_runner import apply_migrations; print(apply_migrations())"]
+          envFrom: [{configMapRef: {name: ecommerce-config}}, {secretRef: {name: ecommerce-secrets}}]
+          env: [{name: DATABASE_URL, valueFrom: {secretKeyRef: {name: ecommerce-secrets, key: USER_DATABASE_URL}}}]
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: product-migrations
+spec:
+  backoffLimit: 12
+  activeDeadlineSeconds: 600
+  ttlSecondsAfterFinished: 86400
+  template:
+    metadata: {labels: {app: product-migrations}}
+    spec:
+      restartPolicy: OnFailure
+      containers:
+        - name: migrate
+          image: ecommerce/product-service:latest
+          imagePullPolicy: IfNotPresent
+          command: ["alembic", "upgrade", "head"]
+          envFrom: [{configMapRef: {name: ecommerce-config}}, {secretRef: {name: ecommerce-secrets}}]
+          env:
+            - {name: DATABASE_URL, valueFrom: {secretKeyRef: {name: ecommerce-secrets, key: PRODUCT_DATABASE_URL}}}
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: order-migrations
+spec:
+  backoffLimit: 12
+  activeDeadlineSeconds: 600
+  ttlSecondsAfterFinished: 86400
+  template:
+    metadata: {labels: {app: order-migrations}}
+    spec:
+      restartPolicy: OnFailure
+      containers:
+        - name: migrate
+          image: ecommerce/order-service:latest
+          imagePullPolicy: IfNotPresent
+          command: ["python", "-c"]
+          args: ["from app.migration_runner import apply_migrations; print(apply_migrations())"]
+          envFrom: [{configMapRef: {name: ecommerce-config}}, {secretRef: {name: ecommerce-secrets}}]
+          env: [{name: DATABASE_URL, valueFrom: {secretKeyRef: {name: ecommerce-secrets, key: ORDER_DATABASE_URL}}}]
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: payment-migrations
+spec:
+  backoffLimit: 12
+  activeDeadlineSeconds: 600
+  ttlSecondsAfterFinished: 86400
+  template:
+    metadata: {labels: {app: payment-migrations}}
+    spec:
+      restartPolicy: OnFailure
+      containers:
+        - name: migrate
+          image: ecommerce/payment-service:latest
+          imagePullPolicy: IfNotPresent
+          command: ["python", "-c"]
+          args: ["from app.migration_runner import apply_migrations; print(apply_migrations())"]
+          envFrom: [{configMapRef: {name: ecommerce-config}}, {secretRef: {name: ecommerce-secrets}}]
+          env: [{name: DATABASE_URL, valueFrom: {secretKeyRef: {name: ecommerce-secrets, key: PAYMENT_DATABASE_URL}}}]

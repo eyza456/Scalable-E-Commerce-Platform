@@ -100,15 +100,15 @@
     "tests/smoke_purchase.py": "7e6a4f6bb7ef03f342766cbd601c70d9522877e8e40a38f8092b0de1fcfdd88c",
     "tests/frontend_journey.cjs": "0b8794b93bbcd1152a5e0cbd2b1a81cd52250b425d0cc815ec8e493d0eddfc36",
     "tests/browser-tools/package-lock.json": "43033a83268765d1db148914694aef47c77355c5af08f61e0b17e03108d09bfd",
-    "frontend/app/admin.js": "bfdf8036c9c6ed2e571e982d494f51cf526bf12a72c0f6325a8ba2364b41e267",
+    "frontend/app/admin.js": "9188e00991a1016b0770c3f03abc8c31bd7ec9e9a95d7fa05109cd0be13c0fb5",
     "frontend/app/app.js": "aa457ca4e62b76b5151a259db0f30d4d62f1b78b199ffaf4d0f6ba34c438c7f4",
     "frontend/app/commerce.js": "bcea0186f1767b3f37c28ebeedfb679319bd50d7c01728cb9760e68887a9ea82",
     "frontend/app/favicon.svg": "e4a3c6ef07c5b1a3c631b865b3693197a048c8e4a2b4346f70c2186368a446ee",
-    "frontend/app/index.html": "dbbc197874a4a2a600af239fd271a78aee726ddbb2469f09e2b45da64fbed1ae",
+    "frontend/app/index.html": "618c2a1bf8299d5ac7adc5d652e5bdb024060a172f1daa2fe0753b656c0b3ac1",
     "frontend/app/orders.js": "5ec3e960932cc3b0d227f7d75b77cd6448e106cd6c24e38994b388313830e9c9",
     "frontend/app/payments.js": "24525fa846c53cf471896dec7415de3d197519dcdf4ae2f0c8474e3a5ea347f8",
     "frontend/app/profile.js": "9303eaa8def0ea928e536f0e864d91156b1d4476373a00db3fc2b2a5afdfa014",
-    "frontend/app/styles.css": "6e07a5bf4f8ea3ef4a1afacd9dad573595ced360711036e8fa7911db93c4d0ca"
+    "frontend/app/styles.css": "dbe1935ef76d42988d9cb10b43ea175ecec8664b10659c6a8b8cee94ed91d052"
   },
   "runner_sha256": "a561439c92d4b7d82e67054ad0bf0c6543e94feb8c7afa87214d84dbf26b891c",
   "host": {

@@ -1,0 +1,55 @@
+{
+  "status": "passed",
+  "executed_at": "2026-11-01T20:31:00Z",
+  "context": "docker-desktop",
+  "cluster": {
+    "provisioner": "kubeadm",
+    "version": "v1.36.1",
+    "nodes": 1,
+    "node_status": "Ready",
+    "engine": "29.9.2",
+    "runtime": "docker://29.9.2",
+    "cgroup_version": "v2",
+    "kernel": "6.18.54.1-microsoft-standard-WSL2"
+  },
+  "manifests": {
+    "base_rendered_resources": 34,
+    "dev_overlay_rendered_resources": 35,
+    "offline_checks": "python tests/future_preparation.py"
+  },
+  "deployment": {
+    "images": [
+      "ecommerce/user-service:latest",
+      "ecommerce/product-service:latest",
+      "ecommerce/cart-service:latest",
+      "ecommerce/order-service:latest",
+      "ecommerce/payment-service:latest",
+      "ecommerce/notification-service:latest",
+      "ecommerce/api-gateway:latest",
+      "ecommerce/frontend:latest"
+    ],
+    "secret": "ecommerce-secrets creado directamente en Kubernetes; ningún valor se guardó en Git",
+    "migration_jobs": {
+      "user-migrations": "Complete",
+      "product-migrations": "Complete",
+      "order-migrations": "Complete",
+      "payment-migrations": "Complete"
+    },
+    "pods_running": 22,
+    "pods_ready": 22,
+    "pvcs_bound": 6,
+    "storage_class": "hostpath"
+  },
+  "smoke": {
+    "gateway_health": 200,
+    "gateway_catalog": 200,
+    "gateway_categories": 200,
+    "frontend": 200
+  },
+  "limitations": [
+    "Clúster local de un solo nodo en Docker Desktop.",
+    "Las imágenes usan tags locales latest; producción debe usar tags inmutables y un registro.",
+    "La StorageClass hostpath y el Secret generado son adecuados para desarrollo, no para producción.",
+    "Backup/restore, NetworkPolicies, CA confiable, rotación de secretos y HA multi-nodo quedan pendientes de endurecimiento productivo."
+  ]
+}
