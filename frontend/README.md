@@ -12,8 +12,9 @@ paginacion, detalle, carrito, creacion de pedidos, pago simulado, historial y ca
 precios y stock vienen del backend real.
 No se crean datos de demostracion al arrancar. La vista de carrito incluye vaciado
 completo con confirmacion accesible. Las cuentas con rol `admin` disponen de una
-consola visual para listar usuarios y actualizar rol o estado activo; la API sigue
-siendo la autoridad y protege la propia cuenta del administrador.
+consola visual para listar usuarios, actualizar rol o estado activo, gestionar
+productos, categorias, precios y stock, y avanzar los estados de pedidos; la API
+sigue siendo la autoridad y protege la propia cuenta del administrador.
 
 Con el backend configurado y sus migraciones aplicadas, desde la raiz:
 
@@ -77,7 +78,7 @@ sus dependencias, accesibilidad y recursos de forma explicita.
    del ultimo intento antes de permitir otro envio.
 6. Historial y cancelacion integrados segun estado: `/api/orders`.
 7. Consulta y edicion del perfil integradas, con sustitucion del token al guardar.
-8. Consola administrativa de usuarios/roles y vaciado completo del carrito con dialogos accesibles.
+8. Consola administrativa de usuarios, catalogo, categorias, stock y pedidos, ademas del vaciado completo del carrito con dialogos accesibles.
 
 Todas las llamadas del frontend final se dirigiran al API Gateway. Al integrar,
 consultar los contratos actuales y OpenAPI: los identificadores, precios, stock,

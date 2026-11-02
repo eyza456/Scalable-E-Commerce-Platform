@@ -1,12 +1,18 @@
 :root {
   color-scheme:light;
-  --paper:#fbf9f4;
-  --ink:#1b1c19;
-  --green:#1e3f2e;
-  --line:#ddd7cb;
-  --muted:#555e55;
-  --surface:#f1efe8;
-  --error:#9a2727;
+  --paper:#f8f7f3;
+  --ink:#18221d;
+  --green:#174b3a;
+  --green-dark:#103528;
+  --accent:#d29b52;
+  --line:#d9ded7;
+  --muted:#5f6d65;
+  --surface:#edf1eb;
+  --surface-strong:#e2ebe3;
+  --white:#fff;
+  --error:#a93636;
+  --success:#17633d;
+  --shadow:0 18px 45px rgba(23,75,58,.08);
 }
 * {
   box-sizing:border-box;
@@ -19,6 +25,7 @@ body {
   background:var(--paper);
   color:var(--ink);
   font:15px/1.6 'Plus Jakarta Sans',system-ui,sans-serif;
+  -webkit-font-smoothing:antialiased;
 }
 a {
   color:var(--green);
@@ -31,15 +38,18 @@ button,.button {
   background:var(--green);
   color:white;
   border:1px solid var(--green);
-  border-radius:3px;
+  border-radius:10px;
   cursor:pointer;
   min-height:44px;
   padding:10px 20px;
   text-decoration:none;
   display:inline-block;
+  transition:transform .2s ease,background .2s ease,box-shadow .2s ease;
 }
 button:hover,.button:hover {
-  background:#112d1e;
+  background:var(--green-dark);
+  box-shadow:0 8px 18px rgba(16,53,40,.16);
+  transform:translateY(-1px);
 }
 button:disabled {
   opacity:.55;
@@ -59,8 +69,8 @@ button:disabled {
 input,select {
   padding:11px 12px;
   border:1px solid #a7ada4;
-  border-radius:3px;
-  background:white;
+  border-radius:10px;
+  background:var(--white);
   color:var(--ink);
   width:100%;
   min-height:44px;
@@ -101,15 +111,21 @@ p {
   letter-spacing:.15em;
   border-bottom:1px solid var(--line);
   padding:7px;
-  background:var(--surface);
+  background:var(--green);
+  color:#eaf4ec;
 }
 .header {
   display:flex;
   align-items:center;
   justify-content:space-between;
   gap:20px;
-  padding:22px max(24px,calc((100vw - 1280px)/2));
+  padding:20px max(24px,calc((100vw - 1280px)/2));
   border-bottom:1px solid var(--line);
+  background:rgba(248,247,243,.94);
+  position:sticky;
+  top:0;
+  z-index:5;
+  backdrop-filter:blur(14px);
 }
 .brand {
   font-size:30px;
@@ -124,6 +140,11 @@ nav {
 nav a {
   font-size:13px;
   text-decoration:none;
+  padding:8px 0;
+  border-bottom:2px solid transparent;
+}
+nav a:hover,nav a:focus-visible {
+  border-color:var(--accent);
 }
 .link-button {
   background:none;
@@ -142,9 +163,20 @@ main {
   min-height:65vh;
 }
 .intro {
-  padding:66px 0 44px;
+  padding:78px 0 54px;
   border-bottom:1px solid var(--line);
   margin-bottom:34px;
+  position:relative;
+  overflow:hidden;
+}
+.intro::after {
+  content:'N';
+  position:absolute;
+  right:5%;
+  top:10px;
+  color:rgba(23,75,58,.06);
+  font:500 clamp(170px,24vw,340px)/1 'Playfair Display',Georgia,serif;
+  pointer-events:none;
 }
 .eyebrow {
   font-size:11px;
@@ -165,6 +197,8 @@ main {
   padding:24px;
   background:var(--surface);
   border:1px solid var(--line);
+  border-radius:16px;
+  box-shadow:var(--shadow);
 }
 .filters>div {
   flex:1;
@@ -201,15 +235,23 @@ main {
 }
 .product-card {
   border:1px solid var(--line);
-  background:white;
+  background:var(--white);
+  border-radius:16px;
+  overflow:hidden;
+  box-shadow:0 2px 0 rgba(23,75,58,.03);
+  transition:transform .2s ease,box-shadow .2s ease;
   display:flex;
   flex-direction:column;
   min-width:0;
 }
+.product-card:hover {
+  transform:translateY(-4px);
+  box-shadow:var(--shadow);
+}
 .product-image {
   aspect-ratio:4/5;
   overflow:hidden;
-  background:#eeeae1;
+  background:linear-gradient(135deg,#e6eee7,#f2eadb);
   display:grid;
   place-items:center;
   color:#687365;
@@ -265,7 +307,8 @@ main {
 .feedback {
   padding:14px 16px;
   border-left:3px solid var(--green);
-  background:var(--surface);
+  background:var(--surface-strong);
+  border-radius:10px;
   overflow-wrap:anywhere;
 }
 .feedback:empty {
@@ -275,6 +318,14 @@ main {
   color:var(--error);
   border-color:var(--error);
   background:#faf0ed;
+}
+.feedback.success,
+#account-status:not(:empty),#add-status:not(:empty),#profile-status:not(:empty),
+#admin-status:not(:empty),#admin-product-status:not(:empty),#admin-category-status:not(:empty),
+#admin-order-status-message:not(:empty) {
+  color:var(--success);
+  border-color:var(--success);
+  background:#e7f4eb;
 }
 .account-layout {
   display:grid;
@@ -287,7 +338,9 @@ main {
 }
 .account-panel {
   border:1px solid var(--line);
-  background:white;
+  background:var(--white);
+  border-radius:18px;
+  box-shadow:var(--shadow);
   padding:36px;
 }
 .tabs {
@@ -383,6 +436,7 @@ footer p {
   .intro {
     padding:40px 0 28px;
   }
+  .intro::after {right:-12%;top:42px;font-size:180px}
   .products {
     grid-template-columns:repeat(2,minmax(0,1fr));
     gap:14px;
@@ -412,13 +466,27 @@ footer p {
     font-size:34px;
   }
   .header {
-    gap:12px;
+    gap:8px 16px;
     flex-wrap:wrap;
+    padding:14px 20px;
   }
   .header nav {
-    gap:16px;
-    flex-wrap:wrap;
+    gap:4px 18px;
+    flex-wrap:nowrap;
+    width:100%;
+    overflow-x:auto;
+    scrollbar-width:none;
+    padding-bottom:3px;
   }
+  .header nav::-webkit-scrollbar {display:none}
+  nav a,.link-button {white-space:nowrap;font-size:12px}
+  h1 {font-size:clamp(36px,11vw,52px)}
+  .lead {font-size:16px}
+  .filters {border-radius:14px}
+  .product-card {border-radius:12px}
+  .product-image {aspect-ratio:1/1.08}
+  .product-content .button {width:100%}
+  .account-panel {border-radius:14px}
   .results-line {
     align-items:flex-start;
   }
@@ -518,6 +586,14 @@ dialog::backdrop {background:rgba(15,30,20,.45)}
 .admin-panel[hidden] {display:none}
 .admin-table input,.admin-table select {width:auto;min-width:90px;margin:0}
 .admin-table button+button {margin-left:8px}
+.admin-panel {animation:panel-in .25s ease both}
+.skeleton-grid {display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:25px}
+.skeleton-card {height:420px;border-radius:16px;background:linear-gradient(100deg,#e8ece7 35%,#f6f3eb 50%,#e8ece7 65%);background-size:300% 100%;animation:skeleton 1.4s infinite}
+@keyframes skeleton {to {background-position:-200% 0}}
+@keyframes panel-in {from {opacity:0;transform:translateY(5px)}to {opacity:1;transform:none}}
+@media(max-width:1000px) {.skeleton-grid {grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:760px) {.skeleton-grid {grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.skeleton-card {height:330px}}
+@media(max-width:400px) {.skeleton-grid {grid-template-columns:1fr}}
 @media(max-width:500px) {
   .cart-summary {padding:20px}
   .cart-summary strong {display:block;margin-left:0}

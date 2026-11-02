@@ -81,6 +81,11 @@
     const more = element('a', 'Ver producto', 'button'); more.href = link.href; body.append(more);
     card.append(imageFor(product), body); return card;
   }
+  function catalogSkeleton() {
+    const grid = element('div', undefined, 'skeleton-grid');
+    for (let index = 0; index < 4; index++) grid.append(element('div', undefined, 'skeleton-card'));
+    return grid;
+  }
   async function loadCatalog() {
     catalogController?.abort(); catalogController = new AbortController();
     const version = ++state.catalogRequest;
@@ -89,7 +94,7 @@
     if (name) query.set('name', name);
     if ($('category').value) query.set('category_id', $('category').value);
     if ($('available').checked) query.set('available', 'true');
-    $('products').replaceChildren(); $('products').setAttribute('aria-busy', 'true');
+    $('products').replaceChildren(catalogSkeleton()); $('products').setAttribute('aria-busy', 'true');
     $('catalog-status').textContent = 'Cargando productos…';
     feedback('catalog-error'); $('retry-catalog').hidden = true;
     $('previous').disabled = true; $('next').disabled = true;
