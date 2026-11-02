@@ -1765,6 +1765,96 @@
           }
         }
       },
+      "/orders/admin": {
+        "get": {
+          "tags": [
+            "Orders"
+          ],
+          "summary": "List All Orders",
+          "operationId": "list_all_orders_orders_admin_get",
+          "security": [
+            {
+              "HTTPBearer": []
+            }
+          ],
+          "parameters": [
+            {
+              "name": "skip",
+              "in": "query",
+              "required": false,
+              "schema": {
+                "type": "integer",
+                "minimum": 0,
+                "default": 0,
+                "title": "Skip"
+              }
+            },
+            {
+              "name": "limit",
+              "in": "query",
+              "required": false,
+              "schema": {
+                "type": "integer",
+                "maximum": 100,
+                "minimum": 1,
+                "default": 100,
+                "title": "Limit"
+              }
+            },
+            {
+              "name": "status",
+              "in": "query",
+              "required": false,
+              "schema": {
+                "anyOf": [
+                  {
+                    "enum": [
+                      "PENDING",
+                      "CANCELLING",
+                      "CANCELLED",
+                      "PAID",
+                      "PROCESSING",
+                      "SHIPPED",
+                      "DELIVERED"
+                    ],
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Status"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/OrderResponse"
+                    },
+                    "title": "Response List All Orders Orders Admin Get"
+                  }
+                }
+              }
+            },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPValidationError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
       "/orders/{order_id}/cancel": {
         "post": {
           "tags": [
