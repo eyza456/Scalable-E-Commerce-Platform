@@ -1,8 +1,8 @@
 # Rendimiento tras perfilar SQL y reutilizar conexiones HTTP
 
-> **Repetición posterior (2 de noviembre de 2026):** se aplicó el índice compuesto `ix_orders_user_created_id` y se repitió el benchmark con los mismos objetivos. El resultado completo está en [resultado.json](resultado.json): historial p95 531,92 ms, checkout p95 1333,68 ms/p99 3383,44 ms, pago p95 936,85 ms y compra p95 5,118 s. La prueba registró 0% de errores e invariantes correctas, pero queda `targets-not-met` por historial p95 y checkout p99. Esta repetición reemplaza la conclusión de aprobación de la corrida anterior para la decisión actual.
+> **Repetición posterior (2 de noviembre de 2026):** se aplicó el índice compuesto `ix_orders_user_created_id` y se repitió el benchmark con los mismos objetivos. El resultado completo está en [resultado.json](resultado.json): a 20 usuarios el historial quedó en p95 457,97 ms/p99 1150,35 ms, checkout en p95 1670,996 ms/p99 3390,071 ms, pago en p95 1081,58 ms y compra en p95 3,921 s. La prueba registró 0% de errores e invariantes correctas, pero queda `targets-not-met` por historial p99 y checkout p95/p99. Esta repetición reemplaza la conclusión de aprobación de corridas anteriores para la decisión actual.
 
-**Resultado: APROBADO para el perfil local.**
+**Resultado: OBJETIVOS NO CUMPLIDOS en la aceptación local de 20 usuarios.**
 
 Se repitio la misma prueba: objetivos JSON, generador, calculo de metricas y preparacion de entorno con hashes identicos a la linea base. No se relajo ningun umbral. [Linea base preservada](baseline-1a8d097/README.md) y [objetivos](objetivos.md).
 
@@ -10,7 +10,7 @@ Se repitio la misma prueba: objetivos JSON, generador, calculo de metricas y pre
 
 Order, Payment y Cart comparten un pool HTTP por proceso, con clientes efimeros para aislar encabezados y cookies por llamada. Se reutiliza el transporte y su contexto TLS/conexiones; se mantienen timeouts por llamada, validacion TLS, ausencia de reintentos automaticos y las transacciones/bloqueos de negocio. El pool se cierra al apagar el servicio. El historial valida y copia el mismo modelo publico en el worker, libera la transaccion de lectura y renderiza JSON antes de volver al event loop; no omite la validacion del esquema ni el filtro por propietario. Outbox permanece como en la linea base, con ACK por mensaje, espera de un segundo en vacio y backoff de cinco segundos ante error.
 
-Seis pruebas del pool se ejecutan en cada uno de los tres servicios: transporte reutilizado, aislamiento de tokens/cookies, concurrencia, timeouts/estados preservados, POST sin reintento y cierre/reapertura. Se conservan las pruebas de Outbox, checkout idempotente, revalidacion de stock/precio y cancelacion. No se agregaron indices ni se ampliaron los pools SQL para conseguir el resultado; los planes se capturaron con EXPLAIN ANALYZE/BUFFERS.
+Seis pruebas del pool se ejecutan en cada uno de los tres servicios: transporte reutilizado, aislamiento de tokens/cookies, concurrencia, timeouts/estados preservados, POST sin reintento y cierre/reapertura. Se conservan las pruebas de Outbox, checkout idempotente, revalidacion de stock/precio y cancelacion. Se agregó el índice compuesto de historial mediante migración versionada; no se ampliaron los pools SQL para conseguir el resultado. Los planes se capturaron con EXPLAIN ANALYZE/BUFFERS.
 
 El diagnostico SQL/HTTP antes y despues se documenta en [perfilado](../perfilado/informe.md). Es una corrida instrumentada separada, de 30 segundos, que no se usa para aprobar latencias. Los numeros de este informe corresponden al benchmark original sin instrumentacion, a 1/5/10/20 usuarios durante 60 segundos por etapa y objetivos intactos.
 
@@ -18,30 +18,30 @@ El diagnostico SQL/HTTP antes y despues se documenta en [perfilado](../perfilado
 
 | Metrica | Antes | Despues | Objetivo |
 | --- | ---: | ---: | ---: |
-| Compra p95 (s) | 8.205 | 2.738 | <=10 |
-| Compra p99 (s) | 10.702 | 3.019 | <=15 |
-| Solicitudes utiles/s | 58.47 | 122.96 | >=20 |
+| Compra p95 (s) | 8.205 | 3.921 | <=10 |
+| Compra p99 (s) | 10.702 | 6.284 | <=15 |
+| Solicitudes utiles/s | 58.47 | 75.50 | >=20 |
 | Errores HTTP inesperados (%) | 0.00 | 0.00 | <1 |
-| Compras medidas a 20 usuarios | 221 | 466 | >=100 |
+| Compras medidas a 20 usuarios | 221 | 295 | >=100 |
 
-Reduccion observada de p95: **66.62%**. Es una comparacion de dos ejecuciones locales, no una demostracion de causalidad exclusiva ni una estimacion de capacidad productiva.
+Reduccion observada de p95 de compra frente a la línea base: **52.21%**. Es una comparacion de dos ejecuciones locales, no una demostracion de causalidad exclusiva ni una estimacion de capacidad productiva.
 
 ## APIs objetivo: antes y despues
 
 | Operacion p95 (ms) | Antes | Despues | Limite |
 | --- | ---: | ---: | ---: |
-| history | 804.31 | 286.88 | 500 |
-| checkout | 2894.15 | 770.97 | 1500 |
-| payment | 2488.61 | 525.38 | 2000 |
+| history | 804.31 | 457.97 | 500 |
+| checkout | 2894.15 | 1671.00 | 1500 |
+| payment | 2488.61 | 1081.58 | 2000 |
 
 ## Etapas de la nueva ejecucion
 
 | Usuarios | Segundos reales | HTTP | HTTP/s total | HTTP/s util | Errores (%) | Compra p95 (s) | Compra p99 (s) |
 | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| 1 | 61.21 | 754 | 12.32 | 10.72 | 0.00 | 1.856 | 2.355 |
-| 5 | 60.43 | 3627 | 60.02 | 52.16 | 0.00 | 2.087 | 2.908 |
-| 10 | 60.78 | 5481 | 90.17 | 78.18 | 0.00 | 3.201 | 4.165 |
-| 20 | 61.52 | 8770 | 142.56 | 122.96 | 0.00 | 2.738 | 3.019 |
+| 1 | 60.13 | 945 | 15.72 | 13.57 | 0.00 | 1.663 | 1.957 |
+| 5 | 60.82 | 3551 | 58.39 | 50.77 | 0.00 | 2.086 | 2.914 |
+| 10 | 60.95 | 5053 | 82.90 | 71.47 | 0.00 | 2.634 | 3.327 |
+| 20 | 63.47 | 5566 | 87.70 | 75.50 | 0.00 | 3.921 | 6.284 |
 
 ## Todos los objetivos de latencia a 20 usuarios
 
@@ -50,16 +50,16 @@ Reduccion observada de p95: **66.62%**. Es una comparacion de dos ejecuciones lo
 | catalog | 1425 | 19.47 | 97.27 | 220.92 | 500/1000 | Cumple |
 | product | 1425 | 17.53 | 80.54 | 180.86 | 500/1000 | Cumple |
 | profile | 1425 | 10.07 | 30.18 | 55.06 | 500/1000 | Cumple |
-| history | 1425 | 121.02 | 286.88 | 382.30 | 500/1000 | Cumple |
-| cart_read | 466 | 8.33 | 52.98 | 114.10 | 500/1000 | Cumple |
-| cart_add | 466 | 24.59 | 102.32 | 233.10 | 1500/3000 | Cumple |
-| checkout | 466 | 436.14 | 770.97 | 902.51 | 1500/3000 | Cumple |
-| payment | 466 | 281.29 | 525.38 | 785.99 | 2000/5000 | Cumple |
-| purchase_flow | 466 | 2001.69 | 2738.46 | 3019.11 | 10000/15000 | Cumple |
+| history | 903 | 198.13 | 457.97 | 1150.35 | 500/1000 | No cumple |
+| cart_read | 295 | 15.79 | 154.53 | 291.77 | 500/1000 | Cumple |
+| cart_add | 295 | 57.01 | 288.97 | 333.32 | 1500/3000 | Cumple |
+| checkout | 295 | 770.82 | 1671.00 | 3390.07 | 1500/3000 | No cumple |
+| payment | 295 | 481.64 | 1081.58 | 1970.75 | 2000/5000 | Cumple |
+| purchase_flow | 295 | 2891.55 | 3921.15 | 6283.88 | 10000/15000 | Cumple |
 
 ## Integridad
 
-18632 solicitudes HTTP medidas; 0 errores inesperados. Compras totales contando calentamiento: 1051. Integridad: APROBADA.
+15115 solicitudes HTTP medidas; 0 errores inesperados. Compras totales contando calentamiento: 857. Integridad: APROBADA.
 
 Pagos: {'paid': 1051, 'other': 0, 'duplicate_orders': 0, 'published': 3153}. Pedidos: {'paid': 1051, 'other': 0, 'unfinished_checkouts': 0}. Inventario: {'stock': 998949, 'consumed': 1051, 'other': 0, 'processed_events': 1051}.
 

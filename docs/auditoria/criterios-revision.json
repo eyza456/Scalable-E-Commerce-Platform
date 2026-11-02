@@ -717,7 +717,7 @@
       "Politicas centrales: bloqueo de rutas internas, retirada de clave interna, IP reenviada y trazabilidad. JWT sigue en servicios."
     ],
     "RNF-01": [
-      "Cumplido",
+      "Parcial",
       [
         "perfgoals",
         "perfload",
@@ -731,7 +731,7 @@
         "ordertest@test_history_releases_read_connection_and_preserves_response_schema",
         "multiload"
       ],
-      "El perfil multinstancia más reciente queda targets-not-met: a 20 usuarios historial p95 1039.41 ms, checkout 2464.09 ms y pago 2144.96 ms superan sus límites; compra p95 5925.02 ms permanece dentro de 10000 ms. El informe conserva una advertencia de invariantes por un checkout 503 transitorio y no se relajan objetivos. El estado formal mantiene el alcance local previamente medido; hay que perfilar SQL/HTTP antes de producción."
+      "La repetición de aceptación local del 2 de noviembre registra 0% de errores e invariantes correctas, pero a 20 usuarios historial p99 1150.35 ms, checkout p95 1671.00 ms y p99 3390.07 ms superan sus límites; pago y compra cumplen. El perfil diagnóstico SQL/HTTP queda dentro de sus objetivos, pero la aceptación formal sigue parcial sin relajar umbrales."
     ],
     "RNF-02": [
       "Cumplido",

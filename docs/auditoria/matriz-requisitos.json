@@ -2393,7 +2393,7 @@
     "page": 18,
     "requirement": "La plataforma deberá proporcionar tiempos de respuesta adecuados para las operaciones comunes.",
     "type": "No funcional",
-    "status": "Cumplido",
+    "status": "Parcial",
     "code": [
       {
         "path": "tests/performance_goals.json",
@@ -2434,7 +2434,7 @@
         "line": 1
       }
     ],
-    "finding": "El perfil multinstancia más reciente queda targets-not-met: a 20 usuarios historial p95 1039.41 ms, checkout 2464.09 ms y pago 2144.96 ms superan sus límites; compra p95 5925.02 ms permanece dentro de 10000 ms. El informe conserva una advertencia de invariantes por un checkout 503 transitorio y no se relajan objetivos. El estado formal mantiene el alcance local previamente medido; hay que perfilar SQL/HTTP antes de producción.",
+    "finding": "La repetición de aceptación local del 2 de noviembre registra 0% de errores e invariantes correctas, pero a 20 usuarios historial p99 1150.35 ms, checkout p95 1671.00 ms y p99 3390.07 ms superan sus límites; pago y compra cumplen. El perfil diagnóstico SQL/HTTP queda dentro de sus objetivos, pero la aceptación formal sigue parcial sin relajar umbrales.",
     "scope": "MVP / calidad",
     "frontend": {
       "status": "Sin carga UI",
