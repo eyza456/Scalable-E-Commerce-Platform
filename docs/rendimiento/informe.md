@@ -65,7 +65,7 @@ Pagos: {'paid': 1051, 'other': 0, 'duplicate_orders': 0, 'published': 3153}. Ped
 
 ## Entorno y recursos
 
-Host Windows-11-10.0.26200-SP0; Docker 29.7.2, 8 CPU y 7.66 GiB. Contenedores adicionales activos: antes 20, despues 13. Generador y servicios comparten equipo. Versiones de dependencias iguales: True. Versiones medidas: {'python': '3.12.16', 'fastapi': '0.162.0', 'sqlalchemy': '2.1.6', 'uvicorn': '0.54.0', 'httpx': '0.28.1', 'pika': '1.4.4', 'psycopg2-binary': '2.9.13'}.
+Host Windows-11-10.0.26200-SP0; Docker 29.9.2, 8 CPU y 7.66 GiB. La corrida tuvo 40 contenedores adicionales activos (incluido el clúster Kubernetes local), por lo que existe contención externa no controlada. Generador y servicios comparten equipo. Versiones medidas: {'python': '3.12.16', 'fastapi': '0.162.0', 'sqlalchemy': '2.1.6', 'uvicorn': '0.54.0', 'httpx': '0.28.1', 'pika': '1.4.4', 'psycopg2-binary': '2.9.13'}.
 
 CPU 100 % representa aproximadamente un nucleo. Se muestrea cada cinco segundos mas el tiempo de docker stats; los maximos no necesariamente coinciden. No hay limites de recursos por servicio.
 
