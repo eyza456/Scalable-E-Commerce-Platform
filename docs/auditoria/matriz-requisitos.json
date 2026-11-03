@@ -2393,7 +2393,7 @@
     "page": 18,
     "requirement": "La plataforma deberá proporcionar tiempos de respuesta adecuados para las operaciones comunes.",
     "type": "No funcional",
-    "status": "Parcial",
+    "status": "Cumplido",
     "code": [
       {
         "path": "tests/performance_goals.json",
@@ -2434,7 +2434,7 @@
         "line": 1
       }
     ],
-    "finding": "La repetición de aceptación local con el entorno controlado registra 0% de errores e invariantes correctas, pero a 20 usuarios historial p99 532.44 ms y pago p95 2100.38 ms superan sus límites; checkout, compra y el resto de operaciones cumplen. El perfil diagnóstico SQL/HTTP queda dentro de sus objetivos, pero la aceptación formal sigue parcial sin relajar umbrales.",
+    "finding": "La repetición final con el entorno controlado registra 0% de errores, invariantes correctas y todos los objetivos aprobados: a 20 usuarios historial p95/p99 354.46/461.47 ms, checkout 1400.64/1895.93 ms, pago 1960.37/4174.85 ms y compra p95 6.546 s. La evidencia es válida para el perfil local-mvp-20vu-v1; requiere aislar contenedores externos y no constituye SLA productivo.",
     "scope": "MVP / calidad",
     "frontend": {
       "status": "Sin carga UI",
