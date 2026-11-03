@@ -50,7 +50,7 @@
   "tests/frontend_payments.cjs": "f647c8e1aaf11ba2e8fa3e23ff7e6e3ea32d1cc6b30178c547800e5729355345",
   "tests/payment_latest.py": "0fc2b47d7fae58a4434045392a7f3eb2afad3f3611f92fcadc96a07a4eb4a07a",
   "services/payment-service/app/inventory.py": "45c81a20bfec15c377b8816c0896de819421d4a1c2c2d29682f058593e722c64",
-  "services/payment-service/app/models/payment.py": "b092de6dd5dfcd1cfd9e95051d6188c728d337f48c37164da3e34b36cb0d6f9f",
+  "services/payment-service/app/models/payment.py": "8ea3c7d6901915c3c46e818811b01208dbc0a79e7835a6330889f5910025e8a9",
   "tests/smoke_payment_rejections.py": "28a75953f61faa4e6d72347c570e8f12c81b6b8bb3f833258643df87a0a3b09c",
   "services/payment-service/app/outbox.py": "7a15ba6f4f9dc73d277ccb76188355629ce87bb1f0d217afb4a6752fd9d9cc3d",
   "services/order-service/app/rabbitmq.py": "4afcd2112046e3989302749c030731acd89d7928b09a2656cc2558beb129952b",

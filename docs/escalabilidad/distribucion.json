@@ -107,7 +107,7 @@
     "services/payment-service/app/core/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
     "services/payment-service/app/models/order_cancellation.py": "c83cfaae6d3a38e40714e0879d381d6bce0bebba7f98367623a7a2843a622e0a",
     "services/payment-service/app/models/outbox_event.py": "8ca8198507fb7fb14a1f4cf75669cf81cf51aafebc4004877a733067131b442c",
-    "services/payment-service/app/models/payment.py": "d368912e00be57237adf27f0e9d1d7b7624a2c00dd818d1f02ab7ebd3cce9aff",
+    "services/payment-service/app/models/payment.py": "8ea3c7d6901915c3c46e818811b01208dbc0a79e7835a6330889f5910025e8a9",
     "services/payment-service/app/models/__init__.py": "f6e1c94a3ec695ac8dbffd7135dde651832eab90a50118ff9027716ff147a270",
     "services/payment-service/app/routers/payments.py": "e44f286ec67e845cb26731778f2de9d6c35e6685ec5167b6c9305165e362f6be",
     "services/payment-service/app/routers/__init__.py": "a4036fe236c8e790cd974b5050c1626b0c24d863a4247cff71ae9280508e687f",
