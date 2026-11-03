@@ -1,6 +1,6 @@
 from datetime import datetime, timezone
 
-from sqlalchemy import Column, DateTime, Integer, Numeric, String, JSON
+from sqlalchemy import Column, DateTime, Integer, Numeric, String, JSON, Index
 
 from app.database import Base
 
@@ -8,6 +8,9 @@ from app.database import Base
 class Payment(Base):
 
     __tablename__ = "payments"
+    __table_args__ = (
+        Index("ix_payments_order_status", "order_id", "status"),
+    )
 
     # Snapshot persistido ANTES de cualquier llamada al inventario.
     # NULL identifica pagos historicos, que no se recuperan como intentos nuevos.
